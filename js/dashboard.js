@@ -1,1 +1,1 @@
-var dashboard = angular.module('dashboard', []);
+ angular.module("dashboard", ['ngRoute']);
