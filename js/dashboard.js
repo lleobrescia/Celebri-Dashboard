@@ -1,11 +1,9 @@
-angular.module("dashboard", ['ngRoute']);
+// INIT
+angular.module("dashboard", ['ngRoute','ngFileUpload']);
 
 
-
-
-angular.module('dashboard')
 //cria o formato dos itens do menu
-.directive("navigation", [function () {
+angular.module('dashboard').directive("navigation", [function () {
   return {
     restrict: 'E',
     replace: true,
@@ -15,14 +13,17 @@ angular.module('dashboard')
     templateUrl: '/dashboard/templates/navigation.html'
   };
 
-}])
-//lista do menu
-.controller('sidebar', ['$scope','$location',function ($scope,$location) {
+}]);
 
+
+angular.module('dashboard').controller('sidebar', ['$scope','$location',function ($scope,$location) {
+
+  //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
     return viewLocation === $location.path();
   };
 
+  //Lista do menu
   $scope.menu =
   [
     {
@@ -62,3 +63,5 @@ angular.module('dashboard')
     }
   ];
 }]);
+
+angular.module("dashboard").controller('dados_casal',['$scope','Upload',function($scope,Upload) {}]);

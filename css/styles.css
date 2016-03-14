@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:400,700|Playfair+Display:400,700);
 
 /*GERAL*/
+*{
+  margin: 0;
+  padding: 0;
+}
 html{
   /*config para usar em no lugar de px*/
   font-size: 100.01%;
@@ -8,18 +12,22 @@ html{
 body{
   /*config para usar em no lugar de px*/
   font-size: 62.5%;
+  overflow-x: hidden;
 }
 a{
   text-decoration: none;
 }
 
-
+.clearfix{
+  clear: both;
+}
+/*SIDEBAR*/
 .sidebar{
-  position: fixed;
-  background: #f5f5f5;
+  background: transparent;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
   top: 0;
-  bottom: 0;
-  width: 320px;
 }
 .header{
   width: 100%;
@@ -57,25 +65,36 @@ a{
 .name__user{
   text-align: center;
   position: relative;
-  right: 8px;
+  cursor: pointer;
 }
+
+
 .user__img{
   display: inline-block;
   vertical-align: middle;
   margin-right: 14px;
 }
 .user__options{
-  display: none;
   height: 37px;
   background: #6f91ff;
   position: relative;
   padding-top: 35px;
+  z-index: 1;
+  display: none;
 }
 .user__options a{
   font-size: 1.3em;
   color: white;
   font-family: 'Roboto';
   margin-left: 15px;
+  display: block;
+}
+.menu{
+  background: #6f91ff;
+  text-align: center;
+  display: none;
+}
+.menu.menu--expandido{
   display: block;
 }
 .menu-item
@@ -89,7 +108,7 @@ a{
 }
 .menu-item a{
   font-family: 'Playfair Display';
-  color: #707070;
+  color: white;
   font-size: 2.0em;
   margin-left: 45px;
   line-height: 50px;
@@ -103,10 +122,155 @@ a{
 }
 .menu-item:hover > .menu-item__hover
 ,.active > .menu-item__hover{
- display: block;
+  display: block;
 
 }
+
+/*CONTENT*/
+.content{
+  position: relative;
+  left: 0;
+  top: 165px;
+}
+.titulo{
+  margin-bottom: 36px;
+  margin-top: 0;
+  font-size: 2.0em;
+  font-family: 'Playfair Display';
+  font-weight: 700;
+}
+/*BOTOES*/
+.btn{
+  height: 52px;
+  width: 198px;
+  line-height: 52px;
+  text-align: center;
+  text-transform: uppercase;
+  float: left;
+  margin-right: 10px;
+  color: white;
+  font-family: 'Roboto Condensed';
+  font-size: 1.6em;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn a{
+  color: white;
+  display: block;
+}
+.btn:hover{
+  opacity: 0.8
+}
+.btn--ok{
+  background: #6f91ff;
+}
+.btn--cancel{
+  background: #ff7c7c;
+}
+.btn--save{
+  background: #8ECC44;
+}
+
+/*FORM GERAL*/
+.form__title{
+  margin-bottom: 9px;
+  font-family: 'Roboto Condensed';
+  font-size: 1.6em;
+}
+.form input{
+  line-height: 43px;
+  width: 335px;
+  height: 43px;
+  font-family: 'Roboto Condensed';
+  font-size: 1.6em;
+  padding-right: 5px;
+  padding-left: 12px;
+  margin-bottom: 25px;
+  outline-color: #ff7c7c;
+}
+.form input[type="date"]{
+  width: 140px;
+}
+.form .fa-calendar{
+  font-size: 3em;
+  color: #a7a9ac;
+  margin-left: 13px;
+  position: relative;
+  top: 3px;
+}
+.form__left{
+  float: left;
+  margin-right: 38px;
+}
+.form__right{
+  float: left;
+}
+/*DADOS CASAL*/
+.dados__header{
+  background: url("../image/header_bg.png") no-repeat left bottom;
+  width: 1600px;
+  height: 301px;
+  left: -320px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+}
+.dados_header_title{
+  font-family: 'Playfair Display';
+  color: white;
+  font-size: 2.5em;
+  position: relative;
+  top: 51px;
+  left: 343px;
+  font-weight: 700;
+}
+.dados_header_title hr{
+  box-sizing: content-box;
+  height: 0;
+  box-shadow: none;
+  width: 140px;
+  border-width: 2px;
+  border-top: none;
+}
+.dados_header_title hr:first-child{
+  margin-bottom: 28px;
+}
+.dados_header_title hr:last-child{
+  margin-top: 28px;
+}
+.dados__content{
+  position: relative;
+  top: 301px;
+  padding-top: 43px;
+  padding-left: 30px;
+}
+.upload__image{
+  width: 182px;
+  height: 182px;
+  border: thin solid #707070;
+  text-align: center;
+  cursor: pointer;
+}
+.upload__image:hover i{
+  color: #CCCCCC;
+}
+.upload__image i{
+  line-height: 182px;
+  color: #a7a9ac;
+  font-size: 5em;
+}
+.upload__image img{
+  display: block;
+  max-width: 182px;
+  max-height: 182px;
+}
+.footer__options{
+  margin-top: 68px;
+  margin-bottom: 15px;
+}
+/*MEIDA*/
 @media screen and ( min-height:670px ) , ( min-height:670px ) and (-webkit-min-device-pixel-ratio:0){
+  /*SIDEBAR*/
   .menu-item
   ,.menu-item__hover
   ,.menu-item a{
@@ -118,13 +282,76 @@ a{
   }
 }
 @media screen and ( min-height:800px ) , ( min-height:800px ) and (-webkit-min-device-pixel-ratio:0){
+  /*SIDEBAR*/
   .menu-item
   ,.menu-item__hover
   ,.menu-item a{
     height: 90px;
   }
-
+  /*DADOS CASAL*/
   .menu-item a {
     line-height: 90px
+  }
+}
+
+@media screen and ( min-width:900px ) , ( min-width:900px ) and (-webkit-min-device-pixel-ratio:0){
+/*SIDEBAR*/
+  .sidebar{
+    position: fixed;
+    background: #f5f5f5;
+    width: 320px;
+      bottom: 0;
+  }
+  .menu{
+    background: transparent;
+    text-align: left;
+    display: block;
+  }
+  .menu-item a{
+    color: #707070;
+  }
+  .user__options{
+    display: block;
+  }
+  .name__user{
+    right: 8px;
+  }
+
+  /*CONTENT*/
+  .content{
+    position: absolute;
+    left: 320px;
+    top: 0
+  }
+}
+@media screen and ( min-width:960px ) , ( min-width:960px ) and (-webkit-min-device-pixel-ratio:0){
+  /*DADOS CASAL*/
+  .dados_header_title{
+    font-size: 3.1em;
+  }
+}
+@media screen and ( min-width:1160px ) , ( min-width:1160px ) and (-webkit-min-device-pixel-ratio:0){
+  /*DADOS CASAL*/
+  .dados_header_title{
+    left: 412px;
+  }
+  .form__left {
+    padding-right: 38px;
+    border-right: solid thin #707070;
+  }
+}
+@media screen and ( min-width:1240px ) , ( min-width:1240px ) and (-webkit-min-device-pixel-ratio:0){
+  /*DADOS CASAL*/
+  .dados__content{
+    padding-left: 90px;
+  }
+}
+@media screen and ( min-width:1600px ) , ( min-width:1600px ) and (-webkit-min-device-pixel-ratio:0){
+  /*DADOS CASAL*/
+  .dados__header{
+    left: 0;
+  }
+  .dados_header_title{
+    left: 90px;
   }
 }

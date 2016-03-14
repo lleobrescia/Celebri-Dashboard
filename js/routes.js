@@ -5,7 +5,8 @@ angular.module("dashboard").config(function($routeProvider){
     redirectTo:"/dados-do-casal"
   })
   .when('/dados-do-casal',{
-    templateUrl:"/dashboard/templates/page/dados_casal.html"
+    templateUrl:"/dashboard/templates/page/dados_casal.html",
+    controller:'dados_casal'
   })
   .when('/configurar-convite',{
     templateUrl:"/dashboard/templates/page/configurar_convite.html"
@@ -27,10 +28,3 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .otherwise({ redirectTo:'/dados-do-casal'});
 });
-
- // angular.module('NoteWrangler', ['ngRoute'])
- // .config(['$routeProvider', function($routeProvider) {
- //   $routeProvider.when('/notes', {
- //     templateUrl: 'templates/pages/notes/index.html'
- //   });
- // }]);

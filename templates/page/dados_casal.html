@@ -1,1 +1,59 @@
-<h1>TESTE</h1>
+<div class="dados__header">
+
+  <div class="dados_header_title">
+    <hr>
+    Parabéns! Você se cadastrou no Celebri.<br>
+    Confira seus dados e, se precisar <br>
+    basta editá-los abaixo.<br>
+    <hr>
+  </div>
+
+</div>
+<section class="dados__content">
+  <h1 class="titulo">Dados do Casal</h1>
+
+  <form action="" method="post" class="form" enctype="multipart/form-data" ng-init="$scope.change = false">
+    <div class="form__left">
+      <p class="form__title">
+        Nome do Noivo
+      </p>
+      <input type="text" name="nome__noivo" ng-model="$scope.nome__noivo" value="" ng-change="$scope.change = true" >
+    </div>
+    <div class="form__right">
+      <p class="form__title">
+        Nome da Noiva
+      </p>
+      <input type="text" ng-model="$scope.nome__noiva" name="nome__noiva" value="" ng-change="$scope.change = true">
+    </div>
+
+    <div class="clearfix"></div>
+
+    <p class="form__title">
+      Data do Casamento
+    </p>
+    <input type="date" name="data__casamento" value="" ng-model="$scope.data__casamento"  ng-change="$scope.change = true"> <i class="fa fa-calendar"></i>
+
+    <p class="form__title">
+      Foto do Casal
+    </p>
+
+    <div class="upload__image" ngf-select ng-model="$scope.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ng-change="$scope.change = true">
+      <img ngf-thumbnail="$scope.file" ngf-size="{width: 182, height: 182}">
+      <i class="fa fa-camera" ng-if="!$scope.file"></i>
+    </div>
+  </form>
+
+  <div class="footer__options">
+    <div class="btn btn--save" ng-if="$scope.change">
+      Salvar
+    </div>
+    <div class="btn btn--cancel" ng-if="$scope.change">
+      Cancelar
+    </div>
+    <div class="btn btn--ok">
+      <a ng-href="/dashboard/#/configurar-convite">Próximo</a>
+    </div>
+    <div class="clearfix"></div>
+  </div><!-- footer__options -->
+
+</section>
