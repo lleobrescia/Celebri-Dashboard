@@ -50,8 +50,8 @@
     <div class="btn btn--cancel" ng-if="$scope.change">
       Cancelar
     </div>
-    <div class="btn btn--ok">
-      <a ng-href="/dashboard/#/configurar-convite">Próximo</a>
+    <div class="btn btn--ok" ng-if="!$scope.change">
+      <a ng-href="/dashboard/#/configurar-convite">OK</a>
     </div>
     <div class="clearfix"></div>
   </div><!-- footer__options -->
