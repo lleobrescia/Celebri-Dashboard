@@ -9,19 +9,28 @@ angular.module("dashboard").config(function($routeProvider){
     controller:'dados_casal'
   })
   .when('/configurar-convite',{
-    templateUrl:"/dashboard/templates/page/configurar_convite.html"
+    templateUrl:"/dashboard/templates/page/configurar_convite.html",
+    controller:'configurar_convite'
+  })
+  .when('/configurar-convite/2',{
+    templateUrl:"/dashboard/templates/page/configurar_convite2.html",
+    controller:'configurar_convite2'
   })
   .when('/configurar-evento',{
-    templateUrl:"/dashboard/templates/page/configurar_evento.html"
+    templateUrl:"/dashboard/templates/page/configurar_evento.html",
+    controller:'configurar_evento'
   })
   .when('/cadastrar-convidados',{
-    templateUrl:"/dashboard/templates/page/cadastrar_convidados.html"
+    templateUrl:"/dashboard/templates/page/cadastrar_convidados.html",
+    controller:'cadastrar_convidados'
   })
   .when('/save-the-date',{
-    templateUrl:"/dashboard/templates/page/save_the_date.html"
+    templateUrl:"/dashboard/templates/page/save_the_date.html",
+    controller:"save_date"
   })
   .when('/enviar-convite',{
-    templateUrl:"/dashboard/templates/page/enviar_convite.html"
+    templateUrl:"/dashboard/templates/page/enviar_convite.html",
+    controller:'enviar_convite'
   })
   .when('/convidados-confirados',{
     templateUrl:"/dashboard/templates/page/convidados_confirmados.html"

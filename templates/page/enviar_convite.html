@@ -1,0 +1,86 @@
+<section class="configurar__convite" >
+  <h1 class="titulo">Enviar convites</h1>
+  <p style="margin-bottom:46px">
+    Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência, para seus convidados terem tempo suficiente para baixarem o aplicativo e absorverem as informações do seu casamento.
+    Para enviarmos os convites virtuais, é necessário efetuar o pagamento de R$ 185, utilizando seu cartão de crédito.
+  </p>
+  <form class="form" enctype="multipart/form-data" novalidate>
+
+    <div class="opces__cartao">
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/visa.png" alt="">
+      </div>
+
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/master.png" alt="">
+      </div>
+
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/american.png" alt="">
+      </div>
+
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/club.png" alt="">
+      </div>
+
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/elo.png" alt="">
+      </div>
+
+      <div class="cartao__single">
+        <input type="radio" name="cartao" value="">
+        <img src="./image/hiper.png" alt="">
+      </div>
+
+    </div>
+
+  <div class="dados__cartao">
+    <p class="form__title">
+      Número do cartão
+    </p>
+    <input type="text" name="local" value="" >
+    <p class="form__title">
+      Nome igual ao impresso no cartão
+    </p>
+    <input type="text" name="local" value="" >
+
+
+    <div class="col-6">
+      <p class="form__title">
+        Data de validade
+      </p>
+      <select name="singleSelect" ng-model="aconpanhante">
+        <option value="0" selected ng-selected="true">Mês</option>
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="1">Junho</option>
+        <option value="1">Julho</option>
+        <option value="1">Agosto</option>
+        <option value="1">Setembro</option>
+        <option value="1">Outubro</option>
+        <option value="1">Novembro</option>
+        <option value="1">Dezembro</option>
+      </select>
+    </div>
+    <div class="col-6" style="    margin-right: 0;    padding-top: 24px;">
+      <input type="text" name="ano" ng-model="ano" value="" mask="2099" placeholder="Ano">
+    </div>
+    <div class="clearfix"></div>
+    <p class="form__title">
+      Código de segurança( Três dígitos atrás do cartão)
+    </p>
+    <input type="text" ng-model="codigo" name="local" value="" mas="999">
+  </div>
+  <div class="btn btn--ok">
+    <a ng-href="/dashboard/#/cadastrar-convidados">Concluir Pagamento</a>
+  </div>
+  </form>
+</section>

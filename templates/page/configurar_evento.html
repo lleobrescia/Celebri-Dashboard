@@ -1,0 +1,435 @@
+<section class="configurar__convite">
+  <h1 class="titulo" style="background:none">Informações Adicionais</h1>
+  <p style="margin-bottom:46px">
+    As informações abaixo aparecerão no aplicativo do seu casamento, que seus convidados
+    irão baixar para confirmar presença e obter informações da cerimônia e festa.
+  </p>
+
+  <h3>Recepção</h3>
+  <p style="margin-bottom:46px">
+    <strong>
+      Preencha as informações sobre a recepção do seu casamento.
+    </strong>
+  </p>
+
+  <form class="form" enctype="multipart/form-data" ng-init="$scope.change = false" novalidate>
+
+    <div class="col-3" style="margin-bottom: 35px">
+      <p class="form__title">
+        Mesmo local da cerimônia?
+      </p>
+      <div class="input__radio">
+        <span ><input type="radio" ng-model="$scope.tracar_rota" name="tracar_rota" value="nao"  ng-init="$scope.tracar_rota = 'sim'"> Não</span>
+        <span ><input type="radio" ng-model="$scope.tracar_rota" name="tracar_rota" value="sim" ng-checked="true"> Sim</span>
+
+      </div>
+    </div>
+
+    <div class="" ng-if="$scope.tracar_rota != 'sim'">
+      <div class="col-3">
+        <p class="form__title">
+          Nome do local da recepção
+        </p>
+        <input type="text" name="local" ng-model="user.local" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-2">
+        <p class="form__title">
+          CEP
+        </p>
+        <input type="text" name="cep" ng-model="cep" value="" ng-change="$scope.change = true" mask="99.999-999" ng-keypress="changeCEP()">
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-3">
+        <p class="form__title">
+          Endereço da recepção
+        </p>
+        <input type="text" name="rua" ng-model="user.rua" value="" ng-change="$scope.change = true" >
+      </div>
+
+      <div class="col-2">
+
+        <p class="form__title">
+          Numero
+        </p>
+        <input type="text" name="nemero" ng-model="user.nemero" value="" ng-change="$scope.change = true" mask="123?4?" restrict="reject" limit="false">
+      </div>
+      <div class="col-6">
+        <p class="form__title">
+          Bairro
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-6" style="  margin-right: 0">
+        <p class="form__title">
+          Cidade
+        </p>
+        <input type="text" name="cidade" ng-model="user.cidade" value="" ng-change="$scope.change = true" >
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-3">
+        <p class="form__title">
+          Traçar rotas para o local:
+        </p>
+        <div class="input__radio">
+          <span ><input type="radio" name="tracar_rota" value="sim" > Sim</span>
+          <span ><input type="radio" name="tracar_rota" value="nao" > Não</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <p class="form__title">
+          Horário da cerimônia
+        </p>
+        <input type="time" name="name" value="" mask="29:59" >
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <hr>
+    <div class="">
+
+
+      <h3>Hotel</h3>
+      <p style="margin-bottom:46px">
+        <strong>
+          Indique aqui alguns hotéis da cidade para os seus convidados se hospedarem:
+        </strong>
+      </p>
+
+      <div class="col-3">
+        <p class="form__title">
+          Nome do local do hotel
+        </p>
+        <input type="text" name="local" ng-model="hotelNome" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-2">
+        <p class="form__title">
+          CEP
+        </p>
+        <input type="text" name="cep" ng-model="hotelCep" value="" ng-change="$scope.change = true" mask="99.999-999" ng-keypress="changeCEP()">
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-3">
+        <p class="form__title">
+          Endereço do hotel
+        </p>
+        <input type="text" name="rua" ng-model="hotelEnd" value="" ng-change="$scope.change = true" >
+      </div>
+
+      <div class="col-2">
+
+        <p class="form__title">
+          Numero
+        </p>
+        <input type="text" name="nemero" ng-model="hotelNumero" value="" ng-change="$scope.change = true" mask="123?4?" restrict="reject" limit="false">
+      </div>
+      <div class="col-6">
+        <p class="form__title">
+          Bairro
+        </p>
+        <input type="text" name="bairro" ng-model="hotelBairro" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-6" style="  margin-right: 0">
+        <p class="form__title">
+          Cidade
+        </p>
+        <input type="text" name="cidade" ng-model="hotelCidade" value="" ng-change="$scope.change = true" >
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-3">
+        <p class="form__title">
+          Traçar rotas para o local:
+        </p>
+        <div class="input__radio">
+          <span ><input type="radio" name="tracar_rota" value="sim" > Sim</span>
+          <span ><input type="radio" name="tracar_rota" value="nao" > Não</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="btn btn--save" ng-click="adicionarHotel()" style="float:right">
+          Adicionar
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="tabela" ng-if="hoteis.length > 0">
+        <div class="tabela__header">
+          Hotéis cadastrados:
+        </div>
+        <div class="tabela__item" ng-repeat="(key,value) in hoteis">
+          <p>
+            {{value.nome}}
+          </p>
+          <span ng-click="removeHotel(key)">X Remover</span>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+    <hr>
+
+    <h3>Salão de Beleza</h3>
+    <p style="margin-bottom:46px">
+      <strong>
+        Você pode indicar alguns salões de beleza para o conforto de suas convidadas:
+      </strong>
+    </p>
+
+    <div class="col-3">
+      <p class="form__title">
+        Nome do local do salão
+      </p>
+      <input type="text" name="local" ng-model="salaoNome" value="" ng-change="$scope.change = true" >
+    </div>
+    <div class="col-2">
+      <p class="form__title">
+        CEP
+      </p>
+      <input type="text" name="cep" ng-model="salaoCep" value="" ng-change="$scope.change = true" mask="99.999-999" ng-keypress="changeCEP()">
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-3">
+      <p class="form__title">
+        Endereço do salão
+      </p>
+      <input type="text" name="rua" ng-model="salaoEnd" value="" ng-change="$scope.change = true" >
+    </div>
+
+    <div class="col-2">
+
+      <p class="form__title">
+        Numero
+      </p>
+      <input type="text" name="nemero" ng-model="salaoNumero" value="" ng-change="$scope.change = true" mask="123?4?" restrict="reject" limit="false">
+    </div>
+    <div class="col-6">
+      <p class="form__title">
+        Bairro
+      </p>
+      <input type="text" name="bairro" ng-model="salaoBairro" value="" ng-change="$scope.change = true" >
+    </div>
+    <div class="col-6" style="  margin-right: 0">
+      <p class="form__title">
+        Cidade
+      </p>
+      <input type="text" name="cidade" ng-model="salaoCidade" value="" ng-change="$scope.change = true" >
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-3">
+      <p class="form__title">
+        Traçar rotas para o local:
+      </p>
+      <div class="input__radio">
+        <span ><input type="radio" name="tracar_rota" value="sim" > Sim</span>
+        <span ><input type="radio" name="tracar_rota" value="nao" > Não</span>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="btn btn--save" ng-click="adicionarSalao()" style="float:right">
+        Adicionar
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="tabela" ng-if="saloes.length > 0">
+      <div class="tabela__header">
+        Salões cadastrados:
+      </div>
+      <div class="tabela__item" ng-repeat="(key,value) in saloes">
+        <p>
+          {{value.nome}}
+        </p>
+        <span ng-click="removeSalao(key)">X Remover</span>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <hr>
+
+    <h3>Lista de presentes</h3>
+    <p style="margin-bottom:46px;position: relative">
+      <strong>
+        Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento. Basta copiar e colar a
+        <span ng-init="$scope.urlimage=false" ng-click="$scope.urlimage = !$scope.urlimage" style="float: none;color: blue;text-decoration: underline;margin: 0;cursor: pointer">
+          URL do site
+        </span>
+        <img ng-if="$scope.urlimage" src="./image/urlSite.png" alt="" style="position: absolute;cursor: pointer;top: -150px;right: 0;" ng-click="$scope.urlimage = !$scope.urlimage">:
+      </strong>
+    </p>
+    <div class="col-6">
+      <p class="form__title">
+        Nome da loja
+      </p>
+      <input type="text" name="cidade" ng-model="urlNome" value="" ng-change="$scope.change = true" >
+    </div>
+    <div class="col-6" style="margin-right:0">
+      <p class="form__title">
+        URL da loja
+      </p>
+      <input type="text" name="cidade" ng-model="urlLink" value="" ng-change="$scope.change = true" >
+    </div>
+
+
+
+    <div class="btn btn--save" ng-click="adicionarUrl()" style="float:right">
+      Adicionar
+    </div>
+
+
+    <div class="clearfix"></div>
+
+    <div class="tabela" ng-if="urls.length > 0">
+      <div class="tabela__header">
+        Lojas cadastrados:
+      </div>
+      <div class="tabela__item" ng-repeat="(key,value) in urls">
+        <p>
+          {{value.nome}}
+        </p>
+        <span ng-click="removeUrl(key)">X Remover</span>
+      </div>
+    </div>
+
+    <hr>
+    <h3>Cotas de lua de mel convertidas em dinheiro.</h3>
+    <p>
+      O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Para isso você tem duas opções: seus convidados realizam o pagamento pelo aplicativo utilizando cartão de crédito ou fazem uma transferência direto para sua conta bancária.
+    </p>
+    <p style="margin-top:26px">
+      Para pagamentos via cartão de crédito, o Celebri cobra uma taxa de conveniência repassada à MoIP, que é a intermediadora de pagamentos, e para a administradora do cartão. Há também a opção para transferências bancárias cujas taxas são cobradas pelo banco, não sendo de responsabilidade da CELEBRI o valor destas, bem como o repasse da transferência, porém para o seu convidado pode ser mais incoveniente, pois ele terá que arcar com custos de TED ou DOC se não possuir conta no mesmo banco que os noivos.
+    </p>
+    <p style="margin-top:26px">
+      Se você tem interesse em receber cotas de lua de mel onde seus convidados podem pagar com cartão de crédito é preciso criar uma conta na Moip. Para saber mais sobre a Moip, clique aqui.
+    </p>
+    <p style="margin-top:26px">
+      Ao utilizar essa opção, as taxas cobradas pela Moip já estarão incluídas na taxa de serviço do Celebri. Assim que o pagamento for aprovado pela administradora de cartão de crédito, sua conta MoIP será creditada com o valor da cota, descontada a nossa taxa de serviço de x%.
+    </p>
+    <p style="margin-top:26px;margin-top: 26px;display: inline-block;margin-right: 21px;">
+      Criar conta Moip para recebimento das cotas?
+      <div class="input__radio" style="    display: inline-block;">
+        <span ><input type="radio" name="moip" ng-model="$scope.Moip" value="sim" > Sim</span>
+        <span ><input type="radio" name="moip" ng-model="$scope.Moip" value="nao" ng-checked="true"> Não</span>
+      </div>
+    </p>
+    <div class="" ng-if="$scope.Moip == 'sim'">
+      <p style="margin-bottom:48px;margin-top:26px">
+        Criar sua conta MoIP é simples e rápido, basta preencher os dados abaixo, aguardar pelo recebimento do email de confirmação, validá-lo clicando no link e terminar o cadastro no site da MoIP criando seu login e senha. Guarde bem seu login MoIP, pois é necessário acessar o site MoIP para solicitar a transferência para sua conta bancária.
+      </p>
+      <div class="col-3">
+        <p class="form__title">
+          Nome do noivo(a)
+        </p>
+        <input type="text" name="local" ng-model="user.local" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-2">
+        <p class="form__title">
+          CPF
+        </p>
+        <input type="text" name="cep" ng-model="cep" value="" ng-change="$scope.change = true" mask="999.999.999-99" >
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="col-3">
+        <p class="form__title">
+          Email
+        </p>
+        <input type="email" name="rua" ng-model="user.rua" value="" ng-change="$scope.change = true" >
+      </div>
+
+      <div class="col-2">
+
+        <p class="form__title">
+          Data de nascimento
+        </p>
+        <input type="date" name="nemero" ng-model="user.nemero" value="" ng-change="$scope.change = true" mask="99/99/9999" restrict="reject" limit="false">
+      </div>
+      <div class="col-2" style="    margin-right: 45px;">
+        <p class="form__title">
+          CEP
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true" mask="99.999-999" >
+      </div>
+      <div class="col-3" style="  margin-right: 0">
+        <p class="form__title">
+          Rua
+        </p>
+        <input type="text" name="cidade" ng-model="user.cidade" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-2" style="    margin-right: 45px;    width: 30.5%;">
+        <p class="form__title">
+          Número
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="col-2" style="    margin-right: 45px;     width: 31%;">
+        <p class="form__title">
+          Complemento
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true">
+      </div>
+      <div class="col-2" style="    width: 31%;">
+        <p class="form__title">
+          Bairro
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true">
+      </div>
+      <div class="col-2" style="    margin-right: 45px;">
+        <p class="form__title">
+          Estado
+        </p>
+        <input type="text" name="bairro" ng-model="user.bairro" value="" ng-change="$scope.change = true">
+      </div>
+      <div class="col-3" style="  margin-right: 0">
+        <p class="form__title">
+          Cidade
+        </p>
+        <input type="text" name="cidade" ng-model="user.cidade" value="" ng-change="$scope.change = true" >
+      </div>
+      <div class="clearfix"></div>
+      <div class="btn btn--ok">
+        Salvar
+      </div>
+    </div>
+    <div class="clearfix"></div>
+<hr>
+    <h3>Produtos:</h3>
+    <p style="margin-bottom:46px">
+      <strong>
+        Você pode utilizar os produtos abaixo para ilustrarem suas cotas de lua de mel no aplicativo dos seus convidados.
+      </strong>
+    </p>
+    <div class="produtos">
+      <div class="produtos__single" ng-repeat="item in produtos">
+        <img ng-src="{{item.urlImage}}" alt="" class="produto_image">
+        <div class="produto_desc">
+          <p>{{item.nome}}</p>
+          <span>{{item.valor}}</span>
+          <input type="checkbox" name="name" value="">
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="clearfix"></div>
+
+  <div class="footer__options">
+    <div class="btn btn--ok">
+      <a ng-href="/dashboard/#/cadastrar-convidados">Concluir</a>
+    </div>
+    <div class="clearfix"></div>
+  </div><!-- footer__options -->
+</section>

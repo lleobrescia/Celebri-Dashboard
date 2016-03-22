@@ -1,0 +1,29 @@
+<section class="configurar__convite" >
+  <h1 class="titulo">Save the date!</h1>
+  <p style="margin-bottom:46px">
+    O Save The Date, é um termo em inglês utilizado para guardar uma data especial em sua agenda.
+    Você pode enviar um email com o Save The Date para os seus convidados, avisando-os do seu casamento, antes de enviar os convites.
+    Na mensagem encaminhada você pode comunicar que em breve enviará o convite do casamento pelo email, para que seus convidados saibam que irão receber um convite digital.
+    Para enviarmos os convites virtuais, é necessário efetuar o pagamento de R$ 185, utilizando seu cartão de crédito.
+  </p>
+  <p style="margin-bottom:46px">
+    Escolha abaixo o layout que preferir.
+  </p>
+
+    <div class="save__layout" ng-init="$scope.layout = 'layout1'">
+      <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout1'}" ng-click="$scope.layout = 'layout1'">
+      <img src="./image/savethedate/Modelo2.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout2'}" ng-click="$scope.layout = 'layout2'">
+      <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout3'}" ng-click="$scope.layout = 'layout3'">
+    </div>
+
+    <form class="form" action="index.html" method="post">
+      <p class="form__title">
+        Menssagem:
+      </p>
+      <textarea class="save__menssage"></textarea>
+      <div class="clearfix"></div>
+      <div class="btn btn--ok" style="margin-bottom:30px">
+        <a ng-href="/dashboard/#/cadastrar-convidados">Avançar</a>
+      </div>
+    </form>
+</section>

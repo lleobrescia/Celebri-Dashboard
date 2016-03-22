@@ -1,0 +1,44 @@
+<section class="configurar__convite page2" >
+  <h1 class="titulo">Escolha o layout do seu convite de casamento
+  </h1>
+  <p style="margin-bottom:46px">
+    Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.
+    Para alterar informações de data, local ou nome dos pais, volte à página anterior.
+  </p>
+
+
+  <div class="convite">
+    <img src="./image/convite.png" alt="">
+    <textarea class="convitemsg" ng-model="convitemsg" ng-style="$scope.stilo" style="font-size:{{$scope.slide}}px" ></textarea>
+  </div>
+  <hr>
+
+  <form class="form" action="index.html" method="post">
+    <div class="control">
+      <div class="control__single">
+        <p class="form__title">
+          Alinhamento:
+        </p>
+        <i class="fa fa-align-left" ng-click="$scope.stilo = {'text-align':'left'}"></i>
+        <i class="fa fa-align-center" ng-click="$scope.stilo = {'text-align':'center'}"></i>
+        <i class="fa fa-align-right" ng-click="$scope.stilo = {'text-align':'right'}"></i>
+      </div>
+
+      <div class="control__single" style="margin-top: 15px;margin-bottom: 40px;width: 40%;">
+        <p class="form__title">
+          Tamanho da fonte: {{$scope.slide }}
+        </p>
+        <rzslider rz-slider-model="$scope.slide" rz-slider-high="36" rz-slider-options="{floor: 13, ceil: 36}" ng-init="$scope.slide = 13"></rzslider>
+      </div>
+    </div>
+  </form>
+  <div class="footer__options">
+    <div class="btn btn--ok" style="float:left">
+      <a ng-href="/dashboard/#/configurar-convite">Voltar</a>
+    </div>
+    <div class="btn btn--ok" style="float:right">
+      <a ng-href="/dashboard/#/configurar-convite">Concluir</a>
+    </div>
+    <div class="clearfix"></div>
+  </div><!-- footer__options -->
+</section>
