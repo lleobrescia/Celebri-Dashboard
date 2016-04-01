@@ -1,44 +1,144 @@
-<section class="configurar__convite page2" >
-  <h1 class="titulo">Escolha o layout do seu convite de casamento
-  </h1>
-  <p style="margin-bottom:46px">
-    Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.
-    Para alterar informações de data, local ou nome dos pais, volte à página anterior.
-  </p>
-
-
-  <div class="convite">
-    <img src="./image/convite.png" alt="">
-    <textarea class="convitemsg" ng-model="convitemsg" ng-style="$scope.stilo" style="font-size:{{$scope.slide}}px" ></textarea>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento
+      </h1>
+      <p>
+        Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada
+        e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado. Para alterar
+        informações de data, local ou nome dos pais, volte à página anterior.
+      </p>
+    </div>
+    <!-- col-xs-12 -->
   </div>
-  <hr>
+  <!-- row -->
 
-  <form class="form" action="index.html" method="post">
-    <div class="control">
-      <div class="control__single">
-        <p class="form__title">
-          Alinhamento:
-        </p>
-        <i class="fa fa-align-left" ng-click="$scope.stilo = {'text-align':'left'}"></i>
-        <i class="fa fa-align-center" ng-click="$scope.stilo = {'text-align':'center'}"></i>
-        <i class="fa fa-align-right" ng-click="$scope.stilo = {'text-align':'right'}"></i>
-      </div>
+  <div class="row">
+    <div class="col-xs-9" style="position:relative" ng-init="$scope.blocoActive = 'bloco_pais_noiva'">
 
-      <div class="control__single" style="margin-top: 15px;margin-bottom: 40px;width: 40%;">
-        <p class="form__title">
-          Tamanho da fonte: {{$scope.slide }}
-        </p>
-        <rzslider rz-slider-model="$scope.slide" rz-slider-high="36" rz-slider-options="{floor: 13, ceil: 36}" ng-init="$scope.slide = 13"></rzslider>
+      <img ng-src="{{layoutSelecionado}}" alt="">
+
+      <p class="bloco_pais_noiva bloco" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva'"
+      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}">
+        nome do pai da noiva
+        <br> nome da mãe da noiva
+      </p>
+      <p class="bloco_pais_noivo bloco" ng-style="bloco_pais_noivo" ng-click="setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo'"
+      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}">
+        nome do pai do noivo
+        <br> nome da mãe do noivo
+      </p>
+      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}">
+        convidam para a cerimônia de casamento dos seus filhos
+      </p>
+      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'"
+      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}">
+        Nome da noiva &#38; nome do noivo
+      </p>
+      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}">
+        à realizar-se às 16 horas no dia 16/04/16, Paróquia de São Bento em Belo Horizonte
+      </p>
+
+      <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco bloco" ng-model="bloco_msg_personalizada" ng-style="bloco_msg_personalizada_style"
+      ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
+
+      <p class="bloco_cerimonia bloco" ng-style="bloco_cerimonia" ng-click="setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia'"
+      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}">
+        Paróquia São Bento R. José Batista Ribeiro, 155 - São Bento Belo Horizonte - MG
+      </p>
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row controll">
+    <div class="col-sm-12">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
+        <li role="presentation" ng-class="{active : $scope.tab == 'formato'}"><a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a></li>
+        <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}"><a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
+          <div class="" ng-repeat="valor in convites[convite_individual]">
+            <div ng-show="showBlocos[$index]['ativo']">
+              <h4 class="controll__title">Alinhamento</h4>
+              <div class="controll_bloco_opcoes" >
+                <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'"></i>
+                <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'"></i>
+                <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'"></i>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+              <h4 class="controll__title" >Tamanho da Fonte: {{valor['font-size']}}</h4>
+
+              <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = '14'">
+                <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 41}"></rzslider>
+              </div>
+              <!-- controll_bloco_opcoes -->
+            </div>
+            <!--showBlocos-->
+          </div>
+          <!-- formato -->
+        </div>
+        <!--tabpanel-->
+        <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">typefaces</div>
       </div>
+      <!-- tab-content -->
     </div>
-  </form>
-  <div class="footer__options">
-    <div class="btn btn--ok" style="float:left">
-      <a ng-href="/dashboard/#/configurar-convite">Voltar</a>
+    <!-- col-sm-12 -->
+  </div>
+  <!-- controll -->
+
+  <div class="row layouts" id="convites_layout">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <carousel interval="myInterval">
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite1.png" ng-click="setConvite('convite1','./image/convites/convite1.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite2.png" ng-click="setConvite('convite2','./image/convites/convite2.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite3.png" ng-click="setConvite('convite3','./image/convites/convite3.png')">
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite4.png" ng-click="setConvite('convite4','./image/convites/convite4.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite5.png" ng-click="setConvite('convite5','./image/convites/convite5.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite6.png" ng-click="setConvite('convite6','./image/convites/convite6.png')">
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite7.png" ng-click="setConvite('convite7','./image/convites/convite7.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite8.png" ng-click="setConvite('convite8','./image/convites/convite8.png')">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite9.png" ng-click="setConvite('convite9','./image/convites/convite9.png')">
+            </div>
+          </div>
+        </slide>
+      </carousel>
+
     </div>
-    <div class="btn btn--ok" style="float:right">
-      <a ng-href="/dashboard/#/configurar-convite">Concluir</a>
-    </div>
-    <div class="clearfix"></div>
-  </div><!-- footer__options -->
-</section>
+    <!--col-xs-10-->
+  </div>
+  <!--row-->
+</div>
+<!-- container-fluid -->

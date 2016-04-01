@@ -14,12 +14,21 @@ body{
   font-size: 62.5%;
   overflow-x: hidden;
 }
-a{
+a
+,a:hover
+,a:focus{
   text-decoration: none;
+  outline: 0
 }
-
+input[type=checkbox]
+, input[type=radio]{
+  margin-top: 0;
+}
 .clearfix{
   clear: both;
+}
+.btn.focus, .btn:focus, .btn:hover{
+  color: white;
 }
 /*SIDEBAR*/
 .sidebar{
@@ -37,6 +46,9 @@ a{
   padding-bottom: 16px;
   max-height: 213px;
   border-bottom: thin solid #707070;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }
 .header p{
   font-family: 'Roboto Condensed';
@@ -67,7 +79,6 @@ a{
   position: relative;
   cursor: pointer;
 }
-
 
 .user__img{
   display: inline-block;
@@ -109,8 +120,8 @@ a{
 .menu-item a{
   font-family: 'Playfair Display';
   color: white;
-  font-size: 2.0em;
-  margin-left: 45px;
+  font-size: 1.6em;
+  margin-left: 20px;
   line-height: 50px;
   display: block;
 }
@@ -123,25 +134,27 @@ a{
 .menu-item:hover > .menu-item__hover
 ,.active > .menu-item__hover{
   display: block;
-
 }
 
 /*CONTENT*/
 .content{
   position: relative;
+  width: 100%;
+  padding-bottom: 70px;
   left: 0;
-  top: 165px;
-  overflow-x: hidden;
+  top: 164px;
+  padding-top: 42px;
   overflow-wrap: break-word;
 }
-.content p
-,.content h3{
+.content p{
   font-family: 'Playfair Display';
   font-size: 1.6em;
 }
 .content h3{
+  font-family: 'Playfair Display';
   margin-bottom: 30px;
   font-weight: 400;
+  font-size: 1.8em;
 }
 .titulo{
   margin-bottom: 36px;
@@ -153,8 +166,8 @@ a{
 /*BOTOES*/
 .btn{
   height: 52px;
-  width: 198px;
-  line-height: 52px;
+  width: 100%;
+  line-height: 42px;
   text-align: center;
   text-transform: uppercase;
   float: left;
@@ -197,6 +210,10 @@ a{
   padding-left: 12px;
   margin-bottom: 25px;
   outline-color: #ff7c7c;
+  width: 100%;
+}
+.form .input__radio{
+  margin-bottom: 25px
 }
 .form .input__radio span{
   font-size: 1.6em;
@@ -211,9 +228,6 @@ a{
   vertical-align: middle;
   margin-bottom: 0;
 }
-.form input[type="date"]{
-  width: 140px;
-}
 .form .fa-calendar{
   font-size: 3em;
   color: #a7a9ac;
@@ -227,18 +241,17 @@ a{
 .form__right{
   float: left;
 }
+
 /*DADOS CASAL*/
 .dados__header{
-  background: url("../image/header_bg.png") no-repeat -320px bottom;
-  width: 100%;
+  display: none;
+  background: url("../image/header_bg.png") no-repeat -240px bottom;
   height: 301px;
-  position: relative;
-  z-index: -1;
-  top: 0;
+  margin-bottom: 42px;
+  margin-top: -42px;
 }
 .form p span{
   float: right;
-  margin-right: -17px;
 }
 .form p span input[type="checkbox"]{
   width: 16px !important;
@@ -252,7 +265,6 @@ a{
   font-size: 2.5em;
   position: relative;
   top: 51px;
-  left: 30px;
   font-weight: 700;
   padding-right: 15px;
 }
@@ -261,7 +273,8 @@ a{
   height: 0;
   box-shadow: none;
   width: 140px;
-  border-width: 2px;
+  border: solid 2px white;
+  margin-top: 0;
   border-top: none;
 }
 .dados_header_title hr:first-child{
@@ -283,6 +296,7 @@ a{
   border: thin solid #707070;
   text-align: center;
   cursor: pointer;
+  margin-bottom: 25px;
 }
 .upload__image:hover i{
   color: #CCCCCC;
@@ -302,36 +316,10 @@ a{
   margin-bottom: 15px;
 }
 
-/*CONFIGURAR CONVITE*/
-.configurar__convite h1:first-child{
-  height: 30px;
-}
-.configurar__convite input{
-  width: 100% !important;
-}
-.configurar__convite .col-3{
-  float: left;
-  width: 60%;
-  margin-right: 45px;
-}
-.configurar__convite .col-2{
-  float: left;
-  width: 20%;
-}
-. .col-6{
-  width: 87%;
-  margin-right: 45px;
-}
-.configurar__convite hr{
-  margin-top: 62px;
-  margin-bottom: 30px;
-}
-
 .tabela{
   margin-top: 42px;
   border: thin solid #76777b;
-  width: 90%;
-  margin-left: 24px;
+  width: 100%;
   padding-bottom: 2px;
   padding-left: 5px;
   padding-right: 5px;
@@ -354,6 +342,7 @@ a{
   line-height: 36px;
   padding-left: 9px;
   padding-right: 60px;
+  clear: both;
 }
 .tabela .tabela__item:last-child{
   border: none;
@@ -370,9 +359,6 @@ a{
   cursor: pointer;
 }
 .produtos__single{
-  float: left;
-  width: 50%;
-  position: relative;
   margin-bottom: 26px;
 }
 .produtos__single img{
@@ -402,6 +388,7 @@ a{
   position: absolute;
   bottom: 0;
 }
+
 /*CADASTRAR CONVIDADOS*/
 select{
   line-height: 43px;
@@ -425,6 +412,9 @@ select{
   padding: 8px 11px;
   margin-left: -11px;
   margin-right: -11px;
+  -webkit-box-sizing: content-box;;
+  -moz-box-sizing: content-box;;
+  box-sizing: content-box;;
 }
 .tabela_convidado_topo p{
   display: inline-block;
@@ -478,7 +468,7 @@ select{
   margin-bottom: 40px;
 }
 .cartao__single{
-  width: calc(75%/6);
+  width: calc(90%/6);
   display: inline-block;
 }
 .cartao__single input[type="radio"] {
@@ -492,12 +482,10 @@ select{
 .dados__cartao{
   max-width: 462px;
 }
-.dados__cartao .col-6{
-  width: calc(90%/2) !important;
-}
+
 /*SAVE THE DATE*/
 .save__layout {
-  margin-bottom: 196px;
+  margin-bottom: 100px;
 }
 .save__layout img {
   margin-right: 12px;
@@ -508,38 +496,62 @@ select{
 }
 .save__menssage{
   height: 368px;
-  max-width: 706px;
   width: 100%;
-  margin-bottom: 42px;
   padding: 18px;
   font-size: 1.6em;
   font-family: 'Roboto Condensed';
 }
+
 /*CONFIGURAR CONVITE2*/
-.convite{
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
-.convite .convitemsg{
+.bloco{
   position: absolute;
-  left: 0px;
-  right: 0px;
-  width: 528px;
-  height: 154px;
-  margin: auto;
-  top: 342px;
-  border: none;
-  max-width: 506px;
-  max-height: 123px;
-  outline: none;
-  background: transparent;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
-.control__single .fa{
-  font-size: 3.6em;
-margin-right: 30px;
-cursor: pointer;
+.bloco--active{
+  border: thin solid rgb(111, 145, 255);
+  box-sizing: content-box;
+}
+.bloco_msg_personalizada{
+  background: transparent;
+  border: none;
+}
+.controll{
+  position: fixed;
+  right: 2px;
+  height: 400px;
+  width: 260px;
+  margin: auto;
+  top: 25%;
+  overflow-y: auto;
+}
+.controll .tab-content{
+  padding-top: 10px;
+}
+.controll .nav-tabs>li>a{
+  font-size: 1.4em;
+  cursor: pointer;
+}
+.controll_bloco_opcoes{
+  text-align: center;
+  margin: 15px 0 50px 0;
+}
+.controll_bloco_opcoes .fa {
+  margin: 0 10px;
+  font-size: 3.8em;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.fa--active {
+  opacity: 1.0!important
+}
+.controll_bloco_opcoes .fa:first-child{
+  margin-left: 0;
+}
+.controll_bloco_opcoes .fa:last-child{
+  margin-right: 0;
 }
 rzslider .rz-bubble{
   display: none !important;
@@ -547,6 +559,28 @@ rzslider .rz-bubble{
 rzslider .rz-pointer{
   background-color: #6F91FF;
   outline: none;
+}
+.carousel-control.left
+,.carousel-control.right{
+  background: none
+}
+.layouts{
+  padding-top: 100px
+}
+.carousel__img{
+  width: 100%;
+  margin: auto;
+  display: inline-block;
+  cursor: pointer;
+}
+.carousel-control.left{
+  left: -60px;
+}
+.carousel-control.right{
+  right: -60px;
+}
+.carousel-indicators{
+  display: none;
 }
 /*MEIDA*/
 @media screen and ( min-height:670px ) , ( min-height:670px ) and (-webkit-min-device-pixel-ratio:0){
@@ -573,31 +607,35 @@ rzslider .rz-pointer{
     line-height: 90px
   }
 }
-@media screen and ( min-width:780px ) , ( min-width:780px ) and (-webkit-min-device-pixel-ratio:0){
-  .form input{
-    width: 335px;
+@media screen and ( min-width:400px ) , ( min-width:400px ) and (-webkit-min-device-pixel-ratio:0){
+  .dados__header {
+    display: block;
   }
+}
+@media screen and ( min-width:780px ) , ( min-width:780px ) and (-webkit-min-device-pixel-ratio:0){
   .form__left{
     float: left;
   }
-  .configurar__convite h1:first-child{
+  .titulo--passo1{
     background: url("../image/passo.png") no-repeat right;
+    height: 30px;
   }
-  .configurar__convite.page2 h1:first-child{
+  .titulo--passo2{
     background: url("../image/passo2.png") no-repeat right !important;
+    height: 30px;
   }
-  .configurar__convite .col-6{
-    float: left;
-    width: 40%;
-    margin-right: 45px;
-  }
+
 }
 @media screen and ( min-width:900px ) , ( min-width:900px ) and (-webkit-min-device-pixel-ratio:0){
+  .wrapper{
+    padding-left: 240px;
+  }
   /*SIDEBAR*/
   .sidebar{
     position: fixed;
     background: #f5f5f5;
-    width: 320px;
+    width: 240px;
+    left: 0px;
     bottom: 0;
   }
   .menu{
@@ -610,6 +648,9 @@ rzslider .rz-pointer{
   }
   .user__options{
     display: block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
   }
   .name__user{
     right: 8px;
@@ -617,24 +658,9 @@ rzslider .rz-pointer{
 
   /*CONTENT*/
   .content{
-    position: absolute;
-    left: 320px;
     top: 0;
-    overflow-x: initial;
-    overflow-wrap: normal;
-    max-width: 900px;
   }
   /*DADOS CASAL*/
-  .dados__header{
-    width: 1600px;
-    left: -320px;
-    position: absolute;
-    background: url("../image/header_bg.png") no-repeat left bottom;
-  }
-  .dados_header_title{
-    left: 343px;
-    padding-right: 0;
-  }
   .dados__content{
     top: 301px;
     padding-left: 30px;
@@ -651,13 +677,8 @@ rzslider .rz-pointer{
 }
 
 @media screen and ( min-width:1160px ) , ( min-width:1160px ) and (-webkit-min-device-pixel-ratio:0){
-  .content{
-    max-width: 1000px;
-  }
   /*DADOS CASAL*/
-  .dados_header_title{
-    left: 412px;
-  }
+
   .form__left {
     padding-right: 38px;
     border-right: solid thin #707070;
@@ -672,28 +693,5 @@ rzslider .rz-pointer{
   .produto_desc{
     width: 35%;
     padding-left: 14px;
-  }
-}
-@media screen and ( min-width:1600px ) , ( min-width:1600px ) and (-webkit-min-device-pixel-ratio:0){
-  .content{
-    max-width: 1400px;
-  }
-  /*DADOS CASAL*/
-  .dados__header{
-    left: 0;
-  }
-  .dados_header_title{
-    left: 90px;
-  }
-  /*CONFIGURAR CONVITE*/
-  .configurar__convite .col-3{
-    width: 76%;
-  }
-  .configurar__convite .col-6{
-    width: 48%;
-  }
-  .produto_desc{
-    width: 50%;
-    padding-left: 20px;
   }
 }

@@ -28,9 +28,17 @@ angular.module("dashboard").config(function($routeProvider){
     templateUrl:"/dashboard/templates/page/save_the_date.html",
     controller:"save_date"
   })
+  .when('/save-the-date/2',{
+    templateUrl:"/dashboard/templates/page/save_the_date2.html",
+    controller:"save_date2"
+  })
   .when('/enviar-convite',{
     templateUrl:"/dashboard/templates/page/enviar_convite.html",
     controller:'enviar_convite'
+  })
+  .when('/enviar-convite/2',{
+    templateUrl:"/dashboard/templates/page/enviar_convite2.html",
+    controller:'enviar_convite2'
   })
   .when('/convidados-confirados',{
     templateUrl:"/dashboard/templates/page/convidados_confirmados.html"

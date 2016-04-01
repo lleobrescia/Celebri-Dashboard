@@ -1,91 +1,126 @@
-<section class="configurar__convite" >
-  <h1 class="titulo" style="background:none">Cadastro de Convidados</h1>
-  <p style="margin-bottom:46px">
-    Para enviarmos os convites virtuais, você deve cadastrar seus convidados. Para isso, informe o nome do
-    convidado, o e-mail e o número de acompanhantes.
-  </p>
-  <p style="margin-bottom:46px">
-    A qualquer momento você pode carregar uma planilha configurada com essas informações em um arquivo
-    Excel, quantas vezes for necessário. Se preferir cadastre cada convidado um a um utilizando o formulário abaixo.
-  </p>
-  <form class="form" enctype="multipart/form-data" novalidate>
-    <div class="col-3">
-      <p class="form__title">
-        Convidado(a):
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="titulo">Cadastro de Convidados</h1>
+      <p style="margin-bottom:46px">
+        Para enviarmos os convites virtuais, você deve cadastrar seus convidados. Para isso, informe o nome do
+        convidado, o e-mail e o número de acompanhantes.
       </p>
-      <input type="text" name="local" ng-model="convidado" value="" >
-    </div>
-    <div class="col-2">
-      <p class="form__title">
-        Núm. de acompanhantes
+      <p style="margin-bottom:46px">
+        A qualquer momento você pode carregar uma planilha configurada com essas informações em um arquivo
+        Excel, quantas vezes for necessário. Se preferir cadastre cada convidado um a um utilizando o formulário abaixo.
       </p>
-      <select name="singleSelect" ng-model="aconpanhante">
-        <option value="0" selected="true">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
+    </div><!-- col-xs-12 -->
+  </div><!-- row -->
 
-    <div class="clearfix"></div>
 
-    <p class="form__title">
-      E-mail:
-    </p>
-    <input type="text" name="email" ng-model="emailConvidado" value="">
+  <form class="form" enctype="multipart/form-data">
 
-    <p class="form__title">
-      Telefone
-    </p>
-    <input type="text" name="email" ng-model="telefone" value="" mask="(99) 9 9999-9999">
+    <div class="row">
+      <div class="col-sm-7">
+        <p class="form__title">
+          Convidado(a):
+        </p>
+        <input type="text" name="canvidado_nome" ng-model="canvidado_nome" value="" >
+      </div><!-- col-sm-7 -->
+      <div class="col-sm-3">
+        <p class="form__title">
+          Núm. de acompanhantes
+        </p>
+        <select name="canvidado_acompanhantes" ng-model="canvidado_acompanhantes">
+          <option value="0" ng-selected="true">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div><!-- col-sm-3 -->
+    </div><!-- row -->
 
-    <div class="btn btn--save" ng-click="adicionarConvidado()" style="float:right">
-      Adicionar
-    </div>
-    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-sm-5">
+        <p class="form__title">
+          E-mail:
+        </p>
+        <input type="text" name="canvidado_email" ng-model="canvidado_email" value="">
+      </div><!-- col-sm-5 -->
+      <div class="col-sm-5">
+        <p class="form__title">
+          Telefone
+        </p>
+        <input type="text" name="canvidado_telefone" ng-model="canvidado_telefone" value="" mask="(99) 9? 9999-9999">
+      </div><!-- col-sm-5 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="btn btn--save" ng-click="adicionarConvidado()">
+          Adicionar
+        </div>
+      </div><!-- col-sm-3 -->
+    </div><!-- row -->
+
     <hr>
 
-    <p style="    float: left;    line-height: 52px;">
-      Carregue sua lista de convidados em uma planilha aqui:
-    </p>
-    <div class="btn btn--save" ng-click="adicionarConvidado()" style="float:right">
-      Carregar lista
-    </div>
-    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-sm-7">
+        <p style="line-height:52px">
+          Carregue sua lista de convidados em uma planilha aqui:
+        </p>
+      </div><!-- col-sm-7 -->
+      <div class="col-sm-3">
+        <div class="btn btn--save" ng-click="" >
+          Carregar lista
+        </div>
+      </div><!-- col-sm-3 -->
+    </div><!-- row -->
+
     <hr>
 
-    <div class="tabela__convidado" ng-if="convidadosCadastrados.length > 0">
-      <div class="tabela_convidado_topo">
-        <p>
-          Convidados cadastrados:
-        </p>
-        <input type="text" name="name" value="" ng-model="searchText">
-      </div>
-      <div class="tabela_convidado_header">
-        <p>
-          Nome
-        </p>
-        <p>
-          E-mail
-        </p>
-        <p>
-          Número acompanhantes
-        </p>
-      </div>
-      <div class="tabela_convidado_single" ng-repeat="(key,value) in convidadosCadastrados  | filter:searchText">
-        <p>
-          {{value.nome}}
-        </p>
-        <p>
-          {{value.email}}
-        </p>
-        <p>
-          {{value.convidados}}
-        </p>
-        <i class="fa fa-times-circle-o" ng-click="removeConvidado(key)"></i>
-      </div>
-    </div>
+    <div class="row" ng-if="convidado_lista.length > 0">
+      <div class="col-sm-10">
+        <div class="tabela__convidado" >
+          <div class="tabela_convidado_topo">
+            <p>
+              Convidados cadastrados:
+            </p>
+            <input type="text" name="name" value="" ng-model="searchText">
+          </div><!-- tabela_convidado_topo -->
+          <div class="tabela_convidado_header">
+            <p>
+              Nome
+            </p>
+            <p>
+              E-mail
+            </p>
+            <p>
+              Número acompanhantes
+            </p>
+          </div><!-- tabela_convidado_header -->
+          <div class="tabela_convidado_single" ng-repeat="(key,value) in convidado_lista  | filter:searchText">
+            <p>
+              {{value.nome}}
+            </p>
+            <p>
+              {{value.email}}
+            </p>
+            <p>
+              {{value.convidados}}
+            </p>
+            <i class="fa fa-times-circle-o" ng-click="removeConvidado(key)"></i>
+          </div><!-- tabela_convidado_single -->
+        </div><!-- tabela__convidado -->
+      </div><!-- col-sm-10 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3 col-sm-offset-7">
+        <div class="btn btn--ok">
+          <a ng-href="/dashboard/#/save-the-date">Concluir</a>
+        </div>
+      </div><!-- col-sm-3 -->
+    </div><!-- row -->
   </form>
-</section>
+
+</div><!-- container-fluid -->
