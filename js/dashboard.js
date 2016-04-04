@@ -26,11 +26,18 @@ angular.module('dashboard').directive('onFinishRender', function($timeout) {
 });
 
 //Controllers
-angular.module("dashboard").controller('mainController', ['$scope', function($scope) {
+angular.module("dashboard").controller('mainController', ['$scope','DadosCasal', function($scope,DadosCasal) {
+  DadosCasal.getData(15).then(function(resp){
+    console.log(resp);
 
-  $scope.nome_noivo;
-  $scope.nome_noiva;
-  $scope.data_casamento;
+    var respXml = $.parseXML(resp);
+    $scope.nome_noivo     = $(respXml).find('NomeNoivo').text();
+    $scope.nome_noiva     = $(respXml).find('NomeNoiva').text();
+
+    var data = $(respXml).find('DataCasamento').text().split('/');
+    $scope.data_casamento = new Date(data[2],data[1],data[0]);
+  });
+
   $scope.foto;
 
   $scope.cerimonia_local;
