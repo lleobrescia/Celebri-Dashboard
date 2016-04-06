@@ -70,7 +70,7 @@
         <p class="form__title">
           Cidade
         </p>
-        <input type="text" name="cidade" ng-model="cerimonia_cidade" value="" ng-change="$scope.change = true">
+        <input type="text" name="cidade" ng-model="cerimonia_cidade"  ng-change="$scope.change = true">
       </div>
       <!-- col-sm-7 -->
     </div>
@@ -132,20 +132,20 @@
         <p class="form__title">
           Pai da Noiva:
           <span>
-            <input type="checkbox" name="noiva_pai_memorian" value="sim" ng-model="noiva_pai_memorian" value="" ng-change="$scope.change = true"> In Memorian
+            <input type="checkbox" name="noiva_pai_memorian" value="sim" ng-model="noiva_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noiva_pai" ng-model="noiva_pai" value="" ng-change="$scope.change = true">
+        <input type="text" name="noiva_pai" ng-model="noiva_pai"  ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
           Mãe da Noiva:
           <span>
-            <input type="checkbox" name="noiva_mae_memorian" value="sim" ng-model="noiva_mae_memorian" value="" ng-change="$scope.change = true"> In Memorian
+            <input type="checkbox" name="noiva_mae_memorian" value="sim" ng-model="noiva_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noiva_mae" ng-model="noiva_mae" value="" ng-change="$scope.change = true">
+        <input type="text" name="noiva_mae" ng-model="noiva_mae"  ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
     </div>
@@ -156,20 +156,20 @@
         <p class="form__title">
           Pai do Noivo:
           <span>
-            <input type="checkbox" name="noivo_pai_memorian" value="sim" ng-model="noivo_pai_memorian" value="" ng-change="$scope.change = true"> In Memorian
+            <input type="checkbox" name="noivo_pai_memorian" value="true" ng-model="noivo_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noivo_pai" ng-model="noivo_pai" value="" ng-change="$scope.change = true">
+        <input type="text" name="noivo_pai" ng-model="noivo_pai"  ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
           Mãe do Noivo:
           <span>
-            <input type="checkbox" name="noivo_mae_memorian" value="sim" ng-model="noivo_mae_memorian" value="" ng-change="$scope.change = true"> In Memorian
+            <input type="checkbox" name="noivo_mae_memorian" value="sim" ng-model="noivo_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noivo_mae" ng-model="noivo_mae" value="" ng-change="$scope.change = true">
+        <input type="text" name="noivo_mae" ng-model="noivo_mae"  ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
     </div>
@@ -188,7 +188,7 @@
 
     <div class="row">
       <div class="col-sm-3" ng-if="$scope.change">
-        <div class="btn btn--save" style="margin-bottom:24px;">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosConvite(); $scope.change = false">
           Salvar
         </div>
       </div>
