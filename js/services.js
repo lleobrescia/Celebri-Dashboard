@@ -83,10 +83,10 @@ angular.module("dashboard").factory('DadosCasal', ['CallAjax','$q', function(Cal
     getData: getData
   };
 }]);
-angular.module("dashboard").factory('RetornarConfiguracaoConvite', ['CallAjax','$q', function(CallAjax,$q) {
-  var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/RetornarConfiguracaoConvite";
+angular.module("dashboard").factory('ConfiguracaoConvite', ['CallAjax','$q', function(CallAjax,$q) {
 
   var getData = function(id) {
+    var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/RetornarConfiguracaoConvite";
     var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + id + '</Id_casal></IdentificaocaoCasal>';
 
     var call = CallAjax.resposta(urlVar, xmlVar);
@@ -99,8 +99,23 @@ angular.module("dashboard").factory('RetornarConfiguracaoConvite', ['CallAjax','
     });
     return deferred.promise;
   };
+  var setData = function(xmlVar) {
+    var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/ConfiguracaoConvite";
+
+    var call = CallAjax.resposta(urlVar, xmlVar);
+    var deferred = $q.defer();
+
+    call.success(function(data) {
+      deferred.resolve(data);
+    }).error(function() {
+      deferred.reject(arguments);
+    });
+    return deferred.promise;
+  };
+
 
   return {
-    getData: getData
+    getData : getData,
+    setData : setData
   };
 }]);
