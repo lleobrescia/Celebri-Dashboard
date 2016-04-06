@@ -26,37 +26,61 @@ angular.module('dashboard').directive('onFinishRender', function($timeout) {
 });
 
 //Controllers
-angular.module("dashboard").controller('mainController', ['$scope','DadosCasal', function($scope,DadosCasal) {
-  DadosCasal.getData(15).then(function(resp){
-    console.log(resp);
+angular.module('dashboard').controller('sidebar', ['$scope', '$location', function($scope, $location) {
 
-    var respXml = $.parseXML(resp);
-    $scope.nome_noivo     = $(respXml).find('NomeNoivo').text();
-    $scope.nome_noiva     = $(respXml).find('NomeNoiva').text();
+  //Verifica em qual pag esta
+  $scope.isActive = function(viewLocation) {
+    var retorno = false;
+    if (viewLocation === $location.path() || viewLocation + "/2" === $location.path()) {
+      retorno = true
+    }
+    return retorno;
+  };
 
-    var data = $(respXml).find('DataCasamento').text().split('/');
-    $scope.data_casamento = new Date(data[2],data[1],data[0]);
-  });
-
+  //Lista do menu
+  $scope.menu =
+    [
+      {
+        Id: 1,
+        Name: "Dados do Casal",
+        url: 'dados-do-casal'
+      },
+      {
+        Id: 2,
+        Name: 'Configurar Convite',
+        url: 'configurar-convite'
+      },
+      {
+        Id: 3,
+        Name: 'Configurar Evento',
+        url: 'configurar-evento'
+      },
+      {
+        Id: 4,
+        Name: 'Cadastrar Convidados',
+        url: 'cadastrar-convidados'
+      },
+      {
+        Id: 5,
+        Name: 'Save the Date',
+        url: 'save-the-date'
+      },
+      {
+        Id: 6,
+        Name: 'Enviar Convite',
+        url: 'enviar-convite'
+      },
+      {
+        Id: 7,
+        Name: 'Estatísticas do Convite',
+        url: 'convidados-confirados'
+      }
+    ];
+}]);
+angular.module("dashboard").controller('mainController', ['$scope', function($scope) {
   $scope.foto;
 
-  $scope.cerimonia_local;
   $scope.cerimonia_cep;
-  $scope.cerimonia_end;
-  $scope.cerimonia_numero;
-  $scope.cerimonia_bairro;
-  $scope.cerimonia_cidade;
-  $scope.cerimonia_rota;
-  $scope.cerimonia_hora;
-  $scope.cerimonia_min;
-  $scope.noiva_mae;
-  $scope.noiva_pai;
-  $scope.noivo_mae;
-  $scope.noivo_pai;
-  $scope.noiva_mae_memorian;
-  $scope.noiva_pai_memorian;
-  $scope.noivo_mae_memorian;
-  $scope.noivo_pai_memorian;
 
   $scope.festa_igual_cerimonia;
   $scope.festa_local;
@@ -122,61 +146,22 @@ angular.module("dashboard").controller('mainController', ['$scope','DadosCasal',
   };
 }]);
 
-angular.module('dashboard').controller('sidebar', ['$scope', '$location', function($scope, $location) {
+angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', function($scope, Upload,DadosCasal) {
+  $scope.casalGetDados = function(){
+    DadosCasal.getData(15).then(function(resp) {
+      var respXml = $.parseXML(resp);
+      $scope.nome_noivo = $(respXml).find('NomeNoivo').text();
+      $scope.nome_noiva = $(respXml).find('NomeNoiva').text();
 
-  //Verifica em qual pag esta
-  $scope.isActive = function(viewLocation) {
-    var retorno = false;
-    if (viewLocation === $location.path() || viewLocation + "/2" === $location.path()) {
-      retorno = true
-    }
-    return retorno;
+      var data = $(respXml).find('DataCasamento').text().split('/');
+      $scope.data_casamento = new Date(data[2], data[1], data[0]);
+    });
   };
+  $scope.casalGetDados();
 
-  //Lista do menu
-  $scope.menu =
-    [
-      {
-        Id: 1,
-        Name: "Dados do Casal",
-        url: 'dados-do-casal'
-      },
-      {
-        Id: 2,
-        Name: 'Configurar Convite',
-        url: 'configurar-convite'
-      },
-      {
-        Id: 3,
-        Name: 'Configurar Evento',
-        url: 'configurar-evento'
-      },
-      {
-        Id: 4,
-        Name: 'Cadastrar Convidados',
-        url: 'cadastrar-convidados'
-      },
-      {
-        Id: 5,
-        Name: 'Save the Date',
-        url: 'save-the-date'
-      },
-      {
-        Id: 6,
-        Name: 'Enviar Convite',
-        url: 'enviar-convite'
-      },
-      {
-        Id: 7,
-        Name: 'Estatísticas do Convite',
-        url: 'convidados-confirados'
-      }
-    ];
 }]);
 
-angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', function($scope, Upload) { }]);
-
-angular.module("dashboard").controller('configurar_convite', ['$scope', function($scope) {
+angular.module("dashboard").controller('configurar_convite', ['$scope','RetornarConfiguracaoConvite', function($scope,RetornarConfiguracaoConvite) {
 
   $scope.consultCEP = function() {
     var cep = $scope.festa_cep.replace(/\./g, '');
@@ -190,6 +175,33 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', function
       }
     });
   };
+
+  $scope.getDadosConvite = function(){
+    RetornarConfiguracaoConvite.getData(15).then(function(resp) {
+      var respXml = $.parseXML(resp);
+      var hora    = $(respXml).find('Horario_cerimonia').text().split(':');
+
+      $scope.cerimonia_local  = $(respXml).find('Local_cerimonia').text();
+      $scope.cerimonia_end    = $(respXml).find('Endereco').text();
+      $scope.cerimonia_numero = $(respXml).find('Numero').text();
+      $scope.cerimonia_bairro = $(respXml).find('Bairro').text();
+      $scope.cerimonia_cidade = $(respXml).find('Cidade').text();
+      $scope.cerimonia_rota   = $(respXml).find('Tracar_rota_local').text();
+      $scope.cerimonia_hora   = hora[0];
+      $scope.cerimonia_min    = hora[1];
+
+      $scope.noiva_mae          = $(respXml).find('Mae_noiva').text();
+      $scope.noiva_pai          = $(respXml).find('Pai_noiva').text();
+      $scope.noivo_mae          = $(respXml).find('Mae_noivo').text();
+      $scope.noivo_pai          = $(respXml).find('Pai_noivo').text();
+      $scope.noiva_mae_memorian = $(respXml).find('Mae_noiva_in_memoriam').text();
+      $scope.noiva_pai_memorian = $(respXml).find('Pai_noiva_in_memoriam').text();
+      $scope.noivo_mae_memorian = $(respXml).find('Mae_noivo_in_memoriam').text();
+      $scope.noivo_pai_memorian = $(respXml).find('Pai_noivo_in_memoriam').text();
+    });
+  };
+
+  $scope.getDadosConvite();
 
 }]);
 
@@ -460,6 +472,7 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', function($sc
 angular.module("dashboard").controller('enviar_convite2', ['$scope', function($scope) { }]);
 
 angular.module("dashboard").controller('save_date', ['$scope', 'Upload', function($scope, Upload) { }]);
+
 angular.module("dashboard").controller('save_date2', ['$scope', 'Upload', function($scope, Upload) {
 
   $scope.selectedAll = false;
