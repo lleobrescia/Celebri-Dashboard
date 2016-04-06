@@ -49,13 +49,13 @@ angular.module("dashboard").service("CallAjax", function() {
       var call = $.ajax({
         type: 'POST',
         url: "http://23.238.16.114/celebri/web/service_request.aspx",
-        contentType: 'text/xml',
+        contentType: 'text/xml; charset=utf-8',
         data: dataVar,
         xhrFields: {
           withCredentials: true
         },
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       });
       return call;
@@ -63,7 +63,7 @@ angular.module("dashboard").service("CallAjax", function() {
   }
 });
 angular.module("dashboard").factory('DadosCasal', ['CallAjax','$q', function(CallAjax,$q) {
-  var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/RetornarConfiguracaoConvite";
+  var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/RetornarDadosCadastroNoivos";
 
   var getData = function(id) {
     var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + id + '</Id_casal></IdentificaocaoCasal>';
