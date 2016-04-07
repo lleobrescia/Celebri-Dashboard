@@ -37,9 +37,9 @@
       <div class="row">
         <div class="col-sm-7">
           <p class="form__title">
-            Nome do local da recepção {{festa_local}}
+            Nome do local da recepção
           </p>
-          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" ng-keypress="leo()">
+          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" >
         </div>
         <!-- col-sm-7 -->
 
@@ -47,7 +47,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultCEP()">
+          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keypres="consultCEP()">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -146,7 +146,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keyup="consultCEPHotel()">
+        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keypres="consultCEPHotel()">
       </div>
       <!-- col-sm-3 -->
     </div>
@@ -258,7 +258,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keyup="consultCEPHotel()">
+        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keypres="consultCEPHotel()">
       </div>
       <!-- col-sm-3 -->
     </div>

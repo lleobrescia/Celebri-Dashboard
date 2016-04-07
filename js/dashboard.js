@@ -255,7 +255,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
 }]);
 
-angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', function($scope, ConfiguracaoEvento) {
+angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis','ListaSaloes','LojaPresentes', function($scope, ConfiguracaoEvento, ListaHoteis,ListaSaloes,LojaPresentes) {
 
   $scope.getDadosEvento = function() {
     ConfiguracaoEvento.getData($scope.id).then(function(resp) {
@@ -271,19 +271,12 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       $scope.festa_cep = $(respXml).find('Cep').text();
     });
   };
-
-  console.log($scope.festa_local);
-  $scope.leo = function() {
-
-    console.log($scope.festa_local);
-  };
   $scope.setDadosEvento = function() {
     console.log($scope.festa_local);
     var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + $scope.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Local_festa>' + $scope.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
     console.log($.parseXML(xmlVar));
     ConfiguracaoEvento.setData(xmlVar);
   };
-
   $scope.consultCEP = function() {
     var cep = $scope.festa_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
@@ -323,9 +316,27 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     });
   };
 
+
+  ListaHoteis.getData($scope.id).then(function(resp) {
+    var respXml = $.parseXML(resp);
+    $(respXml).find('ConfiguracaoGenericaEndereco').each(function() {
+      $scope.hotel_lista.push(
+        {
+          'Id': $(this).find('Id').text(),
+          'Local': $(this).find('Nome').text(),
+          'Endereco': $(this).find('Endereco').text(),
+          'Numero': $(this).find('Numero').text(),
+          'Bairro': $(this).find('Bairro').text(),
+          'Cidade': $(this).find('Cidade').text()
+        }
+      );
+    });
+  });
+
   $scope.removeHotel = function(key) {
     $scope.hotel_lista.splice(key, 1);
   };
+
   $scope.adicionarHotel = function() {
     if ($scope.hotel_local != "" && $scope.hotel_local != null) {
       $scope.hotel_lista.push(
@@ -346,6 +357,24 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       $scope.hotel_cidade = "";
     }
   };
+
+  ListaSaloes.getData($scope.id).then(function(resp) {
+    var respXml = $.parseXML(resp);
+    console.log(respXml);
+    $(respXml).find('ConfiguracaoGenericaEndereco').each(function() {
+      console.log($(this).find('Endereco').text());
+      $scope.salao_lista.push(
+        {
+          'Id': $(this).find('Id').text(),
+          'Local': $(this).find('Nome').text(),
+          'Endereco': $(this).find('Endereco').text(),
+          'Numero': $(this).find('Numero').text(),
+          'Bairro': $(this).find('Bairro').text(),
+          'Cidade': $(this).find('Cidade').text()
+        }
+      );
+    });
+  });
 
   $scope.removeSalao = function(key) {
     $scope.salao_lista.splice(key, 1);
@@ -371,6 +400,19 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     }
   };
 
+  LojaPresentes.getData($scope.id).then(function(resp) {
+    var respXml = $.parseXML(resp);
+    console.log(resp);
+    $(respXml).find('ConfiguracaoLojaPresentes').each(function() {
+      $scope.loja_lista.push(
+        {
+          'Id': $(this).find('Id').text(),
+          'Nome': $(this).find('Nome').text(),
+          'URL': $(this).find('Url').text()
+        }
+      );
+    });
+  });
   $scope.removeUrl = function(key) {
     $scope.loja_lista.splice(key, 1);
   };
@@ -449,8 +491,6 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       valor: 'R$'
     }
   ];
-
-
 
 }]);
 
