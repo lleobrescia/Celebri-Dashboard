@@ -47,7 +47,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keypres="consultCEP()">
+          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keypress="consultCEP()">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -146,7 +146,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keypres="consultCEPHotel()">
+        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keypress="consultCEPHotel()">
       </div>
       <!-- col-sm-3 -->
     </div>
@@ -222,7 +222,7 @@
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="removeHotel(key)">X Remover</span>
+            <span ng-click="removeHotel(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -258,7 +258,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keypres="consultCEPHotel()">
+        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keypress="consultCEPHotel()">
       </div>
       <!-- col-sm-3 -->
     </div>
@@ -306,8 +306,8 @@
           Traçar rotas para o local:
         </p>
         <div class="input__radio">
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="sim" > Sim</span>
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="nao" > Não</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="true" > Sim</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="false" > Não</span>
         </div>
         <!-- input__radio -->
       </div>
@@ -334,7 +334,7 @@
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="removeSalao(key)">X Remover</span>
+            <span ng-click="removeSalao(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -401,7 +401,7 @@
             <p>
               {{value.Nome}}
             </p>
-            <span ng-click="removeUrl(key)">X Remover</span>
+            <span ng-click="removeUrl(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
