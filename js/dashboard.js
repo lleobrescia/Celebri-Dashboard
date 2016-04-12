@@ -128,6 +128,13 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
     });
   };
   $scope.casalGetDados();
+
+  $scope.setDadosCasal = function(){
+    var casamento = $scope.data_casamento.getMonth()+"/"+$scope.data_casamento.getDate()+"/"+$scope.data_casamento.getFullYear();
+    var xml = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>'+$scope.id+'</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>'+casamento+'</DataCasamento><NomeNoiva>'+$scope.nome_noiva+'</NomeNoiva><NomeNoivo>'+$scope.nome_noivo+'</NomeNoivo><Senha></Senha></DadosCasal>';
+
+    DadosCasal.setData(xml);
+  };
 }]);
 
 angular.module("dashboard").controller('configurar_convite', ['$scope', 'ConfiguracaoConvite', function($scope, ConfiguracaoConvite) {

@@ -82,9 +82,23 @@ angular.module("dashboard").factory('DadosCasal', ['CallAjax', '$q', function(Ca
     });
     return deferred.promise;
   };
+  var setData = function(xmlVar) {
+    var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/AtualizarDadosCadastroNoivos";
+
+    var call = CallAjax.resposta(urlVar, xmlVar);
+    var deferred = $q.defer();
+
+    call.success(function(data) {
+      deferred.resolve(data);
+    }).error(function() {
+      deferred.reject(arguments);
+    });
+    return deferred.promise;
+  };
 
   return {
-    getData: getData
+    getData: getData,
+    setData: setData
   };
 }]);
 
@@ -353,7 +367,7 @@ angular.module("dashboard").factory('Convidados', ['CallAjax', '$q', function(Ca
   };
   return {
     getData: getData,
-    remove : remove,
-    setData:setData
+    remove: remove,
+    setData: setData
   };
 }]);
