@@ -53,6 +53,7 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', functi
       }
     ];
 }]);
+
 angular.module("dashboard").controller('mainController', ['$scope', function($scope) {
   $scope.id = 15;
 
@@ -513,39 +514,44 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
   $scope.uploadFile = function() {
 
   };
-  Convidados.getData($scope.id).then(function(resp) {
-    var respXml = $.parseXML(resp);
-    $scope.convidado_lista = [];
-    $(respXml).find('Convidado').each(function() {
-      $scope.convidado_lista.push(
-        {
-          'Id': $(this).find('Id').text(),
-          'nome': $(this).find('Nome').text(),
-          'email': $(this).find('Email').text(),
-          'convidados': $(this).find('Qtde_Acompanhantes').text(),
-          'telefone': $(this).find('Bairro').text()
-        }
-      );
-    });
-  });
 
-  $scope.removeConvidado = function(key) {
-    $scope.convidado_lista.splice(key, 1);
+
+  $scope.getConvidados = function() {
+    Convidados.getData($scope.id).then(function(resp) {
+      var respXml = $.parseXML(resp);
+      $scope.convidado_lista = [];
+      $(respXml).find('Convidado').each(function() {
+        $scope.convidado_lista.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'nome': $(this).find('Nome').text(),
+            'email': $(this).find('Email').text(),
+            'convidados': $(this).find('Qtde_Acompanhantes').text(),
+            'telefone': $(this).find('Bairro').text()
+          }
+        );
+      });
+    });
+  };
+  $scope.getConvidados();
+  $scope.removeConvidado = function(id, key) {
+    Convidados.remove($scope.id, id).then(function() {
+      $scope.convidado_lista.splice(key, 1);
+    });
   }
+
   $scope.adicionarConvidado = function() {
     if ($scope.canvidado_nome != "" && $scope.canvidado_nome != null) {
-      $scope.convidado_lista.push(
-        {
-          'nome': $scope.canvidado_nome,
-          'email': $scope.canvidado_email,
-          'convidados': $scope.canvidado_acompanhantes,
-          'telefone': $scope.canvidado_telefone
-        }
-      );
-      $scope.canvidado_nome = "";
-      $scope.canvidado_acompanhantes = "";
-      $scope.canvidado_email = "";
-      $scope.canvidado_telefone = "";
+      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>'+$scope.canvidado_email+'</Email><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>'+$scope.canvidado_nome+'</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>'+$scope.canvidado_acompanhantes+'</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+
+      Convidados.setData(xmlVar).then(function(resp) {
+        console.log(resp);
+        $scope.getConvidados();
+        $scope.canvidado_nome = "";
+        $scope.canvidado_acompanhantes = "";
+        $scope.canvidado_email = "";
+        $scope.canvidado_telefone = "";
+      });
     }
   }
 }]);
