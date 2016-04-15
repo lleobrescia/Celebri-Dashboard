@@ -14,17 +14,17 @@
   <!-- row -->
 
   <div class="row">
-    <div class="col-xs-9" style="position:relative" ng-init="$scope.blocoActive = 'bloco_pais_noiva'">
+    <div class="col-xs-9" style="position:relative" ng-init="$scope.blocoActive = 'bloco_pais_noiva'" ng-cloak>
 
       <img ng-src="{{layoutSelecionado}}" alt="">
 
       <p class="bloco_pais_noiva bloco" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva'"
-      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}">
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}">
         nome do pai da noiva
         <br> nome da mãe da noiva
       </p>
       <p class="bloco_pais_noivo bloco" ng-style="bloco_pais_noivo" ng-click="setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo'"
-      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}">
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}">
         nome do pai do noivo
         <br> nome da mãe do noivo
       </p>
@@ -32,7 +32,7 @@
         convidam para a cerimônia de casamento dos seus filhos
       </p>
       <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'"
-      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}">
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}">
         Nome da noiva &#38; nome do noivo
       </p>
       <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}">
@@ -40,10 +40,10 @@
       </p>
 
       <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco bloco" ng-model="bloco_msg_personalizada" ng-style="bloco_msg_personalizada_style"
-      ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
+        ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
 
       <p class="bloco_cerimonia bloco" ng-style="bloco_cerimonia" ng-click="setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia'"
-      ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}">
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}">
         Paróquia São Bento R. José Batista Ribeiro, 155 - São Bento Belo Horizonte - MG
       </p>
     </div>
@@ -51,7 +51,7 @@
   </div>
   <!-- row -->
 
-  <div class="row controll">
+  <div class="row controll" ng-cloak>
     <div class="col-sm-12">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
@@ -64,14 +64,14 @@
           <div class="" ng-repeat="valor in convites[convite_individual]">
             <div ng-show="showBlocos[$index]['ativo']">
               <h4 class="controll__title">Alinhamento</h4>
-              <div class="controll_bloco_opcoes" >
+              <div class="controll_bloco_opcoes">
                 <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'"></i>
                 <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'"></i>
                 <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'"></i>
               </div>
               <!-- controll_bloco_opcoes -->
 
-              <h4 class="controll__title" >Tamanho da Fonte: {{valor['font-size']}}</h4>
+              <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
 
               <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = '14'">
                 <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 41}"></rzslider>
