@@ -1,6 +1,87 @@
 // INIT
 angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap']);
 
+// Variavel Global. Armazena todos os dados do usuario
+angular.module("dashboard")
+  .value("user", {
+    id: 15,
+    dadosCasal: {
+      nome_noiva: '',
+      nome_noivo: '',
+      data_casamento: ''
+    },
+    convite_dados: {
+      cerimonia_local: '',
+      cerimonia_end: '',
+      cerimonia_numero: '',
+      cerimonia_bairro: '',
+      cerimonia_cidade: '',
+      cerimonia_rota: '',
+      cerimonia_cep: '',
+      cerimonia_hora: '',
+      cerimonia_min: '',
+      noiva_mae: '',
+      noiva_pai: '',
+      noivo_mae: '',
+      noivo_pai: '',
+      noiva_mae_memorian: '',
+      noiva_pai_memorian: '',
+      noivo_mae_memorian: '',
+      noivo_pai_memorian: '',
+    },
+    convite_formatacao: {
+      alinhamento_msg1: '',
+      alinhamento_msg2: '',
+      alinhamento_msg3: '',
+      alinhamento_msg4: '',
+      alinhamento_nomecasal: '',
+      alinhamento_pais_noiva: '',
+      alinhamento_pais_noivo: '',
+      conteudo_msg1: '',
+      conteudo_msg2: '',
+      conteudo_msg3: '',
+      conteudo_msg4: '',
+      conteudo_nomecasal: '',
+      conteudo_pais_noiva: '',
+      conteudo_pais_noivo: '',
+      cor_msg1: '',
+      cor_msg2: '',
+      cor_msg3: '',
+      cor_msg4: '',
+      cor_nomecasal: '',
+      cor_pais_noiva: '',
+      cor_pais_noivo: '',
+      fonte_msg1: '',
+      fonte_msg2: '',
+      fonte_msg3: '',
+      fonte_msg4: '',
+      fonte_nomecasal: '',
+      fonte_pais_noiva: '',
+      fonte_pais_noivo: '',
+      id_modelo: '',
+      tamanho_fonte_msg1: '',
+      tamanho_fonte_msg2: '',
+      tamanho_fonte_msg3: '',
+      tamanho_fonte_msg4: '',
+      tamanho_fonte_pais_noivo: '',
+      tamanho_nomecasal: ''
+    },
+    recepcao: {
+      festa_igual_cerimonia: '',
+      festa_local: '',
+      festa_end: '',
+      festa_numero: '',
+      festa_bairro: '',
+      festa_cidade: '',
+      festa_rota: '',
+      festa_cep: ''
+    },
+    lista_hotel: [],
+    lista_salao: [],
+    lista_presente: [],
+    lista_convidados: []
+  });
+
 //Controllers
 angular.module('dashboard').controller('sidebar', ['$scope', '$location', function ($scope, $location) {
 
@@ -60,63 +141,31 @@ angular.module("dashboard").controller('mainController', ['$scope', function ($s
   $scope.foto;
   $scope.arquivo;
 
-
-  $scope.hotel_local;
-  $scope.hotel_cep;
-  $scope.hotel_end;
-  $scope.hotel_numero;
-  $scope.hotel_bairro;
-  $scope.hotel_cidade;
-  $scope.hotel_rota;
-
-
-  $scope.salao_local;
-  $scope.salao_cep;
-  $scope.salao_end;
-  $scope.salao_numero;
-  $scope.salao_bairro;
-  $scope.salao_cidade;
-  $scope.salao_rota;
-
-
-  $scope.loja_nome;
-  $scope.loja_url;
-
-
-  $scope.canvidado_nome;
-  $scope.canvidado_acompanhantes;
-  $scope.canvidado_email;
-  $scope.canvidado_telefone;
-
-  $scope.moip_aceitou;
-  $scope.moip_nome;
-  $scope.moip_cpf;
-  $scope.moip_email;
-  $scope.moip_nascimento;
-  $scope.moip_rua;
-  $scope.moip_cep;
-  $scope.moip_numero;
-  $scope.moip_complemento;
-  $scope.moip_bairro;
-  $scope.moip_estado;
-  $scope.moip_cidade;
-  $scope.moip_produtos = [];
-
-  $scope.bandeira;
-  $scope.pagamento_numero;
-  $scope.pagamento_nome;
-  $scope.pagamento_mes;
-  $scope.pagamento_ano;
-  $scope.pagamento_seguraca;
-
   //for ng-repeat
   $scope.getTimes = function (n) {
     return new Array(n);
   };
 }]);
 
-angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', function ($scope, Upload, DadosCasal) {
+angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', function ($scope, Upload, DadosCasal, user) {
+  // evita conflito dentro das funcoes
+  var self = this;
 
+  //salva as informações do form dentro de user
+  self.setLocalDados = function () {
+    user.dadosCasal.nome_noivo = $scope.nome_noivo;
+    user.dadosCasal.nome_noiva = $scope.nome_noiva;
+    user.dadosCasal.data_casamento = $scope.data_casamento;
+  };
+
+  //pega as informações de user e coloca no $scope
+  self.getLocalDados = function () {
+    $scope.nome_noivo = user.dadosCasal.nome_noivo;
+    $scope.nome_noiva = user.dadosCasal.nome_noiva;
+    $scope.data_casamento = user.dadosCasal.data_casamento;
+  }
+
+  //pega os dados do servidor
   $scope.casalGetDados = function () {
     DadosCasal.getData($scope.id).then(function (resp) {
       var respXml = $.parseXML(resp);
@@ -125,20 +174,76 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
       var data = $(respXml).find('DataCasamento').text().split('/');
       $scope.data_casamento = new Date(data[2], data[1], data[0]);
+
+      self.setLocalDados();
     });
   };
-  $scope.casalGetDados();
 
+  //salva no servidor os dados
   $scope.setDadosCasal = function () {
     var casamento = $scope.data_casamento.getMonth() + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
     var xml = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + $scope.id + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + $scope.nome_noiva + '</NomeNoiva><NomeNoivo>' + $scope.nome_noivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
 
+    self.setLocalDados();
     DadosCasal.setData(xml);
   };
+
+  if (user.dadosCasal.nome_noivo === '') {
+    $scope.casalGetDados();
+  } else {
+    self.getLocalDados();
+  }
 }]);
 
-angular.module("dashboard").controller('configurar_convite', ['$scope', 'ConfiguracaoConvite', function ($scope, ConfiguracaoConvite) {
+angular.module("dashboard").controller('configurar_convite', ['$scope', 'ConfiguracaoConvite', 'user', function ($scope, ConfiguracaoConvite, user) {
 
+  var self = this;
+  // evita conflito dentro das funcoes
+  var self = this;
+
+  //salva as informações do form dentro de user
+  self.setLocalDados = function () {
+    user.convite_dados.cerimonia_local = $scope.cerimonia_local;
+    user.convite_dados.cerimonia_end = $scope.cerimonia_end;
+    user.convite_dados.cerimonia_numero = $scope.cerimonia_numero;
+    user.convite_dados.cerimonia_bairro = $scope.cerimonia_bairro;
+    user.convite_dados.cerimonia_cidade = $scope.cerimonia_cidade;
+    user.convite_dados.cerimonia_rota = $scope.cerimonia_rota;
+    user.convite_dados.cerimonia_cep = $scope.cerimonia_cep;
+    user.convite_dados.cerimonia_hora = $scope.cerimonia_hora;
+    user.convite_dados.cerimonia_min = $scope.cerimonia_min;
+    user.convite_dados.noiva_mae = $scope.noiva_mae;
+    user.convite_dados.noiva_pai = $scope.noiva_pai;
+    user.convite_dados.noivo_mae = $scope.noivo_mae;
+    user.convite_dados.noivo_pai = $scope.noivo_pai;
+    user.convite_dados.noiva_mae_memorian = $scope.noiva_mae_memorian;
+    user.convite_dados.noiva_pai_memorian = $scope.noiva_pai_memorian;
+    user.convite_dados.noivo_mae_memorian = $scope.noivo_mae_memorian;
+    user.convite_dados.noivo_pai_memorian = $scope.noivo_pai_memorian;
+  };
+
+  //pega as informações de user e coloca no $scope
+  self.getLocalDados = function () {
+    $scope.cerimonia_local = user.convite_dados.cerimonia_local;
+    $scope.cerimonia_end = user.convite_dados.cerimonia_end;
+    $scope.cerimonia_numero = user.convite_dados.cerimonia_numero;
+    $scope.cerimonia_bairro = user.convite_dados.cerimonia_bairro;
+    $scope.cerimonia_cidade = user.convite_dados.cerimonia_cidade;
+    $scope.cerimonia_rota = user.convite_dados.cerimonia_rota;
+    $scope.cerimonia_cep = user.convite_dados.cerimonia_cep;
+    $scope.cerimonia_hora = user.convite_dados.cerimonia_hora;
+    $scope.cerimonia_min = user.convite_dados.cerimonia_min;
+    $scope.noiva_mae = user.convite_dados.noiva_mae;
+    $scope.noiva_pai = user.convite_dados.noiva_pai;
+    $scope.noivo_mae = user.convite_dados.noivo_mae;
+    $scope.noivo_pai = user.convite_dados.noivo_pai;
+    $scope.noiva_mae_memorian = user.convite_dados.noiva_mae_memorian;
+    $scope.noiva_pai_memorian = user.convite_dados.noiva_pai_memorian;
+    $scope.noivo_mae_memorian = user.convite_dados.noivo_mae_memorian;
+    $scope.noivo_pai_memorian = user.convite_dados.noivo_pai_memorian;
+  }
+
+  //pega o CEP, usando um servico na internet (postmon)
   $scope.consultCEP = function () {
     var cep = $scope.cerimonia_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
@@ -152,6 +257,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
     });
   };
 
+  //pega os dados do servidor
   $scope.getDadosConvite = function () {
     ConfiguracaoConvite.getData($scope.id).then(function (resp) {
 
@@ -166,6 +272,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
       $scope.cerimonia_rota = $(respXml).find('Tracar_rota_local').text();
       $scope.cerimonia_cep = $(respXml).find('Cep').text();
       $scope.cerimonia_hora = hora[0];
+
       if (hora[1] == "00") {
         $scope.cerimonia_min = "0";
       } else {
@@ -180,20 +287,29 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
       $scope.noiva_pai_memorian = $(respXml).find('Pai_noiva_in_memoriam').text();
       $scope.noivo_mae_memorian = $(respXml).find('Mae_noivo_in_memoriam').text();
       $scope.noivo_pai_memorian = $(respXml).find('Pai_noivo_in_memoriam').text();
+
+      self.setLocalDados();
     });
   };
+
+  // salva os dados no servidor
   $scope.setDadosConvite = function () {
     var hora = $scope.cerimonia_hora + ":" + $scope.cerimonia_min;
     var xml = '<ConfiguracaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.cerimonia_bairro + '</Bairro><Cep>' + $scope.cerimonia_cep + '</Cep><Cidade>' + $scope.cerimonia_cidade + '</Cidade><Endereco>' + $scope.cerimonia_end + '</Endereco><Estado></Estado><Horario_cerimonia>' + hora + '</Horario_cerimonia><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Local_cerimonia>' + $scope.cerimonia_local + '</Local_cerimonia><Mae_noiva>' + $scope.noiva_mae + '</Mae_noiva><Mae_noiva_in_memoriam>' + $scope.noiva_mae_memorian + '</Mae_noiva_in_memoriam><Mae_noivo>' + $scope.noivo_mae + '</Mae_noivo><Mae_noivo_in_memoriam>' + $scope.noivo_mae_memorian + '</Mae_noivo_in_memoriam><Msg1></Msg1><Msg2></Msg2><Msg3></Msg3><Msg4></Msg4><Msg5></Msg5><Msg6></Msg6><Numero>' + $scope.cerimonia_numero + '</Numero><Obs></Obs><Pai_noiva>' + $scope.noiva_pai + '</Pai_noiva><Pai_noiva_in_memoriam>' + $scope.noiva_pai_memorian + '</Pai_noiva_in_memoriam><Pai_noivo>' + $scope.noivo_pai + '</Pai_noivo><Pai_noivo_in_memoriam>' + $scope.noivo_pai_memorian + '</Pai_noivo_in_memoriam><Pais></Pais><Tracar_rota_local>' + $scope.cerimonia_rota + '</Tracar_rota_local></ConfiguracaoConvite>';
 
     ConfiguracaoConvite.setData(xml);
+    self.setLocalDados();
   };
 
-  $scope.getDadosConvite();
+  if (user.convite_dados.cerimonia_local === '') {
+    $scope.getDadosConvite();
+  } else {
+    self.getLocalDados();
+  }
 
 }]);
 
-angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http','ConfiguracaoTemplateConvite', function ($scope, $http,ConfiguracaoTemplateConvite) {
+angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http', 'ConfiguracaoTemplateConvite', function ($scope, $http, ConfiguracaoTemplateConvite) {
 
   $scope.layoutSelecionado;
 
@@ -242,8 +358,6 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   $http.get('data/convites.json')
     .then(function (res) {
       $scope.convites = res.data;
-
-      $scope.setConvite('convite1', './image/convites/convite1.png');
     });
 
   $scope.setConvite = function (convite, imagem) {
@@ -260,7 +374,10 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     $scope.bloco_cerimonia = bloco.bloco_cerimonia;
   };
   ConfiguracaoTemplateConvite.getData($scope.id).then(function (resp) {
+    var modelo = $(resp).find('id_modelo').text();
+    $scope.setConvite('convite' + modelo + '', './image/convites/convite' + modelo + '.png');
     console.log(resp);
+    console.log($scope.nome_noivo);
   });
   // $scope.priceSlide = 12;
 
@@ -545,15 +662,15 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
   }
 
   $scope.adicionarConvidado = function () {
-    if ($scope.canvidado_nome != "" && $scope.canvidado_nome != null) {
-      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + $scope.canvidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.canvidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + $scope.canvidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+    if ($scope.convidado_nome != "" && $scope.convidado_nome != null) {
+      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + $scope.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + $scope.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
 
       Convidados.setData(xmlVar).then(function (resp) {
         $scope.getConvidados();
-        $scope.canvidado_nome = "";
-        $scope.canvidado_acompanhantes = "";
-        $scope.canvidado_email = "";
-        $scope.canvidado_telefone = "";
+        $scope.convidado_nome = "";
+        $scope.convidado_acompanhantes = "";
+        $scope.convidado_email = "";
+        $scope.convidado_telefone = "";
       });
     }
   }
