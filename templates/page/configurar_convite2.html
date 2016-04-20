@@ -19,33 +19,22 @@
       <img ng-src="{{layoutSelecionado}}" alt="">
 
       <p class="bloco_pais_noiva bloco" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}">
-        nome do pai da noiva
-        <br> nome da mãe da noiva
-      </p>
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}" ng-bind-html="conteudo_pais_noiva"></p>
+
       <p class="bloco_pais_noivo bloco" ng-style="bloco_pais_noivo" ng-click="setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}">
-        nome do pai do noivo
-        <br> nome da mãe do noivo
-      </p>
-      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}">
-        convidam para a cerimônia de casamento dos seus filhos
-      </p>
-      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}">
-        Nome da noiva &#38; nome do noivo
-      </p>
-      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}">
-        à realizar-se às 16 horas no dia 16/04/16, Paróquia de São Bento em Belo Horizonte
-      </p>
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}" ng-bind-html="conteudo_pais_noivo"></p>
+
+      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}" ng-bind-html="conteudo_msg1"></p>
+
+      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}" ng-bind-html="conteudo_nomecasal"></p>
+
+      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}" ng-bind-html="conteudo_msg2"></p>
 
       <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco bloco" ng-model="bloco_msg_personalizada" ng-style="bloco_msg_personalizada_style"
         ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
 
       <p class="bloco_cerimonia bloco" ng-style="bloco_cerimonia" ng-click="setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}">
-        Paróquia São Bento R. José Batista Ribeiro, 155 - São Bento Belo Horizonte - MG
-      </p>
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}" ng-bind-html="conteudo_msg4"></p>
     </div>
     <!-- col-xs-12 -->
   </div>
