@@ -29,6 +29,29 @@ angular.module("dashboard")
       noivo_mae_memorian: '',
       noivo_pai_memorian: '',
     },
+    convite_formatacao: {
+      bloco_msg_1: {
+        'font-family': 1
+      },
+      bloco_msg_2: {
+        'font-family': 1
+      },
+      bloco_msg_personalizada_style: {
+        'font-family': 1
+      },
+      bloco_cerimonia: {
+        'font-family': 1
+      },
+      bloco_nome_dos_noivos: {
+        'font-family': 1
+      },
+      bloco_pais_noiva: {
+        'font-family': 1
+      },
+      bloco_pais_noivo: {
+        'font-family': 1
+      }
+    },
     recepcao: {
       festa_igual_cerimonia: '',
       festa_local: '',
@@ -279,6 +302,13 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
   var self = this;
 
+  // set font family do bloco
+  $scope.setFont = function (block, font) {
+    //  block['font-family:'] = font;
+    console.log(block);
+    console.log(font);
+  }
+
   // Esconde o painel lateral quando chega perto do radepe
   $(window).scroll(function () {
     var elementoffset = $('#convites_layout').offset();
@@ -316,6 +346,14 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   $http.get('data/convites.json')
     .then(function (res) {
       $scope.convites = res.data;
+    });
+
+  //carrega as fonts
+  $http.get('data/fonts.json')
+    .then(function (res) {
+      $scope.fonts = res.data;
+      var leo = self.getFonte(100);
+      console.log(leo);
     });
 
   //imagem do convite
@@ -369,6 +407,32 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     }
 
     return retorno;
+  };
+
+  //pega a font baseado no id fornecido
+  self.getFonte = function (id) {
+
+    try {
+      var serif = $scope.fonts['SERIF'][id]['font-name'];
+      return serif;
+    } catch (e) {
+      try {
+        var sansserif = $scope.fonts['SANSSERIF'][id]['font-name'];
+        return sansserif;
+      } catch (e) {
+        try {
+          var display = $scope.fonts['DISPLAY'][id]['font-name'];
+          return display;
+        } catch (e) {
+          try {
+            var handwriting = $scope.fonts['HANDWRITING'][id]['font-name'];
+            return handwriting;
+          } catch (e) {
+            return null;
+          }
+        }
+      }
+    }
   };
 
   //O servico nao reconhece px
@@ -427,13 +491,13 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
       $scope.bloco_nome_dos_noivos["color"] = $(resp).find('cor_nomecasal').text();
       $scope.bloco_pais_noiva["color"] = $(resp).find('cor_pais_noiva').text();
       $scope.bloco_pais_noivo["color"] = $(resp).find('cor_pais_noivo').text();
-      $scope.bloco_msg_1["font-family"] = $(resp).find('fonte_msg1').text();
-      $scope.bloco_msg_2["font-family"] = $(resp).find('fonte_msg2').text();
-      $scope.bloco_msg_personalizada_style["font-family"] = $(resp).find('fonte_msg3').text();
-      $scope.bloco_cerimonia["font-family"] = $(resp).find('fonte_msg4').text();
-      $scope.bloco_nome_dos_noivos["font-family"] = $(resp).find('fonte_nomecasal').text();
-      $scope.bloco_pais_noiva["font-family"] = $(resp).find('fonte_pais_noiva').text();
-      $scope.bloco_pais_noivo["font-family"] = $(resp).find('fonte_pais_noivo').text();
+      $scope.bloco_msg_1["font-family"] = self.getFonte ($(resp).find('fonte_msg1').text());
+      $scope.bloco_msg_2["font-family"] = self.getFonte ($(resp).find('fonte_msg2').text());
+      $scope.bloco_msg_personalizada_style["font-family"] = self.getFonte ($(resp).find('fonte_msg3').text());
+      $scope.bloco_cerimonia["font-family"] = self.getFonte ($(resp).find('fonte_msg4').text());
+      $scope.bloco_nome_dos_noivos["font-family"] = self.getFonte ($(resp).find('fonte_nomecasal').text());
+      $scope.bloco_pais_noiva["font-family"] = self.getFonte ($(resp).find('fonte_pais_noiva').text());
+      $scope.bloco_pais_noivo["font-family"] = self.getFonte ($(resp).find('fonte_pais_noivo').text());
       $scope.bloco_msg_1["font-size"] = $(resp).find('tamanho_fonte_msg1').text() + "px";
       $scope.bloco_msg_2["font-size"] = $(resp).find('tamanho_fonte_msg2').text() + "px";
       $scope.bloco_msg_personalizada_style["font-size"] = $(resp).find('tamanho_fonte_msg3').text() + "px";
@@ -443,9 +507,8 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
       $scope.bloco_pais_noivo["font-size"] = $(resp).find('tamanho_nomecasal').text() + "px";
 
       $scope.bloco_msg_personalizada = $(resp).find('conteudo_msg3').text();
-      console.log($(resp).find('alinhamento_msg3').text());
-      console.log($scope.bloco_msg_personalizada_style);
     }
+    $scope.styleHold = $scope.bloco_pais_noiva;
   });
 
   $scope.saveConfiguracaoConvite = function () {

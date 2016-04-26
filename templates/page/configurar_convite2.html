@@ -18,17 +18,20 @@
 
       <img ng-src="{{layoutSelecionado}}" alt="">
 
-      <p class="bloco_pais_noiva bloco" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva'"
+      <p class="bloco_pais_noiva bloco" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva';setFont(styleHold, 'leo')"
         ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}" ng-bind-html="conteudo_pais_noiva"></p>
 
       <p class="bloco_pais_noivo bloco" ng-style="bloco_pais_noivo" ng-click="setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo'"
         ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}" ng-bind-html="conteudo_pais_noivo"></p>
 
-      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}" ng-bind-html="conteudo_msg1"></p>
+      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}"
+        ng-bind-html="conteudo_msg1"></p>
 
-      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}" ng-bind-html="conteudo_nomecasal"></p>
+      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}" ng-bind-html="conteudo_nomecasal"></p>
 
-      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}" ng-bind-html="conteudo_msg2"></p>
+      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}"
+        ng-bind-html="conteudo_msg2"></p>
 
       <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco bloco" ng-model="bloco_msg_personalizada" ng-style="bloco_msg_personalizada_style"
         ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada'" ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
@@ -44,13 +47,17 @@
     <div class="col-sm-12">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
-        <li role="presentation" ng-class="{active : $scope.tab == 'formato'}"><a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a></li>
-        <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}"><a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a></li>
+        <li role="presentation" ng-class="{active : $scope.tab == 'formato'}">
+          <a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a>
+        </li>
+        <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}">
+          <a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a>
+        </li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
-          <div class="" ng-repeat="valor in convites[convite_individual]">
+          <div ng-repeat="valor in convites[convite_individual]">
             <div ng-show="showBlocos[$index]['ativo']">
               <h4 class="controll__title">Alinhamento</h4>
               <div class="controll_bloco_opcoes">
@@ -72,7 +79,39 @@
           <!-- formato -->
         </div>
         <!--tabpanel-->
-        <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">typefaces</div>
+        <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">
+          <div class="typeface__title">
+            <span>Serif</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="font in fonts.SERIF" ng-style="{'font-family':font['font-name']}">{{font['font-name']}}</li>
+          </ul>
+
+          <div class="typeface__title">
+            <span>Sans Serif</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="font in fonts.SANSSERIF" ng-style="{'font-family':font['font-name']}">{{font['font-name']}}</li>
+          </ul>
+
+          <div class="typeface__title">
+            <span>Display</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="font in fonts.DISPLAY" ng-style="{'font-family':font['font-name']}">{{font['font-name']}}</li>
+          </ul>
+
+          <div class="typeface__title">
+            <span>Handwritting</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="font in fonts.HANDWRITING" ng-style="{'font-family':font['font-name']}" ng-click="setFont($scope.styleHold,font['font-name'])">
+              {{font['font-name']}}
+            </li>
+          </ul>
+
+        </div>
+        <!--tab-pane-->
       </div>
       <!-- tab-content -->
     </div>
