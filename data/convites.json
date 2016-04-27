@@ -7,7 +7,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "17px",
@@ -16,7 +17,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "113px",
@@ -25,7 +27,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "188px",
@@ -34,7 +37,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "303px",
@@ -43,7 +47,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "426px",
@@ -54,7 +59,8 @@
       "max-height": "200px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "251px",
@@ -63,7 +69,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite2": {
@@ -74,7 +81,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "32px",
@@ -83,7 +91,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "154px",
@@ -92,7 +101,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "242px",
@@ -101,7 +111,8 @@
       "height": "100px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "385px",
@@ -110,7 +121,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "465px",
@@ -121,7 +133,8 @@
       "max-height": "170px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "180px",
@@ -130,7 +143,8 @@
       "height": "151px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite3": {
@@ -141,7 +155,8 @@
       "height": "56px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "132px",
@@ -150,7 +165,8 @@
       "height": "56px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "204px",
@@ -159,7 +175,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "303px",
@@ -168,7 +185,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "400px",
@@ -177,7 +195,8 @@
       "height": "85px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "517px",
@@ -188,7 +207,8 @@
       "max-height": "200px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "177px",
@@ -197,7 +217,8 @@
       "height": "96px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite4": {
@@ -208,7 +229,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "130px",
@@ -217,7 +239,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "233px",
@@ -226,7 +249,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "317px",
@@ -235,7 +259,8 @@
       "height": "90px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "432px",
@@ -244,7 +269,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "509px",
@@ -255,7 +281,8 @@
       "max-height": "200px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "161px",
@@ -264,7 +291,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite5": {
@@ -275,7 +303,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "252px",
@@ -284,7 +313,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "365px",
@@ -293,7 +323,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "430px",
@@ -302,7 +333,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "527px",
@@ -311,7 +343,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "620px",
@@ -322,7 +355,8 @@
       "max-height": "100px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "150px",
@@ -331,7 +365,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite6": {
@@ -342,7 +377,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "54px",
@@ -351,7 +387,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "159px",
@@ -360,7 +397,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "273px",
@@ -369,7 +407,8 @@
       "height": "140px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "436px",
@@ -378,7 +417,8 @@
       "height": "71px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "539px",
@@ -389,7 +429,8 @@
       "max-height": "113px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "200px",
@@ -398,7 +439,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite7": {
@@ -409,7 +451,8 @@
       "height": "60px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "84px",
@@ -418,7 +461,8 @@
       "height": "60px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "167px",
@@ -427,7 +471,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "243px",
@@ -436,7 +481,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "337px",
@@ -445,7 +491,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "462px",
@@ -456,7 +503,8 @@
       "max-height": "200px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "181px",
@@ -465,7 +513,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite8": {
@@ -476,7 +525,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "60px",
@@ -485,7 +535,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "170px",
@@ -494,7 +545,8 @@
       "height": "50px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "258px",
@@ -503,7 +555,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "379px",
@@ -512,7 +565,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "450px",
@@ -523,7 +577,8 @@
       "max-height": "200px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "234px",
@@ -532,7 +587,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   },
   "convite9": {
@@ -543,7 +599,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "146px",
@@ -552,7 +609,8 @@
       "height": "80px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_1": {
       "top": "278px",
@@ -561,7 +619,8 @@
       "height": "36px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_nome_dos_noivos": {
       "top": "320px",
@@ -570,7 +629,8 @@
       "height": "74px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_2": {
       "top": "422px",
@@ -579,7 +639,8 @@
       "height": "61px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "556px",
@@ -590,7 +651,8 @@
       "max-height": "91px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     },
     "bloco_cerimonia": {
       "bottom": "54px",
@@ -599,7 +661,8 @@
       "height": "120px",
       "font-size": "14px",
       "text-align": "left",
-      "font-family": ""
+      "font-family": "",
+      "color": "#000"
     }
   }
 }
