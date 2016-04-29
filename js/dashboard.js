@@ -65,7 +65,8 @@ angular.module("dashboard")
     lista_hotel: [],
     lista_salao: [],
     lista_presente: [],
-    lista_convidados: []
+    lista_convidados: [],
+    lista_cardapio: []
   });
 
 //Controllers
@@ -555,6 +556,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
     ConfiguracaoEvento.setData(xmlVar);
   };
+
   $scope.consultCEP = function () {
     var cep = $scope.festa_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
@@ -779,6 +781,9 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       valor: 'R$'
     }
   ];
+
+
+// CARDAPIO
 
 }]);
 

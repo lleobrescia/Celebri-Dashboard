@@ -1,11 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:400,700|Playfair+Display:400,700);
-
 @import url(https://fonts.googleapis.com/css?family=Slabo+27px|Lora:400,400italic,700,700italic|Roboto+Slab:400,100|Droid+Serif:400,400italic,700,700italic|Merriweather:400,400italic,900,900italic|PT+Serif:400,400italic,700,700italic|Playfair+Display:400,400italic,700,700italic,900,900italic|Bitter:400,400italic,700|Arvo:400,400italic,700,700italic|Bree+Serif|Libre+Baskerville:400,400italic,700|Crimson+Text:400,400italic,700,700italic|Rokkitt:400,700|Cinzel:400,900|Josefin+Slab:400,400italic,600,600italic,700,700italic|Noticia+Text:400,400italic,700,700italic|Domine:400,700|Old+Standard+TT:400,400italic,700|Quattrocento:400,700|Vidaloka|Arapey|Playfair+Display+SC:400,400italic,700,700italic,900,900italic|Alice|Ultra|Arbutus+Slab);
-
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600,600italic,800,800italic|Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100,100italic|Oswald:400,300,700|Roboto+Condensed:400,300,300italic,400italic,700,700italic|Montserrat:400,700|Source+Sans+Pro:400,600,600italic,700,700italic,900,900italic|PT+Sans:400,400italic,700,700italic|Open+Sans+Condensed:300,300italic,700|Arimo:400,400italic,700,700italic|Fjalla+One|PT+Sans+Narrow:400,700|Alegreya+Sans:400,300,300italic,400italic,700,700italic,900,900italic|Candal|Yanone+Kaffeesatz:400,700|Ubuntu+Condensed|Francois+One|Pathway+Gothic+One|Hammersmith+One|Archivo+Black|Economica:400,400italic);
-
 @import url(https://fonts.googleapis.com/css?family=Pacifico|Dancing+Script|Kaushan+Script|Satisfy|Courgette|Cookie|Pinyon+Script|Tangerine|Great+Vibes|Niconne|Damion|Alex+Brush|Yellowtail|Allura|Grand+Hotel|Parisienne|Rochester|Berkshire+Swash|Italianno|Arizonia|Condiment|Rouge+Script|Bilbo|Monsieur+La+Doulaise|Romanesco);
-
 @import url(https://fonts.googleapis.com/css?family=Lobster|Patua+One|Abril+Fatface|Lobster+Two|Fugaz+One|Playball|Oleo+Script|Sansita+One|Cinzel+Decorative|UnifrakturMaguntia|Oleo+Script+Swash+Caps|Yeseva+One|Lily+Script+One|Sail|Dynalight|Pirata+One);
 
 /*GERAL*/
@@ -234,6 +230,18 @@ input[type=checkbox], input[type=radio] {
   background: #8ECC44;
 }
 
+.btn__question {
+    width: 29px;
+    height: 29px;
+    background: #d2d3d5;
+    color: black;
+    font-size: 1.6em;
+    display: inline-block;
+    border-radius: 20px;
+    line-height: 29px;
+    text-align: center;
+}
+
 
 /*FORM GERAL*/
 
@@ -253,6 +261,16 @@ input[type=checkbox], input[type=radio] {
   margin-bottom: 25px;
   outline-color: #ff7c7c;
   width: 100%;
+}
+
+.form textarea {
+  font-family: 'Roboto Condensed';
+  font-size: 1.6em;
+  padding: 12px;
+  margin-bottom: 25px;
+  outline-color: #ff7c7c;
+  width: 100%;
+  height: 215px;
 }
 
 .form .input__radio {
