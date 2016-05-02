@@ -534,7 +534,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   // $scope.priceSlide = 12;
 }]);
 
-angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes) {
+angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio) {
 
   $scope.getDadosEvento = function () {
     ConfiguracaoEvento.getData($scope.id).then(function (resp) {
@@ -783,7 +783,52 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   ];
 
 
-// CARDAPIO
+  // CARDAPIO
+  $scope.getListaCardapio = function () {
+    Cardapio.getData(user.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      user.lista_cardapio = [];
+      $(respXml).find('Cardapio').each(function () {
+
+        user.lista_cardapio.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'Nome': $(this).find('Nome').text(),
+            'Descricao': $(this).find('Descricao').text()
+          }
+        );
+      });
+      $scope.lista_cardapio = user.lista_cardapio;
+    });
+  };
+
+  $scope.setCardapio = function () {
+
+    if ($scope.cardapio_descricao != "" && $scope.cardapio_descricao != null) {
+      var xmlVar = '<Cardapio xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Descricao>' + $scope.cardapio_descricao + '</Descricao><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.cardapio_title + '</Nome></Cardapio>';
+
+      Cardapio.setData(xmlVar).then(function (resp) {
+        $scope.getListaCardapio();
+        $scope.cardapio_title = "";
+        $scope.cardapio_descricao = "";
+      });
+    }
+  };
+
+  $scope.removerCardapio = function (id, key) {
+    Cardapio.remove(user.id, id).then(function (resp) {
+      user.lista_cardapio.splice(key, 1);
+
+      $scope.lista_cardapio = user.lista_cardapio;
+    });
+  };
+
+  if (user.lista_cardapio.length == 0) {
+    $scope.getListaCardapio();
+  } else {
+    $scope.lista_cardapio = null;
+    $scope.lista_cardapio = user.lista_cardapio;
+  }
 
 }]);
 

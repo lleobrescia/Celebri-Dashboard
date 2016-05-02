@@ -34,12 +34,13 @@
 
     <div class="festa_igual_cerimonia" ng-if="festa_igual_cerimonia != 'true'">
 
+      <!-- #REGION DADOS DA SERIMONIA -->
       <div class="row">
         <div class="col-sm-7">
           <p class="form__title">
             Nome do local da recepção
           </p>
-          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" >
+          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-7 -->
 
@@ -104,6 +105,8 @@
       </div>
       <!-- row -->
 
+      <!-- #ENDREGION DADOS DA SERIMONIA -->
+
       <div class="row" ng-if="$scope.change">
         <div class="col-sm-3">
           <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosEvento(); $scope.change = false">
@@ -133,6 +136,7 @@
     </div>
     <!-- row -->
 
+    <!-- #REGION CADASTRO DE HOTEL -->
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
@@ -210,8 +214,10 @@
       <!-- col-sm-3 -->
     </div>
     <!-- row -->
+    <!-- #ENDREGION CADASTRO DE HOTEL -->
 
     <div class="row">
+      <!-- #REGION LISTA DE HOTEL -->
       <div class="col-sm-10">
         <div class="tabela" ng-if="hotel_lista.length > 0">
           <div class="tabela__header">
@@ -229,12 +235,15 @@
         <!-- tabela -->
       </div>
       <!-- col-xs-12 -->
+      <!-- #ENDREGION LISTA DE HOTEL -->
     </div>
     <!-- row -->
 
     <hr>
 
     <div class="row">
+
+      <!-- #REGION CADASTRO DE SALAO -->
       <div class="col-xs-12">
         <h3><strong>Salão de Beleza</strong></h3>
         <p style="margin-bottom:46px">
@@ -320,11 +329,14 @@
         <!-- btn -->
       </div>
       <!-- col-sm-3 -->
+      <!-- #ENDREGION CADASTRO DE SALAO -->
+
     </div>
     <!-- row -->
 
     <div class="row">
       <div class="col-sm-10">
+        <!-- #REGION TABELA DE SALAO -->
         <div class="tabela" ng-if="salao_lista.length > 0">
           <div class="tabela__header">
             Salões cadastrados:
@@ -339,6 +351,7 @@
           <!-- tabela__item -->
         </div>
         <!-- tabela -->
+        <!-- #ENDREGION CADASTRO DE SALAO -->
       </div>
       <!-- col-sm-1 -->
     </div>
@@ -348,6 +361,8 @@
 
     <div class="row">
       <div class="col-xs-12">
+
+        <!-- #REGION CADASTRO DA LISTA DE PRESENTE -->
         <h3><strong>Lista de presentes</strong></h3>
         <p style="margin-bottom:46px;position: relative">
           Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento. Basta copiar e colar a
@@ -355,7 +370,7 @@
             URL do site
           </span>
           <img ng-if="$scope.urlimage" src="./image/urlSite.png" alt="" style="position: absolute;cursor: pointer;top: -150px;right: 0;"
-          ng-click="$scope.urlimage = !$scope.urlimage">
+            ng-click="$scope.urlimage = !$scope.urlimage">
         </p>
       </div>
       <!-- col-xs-12 -->
@@ -389,7 +404,9 @@
       <!-- col-sm-3  -->
     </div>
     <!-- row -->
+    <!-- #ENDREGION CADASTRO DE LISTA DE PRESENTE -->
 
+    <!-- #REGION LISTA DA LISTA DE PRESENTE -->
     <div class="row">
       <div class="col-sm-10">
         <div class="tabela" ng-if="loja_lista.length > 0">
@@ -410,6 +427,71 @@
       <!-- col-sm-10 -->
     </div>
     <!-- row -->
+    <!-- #ENDREGION LISTA DA LISTA DE PRESENTE -->
+
+    <hr>
+
+    <!-- #REGION CADASTRO CARDAPIO -->
+    <div class="row">
+      <div class="col-xs-12">
+        <h3><strong>Cardápio</strong></h3>
+        <p style="margin-bottom:46px;position:relative" ng-init="$scope.cardapido_exemplo = false">
+          Descreva aqui o cardápio que será usado na sua festa de casamento, para manter os seus convidados ainda mais informados.
+          Basta escrever o texto corrido. <a href="" ng-click="$scope.cardapido_exemplo = !$scope.cardapido_exemplo">Clique aqui</a>          para visualizar um exemplo de como ele aparecerá no aplicativo de seus convidados.
+          <img src="image/cardapido_exemplo.png" alt="Cardapio Exemplo" style="position: absolute;z-index: 1;left: 159px;top: -98px;"
+            ng-if="$scope.cardapido_exemplo" ng-click="$scope.cardapido_exemplo = false">
+        </p>
+      </div>
+      <!-- col-xs-12 -->
+
+      <div class="col-sm-10">
+        <p class="form__title">
+          Título da etapa
+        </p>
+        <input type="text" name="cardapio_title" ng-model="cardapio_title" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
+
+        <p class="form__title">
+          Descrição do cardápio
+        </p>
+        <textarea name="cardapio_descricao" ng-model="cardapio_descricao" placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
+      </div>
+      <!--col-sm-10-->
+    </div>
+    <!--row-->
+    <div class="row">
+      <div class="col-sm-3 col-sm-offset-7">
+        <div class="btn btn--save" ng-click="setCardapio()">
+          Adicionar
+        </div>
+      </div>
+      <!-- col-sm-3  -->
+    </div>
+    <!-- row -->
+    <!-- #ENDREGION CADASTRO CARDAPIO -->
+
+
+    <!-- #REGION LISTA DA LISTA DE PRESENTE -->
+    <div class="row">
+      <div class="col-sm-10">
+        <div class="tabela" ng-if="lista_cardapio.length > 0">
+          <div class="tabela__header">
+            Cardápio cadastrado:
+          </div>
+          <!-- tabela__header -->
+          <div class="tabela__item" ng-repeat="(key,value) in lista_cardapio">
+            <p>
+              {{value.Nome}}
+            </p>
+            <span ng-click="removerCardapio(value.Id,key)">X Remover</span>
+          </div>
+          <!-- tabela__item -->
+        </div>
+        <!-- tabela -->
+      </div>
+      <!-- col-sm-10 -->
+    </div>
+    <!-- row -->
+    <!-- #ENDREGION LISTA DA LISTA DE PRESENTE -->
 
     <hr>
 
@@ -464,6 +546,8 @@
       <!-- row -->
 
       <div class="row">
+
+        <!-- #REGION CADASTRO MOIP -->
         <div class="col-md-7">
           <p class="form__title">
             Nome do noivo(a)
@@ -494,7 +578,7 @@
             Data de nascimento
           </p>
           <input type="date" name="moip_nascimento" ng-model="moip_nascimento" ng-change="$scope.change = true" mask="99/99/9999" restrict="reject"
-          limit="false">
+            limit="false">
         </div>
         <!-- col-md-3 -->
       </div>
@@ -568,6 +652,8 @@
           </div>
         </div>
         <!-- col-sm-3  -->
+        <!-- #ENDREGION CADASTRO MOIP -->
+
       </div>
       <!-- row -->
 
