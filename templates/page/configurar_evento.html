@@ -478,11 +478,15 @@
             Cardápio cadastrado:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in lista_cardapio">
+          <div class="tabela__item" ng-repeat="(key,value) in lista_cardapio" style="height:auto">
             <p>
               {{value.Nome}}
             </p>
+            <p style="width: 50%;line-height: 1.2;clear:both">
+              {{value.Descricao}}
+            </p>
             <span ng-click="removerCardapio(value.Id,key)">X Remover</span>
+            <div class="clearfix"></div>
           </div>
           <!-- tabela__item -->
         </div>
