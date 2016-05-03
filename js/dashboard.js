@@ -536,189 +536,8 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
 angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio) {
 
-  $scope.getDadosEvento = function () {
-    ConfiguracaoEvento.getData($scope.id).then(function (resp) {
-
-      var respXml = $.parseXML(resp);
-      $scope.festa_igual_cerimonia = $(respXml).find('Mesmo_local_cerimonia').text();
-      $scope.festa_local = $(respXml).find('Local_festa').text();
-      $scope.festa_end = $(respXml).find('Endereco').text();
-      $scope.festa_numero = $(respXml).find('Numero').text();
-      $scope.festa_bairro = $(respXml).find('Bairro').text();
-      $scope.festa_cidade = $(respXml).find('Cidade').text();
-      $scope.festa_rota = $(respXml).find('Tracar_rota_local').text();
-      $scope.festa_cep = $(respXml).find('Cep').text();
-    });
-  };
-  $scope.setDadosEvento = function () {
-
-    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + $scope.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Local_festa>' + $scope.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
-
-    ConfiguracaoEvento.setData(xmlVar);
-  };
-
-  $scope.consultCEP = function () {
-    var cep = $scope.festa_cep.replace(/\./g, '');
-    cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.festa_end = data.logradouro;
-        $scope.festa_bairro = data.bairro;
-        $scope.festa_cidade = data.cidade;
-      }
-    });
-  };
-
-
-  //HOTEL
-  $scope.consultCEPHotel = function () {
-    $scope.hotel_cep;
-    var cep = $scope.hotel_cep.replace(/\./g, '');
-    cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.hotel_end = data.logradouro;
-        $scope.hotel_bairro = data.bairro;
-        $scope.hotel_cidade = data.cidade;
-      }
-    });
-  };
-  $scope.getHoteis = function () {
-    ListaHoteis.getData($scope.id).then(function (resp) {
-      var respXml = $.parseXML(resp);
-      $scope.hotel_lista = [];
-      $(respXml).find('ConfiguracaoGenericaEndereco').each(function () {
-        $scope.hotel_lista.push(
-          {
-            'Id': $(this).find('Id').text(),
-            'Local': $(this).find('Nome').text(),
-            'Endereco': $(this).find('Endereco').text(),
-            'Numero': $(this).find('Numero').text(),
-            'Bairro': $(this).find('Bairro').text(),
-            'Cidade': $(this).find('Cidade').text()
-          }
-        );
-      });
-    });
-  };
-  $scope.getHoteis();
-  $scope.removeHotel = function (id, key) {
-
-    ListaHoteis.remove($scope.id, id).then(function (resp) {
-      $scope.hotel_lista.splice(key, 1);
-    });
-
-  };
-  $scope.adicionarHotel = function () {
-    if ($scope.hotel_local != "" && $scope.hotel_local != null) {
-
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.hotel_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
-
-      ListaHoteis.setData(xmlVar).then(function (resp) {
-        $scope.getHoteis();
-        $scope.hotel_local = "";
-        $scope.hotel_cep = "";
-        $scope.hotel_end = "";
-        $scope.hotel_numero = "";
-        $scope.hotel_bairro = "";
-        $scope.hotel_cidade = "";
-      });
-    }
-  };
-
-
-  //SALAO
-  $scope.consultCEPSalao = function () {
-    var cep = $scope.salao_cep.replace(/\./g, '');
-    cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.salao_end = data.logradouro;
-        $scope.salao_bairro = data.bairro;
-        $scope.salao_cidade = data.cidade;
-      }
-    });
-  };
-  $scope.getSaloes = function () {
-    ListaSaloes.getData($scope.id).then(function (resp) {
-      var respXml = $.parseXML(resp);
-      $scope.salao_lista = [];
-      $(respXml).find('ConfiguracaoGenericaEndereco').each(function () {
-
-        $scope.salao_lista.push(
-          {
-            'Id': $(this).find('Id').text(),
-            'Local': $(this).find('Nome').text(),
-            'Endereco': $(this).find('Endereco').text(),
-            'Numero': $(this).find('Numero').text(),
-            'Bairro': $(this).find('Bairro').text(),
-            'Cidade': $(this).find('Cidade').text()
-          }
-        );
-      });
-    });
-  };
-  $scope.getSaloes();
-  $scope.removeSalao = function (id, key) {
-    ListaSaloes.remove($scope.id, id).then(function (resp) {
-      $scope.salao_lista.splice(key, 1);
-    });
-  };
-  $scope.adicionarSalao = function () {
-    if ($scope.salao_local != "" && $scope.salao_local != null) {
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea>String content</CodigoArea><Email>String content</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>String content</Estado><Id>0</Id><Id_usuario_logado>15</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs>String content</Obs><Pais>String content</Pais><Site>String content</Site><Telefone>String content</Telefone><TipoLogradouro>String content</TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
-
-      ListaSaloes.setData(xmlVar).then(function (resp) {
-        $scope.getSaloes();
-        $scope.getSaloes();
-        $scope.salao_local = "";
-        $scope.salao_cep = "";
-        $scope.salao_end = "";
-        $scope.salao_numero = "";
-        $scope.salao_bairro = "";
-        $scope.salao_cidade = "";
-      });
-
-    }
-  };
-
-  //PRESENTE
-  $scope.getPresentes = function () {
-    LojaPresentes.getData($scope.id).then(function (resp) {
-      var respXml = $.parseXML(resp);
-      $scope.loja_lista = [];
-      $(respXml).find('ConfiguracaoLojaPresentes').each(function () {
-        $scope.loja_lista.push(
-          {
-            'Id': $(this).find('Id').text(),
-            'Nome': $(this).find('Nome').text(),
-            'URL': $(this).find('Url').text()
-          }
-        );
-      });
-    });
-  };
-  $scope.getPresentes();
-  $scope.removeUrl = function (id, key) {
-    LojaPresentes.remove($scope.id, id).then(function (resp) {
-      $scope.loja_lista.splice(key, 1);
-    });
-  };
-  $scope.adicionarUrl = function () {
-    if ($scope.loja_nome != "" && $scope.loja_nome != null) {
-      var xmlVar = '<ConfiguracaoLojaPresentes xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.loja_nome + '</Nome><Url>' + $scope.loja_url + '</Url></ConfiguracaoLojaPresentes>';
-
-      LojaPresentes.setData(xmlVar).then(function (resp) {
-        $scope.getPresentes();
-        $scope.loja_nome = "";
-        $scope.loja_url = "";
-      });
-    }
-  };
-
+  /** #REGION VARIAVEIS */
+  var self = this;
   $scope.produtos = [
     {
       nome: 'Cappucino em um café bacana',
@@ -781,9 +600,286 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       valor: 'R$'
     }
   ];
+  /** #ENDREGION VARIAVEIS */
 
 
-  // CARDAPIO
+  /**
+   * pega todos os dados dos servicos;
+   * dados do evento;hoteis;saloes;presentes;cardapio
+   */
+  self.getDadosServico = function () {
+    $scope.getDadosEvento();
+    $scope.getHoteis();
+    $scope.getSaloes();
+    $scope.getPresentes();
+    $scope.getListaCardapio();
+  };
+
+  //Armazena localmente as informações do serviço da Cerimonia
+  self.cerimoniaRemotoToLocal = function () {
+    user.recepcao.festa_igual_cerimonia = $scope.festa_igual_cerimonia;
+    user.recepcao.festa_local = $scope.festa_local;
+    user.recepcao.festa_end = $scope.festa_end;
+    user.recepcao.festa_numero = $scope.festa_numero;
+    user.recepcao.festa_bairro = $scope.festa_bairro;
+    user.recepcao.festa_cidade = $scope.festa_cidade;
+    user.recepcao.festa_rota = $scope.festa_rota;
+    user.recepcao.festa_cep = $scope.festa_cep;
+  };
+
+  //Pega os dados que estao armezados localmente e coloca no site
+  self.getDadosLocal = function () {
+    $scope.festa_igual_cerimonia = user.recepcao.festa_igual_cerimonia;
+    $scope.festa_local = user.recepcao.festa_local;
+    $scope.festa_end = user.recepcao.festa_end;
+    $scope.festa_numero = user.recepcao.festa_numero;
+    $scope.festa_bairro = user.recepcao.festa_bairro;
+    $scope.festa_cidade = user.recepcao.festa_cidade;
+    $scope.festa_rota = user.recepcao.festa_rota;
+    $scope.festa_cep = user.recepcao.festa_cep;
+
+    $scope.hotel_lista = user.lista_hotel;
+    $scope.salao_lista = user.lista_salao;
+    $scope.loja_lista = user.lista_presente;
+    $scope.lista_cardapio = user.lista_cardapio;
+
+    console.log(user.recepcao.festa_igual_cerimonia);
+    console.log($scope.festa_igual_cerimonia);
+  }
+
+  /** #REGION DADOS DA CERIMONIA */
+
+  $scope.getDadosEvento = function () {
+    ConfiguracaoEvento.getData($scope.id).then(function (resp) {
+
+      var respXml = $.parseXML(resp);
+      $scope.festa_igual_cerimonia = $(respXml).find('Mesmo_local_cerimonia').text();
+      $scope.festa_local = $(respXml).find('Local_festa').text();
+      $scope.festa_end = $(respXml).find('Endereco').text();
+      $scope.festa_numero = $(respXml).find('Numero').text();
+      $scope.festa_bairro = $(respXml).find('Bairro').text();
+      $scope.festa_cidade = $(respXml).find('Cidade').text();
+      $scope.festa_rota = $(respXml).find('Tracar_rota_local').text();
+      $scope.festa_cep = $(respXml).find('Cep').text();
+
+      //add informacao local
+      self.cerimoniaRemotoToLocal();
+    });
+  };
+  $scope.setDadosEvento = function () {
+
+    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + $scope.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Local_festa>' + $scope.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+
+    //envia para o servico
+    ConfiguracaoEvento.setData(xmlVar);
+
+    //add informacao local
+    self.cerimoniaRemotoToLocal();
+  };
+
+  $scope.consultCEP = function () {
+    var cep = $scope.festa_cep.replace(/\./g, '');
+    cep = cep.replace(/\-/g, '');
+    $.ajax({
+      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+      success: function (data) {
+        $scope.festa_end = data.logradouro;
+        $scope.festa_bairro = data.bairro;
+        $scope.festa_cidade = data.cidade;
+      }
+    });
+  };
+
+  /** #ENDREGION DADOS DA CERIMONIA */
+
+  /** #REGION HOTEL */
+  $scope.consultCEPHotel = function () {
+    $scope.hotel_cep;
+    var cep = $scope.hotel_cep.replace(/\./g, '');
+    cep = cep.replace(/\-/g, '');
+    $.ajax({
+      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+      success: function (data) {
+        $scope.hotel_end = data.logradouro;
+        $scope.hotel_bairro = data.bairro;
+        $scope.hotel_cidade = data.cidade;
+      }
+    });
+  };
+
+  $scope.getHoteis = function () {
+    ListaHoteis.getData($scope.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      $scope.hotel_lista = [];
+      $(respXml).find('ConfiguracaoGenericaEndereco').each(function () {
+        $scope.hotel_lista.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'Local': $(this).find('Nome').text(),
+            'Endereco': $(this).find('Endereco').text(),
+            'Numero': $(this).find('Numero').text(),
+            'Bairro': $(this).find('Bairro').text(),
+            'Cidade': $(this).find('Cidade').text()
+          }
+        );
+      });
+      //Armazena localmente
+      user.lista_hotel = $scope.hotel_lista;
+    });
+  };
+
+  $scope.removeHotel = function (id, key) {
+
+    ListaHoteis.remove($scope.id, id).then(function () {
+      $scope.hotel_lista.splice(key, 1);
+
+      //Atualiza localmente
+      user.lista_hotel = $scope.hotel_lista;
+    });
+
+  };
+  $scope.adicionarHotel = function () {
+    if ($scope.hotel_local != "" && $scope.hotel_local != null) {
+
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.hotel_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+
+      ListaHoteis.setData(xmlVar).then(function (resp) {
+        /**
+         * Eh necessario puxar o conteudo do servico novamente
+         * pq o ID do novo hotel eh gerado no servico.
+         */
+        $scope.getHoteis();
+
+        //limpa dos dados do formulario
+        $scope.hotel_local = "";
+        $scope.hotel_cep = "";
+        $scope.hotel_end = "";
+        $scope.hotel_numero = "";
+        $scope.hotel_bairro = "";
+        $scope.hotel_cidade = "";
+      });
+    }
+  };
+  /** #ENDREGION HOTEL */
+
+  /** #REGION SALAO */
+  $scope.consultCEPSalao = function () {
+    var cep = $scope.salao_cep.replace(/\./g, '');
+    cep = cep.replace(/\-/g, '');
+    $.ajax({
+      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+      success: function (data) {
+        $scope.salao_end = data.logradouro;
+        $scope.salao_bairro = data.bairro;
+        $scope.salao_cidade = data.cidade;
+      }
+    });
+  };
+  $scope.getSaloes = function () {
+    ListaSaloes.getData($scope.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      $scope.salao_lista = [];
+      $(respXml).find('ConfiguracaoGenericaEndereco').each(function () {
+
+        $scope.salao_lista.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'Local': $(this).find('Nome').text(),
+            'Endereco': $(this).find('Endereco').text(),
+            'Numero': $(this).find('Numero').text(),
+            'Bairro': $(this).find('Bairro').text(),
+            'Cidade': $(this).find('Cidade').text()
+          }
+        );
+      });
+
+      //armazena localmente
+      user.lista_salao = $scope.salao_lista;
+    });
+  };
+
+  $scope.removeSalao = function (id, key) {
+    ListaSaloes.remove($scope.id, id).then(function (resp) {
+      $scope.salao_lista.splice(key, 1);
+
+      //atualiza localmente
+      user.lista_salao = $scope.salao_lista;
+    });
+  };
+  $scope.adicionarSalao = function () {
+    if ($scope.salao_local != "" && $scope.salao_local != null) {
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea>String content</CodigoArea><Email>String content</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>String content</Estado><Id>0</Id><Id_usuario_logado>15</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs>String content</Obs><Pais>String content</Pais><Site>String content</Site><Telefone>String content</Telefone><TipoLogradouro>String content</TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+
+      ListaSaloes.setData(xmlVar).then(function (resp) {
+        /**
+         * Eh necessario puxar o conteudo do servico novamente
+         * pq o ID do novo salao eh gerado no servico.
+         */
+        $scope.getSaloes();
+
+        //limpa os dados do formulario
+        $scope.salao_local = "";
+        $scope.salao_cep = "";
+        $scope.salao_end = "";
+        $scope.salao_numero = "";
+        $scope.salao_bairro = "";
+        $scope.salao_cidade = "";
+      });
+
+    }
+  };
+  /** #ENDREGION SALAO */
+
+  /** #REGION LISTA DE PRESENTE */
+  $scope.getPresentes = function () {
+    LojaPresentes.getData($scope.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      $scope.loja_lista = [];
+      $(respXml).find('ConfiguracaoLojaPresentes').each(function () {
+        $scope.loja_lista.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'Nome': $(this).find('Nome').text(),
+            'URL': $(this).find('Url').text()
+          }
+        );
+      });
+
+      //armazena localmente
+      user.lista_presente = $scope.loja_lista;
+    });
+  };
+
+  $scope.removeUrl = function (id, key) {
+    LojaPresentes.remove($scope.id, id).then(function (resp) {
+      $scope.loja_lista.splice(key, 1);
+
+      //atualiza localmente
+      user.lista_presente = $scope.loja_lista;
+    });
+  };
+  $scope.adicionarUrl = function () {
+    if ($scope.loja_nome != "" && $scope.loja_nome != null) {
+      var xmlVar = '<ConfiguracaoLojaPresentes xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id>0</Id><Id_usuario_logado>' + $scope.id + '</Id_usuario_logado><Nome>' + $scope.loja_nome + '</Nome><Url>' + $scope.loja_url + '</Url></ConfiguracaoLojaPresentes>';
+
+      LojaPresentes.setData(xmlVar).then(function (resp) {
+        /**
+         * Eh necessario puxar o conteudo do servico novamente
+         * pq o ID do novo presente eh gerado no servico.
+         */
+        $scope.getPresentes();
+
+        //limpa so dados do formulario
+        $scope.loja_nome = "";
+        $scope.loja_url = "";
+      });
+
+
+    }
+  };
+  /** #ENDREGION LISTA DE PRESENTE */
+
+  /** #REGION CARDAPIO */
   $scope.getListaCardapio = function () {
     Cardapio.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
@@ -808,7 +904,13 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       var xmlVar = '<Cardapio xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Descricao>' + $scope.cardapio_descricao + '</Descricao><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.cardapio_title + '</Nome></Cardapio>';
 
       Cardapio.setData(xmlVar).then(function (resp) {
+        /**
+         * Eh necessario puxar o conteudo do servico novamente
+         * pq o ID do novo cardapio eh gerado no servico.
+         */
         $scope.getListaCardapio();
+
+        //limpa dados do formulario
         $scope.cardapio_title = "";
         $scope.cardapio_descricao = "";
       });
@@ -822,14 +924,17 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       $scope.lista_cardapio = user.lista_cardapio;
     });
   };
+  /** #ENDREGION LISTA DE PRESENTE */
 
-  if (user.lista_cardapio.length == 0) {
-    $scope.getListaCardapio();
+  /** SETUP */
+  if (user.recepcao.festa_igual_cerimonia == ''
+    || user.recepcao.festa_igual_cerimonia == null) {
+
+    self.getDadosServico();
+
   } else {
-    $scope.lista_cardapio = null;
-    $scope.lista_cardapio = user.lista_cardapio;
+    self.getDadosLocal();
   }
-
 }]);
 
 angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'Upload', function ($scope, Convidados, Upload) {
@@ -874,6 +979,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
       });
     }
   }
+
 }]);
 
 angular.module("dashboard").controller('enviar_convite', ['$scope', function ($scope) { }]);
