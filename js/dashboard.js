@@ -60,7 +60,8 @@ angular.module("dashboard")
       festa_bairro: '',
       festa_cidade: '',
       festa_rota: '',
-      festa_cep: ''
+      festa_cep: '',
+      haveMoip: false
     },
     lista_hotel: [],
     lista_salao: [],
@@ -534,7 +535,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   // $scope.priceSlide = 12;
 }]);
 
-angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio) {
+angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', 'Moip', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio, Moip) {
 
   /** #REGION VARIAVEIS */
   var self = this;
@@ -613,6 +614,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     $scope.getSaloes();
     $scope.getPresentes();
     $scope.getListaCardapio();
+    $scope.verificaMoip();
   };
 
   //Armazena localmente as informações do serviço da Cerimonia
@@ -643,8 +645,9 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     $scope.loja_lista = user.lista_presente;
     $scope.lista_cardapio = user.lista_cardapio;
 
-    console.log(user.recepcao.festa_igual_cerimonia);
-    console.log($scope.festa_igual_cerimonia);
+    if (user.recepcao.haveMoip == true) {
+      $scope.moip__form = { 'display': 'none' };
+    }
   }
 
   /** #REGION DADOS DA CERIMONIA */
@@ -925,6 +928,24 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     });
   };
   /** #ENDREGION LISTA DE PRESENTE */
+
+  /** #REGION MOIP */
+  $scope.verificaMoip = function () {
+    Moip.verificar(user.id).then(function (resp) {
+      if ($(this).find('Result').text() == true) {
+        $scope.moip__form = { 'display': 'none' };
+      }
+      user.recepcao.haveMoip = $(this).find('Result').text();
+    });
+  };
+  $scope.cadastrarMoip = function () {
+    var nome = $scope.moip_nome.split(' ');
+    var estado = $scope.moip_estado.split(' ');
+
+    var xml = '<ContaMoip xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cep>'+$scope.moip_cep+'</Cep>  <Cidade>'+$scope.moip_cidade+'</Cidade>  <CodigoAreaTelefone>31</CodigoAreaTelefone>  <Cpf>'+$scope.moip_cpf+'</Cpf>  <DataNascimento>'+$scope.moip_nascimento+'</DataNascimento> <Email>'+$scope.moip_email+'</Email>  <Endereco>'+$scope.moip_rua+' - '+$scope.moip_bairro+'</Endereco>  <Estado>'+$scope.moip_estado+'</Estado>  <Id>0</Id>  <Id_usuario_logado>'+user.id+'</Id_usuario_logado>  Nome>'+nome[0]+'</Nome>  <Numero>'+$scope.moip_numero+'</Numero>  <NumeroTelefone>993684545</NumeroTelefone>  <Sigla_Estado>'+(estado[0])[0]+'</Sigla_Estado>  <UltimoNome>'+nome[nome.length]+'</UltimoNome></ContaMoip>';
+
+    console.log(xml);
+  };
 
   /** SETUP */
   if (user.recepcao.festa_igual_cerimonia == ''
