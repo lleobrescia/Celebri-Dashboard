@@ -40,8 +40,8 @@ angular.module("dashboard").config(function($routeProvider){
     templateUrl:"/dashboard/templates/page/enviar_convite2.html",
     controller:'enviar_convite2'
   })
-  .when('/convidados-confirados',{
-    templateUrl:"/dashboard/templates/page/convidados_confirmados.html"
+  .when('/estatisticas',{
+    templateUrl:"/dashboard/templates/page/estatistica.html"
   })
   .otherwise({ redirectTo:'/dados-do-casal'});
 });
