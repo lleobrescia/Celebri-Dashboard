@@ -41,7 +41,8 @@ angular.module("dashboard").config(function($routeProvider){
     controller:'enviar_convite2'
   })
   .when('/estatisticas',{
-    templateUrl:"/dashboard/templates/page/estatistica.html"
+    templateUrl:"/dashboard/templates/page/estatistica.html",
+    controller:'estatistica'
   })
   .otherwise({ redirectTo:'/dados-do-casal'});
 });

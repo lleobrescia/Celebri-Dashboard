@@ -1,5 +1,5 @@
 // INIT
-angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap']);
+angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js']);
 
 // Variavel Global. Armazena todos os dados do usuario
 angular.module("dashboard")
@@ -118,7 +118,7 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', functi
       {
         Id: 7,
         Name: 'Estatísticas do Convite',
-        url: 'convidados-confirados'
+        url: 'estatisticas'
       }
     ];
 }]);
@@ -942,7 +942,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     var nome = $scope.moip_nome.split(' ');
     var estado = $scope.moip_estado.split(' ');
 
-    var xml = '<ContaMoip xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cep>'+$scope.moip_cep+'</Cep>  <Cidade>'+$scope.moip_cidade+'</Cidade>  <CodigoAreaTelefone>31</CodigoAreaTelefone>  <Cpf>'+$scope.moip_cpf+'</Cpf>  <DataNascimento>'+$scope.moip_nascimento+'</DataNascimento> <Email>'+$scope.moip_email+'</Email>  <Endereco>'+$scope.moip_rua+' - '+$scope.moip_bairro+'</Endereco>  <Estado>'+$scope.moip_estado+'</Estado>  <Id>0</Id>  <Id_usuario_logado>'+user.id+'</Id_usuario_logado>  Nome>'+nome[0]+'</Nome>  <Numero>'+$scope.moip_numero+'</Numero>  <NumeroTelefone>993684545</NumeroTelefone>  <Sigla_Estado>'+(estado[0])[0]+'</Sigla_Estado>  <UltimoNome>'+nome[nome.length]+'</UltimoNome></ContaMoip>';
+    var xml = '<ContaMoip xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cep>' + $scope.moip_cep + '</Cep>  <Cidade>' + $scope.moip_cidade + '</Cidade>  <CodigoAreaTelefone>31</CodigoAreaTelefone>  <Cpf>' + $scope.moip_cpf + '</Cpf>  <DataNascimento>' + $scope.moip_nascimento + '</DataNascimento> <Email>' + $scope.moip_email + '</Email>  <Endereco>' + $scope.moip_rua + ' - ' + $scope.moip_bairro + '</Endereco>  <Estado>' + $scope.moip_estado + '</Estado>  <Id>0</Id>  <Id_usuario_logado>' + user.id + '</Id_usuario_logado>  Nome>' + nome[0] + '</Nome>  <Numero>' + $scope.moip_numero + '</Numero>  <NumeroTelefone>993684545</NumeroTelefone>  <Sigla_Estado>' + (estado[0])[0] + '</Sigla_Estado>  <UltimoNome>' + nome[nome.length] + '</UltimoNome></ContaMoip>';
 
     console.log(xml);
   };
@@ -1024,4 +1024,33 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'Upload', functi
     });
 
   };
+}]);
+
+angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'EstatisticaServ', function ($scope, user, EstatisticaServ) {
+
+  $scope.getEstatistica = function () {
+    EstatisticaServ.getData(user.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      console.log(respXml);
+      //emails enviados
+      $scope.total_convites_enviados = $(respXml).find('total_convites_enviados_cerimonia_e_festa').text();
+
+      //convidados cadastrados
+      $scope.total_convidados = $(respXml).find('total_convidados').text();
+
+      //convidados + acompanhantes
+      $scope.total_geral_convidados = $(respXml).find('total_geral_convidados').text();
+
+      //baixou o app
+      $scope.total_confirmados = $(respXml).find('total_convidados_confirmados').text();
+
+      $scope.total_acompanhantes = $(respXml).find('total_acompanhantes').text();
+
+
+      $scope.convidados_geral_labels = ["Convidados Direto", "Acompanhantes"];
+      $scope.convidados_geral_data = [$scope.total_convidados, $scope.total_acompanhantes];
+    });
+  };
+  $scope.getEstatistica();
+
 }]);

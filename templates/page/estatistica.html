@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="titulo">Estatísticas do seu casamento</h1>
+    </div>
+    <!--col-xs-12-->
+  </div>
+  <!--row-->
+
+  <div class="row" ng-init="$scope.seletor = 'convites'">
+    <div class="col-md-10">
+      <nav class="estatistica__menu">
+        <div class="estatistica__single" ng-click="$scope.seletor = 'convites'" ng-class=" {'estatistica__single--active': $scope.seletor == 'convites'}">
+          <p>
+            Convites
+          </p>
+        </div>
+        <!--estatistica__single-->
+        <div class="estatistica__single" ng-click="$scope.seletor = 'convidados'" ng-class=" {'estatistica__single--active': $scope.seletor == 'convidados'}">
+          <p>
+            Lista de convidados
+          </p>
+        </div>
+        <!--estatistica__single-->
+        <!--<div class="estatistica__single">
+          <p>
+            Cotas de Lua de Mel
+          </p>
+        </div>-->
+        <!--estatistica__single-->
+      </nav>
+    </div>
+    <!--col-md-10-->
+
+  </div>
+  <!--row-->
+
+  <div class="row" ng-if="$scope.seletor == 'convites'">
+    <div class="col-md-4">
+      <div class="info__box">
+        <p class="info__title">
+          Convites enviados (emails enviados)
+        </p>
+        <p class="info__desc" ng-bind="total_convites_enviados"></p>
+      </div>
+      <!--info__box-->
+
+      <div class="info__box">
+        <p class="info__title">
+          Número de convidados (convidado + acompanhante)
+        </p>
+        <p class="info__desc" ng-bind="total_geral_convidados"></p>
+      </div>
+      <!--info__box-->
+
+      <div class="info__box">
+        <p class="info__title">
+          Aplicativos baixados (confirmou)
+        </p>
+        <p class="info__desc" ng-bind="total_confirmados"></p>
+      </div>
+      <!--info__box-->
+    </div>
+    <!--col-md-4-->
+
+    <div class="col-md-6">
+      <h3 style="text-align:center">Todos Convidados</h3>
+      <canvas id="chart_convidados_geral" class="chart chart-doughnut" chart-data="convidados_geral_data" chart-labels="convidados_geral_labels"></canvas>
+    </div>
+  </div>
+  <!--row-->
+</div>
+<!--container-fluid-->
