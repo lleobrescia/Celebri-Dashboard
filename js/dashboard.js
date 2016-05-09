@@ -123,18 +123,8 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', functi
     ];
 }]);
 
-angular.module("dashboard").controller('mainController', ['$scope', '$location', function ($scope, $location) {
+angular.module("dashboard").controller('mainController', ['$scope', function ($scope) {
   $scope.id = 15;
-
-  $scope.checkTemplate = function () {
-    if ("/login" === $location.path()) {
-      $scope.login = "login";
-      $scope.cabecalho = "";
-    } else {
-      $scope.login = "";
-      $scope.cabecalho = "templates/parts/sidebar.html";
-    }
-  }
 
   $scope.foto;
   $scope.arquivo;
@@ -143,8 +133,6 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   $scope.getTimes = function (n) {
     return new Array(n);
   };
-
-  console.log($location.path());
 }]);
 
 angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', function ($scope, Upload, DadosCasal, user) {
@@ -1066,6 +1054,3 @@ angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'Estati
   $scope.getEstatistica();
 
 }]);
-
-
-angular.module("dashboard").controller('login', ['$scope', function ($scope) { }]);

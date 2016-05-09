@@ -44,9 +44,5 @@ angular.module("dashboard").config(function($routeProvider){
     templateUrl:"/dashboard/templates/page/estatistica.html",
     controller:'estatistica'
   })
-  .when('/login',{
-    templateUrl:"/dashboard/templates/page/login.html",
-    controller:'login'
-  })
-  .otherwise({ redirectTo:'/login'});
+  .otherwise({ redirectTo:'/dados-do-casal'});
 });

@@ -56,15 +56,43 @@
 </head>
 
 <body>
-  <div class="wrapper" ng-controller="mainController" ng-class="login">
-    <div ng-include="cabecalho" class="cabecalho"></div>
+  <div class="wrapper">
+    <div class="sidebar" ng-controller="sidebar">
+      <header class="header">
+        <div class="logo__box">
+          <img class="logo" src="./image/celebri.png" alt="celebri">
+        </div>
+        <!-- logo__box -->
 
-    <section class="content">
-      <div ng-view autoscroll="true"></div>
+        <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
+          <img class="user__img" src="./image/foto.png" alt="">
+          <p>
+            Olá, Gustavo Anthoniane <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
+          </p>
+        </div>
+        <!-- name__user -->
+
+        <div class="user__options" ng-if="$scope.clicou">
+          <a href="#" rel="nofallow">X Sair</a>
+        </div>
+        <!-- user__options -->
+
+      </header>
+
+      <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}">
+        <navigation menu="menu"></navigation>
+      </nav>
+
+    </div>
+    <!-- sidebar -->
+
+    <section class="content" ng-controller="mainController">
+      <div class="" ng-view autoscroll="true"></div>
     </section>
     <!-- content -->
   </div>
   <!-- wrapper -->
+
 
   <script src="js/ngMask.min.js"></script>
   <script src="js/dashboard.js"></script>

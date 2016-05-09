@@ -789,109 +789,25 @@ rzslider .rz-pointer {
   display: inline-block;
 }
 
-.estatistica__single--active p, .estatistica__single:hover > p {
-  border-bottom: solid 3px #c7c8ca;
+.estatistica__single--active p
+,.estatistica__single:hover > p{
+    border-bottom: solid 3px #c7c8ca;
 }
-
-.estatistica__single--active {
+.estatistica__single--active{
   cursor: inherit;
 }
-
-.info__title {
+.info__title{
   font-family: 'Roboto Condensed' !important;
   font-size: 1.4em !important;
 }
-
-.info__box {
+.info__box{
   margin-bottom: 60px;
 }
-
-.info__desc {
-  font-size: 3.8em !important;
-  font-family: 'Roboto Condensed' !important;
-  margin: 0;
-  padding-left: 30px;
-}
-
-
-/*LOGIN*/
-.login .content {
-  padding: 0
-}
-
-.login .cabecalho {
-  height: 0;
-}
-
-.login__bg {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  background: #6f91ff;
-}
-
-.login__box {
-  width: 320px;
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-}
-
-.login__logo {
-  display: block;
-  margin: auto;
-  margin-bottom: 30px;
-  margin-top: 10px;
-}
-
-.login__form {
-  background: white;
-  padding: 10px;
-      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
-    box-shadow: 0 1px 3px rgba(0,0,0,.13);
-}
-
-.login__form input {
-  line-height: 43px;
-  height: 43px;
-  font-family: 'Roboto Condensed';
-  font-size: 1.6em;
-  padding-right: 5px;
-  padding-left: 12px;
-  margin-bottom: 25px;
-  outline-color: #6F91FF;
-  width: 100%;
-  border: solid thin #757474;
-  background: #DADADA
-}
-
-.login__form input[type="submit"] {
-  height: 30px;
-  line-height: 28px;
-  padding: 0 12px 2px;
-  vertical-align: baseline;
-  float: right;
-  width: 100px;
-  clear: both;
-  background: #0085ba;
-  border-color: #0073aa #006799 #006799;
-  -webkit-box-shadow: 0 1px 0 #006799;
-  box-shadow: 0 1px 0 #006799;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
-}
-.login__text{
-    padding-top: 20px;
-}
-.login__text a{
-  color: white;
-  font-size: 1.8em;
+.info__desc{
+    font-size: 3.8em !important;
+    font-family: 'Roboto Condensed' !important;
+    margin: 0;
+    padding-left: 30px;
 }
 /*MEIDA*/
 
@@ -940,9 +856,6 @@ rzslider .rz-pointer {
   .wrapper {
     padding-left: 240px;
   }
-  .wrapper.login {
-    padding-left: 0;
-  }
   /*SIDEBAR*/
   .sidebar {
     position: fixed;
@@ -986,10 +899,6 @@ rzslider .rz-pointer {
   /*DADOS CASAL*/
   .dados_header_title {
     font-size: 3.1em;
-  }
-
-  .login .login__box{
-    padding-top: 10%;
   }
 }
 
