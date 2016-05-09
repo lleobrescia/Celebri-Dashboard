@@ -1,0 +1,234 @@
+<div class="container-fluid" ng-init="$scope.change = false">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento
+      </h1>
+      <p>
+        Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada
+        e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado. Para alterar
+        informações de data, local ou nome dos pais, volte à página anterior.
+      </p>
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row" style="margin-top:60px" ng-if="$scope.change">
+    <div class="col-sm-3">
+      <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setConfiguracaoConvite(); $scope.change = false">
+        Salvar
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="btn btn--cancel" ng-click="getConfiguracaoConvite(); $scope.change = false">
+        Cancelar
+      </div>
+    </div>
+  </div>
+  <!-- row -->
+
+  <div class="row">
+    <div class="col-xs-9" style="position:relative" ng-init="$scope.blocoActive = 'bloco_pais_noiva'" ng-cloak>
+
+      <img ng-src="{{layoutSelecionado}}" alt="">
+
+      <!-- #REGION BLOCOS -->
+
+      <p class="bloco_pais_noiva bloco" ng-init="styleHold = 'bloco_pais_noiva'" ng-style="bloco_pais_noiva" ng-click="setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva';styleHold = 'bloco_pais_noiva'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}" ng-bind-html="conteudo_pais_noiva"></p>
+
+      <p class="bloco_pais_noivo bloco" ng-style="bloco_pais_noivo" ng-click="setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo';styleHold = 'bloco_pais_noivo'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}" ng-bind-html="conteudo_pais_noivo"></p>
+
+      <p class="bloco_msg_1 bloco" ng-style="bloco_msg_1" ng-click="setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1';styleHold = 'bloco_msg_1'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}" ng-bind-html="conteudo_msg1"></p>
+
+      <p class="bloco_nome_dos_noivos bloco" ng-style="bloco_nome_dos_noivos" ng-click="setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos';styleHold = 'bloco_nome_dos_noivos'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}" ng-bind-html="conteudo_nomecasal"></p>
+
+      <p class="bloco_msg_2 bloco" ng-style="bloco_msg_2" ng-click="setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2';styleHold = 'bloco_msg_2'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}" ng-bind-html="conteudo_msg2"></p>
+
+      <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco" ng-model="bloco_msg_personalizada" ng-style="bloco_msg_personalizada_style"
+        ng-click="setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada_style';styleHold = 'bloco_msg_personalizada'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
+
+      <p class="bloco_cerimonia bloco" ng-style="bloco_cerimonia" ng-click="setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia';styleHold = 'bloco_cerimonia'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}" ng-bind-html="conteudo_msg4"></p>
+
+      <!-- #ENDREGION BLOCOS -->
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row controll" ng-cloak>
+    <div class="col-sm-12">
+
+      <!-- #REGION NAV TABS -->
+
+      <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
+        <li role="presentation" ng-class="{active : $scope.tab == 'formato'}">
+          <a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a>
+        </li>
+        <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}">
+          <a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a>
+        </li>
+      </ul>
+
+      <!-- #ENDREGION NAV TABS -->
+
+
+      <div class="tab-content">
+        <!-- #REGION TAB PANEL 1 -->
+
+        <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
+          <div ng-repeat="valor in convites[convite_individual]">
+            <div ng-show="showBlocos[$index]['ativo']">
+              <h4 class="controll__title">Alinhamento</h4>
+              <div class="controll_bloco_opcoes">
+                <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'; $scope.change = true"></i>
+                <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'; $scope.change = true"></i>
+                <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'; $scope.change = true"></i>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+              <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
+
+              <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = '14'">
+                <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 41}" ng-click="$scope.change = true"></rzslider>
+              </div>
+              <!-- controll_bloco_opcoes -->
+            </div>
+            <!--showBlocos-->
+          </div>
+          <!-- formato -->
+        </div>
+
+        <!-- #ENDREGION TAB PANEL 1 -->
+
+        <!-- #REGION TAB PANEL 2 -->
+
+        <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">
+          <div class="typeface__title">
+            <span>Serif</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="(key,value) in fonts.SERIF" ng-style="{'font-family':value['font-name']}" ng-click="setFontToBloco(value['font-name'],key); $scope.change = true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--serif-->
+
+          <div class="typeface__title">
+            <span>Sans Serif</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="(key,value) in fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}" ng-click="setFontToBloco(value['font-name'],key); $scope.change = true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--sans serif-->
+
+          <div class="typeface__title">
+            <span>Display</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="(key,value) in fonts.DISPLAY" ng-style="{'font-family':value['font-name']}" ng-click="setFontToBloco(value['font-name'],key); $scope.change = true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--display-->
+
+          <div class="typeface__title">
+            <span>Handwritting</span>
+          </div>
+          <ul class="font__list">
+            <li class="font__item" ng-repeat="(key,value) in fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}" ng-click="setFontToBloco(value['font-name'],key); $scope.change = true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--handwritting-->
+
+        </div>
+        <!--tab-pane-->
+
+        <!-- #ENDREGION TAB PANEL 2 -->
+
+      </div>
+      <!-- tab-content -->
+    </div>
+    <!-- col-sm-12 -->
+  </div>
+  <!-- controll -->
+
+  <!-- #REGION CAROUSEL -->
+
+  <div class="row layouts" id="convites_layout">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <carousel interval="myInterval">
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite1.png" ng-click="setConvite('convite1','./image/convites/convite1.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite2.png" ng-click="setConvite('convite2','./image/convites/convite2.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite3.png" ng-click="setConvite('convite3','./image/convites/convite3.png'); $scope.change = true">
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite4.png" ng-click="setConvite('convite4','./image/convites/convite4.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite5.png" ng-click="setConvite('convite5','./image/convites/convite5.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite6.png" ng-click="setConvite('convite6','./image/convites/convite6.png'); $scope.change = true">
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite7.png" ng-click="setConvite('convite7','./image/convites/convite7.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite8.png" ng-click="setConvite('convite8','./image/convites/convite8.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite9.png" ng-click="setConvite('convite9','./image/convites/convite9.png'); $scope.change = true">
+            </div>
+          </div>
+        </slide>
+      </carousel>
+
+    </div>
+    <!--col-xs-10-->
+  </div>
+  <!--layouts-->
+
+  <!-- #ENDREGION CAROUSEL -->
+
+  <div class="row" style="margin-top:60px" ng-if="$scope.change">
+    <div class="col-sm-3">
+      <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setConfiguracaoConvite(); $scope.change = false">
+        Salvar
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="btn btn--cancel" ng-click="getConfiguracaoConvite(); $scope.change = false">
+        Cancelar
+      </div>
+    </div>
+  </div>
+  <!-- row -->
+
+</div>
+<!-- container-fluid -->

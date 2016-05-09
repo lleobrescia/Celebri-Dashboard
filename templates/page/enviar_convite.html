@@ -1,0 +1,115 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="titulo titulo--passo1">Enviar convites</h1>
+      <p style="margin-bottom:46px">
+        Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência, para seus convidados terem tempo suficiente para baixarem o aplicativo e absorverem as informações do seu casamento.
+        Para enviarmos os convites virtuais, é necessário efetuar o pagamento de R$ 185, utilizando seu cartão de crédito.
+      </p>
+    </div><!-- col-sm-12 -->
+  </div><!-- row -->
+
+  <form class="form">
+    <div class="row">
+      <div class="col-sm-11">
+        <div class="opces__cartao">
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="Visa">
+            <img src="./image/visa.png" alt="">
+          </div>
+
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="Master Card">
+            <img src="./image/master.png" alt="">
+          </div>
+
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="American">
+            <img src="./image/american.png" alt="">
+          </div>
+
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="">
+            <img src="./image/club.png" alt="">
+          </div>
+
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="">
+            <img src="./image/elo.png" alt="">
+          </div>
+
+          <div class="cartao__single">
+            <input type="radio" name="bandeira" ng-model="bandeira" value="">
+            <img src="./image/hiper.png" alt="">
+          </div>
+
+        </div><!-- opces__cartao -->
+      </div><!-- col-sm-11 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="form__title">
+          Número do cartão
+        </p>
+        <input type="text" name="pagamento_numero" ng-model="pagamento_numero" >
+      </div><!-- col-sm-6 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="form__title">
+          Nome igual ao impresso no cartão
+        </p>
+        <input type="text" name="pagamento_nome" ng-model="pagamento_nome" >
+      </div><!-- col-sm-6 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="form__title">
+          Data de validade
+        </p>
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="pagamento_mes" ng-model="pagamento_mes">
+              <option value="0" selected ng-selected="true">Mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="1">Junho</option>
+              <option value="1">Julho</option>
+              <option value="1">Agosto</option>
+              <option value="1">Setembro</option>
+              <option value="1">Outubro</option>
+              <option value="1">Novembro</option>
+              <option value="1">Dezembro</option>
+            </select>
+          </div><!-- col-xs-6 -->
+          <div class="col-xs-6">
+            <input type="text" name="pagamento_ano" ng-model="pagamento_ano" mask="2099" placeholder="Ano">
+          </div><!-- col-xs-6 -->
+        </div><!-- row -->
+      </div><!-- col-sm-6 -->
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="form__title">
+          Código de segurança( Três dígitos atrás do cartão)
+        </p>
+        <input type="text" ng-model="pagamento_seguraca" name="pagamento_seguraca" mas="999">
+      </div>
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="btn btn--ok">
+          <a ng-href="/dashboard/#/enviar-convite/2">Concluir Pagamento</a>
+        </div>
+      </div><!-- col-sm-3 -->
+    </div><!-- row -->
+  </form>
+</div><!-- container-fluid -->

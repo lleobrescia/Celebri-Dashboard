@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 .vscode/settings.json
 jsconfig.json
+=======
+jsconfig.json
+.vscode/settings.json
+>>>>>>> develop

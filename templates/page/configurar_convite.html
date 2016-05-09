@@ -1,0 +1,210 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+
+      <h1 class="titulo titulo--passo1">Configure seu convite de casamento</h1>
+      <p style="margin-bottom:46px">
+        Essas são as informações que aparecerão no convite que seus convidados irão receber pelo email. Este é o seu convite de casamento,
+        preencha com atenção e cuidado.
+      </p>
+
+      <h3><strong>Cerimônia</strong></h3>
+      <p>
+        Preencha as informações da cerimônia
+      </p>
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <form class="form" enctype="multipart/form-data" style="margin-top:42px;">
+    <div class="row">
+
+      <div class="col-sm-7">
+        <p class="form__title">
+          Nome do local da cerimônia
+        </p>
+        <input type="text" name="cerimonia_local" ng-model="cerimonia_local" ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-7 -->
+
+      <div class="col-sm-4">
+        <p class="form__title">
+          CEP
+        </p>
+        <input type="text" name="cerimonia_cep" ng-model="cerimonia_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultCEP()">
+      </div>
+      <!-- col-sm-4 -->
+
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-7">
+        <p class="form__title">
+          Endereço da cerimônia
+        </p>
+        <input type="text" name="cerimonia_end" ng-model="cerimonia_end" ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-7 -->
+
+      <div class="col-sm-4">
+        <p class="form__title">
+          Número
+        </p>
+        <input type="text" name="cerimonia_numero" ng-model="cerimonia_numero" ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-4 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-4">
+        <p class="form__title">
+          Bairro
+        </p>
+        <input type="text" name="bairro" ng-model="cerimonia_bairro" ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-4 -->
+      <div class="col-sm-7">
+        <p class="form__title">
+          Cidade
+        </p>
+        <input type="text" name="cidade" ng-model="cerimonia_cidade"  ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-7 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-4 col-md-3">
+        <p class="form__title">
+          Traçar rotas para o local:
+        </p>
+        <div class="input__radio">
+          <span><input type="radio" name="cerimonia_rota" ng-model="cerimonia_rota" value="true" ng-change="$scope.change = true"> Sim</span>
+          <span><input type="radio" name="cerimonia_rota" ng-model="cerimonia_rota" value="false" ng-change="$scope.change = true"> Não</span>
+        </div>
+        <!-- input__radio -->
+      </div>
+      <!-- col-sm-3 -->
+
+      <div class="col-sm-4  col-sm-offset-3 col-md-3  col-md-offset-5">
+        <p class="form__title">
+          Horário da cerimônia
+        </p>
+        <div class="row">
+          <div class="col-xs-5">
+            <select class="" name="cerimonia_hora" ng-model="cerimonia_hora" ng-change="$scope.change = true">
+              <option value="{{$index}}" ng-repeat="t in getTimes(24) track by $index">{{$index}}</option>
+            </select>
+          </div>
+          <!-- col-xs-5 -->
+          <div class="col-xs-2">
+            <p style="line-height: 32px;font-size: 3.0em; text-align:center">
+              :
+            </p>
+          </div>
+          <!-- col-xs-1 -->
+          <div class="col-xs-5">
+            <select class="" name="cerimonia_min" ng-model="cerimonia_min" ng-change="$scope.change = true">
+              <option value="{{$index * 15}}" ng-repeat="t in getTimes(4) track by $index">{{$index * 15}}</option>
+            </select>
+          </div>
+          <!-- col-xs-5 -->
+        </div>
+        <!-- row -->
+      </div>
+      <!-- col-sm-3 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="titulo">Nome dos pais</h1>
+      </div>
+      <!-- col-xs-12 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-5">
+        <p class="form__title">
+          Pai da Noiva:
+          <span>
+            <input type="checkbox" name="noiva_pai_memorian" value="sim" ng-model="noiva_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+          </span>
+        </p>
+        <input type="text" name="noiva_pai" ng-model="noiva_pai"  ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-5 -->
+      <div class="col-sm-5 col-sm-offset-1">
+        <p class="form__title">
+          Mãe da Noiva:
+          <span>
+            <input type="checkbox" name="noiva_mae_memorian" value="sim" ng-model="noiva_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+          </span>
+        </p>
+        <input type="text" name="noiva_mae" ng-model="noiva_mae"  ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-5 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-5">
+        <p class="form__title">
+          Pai do Noivo:
+          <span>
+            <input type="checkbox" name="noivo_pai_memorian" value="true" ng-model="noivo_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+          </span>
+        </p>
+        <input type="text" name="noivo_pai" ng-model="noivo_pai"  ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-5 -->
+      <div class="col-sm-5 col-sm-offset-1">
+        <p class="form__title">
+          Mãe do Noivo:
+          <span>
+            <input type="checkbox" name="noivo_mae_memorian" value="sim" ng-model="noivo_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+          </span>
+        </p>
+        <input type="text" name="noivo_mae" ng-model="noivo_mae"  ng-change="$scope.change = true">
+      </div>
+      <!-- col-sm-5 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+          Na sequencia você irá escolher o layout do seu convite. O mesmo poderá ser alterado a qualquer momento até o envio do primeiro
+          convite, após este envio ele não poderá mais ser alterado.
+        </p>
+      </div>
+      <!-- col-xs-12 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3" ng-if="$scope.change">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosConvite(); $scope.change = false">
+          Salvar
+        </div>
+      </div>
+      <div class="col-sm-3" ng-if="$scope.change">
+        <div class="btn btn--cancel" ng-click="getDadosConvite(); $scope.change = false">
+          Cancelar
+        </div>
+      </div>
+      <div class="col-sm-3" ng-if="!$scope.change">
+        <div class="btn btn--ok">
+          <a ng-href="/dashboard/#/configurar-convite/2">Avançar</a>
+        </div>
+      </div>
+      <!-- col-sm-3 -->
+    </div>
+    <!-- row -->
+  </form>
+</div>
+<!-- container-fluid -->

@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="titulo titulo--passo1">Save the date!</h1>
+      <p style="margin-bottom:46px">
+        O Save The Date, é um termo em inglês utilizado para guardar uma data especial em sua agenda.
+        Você pode enviar um email com o Save The Date para os seus convidados, avisando-os do seu casamento, antes de enviar os convites.
+        Na mensagem encaminhada você pode comunicar que em breve enviará o convite do casamento pelo email, para que seus convidados saibam que irão receber um convite digital.
+        Para enviarmos os convites virtuais, é necessário efetuar o pagamento de R$ 185, utilizando seu cartão de crédito.
+      </p>
+      <p style="margin-bottom:46px">
+        Escolha abaixo o layout que preferir.
+      </p>
+    </div>
+  </div><!-- row -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="save__layout" ng-init="$scope.layout = 'layout1'">
+        <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout1'}" ng-click="$scope.layout = 'layout1'">
+        <img src="./image/savethedate/Modelo2.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout2'}" ng-click="$scope.layout = 'layout2'">
+        <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda':$scope.layout == 'layout3'}" ng-click="$scope.layout = 'layout3'">
+      </div>
+    </div><!-- row -->
+  </div><!-- row -->
+
+  <form class="form" action="index.html" method="post">
+    <div class="row">
+      <div class="col-sm-10">
+        <p class="form__title">
+          Mensagem:
+        </p>
+        <textarea class="save__menssage"></textarea>
+      </div><!-- col-sm-10 -->
+    </div><!-- row -->
+  </form>
+
+  <div class="row">
+    <div class="col-sm-3 col-sm-offset-7">
+      <div class="btn btn--ok">
+        <a ng-href="/dashboard/#/save-the-date/2">Avançar</a>
+      </div>
+    </div><!-- col-sm-3 -->
+  </div><!-- row -->
+
+</div><!-- container-fluid  -->

@@ -1,0 +1,4 @@
+<div class="menu-item" ng-repeat="item in menu" ng-class="{ active: isActive('/{{item.url}}')}">
+  <div class="menu-item__hover"></div>
+  <a ng-href="/dashboard/#/{{item.url}}" rel="nofallow" ng-click="$scope.clicou = false">{{item.Name}}</a>
+</div><!-- menu-item  -->
