@@ -21,8 +21,8 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', function
 angular.module("dashboard")
   .value("user", {
     id: 15,
-    nomeUsuario:'',
-    foto:'',
+    nomeUsuario: '',
+    foto: '',
     dadosCasal: {
       nome_noiva: '',
       nome_noivo: '',
@@ -89,7 +89,7 @@ angular.module("dashboard")
   });
 
 //Controllers
-angular.module('dashboard').controller('sidebar', ['$scope', '$location', function ($scope, $location) {
+angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cookies', 'user', function ($scope, $location, $cookies, user) {
 
   //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
@@ -100,8 +100,16 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', functi
     return retorno;
   };
 
-  $scope.sair = function(){
+  $scope.sair = function () {
+    console.log("entrou");
+    //Remove o cookie
+    $cookies.remove('user');
 
+    //garante que os dados serao apagados
+    user = null;
+
+    //direciona para a pagina de login
+    $location.path('/login');
   };
 
   //Lista do menu
@@ -1117,9 +1125,9 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
          * Verifica qual email esta logando e armazena o nome de acordo.
          */
         var emailNoivo = $(respXml).find('EmailNoivo').text();
-        if($scope.nomeUsuario == emailNoivo){
+        if ($scope.nomeUsuario == emailNoivo) {
           user.nomeUsuario = $(respXml).find('NomeNoivo').text();
-        }else{
+        } else {
           user.nomeUsuario = $(respXml).find('NomeNoiva').text();
         }
 
