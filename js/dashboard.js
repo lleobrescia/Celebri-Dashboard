@@ -21,6 +21,8 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', function
 angular.module("dashboard")
   .value("user", {
     id: 15,
+    nomeUsuario:'',
+    foto:'',
     dadosCasal: {
       nome_noiva: '',
       nome_noivo: '',
@@ -96,6 +98,10 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', functi
       retorno = true
     }
     return retorno;
+  };
+
+  $scope.sair = function(){
+
   };
 
   //Lista do menu
@@ -1096,20 +1102,44 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
   $scope.autenticar = function () {
     AutenticacaoNoivos.autenticar($scope.nomeUsuario, $scope.senhaUsuario).then(function (resp) {
       var respXml = $.parseXML(resp);
-
       var check = $(respXml).find('Result').text();
 
+      //autenticado
       if (check == 'true') {
-        //autenticado
-        user.id = $(respXml).find('Id_usuario_logado').text();
-        $location.path('/dados-do-casal');
-
+        //limpa o box de erro, caso houve erro de login anteriormente
         $scope.Result = true;
         $scope.ErrorMessage = "";
 
+        //armazena o ID
+        user.id = $(respXml).find('Id_usuario_logado').text();
+
+        /**
+         * Verifica qual email esta logando e armazena o nome de acordo.
+         */
+        var emailNoivo = $(respXml).find('EmailNoivo').text();
+        if($scope.nomeUsuario == emailNoivo){
+          user.nomeUsuario = $(respXml).find('NomeNoivo').text();
+        }else{
+          user.nomeUsuario = $(respXml).find('NomeNoiva').text();
+        }
+
+        //Armazena os nomes dos noivos localmente
+        user.nome_noiva = $(respXml).find('NomeNoiva').text();
+        user.nome_noivo = $(respXml).find('NomeNoivo').text();
+
+        //Armazena a url da foto do casal localmente
+        user.foto = $(respXml).find('Url_foto').text();
+
+        //Salva no cookie o Objeto user (que contem as informacoes globais)
         $cookies.putObject('user', user);
-      } else {
-        //nao autenticado
+
+        //Direciona para a primeira pagina do dashboard
+        $location.path('/dados-do-casal');
+
+      }
+      //nao autenticado
+      else {
+        //Mostra a mensagem de erro
         $scope.Result = check;
         $scope.ErrorMessage = $(respXml).find('ErrorMessage').text();
       }
