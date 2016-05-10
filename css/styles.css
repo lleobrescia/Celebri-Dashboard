@@ -100,6 +100,9 @@ input[type=checkbox], input[type=radio] {
   display: inline-block;
   vertical-align: middle;
   margin-right: 14px;
+  width: 47px;
+  height: 47px;
+  border-radius: 30px;
 }
 
 .user__options {
