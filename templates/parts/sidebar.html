@@ -1,12 +1,12 @@
 <div class="sidebar" ng-controller="sidebar">
   <header class="header">
     <div class="logo__box">
-      <img class="logo" src="./image/celebri.png" alt="celebri">
+      <img class="logo" src="./image/celebri.png" alt="Celebri">
     </div>
     <!-- logo__box -->
 
     <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
-      <img class="user__img" src="./image/foto.png" alt="">
+      <img class="user__img" src="./image/foto.png" alt="Foto Casal">
       <p>
         Olá, Gustavo Anthoniane <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
       </p>
@@ -14,7 +14,7 @@
     <!-- name__user -->
 
     <div class="user__options" ng-if="$scope.clicou">
-      <a href="#" rel="nofallow">X Sair</a>
+      <a rel="nofallow" ng-click="sair()">X Sair</a>
     </div>
     <!-- user__options -->
 
