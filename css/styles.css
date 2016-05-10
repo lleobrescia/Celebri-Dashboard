@@ -893,6 +893,12 @@ rzslider .rz-pointer {
   color: white;
   font-size: 1.8em;
 }
+.erro__box {
+  background: white;
+  padding: 7px;
+  margin-bottom: 10px;
+  border-left: solid red;
+}
 /*MEIDA*/
 
 @media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {
