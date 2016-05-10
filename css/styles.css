@@ -117,6 +117,7 @@ input[type=checkbox], input[type=radio] {
   font-family: 'Roboto';
   margin-left: 15px;
   display: block;
+  cursor: pointer;
 }
 
 .menu {
