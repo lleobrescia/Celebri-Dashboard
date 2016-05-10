@@ -6,9 +6,9 @@
     <!-- logo__box -->
 
     <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
-      <img class="user__img" src="./image/foto.png" alt="Foto Casal">
+      <img class="user__img" ng-src="{{fotoCasal}}" alt="Foto Casal">
       <p>
-        Olá, Gustavo Anthoniane <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
+        Olá, {{usuarioLogado}} <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
       </p>
     </div>
     <!-- name__user -->

@@ -90,6 +90,10 @@ angular.module("dashboard")
 
 //Controllers
 angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cookies', 'user', function ($scope, $location, $cookies, user) {
+  user = $cookies.getObject('user');
+
+  $scope.fotoCasal = user.foto;
+  $scope.usuarioLogado = user.nomeUsuario;
 
   //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
@@ -101,7 +105,6 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
   };
 
   $scope.sair = function () {
-    console.log("entrou");
     //Remove o cookie
     $cookies.remove('user');
 
@@ -153,8 +156,10 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
     ];
 }]);
 
-angular.module("dashboard").controller('mainController', ['$scope', '$location', function ($scope, $location) {
+angular.module("dashboard").controller('mainController', ['$scope', '$location', 'user','$cookies', function ($scope, $location, user,$cookies) {
+   user = $cookies.getObject('user');
   $scope.id = 15;
+  $scope.fotoCasal = '';
 
   $scope.checkTemplate = function () {
     if ("/login" === $location.path()) {
@@ -166,8 +171,9 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
     }
   }
 
-  $scope.foto;
-  $scope.arquivo;
+
+    $scope.foto = user.foto;
+    console.log("ok");
 
   //for ng-repeat
   $scope.getTimes = function (n) {
