@@ -1,5 +1,21 @@
 // INIT
-angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js']);
+angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies']);
+
+angular.module("dashboard").run(['$rootScope', '$location', '$cookies', function ($rootScope, $location, $cookies) {
+  $rootScope.$on('$routeChangeStart', function (event, next) {
+    var usuario = $cookies.getObject('user');
+    var userAuthenticated = false;
+
+    if (usuario != null) {
+      userAuthenticated = true;
+    }
+
+    if (!userAuthenticated && !next.isLogin) {
+      $location.path('/login');
+    }
+  });
+}]);
+
 
 // Variavel Global. Armazena todos os dados do usuario
 angular.module("dashboard")
@@ -143,8 +159,6 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   $scope.getTimes = function (n) {
     return new Array(n);
   };
-
-  console.log($location.path());
 }]);
 
 angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', function ($scope, Upload, DadosCasal, user) {
@@ -955,8 +969,6 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     var estado = $scope.moip_estado.split(' ');
 
     var xml = '<ContaMoip xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cep>' + $scope.moip_cep + '</Cep>  <Cidade>' + $scope.moip_cidade + '</Cidade>  <CodigoAreaTelefone>31</CodigoAreaTelefone>  <Cpf>' + $scope.moip_cpf + '</Cpf>  <DataNascimento>' + $scope.moip_nascimento + '</DataNascimento> <Email>' + $scope.moip_email + '</Email>  <Endereco>' + $scope.moip_rua + ' - ' + $scope.moip_bairro + '</Endereco>  <Estado>' + $scope.moip_estado + '</Estado>  <Id>0</Id>  <Id_usuario_logado>' + user.id + '</Id_usuario_logado>  Nome>' + nome[0] + '</Nome>  <Numero>' + $scope.moip_numero + '</Numero>  <NumeroTelefone>993684545</NumeroTelefone>  <Sigla_Estado>' + (estado[0])[0] + '</Sigla_Estado>  <UltimoNome>' + nome[nome.length] + '</UltimoNome></ContaMoip>';
-
-    console.log(xml);
   };
 
   /** SETUP */
@@ -1043,7 +1055,7 @@ angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'Estati
   $scope.getEstatistica = function () {
     EstatisticaServ.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
-      console.log(respXml);
+
       //emails enviados
       $scope.total_convites_enviados = $(respXml).find('total_convites_enviados_cerimonia_e_festa').text();
 
@@ -1068,4 +1080,40 @@ angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'Estati
 }]);
 
 
-angular.module("dashboard").controller('login', ['$scope', function ($scope) { }]);
+angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos', 'user', '$location', '$cookies', function ($scope, AutenticacaoNoivos, user, $location, $cookies) {
+  $scope.nomeUsuario = '';
+  $scope.senhaUsuario = '';
+
+  var usuario = $cookies.getObject('user');
+  /**
+   * se existir cookie nao ha necessidade de logar
+   */
+  if (usuario != null) {
+    user = usuario;
+    $location.path('/dados-do-casal');
+  }
+
+  $scope.autenticar = function () {
+    AutenticacaoNoivos.autenticar($scope.nomeUsuario, $scope.senhaUsuario).then(function (resp) {
+      var respXml = $.parseXML(resp);
+
+      var check = $(respXml).find('Result').text();
+
+      if (check == 'true') {
+        //autenticado
+        user.id = $(respXml).find('Id_usuario_logado').text();
+        $location.path('/dados-do-casal');
+
+        $scope.Result = true;
+        $scope.ErrorMessage = "";
+
+        $cookies.putObject('user', user);
+      } else {
+        //nao autenticado
+        $scope.Result = check;
+        $scope.ErrorMessage = $(respXml).find('ErrorMessage').text();
+      }
+    });
+  };
+  // $scope.autenticar("filipenhimi@gmail.com", "123456");
+}]);

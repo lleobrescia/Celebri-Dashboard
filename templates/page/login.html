@@ -3,10 +3,15 @@
     <a href="http://celebri.com.br/" title="Voltar ao Site">
       <img src="image/celebri.png" alt="Celebri" class="login__logo">
     </a>
-    <form action="" class="login__form">
+    <div class="erro__box" ng-if="Result == 'false'">
+      <p>
+        <strong>ERRO:</strong> {{ErrorMessage}}
+      </p>
+    </div>
+    <form class="login__form" method="POST">
       <input type="text" ng-model="nomeUsuario" name="login" placeholder="E-mail" ng-required="required"> <br>
       <input type="password" ng-model="senhaUsuario" name="senha" placeholder="Senha" ng-required="required"><br>
-      <input type="submit" value="Fazer Login">
+      <input type="submit" value="Fazer Login" ng-click="autenticar()">
       <div class="clearfix"></div>
     </form>
     <div class="login__text">
@@ -14,6 +19,7 @@
       <a href="http://celebri.com.br/" title="Voltar ao Site">← Voltar para Celebri</a>
 
     </div>
+    <!--login__text-->
   </div>
   <!-- login__box -->
 </div>

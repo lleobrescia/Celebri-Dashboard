@@ -483,3 +483,23 @@ angular.module("dashboard").factory('EstatisticaServ', ['CallAjax', '$q', functi
     getData: getData,
   };
 }]);
+
+angular.module("dashboard").factory('AutenticacaoNoivos', ['CallAjax', '$q', function (CallAjax, $q) {
+  var autenticar = function (email,senha) {
+    var urlVar = "http://23.238.16.114/celebri/ServiceCasamento.svc/AutenticacaoNoivos";
+    var xmlVar = '<Autenticacao xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>'+email+'</Email><Senha>'+senha+'</Senha></Autenticacao>';
+
+    var call = CallAjax.resposta(urlVar, xmlVar);
+    var deferred = $q.defer();
+
+    call.success(function (data) {
+      deferred.resolve(data);
+    }).error(function () {
+      deferred.reject(arguments);
+    });
+    return deferred.promise;
+  };
+  return {
+    autenticar: autenticar,
+  };
+}]);
