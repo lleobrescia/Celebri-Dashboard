@@ -357,7 +357,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   }
 }]);
 
-angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http', 'ConfiguracaoTemplateConvite', 'user', '$sce', function ($scope, $http, ConfiguracaoTemplateConvite, user, $sce) {
+angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http', 'ConfiguracaoTemplateConvite', 'user', '$sce', '$cookies', function ($scope, $http, ConfiguracaoTemplateConvite, user, $sce, $cookies) {
 
   var self = this;
 
@@ -525,6 +525,10 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
   // pega os dados do servidor
   $scope.getConfiguracaoConvite = function () {
+    if (user.id == null) {
+      user = $cookies.getObject('user');
+    }
+
     ConfiguracaoTemplateConvite.getData(user.id).then(function (resp) {
       var modelo = $(resp).find('id_modelo').text();
 
