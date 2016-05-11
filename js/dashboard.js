@@ -1,13 +1,19 @@
 // INIT
 angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies']);
 
-angular.module("dashboard").run(['$rootScope', '$location', '$cookies', function ($rootScope, $location, $cookies) {
+angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', function ($rootScope, $location, $cookies, user) {
+
   $rootScope.$on('$routeChangeStart', function (event, next) {
+
     var usuario = $cookies.getObject('user');
     var userAuthenticated = false;
 
+
+
     if (usuario != null) {
       userAuthenticated = true;
+      user = usuario;
+      console.log("inside on");
     }
 
     if (!userAuthenticated && !next.isLogin) {
@@ -20,7 +26,7 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', function
 // Variavel Global. Armazena todos os dados do usuario
 angular.module("dashboard")
   .value("user", {
-    id: 15,
+    id: null,
     nomeUsuario: '',
     foto: '',
     dadosCasal: {
@@ -90,10 +96,10 @@ angular.module("dashboard")
 
 //Controllers
 angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cookies', 'user', function ($scope, $location, $cookies, user) {
-  user = $cookies.getObject('user');
-
-  $scope.fotoCasal = user.foto;
-  $scope.usuarioLogado = user.nomeUsuario;
+  if (user.id == null) {
+    user = $cookies.getObject('user');
+    $scope.fotoCasal = user.foto;
+  }
 
   //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
@@ -156,24 +162,22 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
     ];
 }]);
 
-angular.module("dashboard").controller('mainController', ['$scope', '$location', 'user','$cookies', function ($scope, $location, user,$cookies) {
-   user = $cookies.getObject('user');
-  $scope.id = 15;
-  $scope.fotoCasal = '';
+angular.module("dashboard").controller('mainController', ['$scope', '$location', 'user', '$cookies', function ($scope, $location, user, $cookies) {
 
   $scope.checkTemplate = function () {
+    var usuario = $cookies.getObject('user');
+
     if ("/login" === $location.path()) {
       $scope.login = "login";
       $scope.cabecalho = "";
     } else {
+      if (usuario != null) {
+        user = usuario;
+      }
       $scope.login = "";
       $scope.cabecalho = "templates/parts/sidebar.html";
     }
   }
-
-
-    $scope.foto = user.foto;
-    console.log("ok");
 
   //for ng-repeat
   $scope.getTimes = function (n) {
@@ -181,7 +185,8 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   };
 }]);
 
-angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', function ($scope, Upload, DadosCasal, user) {
+angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', '$cookies', function ($scope, Upload, DadosCasal, user, $cookies) {
+
   // evita conflito dentro das funcoes
   var self = this;
 
@@ -205,7 +210,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
   //pega os dados do servidor
   $scope.casalGetDados = function () {
-    DadosCasal.getData($scope.id).then(function (resp) {
+    DadosCasal.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
       $scope.nome_noivo = $(respXml).find('NomeNoivo').text();
       $scope.nome_noiva = $(respXml).find('NomeNoiva').text();
@@ -220,14 +225,18 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   //salva no servidor os dados
   $scope.setDadosCasal = function () {
     var casamento = $scope.data_casamento.getMonth() + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
-    var xml = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + $scope.id + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + $scope.nome_noiva + '</NomeNoiva><NomeNoivo>' + $scope.nome_noivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
+    var xml = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + user.id + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + $scope.nome_noiva + '</NomeNoiva><NomeNoivo>' + $scope.nome_noivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
 
     self.setLocalDados();
     DadosCasal.setData(xml);
   };
 
   if (user.dadosCasal.nome_noivo === '') {
-    $scope.casalGetDados();
+    if (user.id == null) {
+      user = $cookies.getObject('user');
+      $scope.foto = user.foto;
+      $scope.casalGetDados();
+    }
   } else {
     self.getLocalDados();
   }
