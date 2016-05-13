@@ -677,13 +677,13 @@
 
       <div class="row">
 
-        <div class="produtos__single col-lg-6" ng-repeat="item in produtos">
-          <img ng-src="{{item.urlImage}}" alt="" class="produto_image">
+        <div class="produtos__single col-lg-6" ng-repeat="(key,value) in produtos">
+          <img ng-src="{{value.urlImage}}" alt="" class="produto_image">
 
           <div class="produto_desc">
-            <p>{{item.nome}}</p>
-            <span>{{item.valor}}</span>
-            <input type="checkbox" name="name">
+            <p>{{value.nome}}</p>
+            <span>{{value.valor}}</span>
+            <input type="checkbox" ng-model="value.marcado" name="name" ng-click="checkProduto(value.marcado,value.id)">
           </div>
           <!-- produto_desc -->
 
