@@ -8,7 +8,7 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', 
     var usuario = $cookies.getObject('user');
     var userAuthenticated = false;
 
-    if (usuario !== null) {
+    if (usuario != null || user == null) {
       userAuthenticated = true;
       user = usuario;
     }
@@ -97,7 +97,8 @@ angular.module("dashboard")
 
 //Controllers
 angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cookies', 'user', function ($scope, $location, $cookies, user) {
-  if (user.id === null) {
+
+  if (user.id == null) {
     user = $cookies.getObject('user');
     $scope.fotoCasal = user.foto;
     $scope.usuarioLogado = user.nomeUsuario;
@@ -106,7 +107,7 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
   //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
     var retorno = false;
-    if (viewLocation === $location.path() || viewLocation + "/2" === $location.path()) {
+    if (viewLocation == $location.path() || viewLocation + "/2" == $location.path()) {
       retorno = true;
     }
     return retorno;
@@ -169,11 +170,11 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   $scope.checkTemplate = function () {
     var usuario = $cookies.getObject('user');
 
-    if ("/login" === $location.path()) {
+    if ("/login" == $location.path()) {
       $scope.login = "login";
       $scope.cabecalho = "";
     } else {
-      if (usuario !== null) {
+      if (usuario != null) {
         user = usuario;
       }
       $scope.login = "";
@@ -237,7 +238,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   };
 
   // Setup/construtor
-  if (user === null || user.id === null) {
+  if (user == null || user.id == null) {
     user = $cookies.getObject('user');
     $scope.foto = user.foto;
     $scope.casalGetDados();
@@ -355,8 +356,8 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   };
 
   // setup/Contonstrutor
-  if (user.convite_dados.cerimonia_local === '') {
-    if (user.id === null) {
+  if (user.convite_dados.cerimonia_local == '') {
+    if (user.id == null) {
       user = $cookies.getObject('user');
       $scope.getDadosConvite();
     }
@@ -533,7 +534,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
   // pega os dados do servidor
   $scope.getConfiguracaoConvite = function () {
-    if (user.id === null) {
+    if (user.id == null) {
       user = $cookies.getObject('user');
     }
 
@@ -542,7 +543,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
       self.setMsg();
 
-      if (modelo === '' || modelo === null || modelo == ' ') {
+      if (modelo == '' || modelo == null || modelo == ' ') {
         $scope.setConvite('convite1', './image/convites/convite1.png');
         $scope.setConfiguracaoConvite();
       } else {
@@ -664,7 +665,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
    */
   self.getDadosServico = function () {
 
-    if (user.id === null) {
+    if (user.id == null) {
       user = $cookies.getObject('user');
     }
 
@@ -712,7 +713,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
     $scope.produtos = user.lista_presentes_lua_mel;
 
-    if (user.recepcao.haveMoip === true) {
+    if (user.recepcao.haveMoip == true) {
       $scope.moip__form = { 'display': 'none' };
     }
   };
@@ -811,7 +812,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   };
 
   $scope.adicionarHotel = function () {
-    if ($scope.hotel_local !== "" || $scope.hotel_local !== null) {
+    if ($scope.hotel_local != "" || $scope.hotel_local != null) {
 
       var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.hotel_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
@@ -881,7 +882,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   };
 
   $scope.adicionarSalao = function () {
-    if ($scope.salao_local !== "" && $scope.salao_local !== null) {
+    if ($scope.salao_local != "" && $scope.salao_local != null) {
       var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea>String content</CodigoArea><Email>String content</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>String content</Estado><Id>0</Id><Id_usuario_logado>15</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs>String content</Obs><Pais>String content</Pais><Site>String content</Site><Telefone>String content</Telefone><TipoLogradouro>String content</TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaSaloes.setData(xmlVar).then(function (resp) {
@@ -934,7 +935,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   };
 
   $scope.adicionarUrl = function () {
-    if ($scope.loja_nome !== "" && $scope.loja_nome !== null) {
+    if ($scope.loja_nome != "" && $scope.loja_nome != null) {
       var xmlVar = '<ConfiguracaoLojaPresentes xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.loja_nome + '</Nome><Url>' + $scope.loja_url + '</Url></ConfiguracaoLojaPresentes>';
 
       LojaPresentes.setData(xmlVar).then(function (resp) {
@@ -975,7 +976,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.setCardapio = function () {
 
-    if ($scope.cardapio_descricao !== "" && $scope.cardapio_descricao !== null) {
+    if ($scope.cardapio_descricao != "" && $scope.cardapio_descricao != null) {
       var xmlVar = '<Cardapio xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Descricao>' + $scope.cardapio_descricao + '</Descricao><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.cardapio_title + '</Nome></Cardapio>';
 
       Cardapio.setData(xmlVar).then(function (resp) {
@@ -1004,7 +1005,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   /** #REGION MOIP */
   $scope.verificaMoip = function () {
     Moip.verificar(user.id).then(function (resp) {
-      if ($(this).find('Result').text() === true) {
+      if ($(this).find('Result').text() == true) {
         $scope.moip__form = { 'display': 'none' };
       }
       user.recepcao.haveMoip = $(this).find('Result').text();
@@ -1020,8 +1021,8 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   /** #ENDREGION MOIP */
 
   /** SETUP */
-  if (user.recepcao.festa_igual_cerimonia === '' ||
-    user.recepcao.festa_igual_cerimonia === null) {
+  if (user.recepcao.festa_igual_cerimonia == '' ||
+    user.recepcao.festa_igual_cerimonia == null) {
     self.getDadosServico();
 
   } else {
@@ -1067,7 +1068,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
   };
 
   $scope.adicionarConvidado = function () {
-    if ($scope.convidado_nome !== "" && $scope.convidado_nome !== null) {
+    if ($scope.convidado_nome != "" && $scope.convidado_nome != null) {
       var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + $scope.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + $scope.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
 
       Convidados.setData(xmlVar).then(function (resp) {
@@ -1082,7 +1083,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
     }
   };
 
-  if (user === null) {
+  if (user == null) {
     $scope.getConvidados();
   } else {
     $scope.convidado_lista = user.lista_convidados;
@@ -1118,10 +1119,10 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
     });
   };
 
-  if (user === null) {
+  if (user == null) {
     user = $cookies.getObject('user');
 
-    if (user.saveDate.modelo === null) {
+    if (user.saveDate.modelo == null) {
       $scope.getData();
     }
   } else {
@@ -1172,7 +1173,7 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     SaveTheDate.enviarEmail(xmlVar);
   };
 
-  if (user === null) {
+  if (user == null) {
     $cookies.putObject('user', user);
     $scope.convidado_lista = user.convidado_lista;
   } else {
@@ -1193,7 +1194,7 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
     SaveTheDate.enviarEmail(xmlVar);
   };
 
-  if (user === null) {
+  if (user == null) {
     $cookies.putObject('user', user);
     $scope.convidado_lista = user.convidado_lista;
   } else {
@@ -1239,10 +1240,12 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
   $scope.senhaUsuario = '';
 
   var usuario = $cookies.getObject('user');
+  console.log(usuario);
+  console.log(user);
   /**
    * se existir cookie nao ha necessidade de logar
    */
-  if (usuario !== null) {
+  if (usuario != null) {
     user = usuario;
     $location.path('/dados-do-casal');
   }
