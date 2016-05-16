@@ -237,12 +237,10 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   };
 
   // Setup/construtor
-  if (user.dadosCasal.nome_noivo === '') {
-    if (user.id === null) {
-      user = $cookies.getObject('user');
-      $scope.foto = user.foto;
-      $scope.casalGetDados();
-    }
+  if (user === null || user.id === null) {
+    user = $cookies.getObject('user');
+    $scope.foto = user.foto;
+    $scope.casalGetDados();
   } else {
     self.getLocalDados();
   }
@@ -441,7 +439,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     $scope.conteudo_nomecasal = $sce.trustAsHtml(user.dadosCasal.nome_noiva + " &#38; " + user.dadosCasal.nome_noivo);
     $scope.conteudo_pais_noiva = $sce.trustAsHtml(user.convite_dados.noiva_pai + "<br>" + user.convite_dados.noiva_mae);
     $scope.conteudo_pais_noivo = $sce.trustAsHtml(user.convite_dados.noivo_pai + "<br>" + user.convite_dados.noivo_mae);
-  }
+  };
 
   //O servico so aceita numero para o alinhamento. Essa funcao faz a conversao
   self.getTextAlingIndice = function (texto) {
@@ -501,7 +499,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   $scope.setFontToBloco = function (font, idFont) {
     $('.' + $scope.styleHold).css('font-family', font);
     user.convite_formatacao[$scope.styleHold]['font-family'] = idFont;
-  }
+  };
 
   //O servico nao reconhece px. Essa funcao retira o px, para poder enviar ao servidor
   self.removePx = function (texto) {
@@ -510,7 +508,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     retorno = texto.toString().split('px');
 
     return retorno[0];
-  }
+  };
 
   /*indice da lista de convites.
   * Define qual convite o sistema vai pegar as informacoes dos blocos
@@ -535,7 +533,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
   // pega os dados do servidor
   $scope.getConfiguracaoConvite = function () {
-    if (user.id == null) {
+    if (user.id === null) {
       user = $cookies.getObject('user');
     }
 
@@ -544,7 +542,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
       self.setMsg();
 
-      if (modelo == '' || modelo == null || modelo == ' ') {
+      if (modelo === '' || modelo === null || modelo == ' ') {
         $scope.setConvite('convite1', './image/convites/convite1.png');
         $scope.setConfiguracaoConvite();
       } else {
@@ -666,7 +664,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
    */
   self.getDadosServico = function () {
 
-    if (user.id == null) {
+    if (user.id === null) {
       user = $cookies.getObject('user');
     }
 
@@ -714,10 +712,10 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
     $scope.produtos = user.lista_presentes_lua_mel;
 
-    if (user.recepcao.haveMoip == true) {
+    if (user.recepcao.haveMoip === true) {
       $scope.moip__form = { 'display': 'none' };
     }
-  }
+  };
 
   /** #REGION DADOS DA CERIMONIA */
 
@@ -1033,13 +1031,18 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
 angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'Upload', 'user', function ($scope, Convidados, Upload, user) {
 
-  $scope.uploadFile = function () {
+  var self = this;
 
+  self.setCookie = function () {
+    user.lista_convidados = $scope.convidado_lista;
+    $cookies.putObject('user', user);
   };
+
   $scope.getConvidados = function () {
     Convidados.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
       $scope.convidado_lista = [];
+
       $(respXml).find('Convidado').each(function () {
         $scope.convidado_lista.push(
           {
@@ -1051,12 +1054,15 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
           }
         );
       });
+      self.setCookie();
     });
   };
-  $scope.getConvidados();
+
+
   $scope.removeConvidado = function (id, key) {
     Convidados.remove(user.id, id).then(function () {
       $scope.convidado_lista.splice(key, 1);
+      self.setCookie();
     });
   };
 
@@ -1070,9 +1076,17 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
         $scope.convidado_acompanhantes = "";
         $scope.convidado_email = "";
         $scope.convidado_telefone = "";
+
+        $scope.getConvidados();
       });
     }
   };
+
+  if (user === null) {
+    $scope.getConvidados();
+  } else {
+    $scope.convidado_lista = user.lista_convidados;
+  }
 
 }]);
 
@@ -1117,21 +1131,53 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
 
 }]);
 
-angular.module("dashboard").controller('save_date2', ['$scope', 'Upload', function ($scope, Upload) {
+angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookies', 'SaveTheDate', function ($scope, user, $cookies, SaveTheDate) {
 
   $scope.selectedAll = false;
+
+  $scope.selecionados = [];
 
   $scope.checkAll = function () {
     if ($scope.selectedAll) {
       $scope.selectedAll = true;
     } else {
       $scope.selectedAll = false;
+      $scope.selecionados = [];
     }
-    angular.forEach($scope.convidado_lista, function (item, key) {
-      $scope.item0 = $scope.selectedAll;
-    });
+    angular.forEach($scope.convidado_lista, function (item) {
+      item.Selected = $scope.selectedAll;
 
+      if ($scope.selectedAll) {
+        $scope.convidado_lista.push($item.Id);
+      }
+    });
   };
+
+  $scope.checkConvidado = function (key, id, selected) {
+    if (selected) {
+      $scope.selecionados.push(id);
+    } else {
+      $scope.selecionados.splice(key, 1);
+    }
+  };
+
+  $scope.enviar = function () {
+    var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + user.id + '</Id_casal>  <Id_convidado>';
+
+    angular.forEach($scope.selecionados, function (item) {
+      xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item + '</int>';
+    });
+    xmlVar += '</Id_convidado></ListaEmailConvidados>';
+
+    SaveTheDate.enviarEmail(xmlVar);
+  };
+
+  if (user === null) {
+    $cookies.putObject('user', user);
+    $scope.convidado_lista = user.convidado_lista;
+  } else {
+    $scope.convidado_lista = user.convidado_lista;
+  }
 }]);
 
 angular.module("dashboard").controller('enviar_convite', ['$scope', function ($scope) { }]);
