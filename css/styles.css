@@ -607,6 +607,7 @@ select {
 .save__layout img {
   margin-right: 12px;
   cursor: pointer;
+  width: 300px;
 }
 
 .layout__borda {
