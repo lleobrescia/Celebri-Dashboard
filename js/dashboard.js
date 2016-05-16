@@ -1180,7 +1180,27 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
   }
 }]);
 
-angular.module("dashboard").controller('enviar_convite', ['$scope', function ($scope) { }]);
+angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', function ($scope, Convite, user, $cookies) {
+
+  $scope.enviar = function () {
+    var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + user.id + '</Id_casal>  <Id_convidado>';
+
+    angular.forEach($scope.convidado_lista, function (item) {
+      xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item.id + '</int>';
+    });
+    xmlVar += '</Id_convidado></ListaEmailConvidados>';
+
+    SaveTheDate.enviarEmail(xmlVar);
+  };
+
+  if (user === null) {
+    $cookies.putObject('user', user);
+    $scope.convidado_lista = user.convidado_lista;
+  } else {
+    $scope.convidado_lista = user.convidado_lista;
+  }
+
+}]);
 
 angular.module("dashboard").controller('enviar_convite2', ['$scope', function ($scope) { }]);
 
