@@ -31,7 +31,7 @@ angular.module("dashboard")
       data_casamento: ''
     },
     convite_dados: {
-      cerimonia_local: '',
+      cerimonia_local: null,
       cerimonia_end: '',
       cerimonia_numero: '',
       cerimonia_bairro: '',
@@ -100,6 +100,9 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
 
   if (user.id == null) {
     user = $cookies.getObject('user');
+    $scope.fotoCasal = user.foto;
+    $scope.usuarioLogado = user.nomeUsuario;
+  }else{
     $scope.fotoCasal = user.foto;
     $scope.usuarioLogado = user.nomeUsuario;
   }
@@ -356,7 +359,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   };
 
   // setup/Contonstrutor
-  if (user.convite_dados.cerimonia_local == '') {
+  if (user.convite_dados.cerimonia_local == null) {
     if (user.id == null) {
       user = $cookies.getObject('user');
       $scope.getDadosConvite();
@@ -373,7 +376,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   // Esconde o painel lateral quando chega perto do radepe
   $(window).scroll(function () {
     var elementoffset = $('#convites_layout').offset();
-    if ($(this).scrollTop() < elementoffset.top - 500) {
+    if ($(this).scrollTop() < elementoffset.top - 700) {
       $('.controll').fadeIn(10);
 
     } else {
