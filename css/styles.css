@@ -645,12 +645,14 @@ select {
 
 .controll {
   position: fixed;
-  right: 2px;
-  height: 400px;
-  width: 260px;
+  height: 165px;
+  width: 80%;
   margin: auto;
-  top: 25%;
   overflow-y: auto;
+  border-bottom-width: thin;
+  border-bottom-style: solid;
+  border-bottom-color: grey;
+  background: white;
 }
 
 .controll .tab-content {
@@ -664,7 +666,12 @@ select {
 
 .controll_bloco_opcoes {
   text-align: center;
-  margin: 15px 0 50px 0;
+  margin: 15px 0 50px 70px;
+  display: inline-block;
+}
+
+.controll_bloco_opcoes:first-child {
+  margin-left: 0;
 }
 
 .controll_bloco_opcoes .fa {
@@ -820,6 +827,7 @@ rzslider .rz-pointer {
 
 
 /*LOGIN*/
+
 .login .content {
   padding: 0
 }
@@ -857,8 +865,8 @@ rzslider .rz-pointer {
 .login__form {
   background: white;
   padding: 10px;
-      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
-    box-shadow: 0 1px 3px rgba(0,0,0,.13);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
 }
 
 .login__form input {
@@ -891,19 +899,24 @@ rzslider .rz-pointer {
   text-decoration: none;
   text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
 }
-.login__text{
-    padding-top: 20px;
+
+.login__text {
+  padding-top: 20px;
 }
-.login__text a{
+
+.login__text a {
   color: white;
   font-size: 1.8em;
 }
+
 .erro__box {
   background: white;
   padding: 7px;
   margin-bottom: 10px;
   border-left: solid red;
 }
+
+
 /*MEIDA*/
 
 @media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {
@@ -998,8 +1011,7 @@ rzslider .rz-pointer {
   .dados_header_title {
     font-size: 3.1em;
   }
-
-  .login .login__box{
+  .login .login__box {
     padding-top: 10%;
   }
 }
@@ -1020,5 +1032,20 @@ rzslider .rz-pointer {
   .produto_desc {
     width: 35%;
     padding-left: 14px;
+  }
+}
+
+@media screen and ( min-width:1600px), ( min-width:1600px) and (-webkit-min-device-pixel-ratio:0) {
+  /*CONFIGURAR CONVITE2*/
+  .controll {
+    right: 2px;
+    height: 400px;
+    width: 260px;
+    top: 25%;
+    border: none;
+  }
+  .controll_bloco_opcoes {
+    display: block;
+    margin-left: 0;
   }
 }
