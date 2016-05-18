@@ -25,7 +25,7 @@ angular.module("dashboard")
     id: null,
     nomeUsuario: null,
     foto: null,
-    senhaApp:null,
+    senhaApp: null,
     dadosCasal: {
       nome_noiva: null,
       nome_noivo: null,
@@ -1189,7 +1189,11 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
 
 angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', function ($scope, Convite, user, $cookies) {
 
+  $scope.enviando = true;
+  $scope.mensagem = false;
+
   $scope.enviar = function () {
+    $scope.enviando = false;
     var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + user.id + '</Id_casal>  <Id_convidado>';
 
     angular.forEach($scope.convidado_lista, function (item) {
@@ -1197,7 +1201,10 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
     });
     xmlVar += '</Id_convidado></ListaEmailConvidados>';
 
-    SaveTheDate.enviarEmail(xmlVar);
+    SaveTheDate.enviarEmail(xmlVar).then(function () {
+      $scope.enviando = true;
+      $scope.mensagem = true;
+    });
   };
 
   if (user == null) {

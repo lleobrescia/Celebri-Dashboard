@@ -35,9 +35,12 @@
   </div>
   <!-- row -->
   <div class="row">
+    <div class="col-sm-3" ng-if="mensagem">
+      <p>Convites Enviardos!</p>
+    </div>
     <div class="col-sm-3 col-sm-offset-7">
-      <div class="btn btn--save" ng-click="enviar()">
-        <a ng-href="/dashboard/#/save-the-date/2">Enviar</a>
+      <div class="btn btn--save" ng-click="enviar()" ng-if="enviando">
+        <a>Enviar</a>
       </div>
     </div>
     <!-- col-sm-3 -->
