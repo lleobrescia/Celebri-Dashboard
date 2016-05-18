@@ -23,31 +23,32 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', 
 angular.module("dashboard")
   .value("user", {
     id: null,
-    nomeUsuario: '',
-    foto: '',
+    nomeUsuario: null,
+    foto: null,
+    senhaApp:null,
     dadosCasal: {
-      nome_noiva: '',
-      nome_noivo: '',
-      data_casamento: ''
+      nome_noiva: null,
+      nome_noivo: null,
+      data_casamento: null
     },
     convite_dados: {
       cerimonia_local: null,
-      cerimonia_end: '',
-      cerimonia_numero: '',
-      cerimonia_bairro: '',
-      cerimonia_cidade: '',
-      cerimonia_rota: '',
-      cerimonia_cep: '',
-      cerimonia_hora: '',
-      cerimonia_min: '',
-      noiva_mae: '',
-      noiva_pai: '',
-      noivo_mae: '',
-      noivo_pai: '',
-      noiva_mae_memorian: '',
-      noiva_pai_memorian: '',
-      noivo_mae_memorian: '',
-      noivo_pai_memorian: '',
+      cerimonia_end: null,
+      cerimonia_numero: null,
+      cerimonia_bairro: null,
+      cerimonia_cidade: null,
+      cerimonia_rota: null,
+      cerimonia_cep: null,
+      cerimonia_hora: null,
+      cerimonia_min: null,
+      noiva_mae: null,
+      noiva_pai: null,
+      noivo_mae: null,
+      noivo_pai: null,
+      noiva_mae_memorian: null,
+      noiva_pai_memorian: null,
+      noivo_mae_memorian: null,
+      noivo_pai_memorian: null,
     },
     convite_formatacao: {
       bloco_msg_1: {
@@ -73,19 +74,19 @@ angular.module("dashboard")
       }
     },
     recepcao: {
-      festa_igual_cerimonia: '',
-      festa_local: '',
-      festa_end: '',
-      festa_numero: '',
-      festa_bairro: '',
-      festa_cidade: '',
-      festa_rota: '',
-      festa_cep: '',
+      festa_igual_cerimonia: null,
+      festa_local: null,
+      festa_end: null,
+      festa_numero: null,
+      festa_bairro: null,
+      festa_cidade: null,
+      festa_rota: null,
+      festa_cep: null,
       haveMoip: false
     },
     saveDate: {
       modelo: null,
-      mensagem: '',
+      mensagem: null,
     },
     lista_hotel: [],
     lista_salao: [],
@@ -102,7 +103,7 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
     user = $cookies.getObject('user');
     $scope.fotoCasal = user.foto;
     $scope.usuarioLogado = user.nomeUsuario;
-  }else{
+  } else {
     $scope.fotoCasal = user.foto;
     $scope.usuarioLogado = user.nomeUsuario;
   }
@@ -223,6 +224,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
       var respXml = $.parseXML(resp);
       $scope.nome_noivo = $(respXml).find('NomeNoivo').text();
       $scope.nome_noiva = $(respXml).find('NomeNoiva').text();
+      $scope.foto = user.foto;
 
       var data = $(respXml).find('DataCasamento').text().split('/');
       $scope.data_casamento = new Date(data[2], data[1], data[0]);
@@ -244,6 +246,8 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   if (user == null || user.id == null) {
     user = $cookies.getObject('user');
     $scope.foto = user.foto;
+    $scope.casalGetDados();
+  } else if (user.dadosCasal.nome_noiva == null) {
     $scope.casalGetDados();
   } else {
     self.getLocalDados();
@@ -359,11 +363,10 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   };
 
   // setup/Contonstrutor
-  if (user.convite_dados.cerimonia_local == null) {
-    if (user.id == null) {
-      user = $cookies.getObject('user');
-      $scope.getDadosConvite();
-    }
+
+  if (user.id == null || user.convite_dados.cerimonia_local == null) {
+    user = $cookies.getObject('user');
+    $scope.getDadosConvite();
   } else {
     self.getLocalDados();
   }
@@ -1108,7 +1111,7 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
   };
 
   $scope.getData = function () {
-    console.log(user.id);
+
     SaveTheDate.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
 
@@ -1200,8 +1203,10 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
   if (user == null) {
     $cookies.putObject('user', user);
     $scope.convidado_lista = user.convidado_lista;
+    $scope.senhaApp = user.senhaUsuario;
   } else {
     $scope.convidado_lista = user.convidado_lista;
+    $scope.senhaApp = user.senhaUsuario;
   }
 
 }]);
@@ -1243,8 +1248,7 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
   $scope.senhaUsuario = '';
 
   var usuario = $cookies.getObject('user');
-  console.log(usuario);
-  console.log(user);
+
   /**
    * se existir cookie nao ha necessidade de logar
    */
@@ -1273,8 +1277,10 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
         var emailNoivo = $(respXml).find('EmailNoivo').text();
         if ($scope.nomeUsuario == emailNoivo) {
           user.nomeUsuario = $(respXml).find('NomeNoivo').text();
+          user.senhaApp = $(respXml).find('SenhaNoivoConvidado').text();
         } else {
           user.nomeUsuario = $(respXml).find('NomeNoiva').text();
+          user.senhaApp = $(respXml).find('SenhaNoivaConvidado').text();
         }
 
         //Armazena os nomes dos noivos localmente
