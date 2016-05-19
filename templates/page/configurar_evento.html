@@ -502,28 +502,38 @@
     <div class="row" ng-style="moip__form">
       <div class="col-xs-12">
         <h3>Cotas de lua de mel convertidas em dinheiro.</h3>
-        <p>Em breve essa funcionalidade estará disponível.E funcionará conforme abaixo: </p><br>
         <p>
-          O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Para isso você tem duas opções:
-          seus convidados realizam o pagamento pelo aplicativo utilizando cartão de crédito ou fazem uma transferência direto
-          para sua conta bancária.
-        </p>
-        <p style="margin-top:26px">
-          Para pagamentos via cartão de crédito, o Celebri cobra uma taxa de conveniência repassada à MoIP, que é a intermediadora
-          de pagamentos, e para a administradora do cartão. Há também a opção para transferências bancárias cujas taxas são
-          cobradas pelo banco, não sendo de responsabilidade da CELEBRI o valor destas, bem como o repasse da transferência,
-          porém para o seu convidado pode ser mais incoveniente, pois ele terá que arcar com custos de TED ou DOC se não
-          possuir conta no mesmo banco que os noivos.
-        </p>
-        <p style="margin-top:26px">
+          Se por acaso você já estiver instalado o aplicativo no seu smartphone, é necessário deletá-lo antes de fazer o novo download.
+        </p><br>
+        <p>
+          O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Os seus convidados realizam o
+          pagamento pelo aplicativo utilizando cartão de crédito e o Celebri cobra uma taxa de conveniência repassada à MoIP,
+          que é a intermediadora de pagamentos, e para a administradora do cartão. </p>
+        <p>
           Se você tem interesse em receber cotas de lua de mel onde seus convidados podem pagar com cartão de crédito é preciso criar
-          uma conta na Moip. Para saber mais sobre a Moip, clique aqui.
+          uma conta na Moip. Para saber mais sobre a Moip, <a href="www.moip.com.br" target="_blank" style="color:blue">clique aqui.</a>
         </p>
-        <p style="margin-top:26px">
+
+        <p>
           Ao utilizar essa opção, as taxas cobradas pela Moip já estarão incluídas na taxa de serviço do Celebri. Assim que o pagamento
           for aprovado pela administradora de cartão de crédito, sua conta MoIP será creditada com o valor da cota, descontada
-          a nossa taxa de serviço de x%.
+          a nossa taxa de serviço de 6%. Ou seja, para cada cota vendida cobramos uma taxa de serviço de 6% do valor da cota,
+          mais R$ 0.69 por transação aprovada.
         </p>
+
+        <p style="color:blue;position:relative;cursor: pointer;" ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false">
+          Para cada cota vendida, você escolhe se prefere repassar esta taxa ao convidado ou se irá absorvê-la*.
+
+          <span style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;    font-size: 1.6em;"
+            ng-if="$scope.exemplo">
+            *Por exemplo, se o seu convidado te pagar R$ 100,00, você pode: Escolher que deseja receber R$ 100,00 pela cota, assim, a
+            nossa taxa seria adicionada ao valor da cota e o convidado pagaria R$106. Absorver as taxas de serviço: o convidado
+            pagará R$ 100,00 e a taxa de serviço será absorvida por você. Neste caso, você receberia R$94,00 pela cota.
+          </span>
+        </p>
+
+
+
         <!--<p style="margin-top:26px;margin-top: 26px;display: inline-block;margin-right: 21px;">
           Criar conta Moip para recebimento das cotas?
           <div class="input__radio" style="display: inline-block;">
