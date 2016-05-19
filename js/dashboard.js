@@ -209,6 +209,26 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
     $cookies.putObject('user', user);
   };
 
+  $scope.uploadFoto = function () {
+
+    console.log($scope.foto);
+
+    $scope.foto.upload = Upload.upload({
+      url: 'http://23.238.16.114/celebri/web/uploadFotoCasal.aspx',
+      data: { image: $scope.foto, name: user.id },
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      withCredentials:true
+    });
+
+    $scope.foto.upload.then(function (response) {
+      console.log(response);
+    });
+
+  };
+
   //pega as informações de user e coloca no $scope
   self.getLocalDados = function () {
     var data = user.dadosCasal.data_casamento.split('/');
@@ -240,6 +260,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
     self.setLocalDados();
     DadosCasal.setData(xml);
+    $scope.uploadFoto();
   };
 
   // Setup/construtor
@@ -1296,6 +1317,15 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
 
         //Armazena a url da foto do casal localmente
         user.foto = $(respXml).find('Url_foto').text();
+        console.log(respXml);
+        if (user.foto == null) {
+          console.log("null");
+        } else if (user.foto == '') {
+          console.log("vazio");
+        } else {
+          console.log("tem alguma coisa");
+        }
+        console.log(user.foto);
 
         //Salva no cookie o Objeto user (que contem as informacoes globais)
         $cookies.putObject('user', user);
