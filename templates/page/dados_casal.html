@@ -1,4 +1,4 @@
-<div class="container-fluid dados__header"  ng-init="checkTemplate()">
+<div class="container-fluid dados__header" ng-init="checkTemplate()">
   <div class="row">
     <div class="col-xs-12 dados_header_title">
       <hr> Parabéns! Você se cadastrou no Celebri.
@@ -40,15 +40,23 @@
         <div class="row">
           <div class="col-sm-3">
             <p class="form__title">
-              Foto do Casal
+              Foto do Casal <br>
+              <i style="font-size: 11px;">(A imagem deve ser quadrada e com no máximo 2MB)</i>
             </p>
 
-            <div class="upload__image" ngf-select ng-model="foto" name="foto" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
-            ng-change="$scope.change = true">
-              <img ngf-thumbnail="foto" ngf-size="{width: 182, height: 182}" >
+            <div class="upload__image" ngf-select ng-model="foto" name="foto" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="2MB"
+              ng-change="$scope.change = true" ngf-resize="{quality: .8,  type: 'image/jpg', restoreExif: false}" ngf-ratio="1x1"
+              ngf-model-invalid="errorFile">
+              <img ngf-thumbnail="foto" ngf-size="{width: 182, height: 182}">
               <i class="fa fa-camera" ng-if="!foto"></i>
             </div>
             <!-- upload__image -->
+
+            <div style="margin-bottom: 26px;color: red;font-size: 1.4em;">
+              <i ng-show="errorFile.$errorMessages.maxSize">*A imagem é muito grande {{errorFile.size / 1000000 |number:1}}MB: max 2MB</i>
+              <i ng-show="errorFile.$errorMessages.ratio">*A imagem deve ser quadrada( ratio: 1x1)</i>
+            </div>
+
           </div>
           <!-- col-sm-3 -->
 
@@ -56,7 +64,7 @@
             <p class="form__title">
               Data do Casamento
             </p>
-            <input type="date" name="data_casamento" ng-model="data_casamento" ng-change="$scope.change = true" style="    width: 80%;">
+            <input type="date" name="data_casamento" ng-model="data_casamento" ng-change="$scope.change = true" style="width: 80%;">
             <i class="fa fa-calendar"></i>
           </div>
           <!-- col-xs-3 -->
@@ -64,7 +72,7 @@
         <!-- row -->
 
         <div class="row">
-          <div class="col-sm-3" ng-if="$scope.change">
+          <div class="col-sm-3" ng-if="$scope.change && !errorFile">
             <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosCasal(); $scope.change = false">
               Salvar
             </div>
