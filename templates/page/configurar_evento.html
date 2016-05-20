@@ -105,8 +105,6 @@
       </div>
       <!-- row -->
 
-      <!-- #ENDREGION DADOS DA SERIMONIA -->
-
       <div class="row" ng-if="$scope.change">
         <div class="col-sm-3">
           <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosEvento(); $scope.change = false">
@@ -122,6 +120,8 @@
       <!-- row -->
     </div>
     <!-- festa_igual_cerimonia -->
+
+    <!-- #ENDREGION DADOS DA SERIMONIA -->
 
     <hr>
 
@@ -216,10 +216,10 @@
     <!-- row -->
     <!-- #ENDREGION CADASTRO DE HOTEL -->
 
+    <!-- #REGION LISTA DE HOTEL -->
     <div class="row">
-      <!-- #REGION LISTA DE HOTEL -->
       <div class="col-sm-10">
-        <div class="tabela" ng-if="hotel_lista.length > 0">
+        <div class="tabela" ng-if="hotel_lista.length > 0" >
           <div class="tabela__header">
             Hotéis cadastrados:
           </div>
@@ -235,9 +235,9 @@
         <!-- tabela -->
       </div>
       <!-- col-xs-12 -->
-      <!-- #ENDREGION LISTA DE HOTEL -->
     </div>
     <!-- row -->
+    <!-- #ENDREGION LISTA DE HOTEL -->
 
     <hr>
 

@@ -862,8 +862,12 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.adicionarHotel = function () {
     if ($scope.hotel_local != "" || $scope.hotel_local != null) {
+      var rota = true;
+      if ($scope.hotel_rota == 'nao') {
+        rota = false;
+      }
 
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.hotel_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaHoteis.setData(xmlVar).then(function (resp) {
         /**
@@ -934,7 +938,8 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.adicionarSalao = function () {
     if ($scope.salao_local != "" && $scope.salao_local != null) {
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea>String content</CodigoArea><Email>String content</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>String content</Estado><Id>0</Id><Id_usuario_logado>15</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs>String content</Obs><Pais>String content</Pais><Site>String content</Site><Telefone>String content</Telefone><TipoLogradouro>String content</TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.salao_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site></Site><Telefone></Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaSaloes.setData(xmlVar).then(function (resp) {
         /**
@@ -1145,7 +1150,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
 angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user', 'SaveTheDate', '$cookies', function ($scope, Upload, user, SaveTheDate, $cookies) {
 
   $scope.salvar = function () {
-    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage>String content</ErrorMessage>  <Result>true</Result>  <id_casal>' + user.id + '</id_casal>  <id_modelo>' + $scope.modelo + '</id_modelo>  <msg>' + $scope.mensagem + '</msg>  <nomecasal>' + user.dadosCasal.nome_noiva + ' e ' + user.dadosCasal.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
+    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + user.id + '</id_casal>  <id_modelo>' + $scope.modelo + '</id_modelo>  <msg>' + $scope.mensagem + '</msg>  <nomecasal>' + user.dadosCasal.nome_noiva + ' e ' + user.dadosCasal.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
 
     user.saveDate.modelo = $scope.modelo;
     user.saveDate.mensagem = $scope.mensagem;
