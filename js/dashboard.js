@@ -1157,7 +1157,9 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
 
     $cookies.putObject('user', user);
 
-    SaveTheDate.setData(xmlVar);
+    SaveTheDate.setData(xmlVar).then(function(resp){
+      console.log(resp);
+    });
   };
 
   $scope.getData = function () {
@@ -1165,22 +1167,30 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
     SaveTheDate.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
 
-      $scope.mensagem = $(respXml).find('id_modelo').text();
+      $scope.modelo = $(respXml).find('id_modelo').text();
       $scope.mensagem = $(respXml).find('msg').text();
 
-      user.saveDate.modelo = $scope.modelo;
-      user.saveDate.mensagem = $scope.mensagem;
+      if ($scope.modelo == 0) {
+        $scope.modelo = 1;
 
-      $cookies.putObject('user', user);
+        $scope.mensagem = 'Pessoas especiais como você fazem parte deste momento! O dia ' + user.dadosCasal.data_casamento + ' é muito importante para nós, o dia do nosso casamento, e gostaríamos de compartilhá-lo com você. Marque esta data no seu calendário para não se esquecer. A sua presença é essencial! Em breve você receberá por e-mail, o convite do nosso casamento.'
+
+        $scope.salvar();
+      } else {
+
+        user.saveDate.modelo = $scope.modelo;
+        user.saveDate.mensagem = $scope.mensagem;
+
+        $cookies.putObject('user', user);
+      }
     });
   };
 
-  if (user == null) {
+  if (user.id == null) {
     user = $cookies.getObject('user');
 
-    if (user.saveDate.modelo == null) {
-      $scope.getData();
-    }
+  } else if (user.saveDate.modelo == null) {
+    $scope.getData();
   } else {
     $scope.modelo = user.saveDate.modelo;
     $scope.mensagem = user.saveDate.mensagem;
