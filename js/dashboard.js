@@ -210,8 +210,20 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   };
 
   $scope.uploadFoto = function () {
+    // var URL = window.URL || window.webkitURL;
+    // var srcTmp = URL.createObjectURL($scope.foto);
+    // var canvas = document.createElement("canvas");
+    // var dataURL, resultado, ctx;
+    // var img = new Image();
 
-    console.log($scope.foto);
+
+    // img.onload = function () {
+    //   ctx = canvas.getContext("2d");
+    //   ctx.drawImage(img, 0, 0);
+    //   dataURL = canvas.toDataURL("image/jpg");
+    //   resultado = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+    //   console.log(resultado);
 
     $scope.foto.upload = Upload.upload({
       url: 'http://23.238.16.114/celebri/web/uploadFotoCasal.aspx',
@@ -220,12 +232,16 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
       },
-      withCredentials:true
+      withCredentials: true
     });
+    // };
 
-    $scope.foto.upload.then(function (response) {
-      console.log(response);
-    });
+    // Upload.imageDimensions($scope.foto).then(function (resp) {
+    //   canvas.width = resp.width;
+    //   canvas.height = resp.height;
+
+    //   img.src = srcTmp;
+    // });
 
   };
 
@@ -329,14 +345,16 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   $scope.consultCEP = function () {
     var cep = $scope.cerimonia_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.cerimonia_end = data.logradouro;
-        $scope.cerimonia_bairro = data.bairro;
-        $scope.cerimonia_cidade = data.cidade;
-      }
-    });
+    if (cep.length > 7) {
+      $.ajax({
+        url: "http://api.postmon.com.br/v1/cep/" + cep,
+        success: function (data) {
+          $scope.cerimonia_end = data.logradouro;
+          $scope.cerimonia_bairro = data.bairro;
+          $scope.cerimonia_cidade = data.cidade;
+        }
+      });
+    }
   };
 
   //pega os dados do servidor
@@ -776,34 +794,38 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     self.cerimoniaRemotoToLocal();
   };
 
-  $scope.consultCEP = function () {
-    var cep = $scope.festa_cep.replace(/\./g, '');
+  $scope.consultFestaCEP = function (cepFesta) {
+    var cep = cepFesta.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.festa_end = data.logradouro;
-        $scope.festa_bairro = data.bairro;
-        $scope.festa_cidade = data.cidade;
-      }
-    });
+
+    if (cep.length > 7) {
+      $.ajax({
+        url: "http://api.postmon.com.br/v1/cep/" + cep,
+        success: function (data) {
+          $scope.festa_end = data.logradouro;
+          $scope.festa_bairro = data.bairro;
+          $scope.festa_cidade = data.cidade;
+        }
+      });
+    }
   };
 
   /** #ENDREGION DADOS DA CERIMONIA */
 
   /** #REGION HOTEL */
   $scope.consultCEPHotel = function () {
-
     var cep = $scope.hotel_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.hotel_end = data.logradouro;
-        $scope.hotel_bairro = data.bairro;
-        $scope.hotel_cidade = data.cidade;
-      }
-    });
+    if (cep.length > 7) {
+      $.ajax({
+        url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+        success: function (data) {
+          $scope.hotel_end = data.logradouro;
+          $scope.hotel_bairro = data.bairro;
+          $scope.hotel_cidade = data.cidade;
+        }
+      });
+    }
   };
 
   $scope.getHoteis = function () {
@@ -866,14 +888,16 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   $scope.consultCEPSalao = function () {
     var cep = $scope.salao_cep.replace(/\./g, '');
     cep = cep.replace(/\-/g, '');
-    $.ajax({
-      url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-      success: function (data) {
-        $scope.salao_end = data.logradouro;
-        $scope.salao_bairro = data.bairro;
-        $scope.salao_cidade = data.cidade;
-      }
-    });
+    if (cep.length > 7) {
+      $.ajax({
+        url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+        success: function (data) {
+          $scope.salao_end = data.logradouro;
+          $scope.salao_bairro = data.bairro;
+          $scope.salao_cidade = data.cidade;
+        }
+      });
+    }
   };
 
   $scope.getSaloes = function () {
@@ -1316,16 +1340,13 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
         user.nome_noivo = $(respXml).find('NomeNoivo').text();
 
         //Armazena a url da foto do casal localmente
-        user.foto = $(respXml).find('Url_foto').text();
-        console.log(respXml);
-        if (user.foto == null) {
-          console.log("null");
-        } else if (user.foto == '') {
-          console.log("vazio");
+        var imagemFoto = $(respXml).find('Url_foto').text();
+
+        if (imagemFoto == "NULL") {
+          user.foto = 'image/user_login.png';
         } else {
-          console.log("tem alguma coisa");
+          user.foto = $(respXml).find('Url_foto').text();
         }
-        console.log(user.foto);
 
         //Salva no cookie o Objeto user (que contem as informacoes globais)
         $cookies.putObject('user', user);
