@@ -91,7 +91,7 @@ angular.module("dashboard")
     lista_hotel: [],
     lista_salao: [],
     lista_presente: [],
-    lista_convidados: [],
+    lista_convidados: null,
     lista_cardapio: [],
     lista_presentes_lua_mel: []
   });
@@ -210,39 +210,16 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
   };
 
   $scope.uploadFoto = function () {
-    // var URL = window.URL || window.webkitURL;
-    // var srcTmp = URL.createObjectURL($scope.foto);
-    // var canvas = document.createElement("canvas");
-    // var dataURL, resultado, ctx;
-    // var img = new Image();
 
+    Upload.base64DataUrl($scope.foto).then(function (url) {
+      var upload = Upload.upload({
+        url: 'http://celebri.com.br/dashboard/teste.php',
+        data: { image: url, name: user.id }
+      });
 
-    // img.onload = function () {
-    //   ctx = canvas.getContext("2d");
-    //   ctx.drawImage(img, 0, 0);
-    //   dataURL = canvas.toDataURL("image/jpg");
-    //   resultado = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-
-    //   console.log(resultado);
-
-    $scope.foto.upload = Upload.upload({
-      url: 'http://23.238.16.114/celebri/web/uploadFotoCasal.aspx',
-      data: { image: $scope.foto, name: user.id },
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-      },
-      withCredentials: true
+      upload.then(function (resp) {
+      });
     });
-    // };
-
-    // Upload.imageDimensions($scope.foto).then(function (resp) {
-    //   canvas.width = resp.width;
-    //   canvas.height = resp.height;
-
-    //   img.src = srcTmp;
-    // });
-
   };
 
   //pega as informações de user e coloca no $scope
@@ -418,7 +395,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   // Esconde o painel lateral quando chega perto do radepe
   $(window).scroll(function () {
     var elementoffset = $('#convites_layout').offset();
-    if ($(this).scrollTop() < elementoffset.top - 700) {
+    if ($(this).scrollTop() < elementoffset.top - 200) {
       $('.controll').fadeIn(10);
 
     } else {
@@ -584,11 +561,13 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     }
 
     ConfiguracaoTemplateConvite.getData(user.id).then(function (resp) {
+
+      resp = $.parseXML(resp);
       var modelo = $(resp).find('id_modelo').text();
 
       self.setMsg();
 
-      if (modelo == '' || modelo == null || modelo == ' ') {
+      if (modelo == '0') {
         $scope.setConvite('convite1', './image/convites/convite1.png');
         $scope.setConfiguracaoConvite();
       } else {
@@ -1086,7 +1065,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   }
 }]);
 
-angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'Upload', 'user', function ($scope, Convidados, Upload, user) {
+angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'Upload', 'user', '$cookies', function ($scope, Convidados, Upload, user, $cookies) {
 
   var self = this;
 
@@ -1096,9 +1075,16 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
   };
 
   $scope.getConvidados = function () {
+
+    if (user.id == null) {
+      user = $cookies.getObject('user');
+    }
+    console.log(user.id);
     Convidados.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
       $scope.convidado_lista = [];
+
+      console.log(respXml);
 
       $(respXml).find('Convidado').each(function () {
         $scope.convidado_lista.push(
@@ -1114,7 +1100,6 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
       self.setCookie();
     });
   };
-
 
   $scope.removeConvidado = function (id, key) {
     Convidados.remove(user.id, id).then(function () {
@@ -1139,7 +1124,9 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
     }
   };
 
-  if (user == null) {
+  user = $cookies.getObject('user');
+
+  if (user.lista_convidados == null || user.lista_convidados == '') {
     $scope.getConvidados();
   } else {
     $scope.convidado_lista = user.lista_convidados;
@@ -1157,8 +1144,7 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
 
     $cookies.putObject('user', user);
 
-    SaveTheDate.setData(xmlVar).then(function(resp){
-      console.log(resp);
+    SaveTheDate.setData(xmlVar).then(function (resp) {
     });
   };
 
@@ -1270,12 +1256,11 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
   if (user == null) {
     $cookies.putObject('user', user);
     $scope.convidado_lista = user.convidado_lista;
-    $scope.senhaApp = user.senhaUsuario;
+    $scope.senhaApp = user.senhaApp;
   } else {
     $scope.convidado_lista = user.convidado_lista;
-    $scope.senhaApp = user.senhaUsuario;
+    $scope.senhaApp = user.senhaApp;
   }
-
 }]);
 
 angular.module("dashboard").controller('enviar_convite2', ['$scope', function ($scope) { }]);
@@ -1342,6 +1327,7 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
          * Verifica qual email esta logando e armazena o nome de acordo.
          */
         var emailNoivo = $(respXml).find('EmailNoivo').text();
+
         if ($scope.nomeUsuario == emailNoivo) {
           user.nomeUsuario = $(respXml).find('NomeNoivo').text();
           user.senhaApp = $(respXml).find('SenhaNoivoConvidado').text();

@@ -4,6 +4,13 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico|Dancing+Script|Kaushan+Script|Satisfy|Courgette|Cookie|Pinyon+Script|Tangerine|Great+Vibes|Niconne|Damion|Alex+Brush|Yellowtail|Allura|Grand+Hotel|Parisienne|Rochester|Berkshire+Swash|Italianno|Arizonia|Condiment|Rouge+Script|Bilbo|Monsieur+La+Doulaise|Romanesco);
 @import url(https://fonts.googleapis.com/css?family=Lobster|Patua+One|Abril+Fatface|Lobster+Two|Fugaz+One|Playball|Oleo+Script|Sansita+One|Cinzel+Decorative|UnifrakturMaguntia|Oleo+Script+Swash+Caps|Yeseva+One|Lily+Script+One|Sail|Dynalight|Pirata+One);
 
+/*TEMPORARIO */
+
+.carousel-control {
+  display: none;
+}
+
+
 /*GERAL*/
 
 * {
@@ -653,6 +660,7 @@ select {
   border-bottom-style: solid;
   border-bottom-color: grey;
   background: white;
+  top: 0;
 }
 
 .controll .tab-content {
@@ -828,12 +836,28 @@ rzslider .rz-pointer {
 
 /*LOGIN*/
 
-.login .content {
-  padding: 0
+.login p {
+  color: white
 }
 
-.login .cabecalho {
-  height: 0;
+.login__content {
+  max-width: 376px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+}
+
+.login__title hr {
+  max-width: 112px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.login__title h1 {
+  color: white;
+  font-size: 5em;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
 }
 
 .login__bg {
@@ -842,31 +866,16 @@ rzslider .rz-pointer {
   width: 100%;
   z-index: 1;
   background: #6f91ff;
+  padding-top: 60px;
+  overflow: auto;
+  top: 0;
 }
 
 .login__box {
-  width: 320px;
-  position: absolute;
-  margin: auto;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-}
-
-.login__logo {
-  display: block;
-  margin: auto;
-  margin-bottom: 30px;
-  margin-top: 10px;
-}
-
-.login__form {
-  background: white;
-  padding: 10px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
+  max-width: 376px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
 }
 
 .login__form input {
@@ -879,34 +888,34 @@ rzslider .rz-pointer {
   margin-bottom: 25px;
   outline-color: #6F91FF;
   width: 100%;
-  border: solid thin #757474;
-  background: #DADADA
+  border: solid thin #bababa;
+  background: white;
 }
 
 .login__form input[type="submit"] {
-  height: 30px;
-  line-height: 28px;
-  padding: 0 12px 2px;
-  vertical-align: baseline;
-  float: right;
-  width: 100px;
-  clear: both;
-  background: #0085ba;
-  border-color: #0073aa #006799 #006799;
-  -webkit-box-shadow: 0 1px 0 #006799;
-  box-shadow: 0 1px 0 #006799;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+  height: 60px;
+  line-height: 60px;
+  background: #d1d3d4;
+  border: none;
+  width: 219px;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5em;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .login__text {
-  padding-top: 20px;
+  text-align: center;
+  margin-top: 43px;
+  margin-bottom: 80px;
 }
 
 .login__text a {
   color: white;
-  font-size: 1.8em;
+  font-size: 1.4em;
 }
 
 .erro__box {
@@ -914,6 +923,43 @@ rzslider .rz-pointer {
   padding: 7px;
   margin-bottom: 10px;
   border-left: solid red;
+}
+
+.login__footer {
+  background: #b5b5b5;
+  padding-top: 41px;
+  padding-bottom: 21px;
+}
+
+.login_logo_footer {
+  background: url("../image/linha_color.png") center bottom no-repeat;
+  padding-bottom: 20px;
+  margin-bottom: 26px;
+}
+
+.login_logo_footer a {
+  display: block;
+  text-align: center;
+}
+
+.menu__footer ul {
+  list-style: none;
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.menu__footer ul li {
+  display: inline-block;
+  margin-left: 24px;
+}
+
+.menu__footer ul li:first-child {
+  margin: 0
+}
+
+.menu__footer ul li a {
+  color: white;
+  font-size: 1.2em;
 }
 
 
@@ -1010,9 +1056,6 @@ rzslider .rz-pointer {
   /*DADOS CASAL*/
   .dados_header_title {
     font-size: 3.1em;
-  }
-  .login .login__box {
-    padding-top: 10%;
   }
 }
 

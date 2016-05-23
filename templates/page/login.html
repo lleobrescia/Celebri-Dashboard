@@ -1,26 +1,111 @@
 <div class="login__bg" ng-init="checkTemplate()">
-  <div class="login__box">
-    <a href="http://celebri.com.br/" title="Voltar ao Site">
-      <img src="image/celebri.png" alt="Celebri" class="login__logo">
-    </a>
-    <div class="erro__box" ng-if="Result == 'false'">
-      <p>
-        <strong>ERRO:</strong> {{ErrorMessage}}
-      </p>
-    </div>
-    <form class="login__form" method="POST">
-      <input type="text" ng-model="nomeUsuario" name="login" placeholder="E-mail" ng-required="required"> <br>
-      <input type="password" ng-model="senhaUsuario" name="senha" placeholder="Senha" ng-required="required"><br>
-      <input type="submit" value="Fazer Login" ng-click="autenticar()">
-      <div class="clearfix"></div>
-    </form>
-    <div class="login__text">
+  <div class="container">
 
-      <a href="http://celebri.com.br/" title="Voltar ao Site">← Voltar para Celebri</a>
-
+    <div class="row">
+      <div class="col-xs-12">
+        <a href="http://celebri.com.br/">
+          <img src="image/celebri.png" alt="Celebri">
+        </a>
+      </div>
+      <!--col-xs-12-->
     </div>
-    <!--login__text-->
+    <!--row-->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="login__content">
+          <div class="login__title">
+            <hr>
+            <h1>Login</h1>
+            <hr>
+          </div>
+          <!--login__title-->
+        </div>
+        <!--login__content-->
+        <div class="login__box">
+          <p class="text-center">Acesse sua conta Celebri.</p><br>
+          <div class="erro__box" ng-if="Result == 'false'">
+            <p>
+              <strong>ERRO:</strong> {{ErrorMessage}}
+            </p>
+          </div>
+          <form class="login__form" method="POST">
+            <p>E-mail:</p>
+            <input type="text" ng-model="nomeUsuario" name="login" ng-required="required"> <br>
+            <p>Senha:</p>
+            <input type="password" ng-model="senhaUsuario" name="senha" ng-required="required"><br>
+            <input type="submit" value="Entrar" ng-click="autenticar()">
+            <div class="clearfix"></div>
+          </form>
+          <div class="login__text">
+
+            <a href="http://celebri.com.br/" title="Voltar ao Site">← Voltar para Celebri</a>
+
+          </div>
+          <!--login__text-->
+        </div>
+        <!--login__box-->
+      </div>
+      <!--col-xs-12-->
+    </div>
+    <!--row-->
   </div>
-  <!-- login__box -->
+  <!--container-->
+
+  <div class="container-fluid login__footer">
+    <div class="container ">
+      <div class="row">
+        <div class="col-xs-12 login_logo_footer">
+          <a href="http://celebri.com.br/">
+            <img src="image/celebri.png" alt="Celebri">
+          </a>
+        </div>
+        <!--col-xs-12-->
+      </div>
+      <!--row-->
+      <div class="row">
+        <div class="col-xs-12">
+          <nav class="menu__footer">
+            <ul>
+              <li>
+                <a href="http://www.celebri.com.br">Home</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/comofunciona">Como funciona</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/porqueusar">Porque usar?</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/tarifas">Tarifas</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/cotas">Cotas Lua de mel</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/perguntas">Perguntas</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/cadastro">Cadastre-se</a>
+              </li>
+              <li>
+                <a href="http://celebri.com.br/dashboard">Login</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/quemsomos">Quem Somos</a>
+              </li>
+              <li>
+                <a href="http://www.celebri.com.br/contato">Contato</a>
+              </li>
+            </ul>
+          </nav>
+          <p class="text-center">©2016 - www.celebri.com.br - Um produto da Pixla - Todos os direitos reservados.</p>
+        </div>
+        <col-xs-12></col-xs-12>
+      </div>
+      <!--row-->
+    </div>
+    <!--container-->
+  </div>
+  <!--login__footer-->
 </div>
 <!-- login__bg -->

@@ -2,12 +2,12 @@
   "convite1": {
     "bloco_pais_noiva": {
       "top": "32px",
-      "width": "947px",
+      "width": "474px",
       "left": "27px",
-      "height": "82px",
-      "font-size": "20px",
+      "height": "64px",
+      "font-size": "20",
       "text-align": "left",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_pais_noivo": {
@@ -15,19 +15,19 @@
       "right": "27px",
       "width": "474px",
       "height": "64px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "right",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_msg_1": {
-      "top": "947px",
+      "top": "98px",
       "left": "27px",
       "width": "947px",
       "height": "65px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_nome_dos_noivos": {
@@ -35,7 +35,7 @@
       "left": "27px",
       "width": "947px",
       "height": "82px",
-      "font-size": "41px",
+      "font-size": "41",
       "text-align": "center",
       "font-family": 7,
       "color": "#000"
@@ -45,9 +45,9 @@
       "left": "27px",
       "width": "947px",
       "height": "78px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_msg_personalizada_style": {
@@ -57,9 +57,9 @@
       "height": "159px",
       "max-width": "948px",
       "max-height": "159px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_cerimonia": {
@@ -67,9 +67,9 @@
       "left": "27px",
       "width": "947px",
       "height": "80px",
-      "font-size": "17px",
+      "font-size": "17",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     }
   },
