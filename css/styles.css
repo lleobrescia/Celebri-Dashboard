@@ -925,6 +925,10 @@ rzslider .rz-pointer {
   border-left: solid red;
 }
 
+.erro__box p {
+  color: black;
+}
+
 .login__footer {
   background: #b5b5b5;
   padding-top: 41px;
