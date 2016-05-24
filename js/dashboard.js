@@ -218,6 +218,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
       });
 
       upload.then(function (resp) {
+        console.log(resp);
       });
     });
   };
@@ -229,6 +230,8 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
     $scope.nome_noivo = user.dadosCasal.nome_noivo;
     $scope.nome_noiva = user.dadosCasal.nome_noiva;
     $scope.data_casamento = new Date(data[2], data[1], data[0]);
+
+    $scope.foto = user.foto;
   };
 
   //pega os dados do servidor
@@ -253,7 +256,14 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
     self.setLocalDados();
     DadosCasal.setData(xml);
-    $scope.uploadFoto();
+
+    if ($scope.fotoAlterada) {
+      $scope.uploadFoto();
+      console.log("entrou");
+    }else{
+      console.log("nao entrou");
+    }
+
   };
 
   // Setup/construtor
@@ -1364,5 +1374,4 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
       }
     });
   };
-  // $scope.autenticar("filipenhimi@gmail.com", "123456");
 }]);
