@@ -217,9 +217,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
         data: { image: url, name: user.id }
       });
 
-      upload.then(function (resp) {
-        console.log(resp);
-      });
+      upload.then(function (resp) { });
     });
   };
 
@@ -259,11 +257,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
     if ($scope.fotoAlterada) {
       $scope.uploadFoto();
-      console.log("entrou");
-    } else {
-      console.log("nao entrou");
     }
-
   };
 
   // Setup/construtor
