@@ -632,6 +632,9 @@ select {
 
 /*CONFIGURAR CONVITE2*/
 
+.configurar_convite_2 {
+  padding-top: 140px;
+}
 .bloco {
   position: absolute;
   overflow: hidden;
@@ -1084,6 +1087,9 @@ rzslider .rz-pointer {
 
 @media screen and ( min-width:1600px), ( min-width:1600px) and (-webkit-min-device-pixel-ratio:0) {
   /*CONFIGURAR CONVITE2*/
+  .configurar_convite_2 {
+    padding-top: 0;
+  }
   .controll {
     right: 2px;
     height: 400px;
