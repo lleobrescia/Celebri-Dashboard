@@ -1238,24 +1238,27 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
   }
 }]);
 
-angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookies', 'SaveTheDate', function ($scope, user, $cookies, SaveTheDate) {
+angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookies', 'SaveTheDate', 'Convidados', function ($scope, user, $cookies, SaveTheDate, Convidados) {
 
   $scope.selectedAll = false;
+  $scope.allowToSend = false;
 
   $scope.selecionados = [];
 
   $scope.checkAll = function () {
     if ($scope.selectedAll) {
       $scope.selectedAll = true;
+      $scope.allowToSend = true;
     } else {
       $scope.selectedAll = false;
+      $scope.allowToSend = false;
       $scope.selecionados = [];
     }
     angular.forEach($scope.convidado_lista, function (item) {
       item.Selected = $scope.selectedAll;
 
       if ($scope.selectedAll) {
-        $scope.convidado_lista.push($item.Id);
+        $scope.selecionados.push(item.Id);
       }
     });
   };
@@ -1264,8 +1267,21 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     if (selected) {
       $scope.selecionados.push(id);
     } else {
-      $scope.selecionados.splice(key, 1);
+      var count = 0;
+      angular.forEach($scope.selecionados, function (item) {
+        console.log(item);
+        if (item == id) {
+          $scope.selecionados.splice(count, 1);
+        }
+        count++;
+      });
     }
+    if ($scope.selecionados.length > 0) {
+      $scope.allowToSend = true;
+    } else {
+      $scope.allowToSend = false;
+    }
+    console.log($scope.selecionados);
   };
 
   $scope.enviar = function () {
@@ -1279,12 +1295,29 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     SaveTheDate.enviarEmail(xmlVar);
   };
 
-  if (user.id == null) {
-    $cookies.putObject('user', user);
-    $scope.convidado_lista = user.convidado_lista;
-  } else {
-    $scope.convidado_lista = user.convidado_lista;
-  }
+  $scope.getConvidados = function () {
+
+    if (user.id == null) {
+      user = $cookies.getObject('user');
+    }
+
+    Convidados.getData(user.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      $scope.convidado_lista = [];
+
+      $(respXml).find('Convidado').each(function () {
+        $scope.convidado_lista.push(
+          {
+            'Id': $(this).find('Id').text(),
+            'nome': $(this).find('Nome').text(),
+            'email': $(this).find('Email').text(),
+            'Selected': false,
+          }
+        );
+      });
+    });
+  };
+  $scope.getConvidados();
 }]);
 
 angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', function ($scope, Convite, user, $cookies) {
