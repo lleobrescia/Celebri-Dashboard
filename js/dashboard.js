@@ -199,7 +199,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
   //salva as informações do form dentro de user
   self.setLocalDados = function () {
-    var casamento = $scope.data_casamento.getMonth() + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
+    var casamento = ($scope.data_casamento.getMonth() + 1) + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
 
     user.dadosCasal.nome_noivo = $scope.nome_noivo;
     user.dadosCasal.nome_noiva = $scope.nome_noiva;
@@ -223,11 +223,9 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
   //pega as informações de user e coloca no $scope
   self.getLocalDados = function () {
-    var data = user.dadosCasal.data_casamento.split('/');
-
     $scope.nome_noivo = user.dadosCasal.nome_noivo;
     $scope.nome_noiva = user.dadosCasal.nome_noiva;
-    $scope.data_casamento = new Date(data[2], data[1], data[0]);
+    $scope.data_casamento = new Date(user.dadosCasal.data_casamento);
 
     $scope.foto = user.foto;
   };
@@ -490,9 +488,11 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     if (user.id == null) {
       user = $cookies.getObject('user');
     }
+    var casamento = user.dadosCasal.data_casamento.split("/");
+    var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
 
     $scope.conteudo_msg1 = $sce.trustAsHtml("convidam para a cerimônia de casamento dos seus filhos");
-    $scope.conteudo_msg2 = $sce.trustAsHtml("à realizar-se às " + user.convite_dados.cerimonia_hora + " : " + user.convite_dados.cerimonia_min + " horas no dia " + user.dadosCasal.data_casamento + ", " + user.convite_dados.cerimonia_local);
+    $scope.conteudo_msg2 = $sce.trustAsHtml("à realizar-se às " + user.convite_dados.cerimonia_hora + ":" + user.convite_dados.cerimonia_min + " horas no dia " + dataCasamento + ", " + user.convite_dados.cerimonia_local);
 
     $scope.conteudo_msg4 = $sce.trustAsHtml("Cerimonia: <br> " + user.convite_dados.cerimonia_local + " <br> " + user.convite_dados.cerimonia_end + ", " + user.convite_dados.cerimonia_numero + " - " + user.convite_dados.cerimonia_bairro + " " + user.convite_dados.cerimonia_cidade);
 
@@ -671,9 +671,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
     var xml = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + self.getTextAlingIndice($scope.bloco_msg_1["text-align"]) + '</alinhamento_msg1><alinhamento_msg2>' + self.getTextAlingIndice($scope.bloco_msg_2["text-align"]) + '</alinhamento_msg2><alinhamento_msg3>' + self.getTextAlingIndice($scope.bloco_msg_personalizada_style["text-align"]) + '</alinhamento_msg3><alinhamento_msg4>' + self.getTextAlingIndice($scope.bloco_cerimonia["text-align"]) + '</alinhamento_msg4><alinhamento_nomecasal>' + self.getTextAlingIndice($scope.bloco_nome_dos_noivos["text-align"]) + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + self.getTextAlingIndice($scope.bloco_pais_noiva["text-align"]) + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + self.getTextAlingIndice($scope.bloco_pais_noivo["text-align"]) + '</alinhamento_pais_noivo><conteudo_msg1>' + self.changeBr($scope.conteudo_msg1.toString()) + '</conteudo_msg1><conteudo_msg2>' + self.changeBr($scope.conteudo_msg2.toString()) + '</conteudo_msg2><conteudo_msg3>' + self.changeBr($scope.bloco_msg_personalizada.toString()) + '</conteudo_msg3><conteudo_msg4>' + self.changeBr($scope.conteudo_msg4.toString()) + '</conteudo_msg4><conteudo_nomecasal>' + user.dadosCasal.nome_noiva + ' &#38; ' + user.dadosCasal.nome_noivo + '</conteudo_nomecasal><conteudo_pais_noiva>' + user.convite_dados.noiva_pai + '#' + user.convite_dados.noiva_mae + '</conteudo_pais_noiva><conteudo_pais_noivo>' + user.convite_dados.noivo_pai + '#' + user.convite_dados.noivo_mae + '</conteudo_pais_noivo><cor_msg1>' + $scope.bloco_msg_1["color"] + '</cor_msg1><cor_msg2>' + $scope.bloco_msg_2["color"] + '</cor_msg2><cor_msg3>' + $scope.bloco_msg_personalizada_style["color"] + '</cor_msg3><cor_msg4>' + $scope.bloco_cerimonia["color"] + '</cor_msg4><cor_nomecasal>' + $scope.bloco_nome_dos_noivos["color"] + '</cor_nomecasal><cor_pais_noiva>' + $scope.bloco_pais_noiva["color"] + '</cor_pais_noiva><cor_pais_noivo>' + $scope.bloco_pais_noivo["color"] + '</cor_pais_noivo><fonte_msg1>' + user.convite_formatacao.bloco_msg_1['font-family'] + '</fonte_msg1><fonte_msg2>' + user.convite_formatacao.bloco_msg_2['font-family'] + '</fonte_msg2><fonte_msg3>' + user.convite_formatacao.bloco_msg_personalizada_style['font-family'] + '</fonte_msg3><fonte_msg4>' + user.convite_formatacao.bloco_cerimonia['font-family'] + '</fonte_msg4><fonte_nomecasal>' + user.convite_formatacao.bloco_nome_dos_noivos['font-family'] + '</fonte_nomecasal><fonte_pais_noiva>' + user.convite_formatacao.bloco_pais_noiva['font-family'] + '</fonte_pais_noiva><fonte_pais_noivo>' + user.convite_formatacao.bloco_pais_noivo['font-family'] + '</fonte_pais_noivo><id_casal>' + user.id + '</id_casal><id_modelo>' + modelo + '</id_modelo><tamanho_fonte_msg1>' + self.removePx($scope.bloco_msg_1["font-size"]) + '</tamanho_fonte_msg1><tamanho_fonte_msg2>' + self.removePx($scope.bloco_msg_2["font-size"]) + '</tamanho_fonte_msg2><tamanho_fonte_msg3>' + self.removePx($scope.bloco_msg_personalizada_style["font-size"]) + '</tamanho_fonte_msg3><tamanho_fonte_msg4>' + self.removePx($scope.bloco_cerimonia["font-size"]) + '</tamanho_fonte_msg4><tamanho_fonte_pais_noiva>' + self.removePx($scope.bloco_nome_dos_noivos["font-size"]) + '</tamanho_fonte_pais_noiva><tamanho_fonte_pais_noivo>' + self.removePx($scope.bloco_pais_noiva["font-size"]) + '</tamanho_fonte_pais_noivo><tamanho_nomecasal>' + self.removePx($scope.bloco_pais_noivo["font-size"]) + '</tamanho_nomecasal></DadosFormatacaoConvite>';
 
-    ConfiguracaoTemplateConvite.setData(xml).then(function (resp) {
-
-    });
+    ConfiguracaoTemplateConvite.setData(xml);
   };
 
   $scope.getConfiguracaoConvite();
@@ -1273,7 +1271,7 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     SaveTheDate.enviarEmail(xmlVar);
   };
 
-  if (user == null) {
+  if (user.id == null) {
     $cookies.putObject('user', user);
     $scope.convidado_lista = user.convidado_lista;
   } else {
