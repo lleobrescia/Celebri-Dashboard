@@ -649,9 +649,9 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
         $scope.bloco_msg_2["font-size"] = $(resp).find('tamanho_fonte_msg2').text();
         $scope.bloco_msg_personalizada_style["font-size"] = $(resp).find('tamanho_fonte_msg3').text();
         $scope.bloco_cerimonia["font-size"] = $(resp).find('tamanho_fonte_msg4').text();
-        $scope.bloco_nome_dos_noivos["font-size"] = $(resp).find('tamanho_fonte_pais_noiva').text();
-        $scope.bloco_pais_noiva["font-size"] = $(resp).find('tamanho_fonte_pais_noivo').text();
-        $scope.bloco_pais_noivo["font-size"] = $(resp).find('tamanho_nomecasal').text();
+        $scope.bloco_nome_dos_noivos["font-size"] = $(resp).find('tamanho_nomecasal').text();
+        $scope.bloco_pais_noiva["font-size"] = $(resp).find('tamanho_fonte_pais_noiva').text();
+        $scope.bloco_pais_noivo["font-size"] = $(resp).find('tamanho_fonte_pais_noiva').text();
 
         $scope.bloco_msg_personalizada = $(resp).find('conteudo_msg3').text();
 
@@ -670,7 +670,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     var aux = $scope.convite_individual.split("convite");
     var modelo = aux[1];
 
-    var xml = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + self.getTextAlingIndice($scope.bloco_msg_1["text-align"]) + '</alinhamento_msg1><alinhamento_msg2>' + self.getTextAlingIndice($scope.bloco_msg_2["text-align"]) + '</alinhamento_msg2><alinhamento_msg3>' + self.getTextAlingIndice($scope.bloco_msg_personalizada_style["text-align"]) + '</alinhamento_msg3><alinhamento_msg4>' + self.getTextAlingIndice($scope.bloco_cerimonia["text-align"]) + '</alinhamento_msg4><alinhamento_nomecasal>' + self.getTextAlingIndice($scope.bloco_nome_dos_noivos["text-align"]) + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + self.getTextAlingIndice($scope.bloco_pais_noiva["text-align"]) + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + self.getTextAlingIndice($scope.bloco_pais_noivo["text-align"]) + '</alinhamento_pais_noivo><conteudo_msg1>' + self.changeBr($scope.conteudo_msg1.toString()) + '</conteudo_msg1><conteudo_msg2>' + self.changeBr($scope.conteudo_msg2.toString()) + '</conteudo_msg2><conteudo_msg3>' + self.changeBr($scope.bloco_msg_personalizada.toString()) + '</conteudo_msg3><conteudo_msg4>' + self.changeBr($scope.conteudo_msg4.toString()) + '</conteudo_msg4><conteudo_nomecasal>' + user.dadosCasal.nome_noiva + ' &#38; ' + user.dadosCasal.nome_noivo + '</conteudo_nomecasal><conteudo_pais_noiva>' + user.convite_dados.noiva_pai + '#' + user.convite_dados.noiva_mae + '</conteudo_pais_noiva><conteudo_pais_noivo>' + user.convite_dados.noivo_pai + '#' + user.convite_dados.noivo_mae + '</conteudo_pais_noivo><cor_msg1>' + $scope.bloco_msg_1["color"] + '</cor_msg1><cor_msg2>' + $scope.bloco_msg_2["color"] + '</cor_msg2><cor_msg3>' + $scope.bloco_msg_personalizada_style["color"] + '</cor_msg3><cor_msg4>' + $scope.bloco_cerimonia["color"] + '</cor_msg4><cor_nomecasal>' + $scope.bloco_nome_dos_noivos["color"] + '</cor_nomecasal><cor_pais_noiva>' + $scope.bloco_pais_noiva["color"] + '</cor_pais_noiva><cor_pais_noivo>' + $scope.bloco_pais_noivo["color"] + '</cor_pais_noivo><fonte_msg1>' + user.convite_formatacao.bloco_msg_1['font-family'] + '</fonte_msg1><fonte_msg2>' + user.convite_formatacao.bloco_msg_2['font-family'] + '</fonte_msg2><fonte_msg3>' + user.convite_formatacao.bloco_msg_personalizada_style['font-family'] + '</fonte_msg3><fonte_msg4>' + user.convite_formatacao.bloco_cerimonia['font-family'] + '</fonte_msg4><fonte_nomecasal>' + user.convite_formatacao.bloco_nome_dos_noivos['font-family'] + '</fonte_nomecasal><fonte_pais_noiva>' + user.convite_formatacao.bloco_pais_noiva['font-family'] + '</fonte_pais_noiva><fonte_pais_noivo>' + user.convite_formatacao.bloco_pais_noivo['font-family'] + '</fonte_pais_noivo><id_casal>' + user.id + '</id_casal><id_modelo>' + modelo + '</id_modelo><tamanho_fonte_msg1>' + self.removePx($scope.bloco_msg_1["font-size"]) + '</tamanho_fonte_msg1><tamanho_fonte_msg2>' + self.removePx($scope.bloco_msg_2["font-size"]) + '</tamanho_fonte_msg2><tamanho_fonte_msg3>' + self.removePx($scope.bloco_msg_personalizada_style["font-size"]) + '</tamanho_fonte_msg3><tamanho_fonte_msg4>' + self.removePx($scope.bloco_cerimonia["font-size"]) + '</tamanho_fonte_msg4><tamanho_fonte_pais_noiva>' + self.removePx($scope.bloco_nome_dos_noivos["font-size"]) + '</tamanho_fonte_pais_noiva><tamanho_fonte_pais_noivo>' + self.removePx($scope.bloco_pais_noiva["font-size"]) + '</tamanho_fonte_pais_noivo><tamanho_nomecasal>' + self.removePx($scope.bloco_pais_noivo["font-size"]) + '</tamanho_nomecasal></DadosFormatacaoConvite>';
+    var xml = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + self.getTextAlingIndice($scope.bloco_msg_1["text-align"]) + '</alinhamento_msg1><alinhamento_msg2>' + self.getTextAlingIndice($scope.bloco_msg_2["text-align"]) + '</alinhamento_msg2><alinhamento_msg3>' + self.getTextAlingIndice($scope.bloco_msg_personalizada_style["text-align"]) + '</alinhamento_msg3><alinhamento_msg4>' + self.getTextAlingIndice($scope.bloco_cerimonia["text-align"]) + '</alinhamento_msg4><alinhamento_nomecasal>' + self.getTextAlingIndice($scope.bloco_nome_dos_noivos["text-align"]) + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + self.getTextAlingIndice($scope.bloco_pais_noiva["text-align"]) + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + self.getTextAlingIndice($scope.bloco_pais_noivo["text-align"]) + '</alinhamento_pais_noivo><conteudo_msg1>' + self.changeBr($scope.conteudo_msg1.toString()) + '</conteudo_msg1><conteudo_msg2>' + self.changeBr($scope.conteudo_msg2.toString()) + '</conteudo_msg2><conteudo_msg3>' + self.changeBr($scope.bloco_msg_personalizada.toString()) + '</conteudo_msg3><conteudo_msg4>' + self.changeBr($scope.conteudo_msg4.toString()) + '</conteudo_msg4><conteudo_nomecasal>' + user.dadosCasal.nome_noiva + ' &#38; ' + user.dadosCasal.nome_noivo + '</conteudo_nomecasal><conteudo_pais_noiva>' + user.convite_dados.noiva_pai + '#' + user.convite_dados.noiva_mae + '</conteudo_pais_noiva><conteudo_pais_noivo>' + user.convite_dados.noivo_pai + '#' + user.convite_dados.noivo_mae + '</conteudo_pais_noivo><cor_msg1>' + $scope.bloco_msg_1["color"] + '</cor_msg1><cor_msg2>' + $scope.bloco_msg_2["color"] + '</cor_msg2><cor_msg3>' + $scope.bloco_msg_personalizada_style["color"] + '</cor_msg3><cor_msg4>' + $scope.bloco_cerimonia["color"] + '</cor_msg4><cor_nomecasal>' + $scope.bloco_nome_dos_noivos["color"] + '</cor_nomecasal><cor_pais_noiva>' + $scope.bloco_pais_noiva["color"] + '</cor_pais_noiva><cor_pais_noivo>' + $scope.bloco_pais_noivo["color"] + '</cor_pais_noivo><fonte_msg1>' + user.convite_formatacao.bloco_msg_1['font-family'] + '</fonte_msg1><fonte_msg2>' + user.convite_formatacao.bloco_msg_2['font-family'] + '</fonte_msg2><fonte_msg3>' + user.convite_formatacao.bloco_msg_personalizada_style['font-family'] + '</fonte_msg3><fonte_msg4>' + user.convite_formatacao.bloco_cerimonia['font-family'] + '</fonte_msg4><fonte_nomecasal>' + user.convite_formatacao.bloco_nome_dos_noivos['font-family'] + '</fonte_nomecasal><fonte_pais_noiva>' + user.convite_formatacao.bloco_pais_noiva['font-family'] + '</fonte_pais_noiva><fonte_pais_noivo>' + user.convite_formatacao.bloco_pais_noivo['font-family'] + '</fonte_pais_noivo><id_casal>' + user.id + '</id_casal><id_modelo>' + modelo + '</id_modelo><tamanho_fonte_msg1>' + self.removePx($scope.bloco_msg_1["font-size"]) + '</tamanho_fonte_msg1><tamanho_fonte_msg2>' + self.removePx($scope.bloco_msg_2["font-size"]) + '</tamanho_fonte_msg2><tamanho_fonte_msg3>' + self.removePx($scope.bloco_msg_personalizada_style["font-size"]) + '</tamanho_fonte_msg3><tamanho_fonte_msg4>' + self.removePx($scope.bloco_cerimonia["font-size"]) + '</tamanho_fonte_msg4><tamanho_fonte_pais_noiva>' + self.removePx($scope.bloco_pais_noiva["font-size"]) + '</tamanho_fonte_pais_noiva><tamanho_fonte_pais_noivo>' + self.removePx($scope.bloco_pais_noivo["font-size"]) + '</tamanho_fonte_pais_noivo><tamanho_nomecasal>' + self.removePx($scope.bloco_nome_dos_noivos["font-size"]) + '</tamanho_nomecasal></DadosFormatacaoConvite>';
 
     ConfiguracaoTemplateConvite.setData(xml);
   };
@@ -1320,34 +1320,51 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
   $scope.getConvidados();
 }]);
 
-angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', function ($scope, Convite, user, $cookies) {
+angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', 'Convidados', function ($scope, Convite, user, $cookies, Convidados) {
 
   $scope.enviando = true;
   $scope.mensagem = false;
+  $scope.convidado_lista = [];
 
   $scope.enviar = function () {
     $scope.enviando = false;
     var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + user.id + '</Id_casal>  <Id_convidado>';
 
     angular.forEach($scope.convidado_lista, function (item) {
-      xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item.id + '</int>';
+      xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item.Id + '</int>';
     });
     xmlVar += '</Id_convidado></ListaEmailConvidados>';
 
-    SaveTheDate.enviarEmail(xmlVar).then(function () {
+    Convite.enviarEmail(xmlVar).then(function (resp) {
       $scope.enviando = true;
       $scope.mensagem = true;
+
+      console.log(resp);
+      console.log(xmlVar);
     });
   };
 
-  if (user == null) {
-    $cookies.putObject('user', user);
-    $scope.convidado_lista = user.convidado_lista;
-    $scope.senhaApp = user.senhaApp;
-  } else {
-    $scope.convidado_lista = user.convidado_lista;
-    $scope.senhaApp = user.senhaApp;
-  }
+  $scope.getConvidados = function () {
+    if (user.id == null) {
+      user = $cookies.getObject('user');
+    }
+    Convidados.getData(user.id).then(function (resp) {
+      var respXml = $.parseXML(resp);
+
+      $(respXml).find('Convidado').each(function () {
+        $scope.convidado_lista.push(
+          {
+            'Id': $(this).find('Id').text()
+          }
+        );
+      });
+    });
+  };
+
+  $scope.getConvidados();
+  user = $cookies.getObject('user');
+  $scope.senhaApp = user.senhaApp;
+
 }]);
 
 angular.module("dashboard").controller('enviar_convite2', ['$scope', function ($scope) { }]);
