@@ -8,12 +8,17 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', 
     var usuario = $cookies.getObject('user');
     var userAuthenticated = false;
 
-    if (usuario != null || user == null) {
+    if (usuario.id != null) {
       userAuthenticated = true;
       user = usuario;
     }
 
     if (!userAuthenticated && !next.isLogin) {
+      //Remove o cookie
+      $cookies.remove('user');
+
+      //garante que os dados serao apagados
+      user = null;
       $location.path('/login');
     }
   });
@@ -384,14 +389,10 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   };
 
   // setup/Contonstrutor
+  user = $cookies.getObject('user');
 
-  if (user.id == null) {
-    user = $cookies.getObject('user');
-    if (user.convite_dados.cerimonia_local == null || user.convite_dados.cerimonia_local == '') {
-      $scope.getDadosConvite();
-    } else {
-      self.getLocalDados();
-    }
+  if (user.convite_dados.cerimonia_local == null || user.convite_dados.cerimonia_local == '') {
+    $scope.getDadosConvite();
   } else {
     self.getLocalDados();
   }
@@ -1205,7 +1206,18 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
       if ($scope.modelo == 0) {
         $scope.modelo = 1;
 
-        $scope.mensagem = 'Pessoas especiais como você fazem parte deste momento! O dia ' + user.dadosCasal.data_casamento + ' é muito importante para nós, o dia do nosso casamento, e gostaríamos de compartilhá-lo com você. Marque esta data no seu calendário para não se esquecer. A sua presença é essencial! Em breve você receberá por e-mail, o convite do nosso casamento.'
+        if (user.id == null) {
+          user = $cookies.getObject('user');
+        }
+
+        try {
+          var casamento = user.dadosCasal.data_casamento.split("/");
+          var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
+        } catch (error) {
+          var dataCasamento = "00/00/0000";
+        }
+
+        $scope.mensagem = 'Em momentos especiais como este, não tinha como não lembrarmos de você! Dia ' + dataCasamento + ' é um dia marcante para nós, o dia do nosso casamento e gostaríamos de compartilhar este momento com você. Marque esta data no seu calendário para não se esquecer. A sua participação é muito importante para nós! \r\n Em breve você receberá por e-mail, o convite do nosso casamento.';
 
         $scope.salvar();
       } else {
@@ -1217,17 +1229,13 @@ angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user',
       }
     });
   };
-
-  if (user.id == null) {
-    user = $cookies.getObject('user');
-
-  } else if (user.saveDate.modelo == null) {
+  user = $cookies.getObject('user');
+  if (user.saveDate.modelo == null) {
     $scope.getData();
   } else {
     $scope.modelo = user.saveDate.modelo;
     $scope.mensagem = user.saveDate.mensagem;
   }
-
 }]);
 
 angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookies', 'SaveTheDate', function ($scope, user, $cookies, SaveTheDate) {
