@@ -69,7 +69,7 @@ angular.module("dashboard")
         'font-family': '29'
       },
       bloco_nome_dos_noivos: {
-        'font-family': '29'
+        'font-family': '7'
       },
       bloco_pais_noiva: {
         'font-family': '29'
@@ -244,7 +244,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
       $scope.foto = user.foto;
 
       var data = $(respXml).find('DataCasamento').text().split('/');
-      $scope.data_casamento = new Date(data[2], data[1], data[0]);
+      $scope.data_casamento = new Date("/"+data[1]+"/"+data[0]+"/"+data[2]);
 
       self.setLocalDados();
     });
@@ -252,7 +252,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
   //salva no servidor os dados
   $scope.setDadosCasal = function () {
-    var casamento = $scope.data_casamento.getMonth() + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
+    var casamento = ($scope.data_casamento.getMonth() + 1) + "/" + $scope.data_casamento.getDate() + "/" + $scope.data_casamento.getFullYear();
     var xml = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + user.id + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + $scope.nome_noiva + '</NomeNoiva><NomeNoivo>' + $scope.nome_noivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
 
     self.setLocalDados();
@@ -398,7 +398,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   }
 }]);
 
-angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http', 'ConfiguracaoTemplateConvite', 'user', '$sce', '$cookies', '$route', function ($scope, $http, ConfiguracaoTemplateConvite, user, $sce, $cookies, $route) {
+angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http', 'ConfiguracaoTemplateConvite', 'user', '$sce', '$cookies', '$route', '$filter', function ($scope, $http, ConfiguracaoTemplateConvite, user, $sce, $cookies, $route, $filter) {
 
   var self = this;
 
@@ -493,9 +493,9 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
     var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
 
     $scope.conteudo_msg1 = $sce.trustAsHtml("convidam para a cerimônia de casamento dos seus filhos");
-    $scope.conteudo_msg2 = $sce.trustAsHtml("à realizar-se às " + user.convite_dados.cerimonia_hora + ":" + user.convite_dados.cerimonia_min + " horas no dia " + dataCasamento + ", " + user.convite_dados.cerimonia_local);
+    $scope.conteudo_msg2 = $sce.trustAsHtml("a realizar-se às " + $filter("twoDigits")(user.convite_dados.cerimonia_hora) + ":" + $filter("twoDigits")(user.convite_dados.cerimonia_min) + " horas, dia " + dataCasamento + ", " + user.convite_dados.cerimonia_local);
 
-    $scope.conteudo_msg4 = $sce.trustAsHtml("Cerimonia: <br> " + user.convite_dados.cerimonia_local + " <br> " + user.convite_dados.cerimonia_end + ", " + user.convite_dados.cerimonia_numero + " - " + user.convite_dados.cerimonia_bairro + " " + user.convite_dados.cerimonia_cidade);
+    $scope.conteudo_msg4 = $sce.trustAsHtml("Cerimônia: <br> " + user.convite_dados.cerimonia_local + " <br> " + user.convite_dados.cerimonia_end + ", " + user.convite_dados.cerimonia_numero + " - " + user.convite_dados.cerimonia_bairro + " " + user.convite_dados.cerimonia_cidade);
 
     $scope.conteudo_nomecasal = $sce.trustAsHtml(user.dadosCasal.nome_noiva + " &#38; " + user.dadosCasal.nome_noivo);
 
@@ -674,13 +674,20 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
     ConfiguracaoTemplateConvite.setData(xml);
   };
-
   $scope.getConfiguracaoConvite();
+
 }]);
 
 angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', 'Moip', '$cookies', 'PresentesLuaDeMel', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio, Moip, $cookies, PresentesLuaDeMel) {
 
   var self = this;
+
+  $scope.PreencherLocal = function (local) {
+    user.recepcao.festa_local = local;
+  };
+  $scope.PreencherCep = function (cep) {
+    user.recepcao.festa_cep = cep;
+  };
 
   /** #REGION PRODUTOS */
 
@@ -754,13 +761,13 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   //Armazena localmente as informações do serviço da Cerimonia
   self.cerimoniaRemotoToLocal = function () {
     user.recepcao.festa_igual_cerimonia = $scope.festa_igual_cerimonia;
-    user.recepcao.festa_local = $scope.festa_local;
+    // user.recepcao.festa_local = $scope.festa_local;
     user.recepcao.festa_end = $scope.festa_end;
     user.recepcao.festa_numero = $scope.festa_numero;
     user.recepcao.festa_bairro = $scope.festa_bairro;
     user.recepcao.festa_cidade = $scope.festa_cidade;
     user.recepcao.festa_rota = $scope.festa_rota;
-    user.recepcao.festa_cep = $scope.festa_cep;
+    // user.recepcao.festa_cep = $scope.festa_cep;
 
     user.lista_presentes_lua_mel = $scope.produtos;
 
@@ -813,7 +820,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.setDadosEvento = function () {
 
-    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + $scope.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_festa>' + $scope.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + user.recepcao.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_festa>' + user.recepcao.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
     //envia para o servico
     ConfiguracaoEvento.setData(xmlVar);
@@ -895,7 +902,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         rota = false;
       }
 
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.hotel_site + '</Site><Telefone>' + $scope.hotel_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.hotel_email + '</Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.hotel_site + '</Site><Telefone>' + $scope.hotel_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaHoteis.setData(xmlVar).then(function (resp) {
         /**
@@ -911,6 +918,9 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         $scope.hotel_numero = "";
         $scope.hotel_bairro = "";
         $scope.hotel_cidade = "";
+        $scope.hotel_site = "";
+        $scope.hotel_telefone = "";
+        $scope.hotel_email = "";
       });
     }
   };
@@ -967,7 +977,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   $scope.adicionarSalao = function () {
     if ($scope.salao_local != "" && $scope.salao_local != null) {
 
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email></Email><Endereco>' + $scope.salao_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.salao_site + '</Site><Telefone>' + $scope.salao_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.salao_email + '</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.salao_site + '</Site><Telefone>' + $scope.salao_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaSaloes.setData(xmlVar).then(function (resp) {
         /**
@@ -983,6 +993,9 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         $scope.salao_numero = "";
         $scope.salao_bairro = "";
         $scope.salao_cidade = "";
+        $scope.salao_site = "";
+        $scope.salao_telefone = "";
+        $scope.salao_email = "";
       });
 
     }
@@ -1269,7 +1282,6 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     } else {
       var count = 0;
       angular.forEach($scope.selecionados, function (item) {
-        console.log(item);
         if (item == id) {
           $scope.selecionados.splice(count, 1);
         }
@@ -1281,7 +1293,6 @@ angular.module("dashboard").controller('save_date2', ['$scope', 'user', '$cookie
     } else {
       $scope.allowToSend = false;
     }
-    console.log($scope.selecionados);
   };
 
   $scope.enviar = function () {
@@ -1338,9 +1349,6 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
     Convite.enviarEmail(xmlVar).then(function (resp) {
       $scope.enviando = true;
       $scope.mensagem = true;
-
-      console.log(resp);
-      console.log(xmlVar);
     });
   };
 
