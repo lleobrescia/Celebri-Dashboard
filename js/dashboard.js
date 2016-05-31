@@ -678,7 +678,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
 
 }]);
 
-angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', 'Moip', '$cookies', 'PresentesLuaDeMel', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio, Moip, $cookies, PresentesLuaDeMel) {
+angular.module('dashboard').controller('configurar_evento', ['$scope', 'ConfiguracaoEvento', 'ListaHoteis', 'ListaSaloes', 'LojaPresentes', 'user', 'Cardapio', '$cookies', 'PresentesLuaDeMel', function ($scope, ConfiguracaoEvento, ListaHoteis, ListaSaloes, LojaPresentes, user, Cardapio, $cookies, PresentesLuaDeMel) {
 
   var self = this;
 
@@ -754,7 +754,6 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     $scope.getSaloes();
     $scope.getPresentes();
     $scope.getListaCardapio();
-    $scope.verificaMoip();
     $scope.getProdutos();
   };
 
@@ -1098,24 +1097,6 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     });
   };
   /** #ENDREGION LISTA DE PRESENTE */
-
-  /** #REGION MOIP */
-  $scope.verificaMoip = function () {
-    Moip.verificar(user.id).then(function (resp) {
-      if ($(this).find('Result').text() == true) {
-        $scope.moip__form = { 'display': 'none' };
-      }
-      user.recepcao.haveMoip = $(this).find('Result').text();
-    });
-  };
-
-  $scope.cadastrarMoip = function () {
-    var nome = $scope.moip_nome.split(' ');
-    var estado = $scope.moip_estado.split(' ');
-
-    var xml = '<ContaMoip xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cep>' + $scope.moip_cep + '</Cep>  <Cidade>' + $scope.moip_cidade + '</Cidade>  <CodigoAreaTelefone>31</CodigoAreaTelefone>  <Cpf>' + $scope.moip_cpf + '</Cpf>  <DataNascimento>' + $scope.moip_nascimento + '</DataNascimento> <Email>' + $scope.moip_email + '</Email>  <Endereco>' + $scope.moip_rua + ' - ' + $scope.moip_bairro + '</Endereco>  <Estado>' + $scope.moip_estado + '</Estado>  <Id>0</Id>  <Id_usuario_logado>' + user.id + '</Id_usuario_logado>  Nome>' + nome[0] + '</Nome>  <Numero>' + $scope.moip_numero + '</Numero>  <NumeroTelefone>993684545</NumeroTelefone>  <Sigla_Estado>' + (estado[0])[0] + '</Sigla_Estado>  <UltimoNome>' + nome[nome.length] + '</UltimoNome></ContaMoip>';
-  };
-  /** #ENDREGION MOIP */
 
   /** SETUP */
   if (user.recepcao.festa_igual_cerimonia == '' ||
