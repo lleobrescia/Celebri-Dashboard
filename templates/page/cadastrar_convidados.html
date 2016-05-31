@@ -71,20 +71,21 @@
 
     <hr>
 
-    <!--<div class="row">
-      <div class="col-sm-7" ng-model="arquivo" name="arquivo" ngf-pattern="'.xls,.csv,.xlsx'" ngf-accept="'.xls,.csv,.xlsx'" ngf-max-size="20MB" ngf-select="uploadFile()">
+    <div class="row">
+      <div class="col-sm-7" ng-model="arquivo" name="arquivo">
         <p style="line-height:52px">
           Carregue sua lista de convidados em uma planilha aqui:
         </p>
       </div>
 
       <div class="col-sm-3">
-        <div class="btn btn--save" ng-click="">
-          Carregar lista
+        <div class="btn btn--save" style="position: relative;overflow: hidden;cursor: pointer;">
+          <span>Carregar lista</span>
+          <input type="file" name="xlfile" id="xlf" accept=".ods,.xls" style="position: absolute;top: -36px;left: 0;right: 0;bottom: 0;opacity: 0;filter: alpha(opacity=0);cursor: pointer;width: 100%;height: 91px;padding: 0;margin: 0;z-index: 1;line-height: normal;">
         </div>
       </div>
 
-    </div>-->
+    </div>
 
 
     <hr>

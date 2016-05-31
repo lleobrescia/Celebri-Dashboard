@@ -244,7 +244,7 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
       $scope.foto = user.foto;
 
       var data = $(respXml).find('DataCasamento').text().split('/');
-      $scope.data_casamento = new Date("/"+data[1]+"/"+data[0]+"/"+data[2]);
+      $scope.data_casamento = new Date("/" + data[1] + "/" + data[0] + "/" + data[2]);
 
       self.setLocalDados();
     });
@@ -1127,7 +1127,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   }
 }]);
 
-angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'Upload', 'user', '$cookies', function ($scope, Convidados, Upload, user, $cookies) {
+angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'user', '$cookies', function ($scope, Convidados, user, $cookies) {
 
   var self = this;
 
@@ -1184,6 +1184,46 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
     }
   };
 
+  function handleFile(e) {
+    var files = e.target.files;
+    var i, f;
+    for (i = 0, f = files[i]; i != files.length; ++i) {
+      var reader = new FileReader();
+      var name = f.name;
+      reader.onload = function (e) {
+        var data = e.target.result;
+
+        var workbook = XLSX.read(data, { type: 'binary' });
+
+        var sheet_name_list = workbook.SheetNames;
+        sheet_name_list.forEach(function (y) { /* iterate through sheets */
+          var worksheet = workbook.Sheets[y];
+          var count = 0;
+          var result = [];
+          for (z in worksheet) {
+
+            /* all keys that do not begin with "!" correspond to cell addresses */
+            if (z[0] === '!') continue;
+            result[count] = worksheet[z].v;
+
+            if (count == 2) {
+              var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + result[1] + '</Email><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + result[0] + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + result[2] + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+              Convidados.setData(xmlVar).then(function (resp) {
+                $scope.getConvidados();
+              });
+
+              count = 0;
+              result = [];
+            }
+            else count++;
+          }
+        });
+      };
+      reader.readAsBinaryString(f);
+    }
+  };
+  document.getElementById("xlf").addEventListener('change', handleFile, false);
+
   user = $cookies.getObject('user');
 
   if (user.lista_convidados == null || user.lista_convidados == '') {
@@ -1194,7 +1234,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
 
 }]);
 
-angular.module("dashboard").controller('save_date', ['$scope', 'Upload', 'user', 'SaveTheDate', '$cookies', function ($scope, Upload, user, SaveTheDate, $cookies) {
+angular.module("dashboard").controller('save_date', ['$scope', 'user', 'SaveTheDate', '$cookies', function ($scope, user, SaveTheDate, $cookies) {
 
   $scope.salvar = function () {
     var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + user.id + '</id_casal>  <id_modelo>' + $scope.modelo + '</id_modelo>  <msg>' + $scope.mensagem + '</msg>  <nomecasal>' + user.dadosCasal.nome_noiva + ' e ' + user.dadosCasal.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
