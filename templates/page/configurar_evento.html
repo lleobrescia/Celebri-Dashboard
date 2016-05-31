@@ -40,7 +40,7 @@
           <p class="form__title">
             Nome do local da recepção
           </p>
-          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true">
+          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" ng-keyup="PreencherLocal(festa_local)">
         </div>
         <!-- col-sm-7 -->
 
@@ -48,7 +48,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultFestaCEP(festa_cep)">
+          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultFestaCEP(festa_cep);PreencherCep(festa_cep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -96,8 +96,8 @@
             Traçar rotas para o local:
           </p>
           <div class="input__radio">
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="true" > Sim</span>
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="false" > Não</span>
+            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="true" ng-change="$scope.change = true"> Sim</span>
+            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="false" ng-change="$scope.change = true"> Não</span>
           </div>
           <!-- input__radio -->
         </div>
@@ -193,20 +193,27 @@
     <!-- row -->
 
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <p class="form__title">
           Telefone
         </p>
         <input type="text" name="hotel_telefone" ng-model="hotel_telefone" mask="(99) 9? 9999-9999">
       </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <!-- col-sm-3 -->
+      <div class="col-sm-3">
+        <p class="form__title">
+          E-mail
+        </p>
+        <input type="email" name="hotel_email" ng-model="hotel_email">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-4">
         <p class="form__title">
           Site
         </p>
-        <input type="url" name="hotel_site" ng-model="hotel_site">
+        <input type="url" name="hotel_site" ng-model="hotel_site" http-prefix>
       </div>
-      <!-- col-sm-6 -->
+      <!-- col-sm-4 -->
     </div>
     <!-- row -->
 
@@ -328,20 +335,27 @@
     <!-- row -->
 
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <p class="form__title">
           Telefone
         </p>
         <input type="text" name="salao_telefone" ng-model="salao_telefone" mask="(99) 9? 9999-9999">
       </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <!-- col-sm-3 -->
+            <div class="col-sm-3">
+        <p class="form__title">
+          E-mail
+        </p>
+        <input type="email" name="salao_email" ng-model="salao_email">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-4">
         <p class="form__title">
           Site
         </p>
-        <input type="url" name="salao_site" ng-model="salao_site">
+        <input type="url" name="salao_site" ng-model="salao_site" http-prefix>
       </div>
-      <!-- col-sm-6 -->
+      <!-- col-sm-4 -->
     </div>
     <!-- row -->
 
@@ -425,7 +439,7 @@
         <p class="form__title">
           URL da loja
         </p>
-        <input type="text" name="loja_url" ng-model="loja_url">
+        <input type="text" name="loja_url" ng-model="loja_url" http-prefix>
       </div>
       <!-- col-sm-6 -->
     </div>
