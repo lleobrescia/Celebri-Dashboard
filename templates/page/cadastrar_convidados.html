@@ -3,11 +3,17 @@
     <div class="col-xs-12">
       <h1 class="titulo">Cadastro de Convidados</h1>
       <p style="margin-bottom:46px">
-        Para enviarmos os convites virtuais, você deve cadastrar seus convidados. Para isso, informe o nome do convidado, o e-mail e o número de acompanhantes.
+        Para enviarmos os convites virtuais, você deve cadastrar seus convidados. Para isso, informe o nome do convidado, o e-mail
+        e o número de acompanhantes.
       </p>
-      <!--<p style="margin-bottom:46px">
-        A qualquer momento você pode carregar uma planilha configurada com essas informações em um arquivo Excel, quantas vezes for necessário. Se preferir cadastre cada convidado um a um utilizando o formulário abaixo.
-      </p>-->
+      <p style="margin-bottom:46px;position:relative">
+        A qualquer momento você pode carregar uma planilha configurada com essas informações em um
+        <span ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false" style="text-decoration: underline;color: blue;cursor: pointer;">arquivo Excel</span>,
+        quantas vezes for necessário. Se preferir cadastre cada convidado um a um utilizando o formulário abaixo.
+        <div ng-show="$scope.exemplo" style="position: absolute;z-index: 1;top: 0px;">
+          <img src="image/excelExemplo.png" alt="">
+        </div>
+      </p>
     </div>
     <!-- col-xs-12 -->
   </div>
