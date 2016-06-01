@@ -1,5 +1,5 @@
 // INIT
-angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies']);
+angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies', 'ngImageEditor']);
 
 angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', function ($rootScope, $location, $cookies, user) {
 
@@ -197,7 +197,7 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   };
 }]);
 
-angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', '$cookies', function ($scope, Upload, DadosCasal, user, $cookies) {
+angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'DadosCasal', 'user', '$cookies', '$filter', '$route', function ($scope, Upload, DadosCasal, user, $cookies, $filter, $route) {
 
   // evita conflito dentro das funcoes
   var self = this;
@@ -214,15 +214,85 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
     $cookies.putObject('user', user);
   };
 
+  /**
+   * Dados iniciais para o ngImageEditor
+   * Nao eh aceito valor null
+   */
+  $scope.foto__editor = './image/user_login.png';
+  $scope.selected = { width: 50, height: 50, top: 0, left: 0 };
+
+  //Esconde o popup da edicao da imagem
+  $scope.editar = false;
+
+  //Esconde gif de loding
+  $scope.carregando = false;
+
+  //carrega a foto do casal para edicao
+  $scope.openFile = function (elem) {
+    var reader = new FileReader();
+
+    reader.onload = function () {
+      var dataURL = reader.result;
+      $scope.foto__editor = dataURL;
+      $scope.editar = true;
+
+      // configura os valores para a area de corte inicial
+      $scope.selected.width = 200;
+      $scope.selected.height = 200;
+      $scope.selected.left = 0;
+      $scope.selected.top = 0;
+    };
+    reader.readAsDataURL(elem.files[0]);
+  };
+
+  //Funca para pegar o recorte da imagem e enviar ao servidor
   $scope.uploadFoto = function () {
 
-    Upload.base64DataUrl($scope.foto).then(function (url) {
-      var upload = Upload.upload({
-        url: 'http://celebri.com.br/dashboard/teste.php',
-        data: { image: url, name: user.id }
-      });
+    //seconde foto atual e mostra gif de loding
+    $scope.carregando = true;
 
-      upload.then(function (resp) { });
+    /**
+     * Pega a foto recordada
+     * Transforma em jpg
+     * Passa para a base64
+     */
+    var imagemCortada = $scope.imageEditor.toDataURL({ useOriginalImg: true, imageType: "image/jpg" });
+
+    //Envia para o servidor
+    var upload = Upload.upload({
+      url: 'http://celebri.com.br/dashboard/teste.php',
+      data: { image: imagemCortada, name: user.id }
+    });
+
+    //Retorno do servidor
+    upload.then(function (resp) {
+      /**
+       * O nome da imagem nunca muda,portanto
+       * ela fica no cache. Para evitar o cache
+       * eh preciso colocar ?+a hora atual
+       */
+
+      //Retira a hora antiga
+      var novaImg = user.foto.split("?");
+
+      //Pega a data e hora atual
+      var time = new Date();
+
+      /**
+       * Armazena o nome da imagem com a hora atual
+       * O filtro [$filter('date')] mostra so a hora
+       */
+      user.foto = novaImg[0] + "?" + $filter('date')(time, 'H:mm', '-0300');
+      $scope.foto = user.foto;
+
+      //seconde o gif de loding e mostra a nova imagem
+      $scope.carregando = false;
+
+      // Armazena no cookie o novo nome da imagem
+      $cookies.putObject('user', user);
+
+      //refresh a pagina para atualizar a imagem no site
+      $route.reload();
     });
   };
 
@@ -257,10 +327,6 @@ angular.module("dashboard").controller('dados_casal', ['$scope', 'Upload', 'Dado
 
     self.setLocalDados();
     DadosCasal.setData(xml);
-
-    if ($scope.fotoAlterada) {
-      $scope.uploadFoto();
-    }
   };
 
   // Setup/construtor
@@ -1480,6 +1546,8 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
           user.foto = 'image/user_login.png';
         } else {
           user.foto = $(respXml).find('Url_foto').text();
+          //evita cache da imagem
+          user.foto += "?13:45";
         }
 
         //Salva no cookie o Objeto user (que contem as informacoes globais)

@@ -13,6 +13,32 @@
 </div>
 <!-- dados__header -->
 
+<div class="image__editor" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.82);z-index: 2;"
+  ng-show="editar">
+  <div style="width: 400px;background: white;height: auto;margin: 45px auto; position:relative">
+    <div img-src="foto__editor" ng-image-editor="imageEditor" selected="selected" aspect-ratio="2:2" enabled-resize-selector="true"></div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-3">
+        <div class="btn btn--save" ng-click="uploadFoto();editar = false">
+          Salvar
+        </div>
+      </div>
+      <!--col-xs-3-->
+      <div class="col-xs-3">
+        <div class="btn btn--cancel" ng-click="editar = false">
+          Cancelar
+        </div>
+      </div>
+      <!--col-xs-3-->
+    </div>
+    <!--row-->
+  </div>
+  <!--container-->
+</div>
+<!--image__editor-->
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
@@ -41,22 +67,17 @@
           <div class="col-sm-3">
             <p class="form__title">
               Foto do Casal <br>
-              <i style="font-size: 11px;">(A imagem deve ser quadrada e com no máximo 2MB)</i>
             </p>
 
-            <div class="upload__image" ngf-select ng-model="foto" name="foto" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="2MB"
-              ng-change="$scope.change = true; fotoAlterada = true" ngf-resize="{quality: .8,  type: 'image/jpg', restoreExif: false}" ngf-ratio="1x1"
-              ngf-model-invalid="errorFile" ng-init="fotoAlterada = false">
-              <img ngf-thumbnail="foto" ngf-size="{width: 182, height: 182}">
-              <i class="fa fa-camera" ng-if="!foto"></i>
+            <div class="upload__image">
+              <div ng-if="!carregando">
+                <img id="img" ng-if="foto" ng-src="{{foto}}">
+                <i class="fa fa-camera" ng-if="!foto"></i>
+                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this);editar = true">
+              </div>
+              <img src="image/loging.gif" alt="Carregando" ng-if="carregando" style="margin-top: 61px;margin-left: auto;margin-right: auto;">
             </div>
             <!-- upload__image -->
-
-            <div style="margin-bottom: 26px;color: red;font-size: 1.4em;">
-              <i ng-show="errorFile.$errorMessages.maxSize">*A imagem é muito grande {{errorFile.size / 1000000 |number:1}}MB: max 2MB</i>
-              <i ng-show="errorFile.$errorMessages.ratio">*A imagem deve ser quadrada( ratio: 1x1)</i>
-            </div>
-
           </div>
           <!-- col-sm-3 -->
 
