@@ -66,7 +66,7 @@
           <p class="form__title">
             Número
           </p>
-          <input type="text" name="festa_numero" ng-model="festa_numero" ng-change="$scope.change = true">
+          <input type="text" name="festa_numero" ng-model="festa_numero" ng-change="$scope.change = true" ng-keyup="PreencherNum(festa_numero)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -80,13 +80,20 @@
           <input type="text" name="festa_bairro" ng-model="festa_bairro" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <p class="form__title">
             Cidade
           </p>
           <input type="text" name="festa_cidade" ng-model="festa_cidade" ng-change="$scope.change = true">
         </div>
-        <!-- col-sm-6 -->
+        <!-- col-sm-4 -->
+        <div class="col-sm-2">
+          <p class="form__title">
+            Estado
+          </p>
+          <input type="text" name="festa_uf" ng-model="festa_uf" ng-change="$scope.change = true" maxlength="2">
+        </div>
+        <!-- col-sm-2 -->
       </div>
       <!-- row -->
 
@@ -342,7 +349,7 @@
         <input type="text" name="salao_telefone" ng-model="salao_telefone" mask="(99) 9? 9999-9999">
       </div>
       <!-- col-sm-3 -->
-            <div class="col-sm-3">
+      <div class="col-sm-3">
         <p class="form__title">
           E-mail
         </p>
@@ -574,7 +581,8 @@
         <p style="color:blue;position:relative;cursor: pointer;" ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false">
           Para cada cota vendida, você escolhe se prefere repassar esta taxa ao convidado ou se irá absorvê-la*.
 
-          <div style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;    font-size: 1.6em;top:143px" ng-if="$scope.exemplo">
+          <div style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;    font-size: 1.6em;top:143px"
+            ng-if="$scope.exemplo">
             *Por exemplo, se o seu convidado te pagar R$ 100,00, você pode:
             <ul style="list-style:disc;padding-left:5px">
               <li>

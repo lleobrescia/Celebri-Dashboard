@@ -85,6 +85,7 @@ angular.module("dashboard")
       festa_end: null,
       festa_numero: null,
       festa_bairro: null,
+      festa_uf: null,
       festa_cidade: null,
       festa_rota: null,
       festa_cep: null,
@@ -453,7 +454,7 @@ angular.module("dashboard").controller('configurar_convite', ['$scope', 'Configu
   // salva os dados no servidor
   $scope.setDadosConvite = function () {
     var hora = $scope.cerimonia_hora + ":" + $scope.cerimonia_min;
-    var xml = '<ConfiguracaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.cerimonia_bairro + '</Bairro><Cep>' + $scope.cerimonia_cep + '</Cep><Cidade>' + $scope.cerimonia_cidade + '</Cidade><Endereco>' + $scope.cerimonia_end + '</Endereco><Estado>'+$scope.cerimonia_uf+'</Estado><Horario_cerimonia>' + hora + '</Horario_cerimonia><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_cerimonia>' + $scope.cerimonia_local + '</Local_cerimonia><Mae_noiva>' + $scope.noiva_mae + '</Mae_noiva><Mae_noiva_in_memoriam>' + $scope.noiva_mae_memorian + '</Mae_noiva_in_memoriam><Mae_noivo>' + $scope.noivo_mae + '</Mae_noivo><Mae_noivo_in_memoriam>' + $scope.noivo_mae_memorian + '</Mae_noivo_in_memoriam><Msg1></Msg1><Msg2></Msg2><Msg3></Msg3><Msg4></Msg4><Msg5></Msg5><Msg6></Msg6><Numero>' + $scope.cerimonia_numero + '</Numero><Obs></Obs><Pai_noiva>' + $scope.noiva_pai + '</Pai_noiva><Pai_noiva_in_memoriam>' + $scope.noiva_pai_memorian + '</Pai_noiva_in_memoriam><Pai_noivo>' + $scope.noivo_pai + '</Pai_noivo><Pai_noivo_in_memoriam>' + $scope.noivo_pai_memorian + '</Pai_noivo_in_memoriam><Pais></Pais><Tracar_rota_local>' + $scope.cerimonia_rota + '</Tracar_rota_local></ConfiguracaoConvite>';
+    var xml = '<ConfiguracaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.cerimonia_bairro + '</Bairro><Cep>' + $scope.cerimonia_cep + '</Cep><Cidade>' + $scope.cerimonia_cidade + '</Cidade><Endereco>' + $scope.cerimonia_end + '</Endereco><Estado>' + $scope.cerimonia_uf + '</Estado><Horario_cerimonia>' + hora + '</Horario_cerimonia><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_cerimonia>' + $scope.cerimonia_local + '</Local_cerimonia><Mae_noiva>' + $scope.noiva_mae + '</Mae_noiva><Mae_noiva_in_memoriam>' + $scope.noiva_mae_memorian + '</Mae_noiva_in_memoriam><Mae_noivo>' + $scope.noivo_mae + '</Mae_noivo><Mae_noivo_in_memoriam>' + $scope.noivo_mae_memorian + '</Mae_noivo_in_memoriam><Msg1></Msg1><Msg2></Msg2><Msg3></Msg3><Msg4></Msg4><Msg5></Msg5><Msg6></Msg6><Numero>' + $scope.cerimonia_numero + '</Numero><Obs></Obs><Pai_noiva>' + $scope.noiva_pai + '</Pai_noiva><Pai_noiva_in_memoriam>' + $scope.noiva_pai_memorian + '</Pai_noiva_in_memoriam><Pai_noivo>' + $scope.noivo_pai + '</Pai_noivo><Pai_noivo_in_memoriam>' + $scope.noivo_pai_memorian + '</Pai_noivo_in_memoriam><Pais></Pais><Tracar_rota_local>' + $scope.cerimonia_rota + '</Tracar_rota_local></ConfiguracaoConvite>';
 
     ConfiguracaoConvite.setData(xml);
     self.setLocalDados();
@@ -759,6 +760,9 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
   $scope.PreencherCep = function (cep) {
     user.recepcao.festa_cep = cep;
   };
+  $scope.PreencherNum = function (num) {
+    user.recepcao.festa_numero = num;
+  };
 
   /** #REGION PRODUTOS */
 
@@ -833,7 +837,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     user.recepcao.festa_igual_cerimonia = $scope.festa_igual_cerimonia;
     // user.recepcao.festa_local = $scope.festa_local;
     user.recepcao.festa_end = $scope.festa_end;
-    user.recepcao.festa_numero = $scope.festa_numero;
+    // user.recepcao.festa_numero = $scope.festa_numero;
     user.recepcao.festa_bairro = $scope.festa_bairro;
     user.recepcao.festa_cidade = $scope.festa_cidade;
     user.recepcao.festa_rota = $scope.festa_rota;
@@ -852,6 +856,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
     $scope.festa_end = user.recepcao.festa_end;
     $scope.festa_numero = user.recepcao.festa_numero;
     $scope.festa_bairro = user.recepcao.festa_bairro;
+    $scope.festa_uf = user.recepcao.festa_uf;
     $scope.festa_cidade = user.recepcao.festa_cidade;
     $scope.festa_rota = user.recepcao.festa_rota;
     $scope.festa_cep = user.recepcao.festa_cep;
@@ -880,6 +885,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       $scope.festa_numero = $(respXml).find('Numero').text();
       $scope.festa_bairro = $(respXml).find('Bairro').text();
       $scope.festa_cidade = $(respXml).find('Cidade').text();
+      $scope.festa_uf = $(respXml).find('Estado').text();
       $scope.festa_rota = $(respXml).find('Tracar_rota_local').text();
       $scope.festa_cep = $(respXml).find('Cep').text();
 
@@ -890,7 +896,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.setDadosEvento = function () {
 
-    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + user.recepcao.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado></Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_festa>' + user.recepcao.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + $scope.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.festa_bairro + '</Bairro><Cep>' + user.recepcao.festa_cep + '</Cep><Cidade>' + $scope.festa_cidade + '</Cidade><Endereco>' + $scope.festa_end + '</Endereco><Estado>' + $scope.festa_uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Local_festa>' + user.recepcao.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + $scope.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + user.recepcao.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + $scope.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
     //envia para o servico
     ConfiguracaoEvento.setData(xmlVar);
@@ -910,6 +916,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
           $scope.festa_end = data.logradouro;
           $scope.festa_bairro = data.bairro;
           $scope.festa_cidade = data.cidade;
+          $scope.festa_uf = data.estado;
         }
       });
     }
