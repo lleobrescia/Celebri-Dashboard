@@ -66,13 +66,21 @@
         <input type="text" name="bairro" ng-model="cerimonia_bairro" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-4 -->
-      <div class="col-sm-7">
+      <div class="col-sm-5">
         <p class="form__title">
           Cidade
         </p>
         <input type="text" name="cidade" ng-model="cerimonia_cidade" ng-change="$scope.change = true">
       </div>
-      <!-- col-sm-7 -->
+      <!-- col-sm-5 -->
+
+      <div class="col-sm-2">
+        <p class="form__title">
+          Estado
+        </p>
+        <input type="text" name="uf" ng-model="cerimonia_uf" ng-change="$scope.change = true" maxlength="2">
+      </div>
+      <!-- col-sm-2 -->
     </div>
     <!-- row -->
 
