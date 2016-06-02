@@ -558,9 +558,9 @@ angular.module("dashboard").controller('configurar_convite2', ['$scope', '$http'
   $scope.bloco_msg_personalizada = "Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.";
 
   self.setMsg = function () {
-    if (user.id == null) {
-      user = $cookies.getObject('user');
-    }
+
+    user = $cookies.getObject('user');
+
     var casamento = user.dadosCasal.data_casamento.split("/");
     var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
 
