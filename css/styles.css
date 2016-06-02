@@ -241,6 +241,13 @@ input[type=checkbox], input[type=radio] {
   background: #8ECC44;
 }
 
+.btn--disable, .btn--disable:hover {
+  background: #9E9E9E;
+  color: #CCCCCC;
+  opacity: 1;
+  cursor: default;
+}
+
 .btn__question {
   width: 29px;
   height: 29px;
@@ -269,7 +276,7 @@ input[type=checkbox], input[type=radio] {
   font-size: 1.6em;
   padding-right: 5px;
   padding-left: 12px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   outline-color: #ff7c7c;
   width: 100%;
 }
@@ -384,10 +391,11 @@ input[type=checkbox], input[type=radio] {
   text-align: center;
   cursor: pointer;
   margin-bottom: 25px;
-      position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
-.upload__image input[type="file"]{
+
+.upload__image input[type="file"] {
   position: absolute;
   z-index: 1;
   top: -35px;
@@ -402,6 +410,7 @@ input[type=checkbox], input[type=radio] {
   opacity: 0;
   filter: alpha(opacity=0);
 }
+
 .upload__image:hover i {
   color: #CCCCCC;
 }
@@ -651,6 +660,7 @@ select {
 .configurar_convite_2 {
   padding-top: 140px;
 }
+
 .bloco {
   position: absolute;
   overflow: hidden;
