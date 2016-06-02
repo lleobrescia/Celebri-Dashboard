@@ -935,6 +935,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
           $scope.hotel_end = data.logradouro;
           $scope.hotel_bairro = data.bairro;
           $scope.hotel_cidade = data.cidade;
+          $scope.hotel_uf = data.estado;
         }
       });
     }

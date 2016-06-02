@@ -147,7 +147,7 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Nome do local do hotel
+          Nome do local do hotel*
         </p>
         <input type="text" name="hotel_local" ng-model="hotel_local">
 
@@ -166,14 +166,14 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Endereço do hotel
+          Endereço do hotel*
         </p>
         <input type="text" name="hotel_end" ng-model="hotel_end">
       </div>
       <!-- col-sm-7 -->
       <div class="col-sm-3">
         <p class="form__title">
-          Número
+          Número*
         </p>
         <input type="text" name="hotel_numero" ng-model="hotel_numero">
       </div>
@@ -184,25 +184,32 @@
     <div class="row">
       <div class="col-sm-4">
         <p class="form__title">
-          Bairro
+          Bairro*
         </p>
         <input type="text" name="hotel_bairro" ng-model="hotel_bairro">
       </div>
       <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <p class="form__title">
-          Cidade
+          Cidade*
         </p>
         <input type="text" name="hotel_cidade" ng-model="hotel_cidade">
       </div>
-      <!-- col-sm-6 -->
+      <!-- col-sm-4 -->
+      <div class="col-sm-2">
+        <p class="form__title">
+          Estado*
+        </p>
+        <input type="text" name="hotel_uf" ng-model="hotel_uf" maxlength="2">
+      </div>
+      <!-- col-sm-4 -->
     </div>
     <!-- row -->
 
     <div class="row">
       <div class="col-sm-3">
         <p class="form__title">
-          Telefone
+          Telefone*
         </p>
         <input type="text" name="hotel_telefone" ng-model="hotel_telefone" mask="(99) 9? 9999-9999">
       </div>
@@ -238,7 +245,12 @@
       <!-- col-sm-3 -->
 
       <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-click="adicionarHotel()">
+        <div class="btn btn--save" ng-if="hotel_local && hotel_end && hotel_numero &&hotel_bairro && hotel_cidade && hotel_uf && hotel_telefone"
+          ng-click="adicionarHotel()">
+          Adicionar
+        </div>
+
+        <div class="btn btn--disable" ng-if="!hotel_local || !hotel_end || !hotel_numero || !hotel_bairro || !hotel_cidade || !hotel_uf || !hotel_telefone">
           Adicionar
         </div>
         <!-- btn -->
