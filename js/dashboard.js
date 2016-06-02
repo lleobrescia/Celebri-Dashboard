@@ -980,7 +980,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         rota = false;
       }
 
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.hotel_email + '</Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.hotel_site + '</Site><Telefone>' + $scope.hotel_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.hotel_bairro + '</Bairro><Cidade>' + $scope.hotel_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.hotel_email + '</Email><Endereco>' + $scope.hotel_end + '</Endereco><Estado>' + $scope.hotel_uf + '</Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.hotel_local + '</Nome><Numero>' + $scope.hotel_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.hotel_site + '</Site><Telefone>' + $scope.hotel_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaHoteis.setData(xmlVar).then(function (resp) {
         /**
@@ -996,6 +996,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         $scope.hotel_numero = "";
         $scope.hotel_bairro = "";
         $scope.hotel_cidade = "";
+        $scope.hotel_uf = "";
         $scope.hotel_site = "";
         $scope.hotel_telefone = "";
         $scope.hotel_email = "";
@@ -1006,18 +1007,22 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   /** #REGION SALAO */
   $scope.consultCEPSalao = function () {
-    var cep = $scope.salao_cep.replace(/\./g, '');
-    cep = cep.replace(/\-/g, '');
-    if (cep.length > 7) {
-      $.ajax({
-        url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
-        success: function (data) {
-          $scope.salao_end = data.logradouro;
-          $scope.salao_bairro = data.bairro;
-          $scope.salao_cidade = data.cidade;
-        }
-      });
-    }
+    try {
+      var cep = $scope.salao_cep.replace(/\./g, '');
+      cep = cep.replace(/\-/g, '');
+
+      if (cep.length > 7) {
+        $.ajax({
+          url: "http://api.postmon.com.br/v1/cep/" + cep.toString(),
+          success: function (data) {
+            $scope.salao_end = data.logradouro;
+            $scope.salao_bairro = data.bairro;
+            $scope.salao_cidade = data.cidade;
+            $scope.salao_uf = data.estado;
+          }
+        });
+      }
+    } catch (error) { }
   };
 
   $scope.getSaloes = function () {
@@ -1054,10 +1059,16 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
 
   $scope.adicionarSalao = function () {
     if ($scope.salao_local != "" && $scope.salao_local != null) {
+      var rota = true;
+      if ($scope.salao_rota == 'nao') {
+        rota = false;
+      }
 
-      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.salao_email + '</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado></Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.salao_site + '</Site><Telefone>' + $scope.salao_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + $scope.salao_rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.salao_email + '</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>' + $scope.salao_uf + '</Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.salao_site + '</Site><Telefone>' + $scope.salao_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaSaloes.setData(xmlVar).then(function (resp) {
+        console.log(resp);
+        console.log(xmlVar);
         /**
          * Eh necessario puxar o conteudo do servico novamente
          * pq o ID do novo salao eh gerado no servico.
@@ -1071,6 +1082,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
         $scope.salao_numero = "";
         $scope.salao_bairro = "";
         $scope.salao_cidade = "";
+        $scope.salao_uf = "";
         $scope.salao_site = "";
         $scope.salao_telefone = "";
         $scope.salao_email = "";

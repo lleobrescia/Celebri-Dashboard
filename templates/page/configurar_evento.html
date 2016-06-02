@@ -301,7 +301,7 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Nome do local do salão
+          Nome do local do salão*
         </p>
         <input type="text" name="salao_local" ng-model="salao_local">
 
@@ -320,14 +320,14 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Endereço do salão
+          Endereço do salão*
         </p>
         <input type="text" name="salao_end" ng-model="salao_end">
       </div>
       <!-- col-sm-7 -->
       <div class="col-sm-3">
         <p class="form__title">
-          Número
+          Número*
         </p>
         <input type="text" name="salao_numero" ng-model="salao_numero">
       </div>
@@ -338,16 +338,23 @@
     <div class="row">
       <div class="col-sm-4">
         <p class="form__title">
-          Bairro
+          Bairro*
         </p>
         <input type="text" name="salao_bairro" ng-model="salao_bairro">
       </div>
       <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <p class="form__title">
-          Cidade
+          Cidade*
         </p>
         <input type="text" name="salao_cidade" ng-model="salao_cidade">
+      </div>
+      <!-- col-sm-4 -->
+      <div class="col-sm-2">
+        <p class="form__title">
+          Estado*
+        </p>
+        <input type="text" name="salao_uf" ng-model="salao_uf">
       </div>
       <!-- col-sm-6 -->
     </div>
@@ -356,7 +363,7 @@
     <div class="row">
       <div class="col-sm-3">
         <p class="form__title">
-          Telefone
+          Telefone*
         </p>
         <input type="text" name="salao_telefone" ng-model="salao_telefone" mask="(99) 9? 9999-9999">
       </div>
@@ -384,15 +391,19 @@
           Traçar rotas para o local:
         </p>
         <div class="input__radio">
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="true" > Sim</span>
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="false" > Não</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="sim" > Sim</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="nao" > Não</span>
         </div>
         <!-- input__radio -->
       </div>
       <!-- col-sm-3 -->
 
       <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-click="adicionarSalao()">
+        <div class="btn btn--save" ng-click="adicionarSalao()" ng-if="salao_local && salao_end && salao_numero &&salao_bairro && salao_cidade && salao_uf && salao_telefone">
+          Adicionar
+        </div>
+        <!-- btn -->
+        <div class="btn btn--disable" ng-if="!salao_local || !salao_end || !salao_numero || !salao_bairro || !salao_cidade || !salao_uf || !salao_telefone">
           Adicionar
         </div>
         <!-- btn -->
