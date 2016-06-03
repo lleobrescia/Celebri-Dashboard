@@ -1,2 +1,5 @@
 jsconfig.json
 .vscode/settings.json
+gulpfile.js
+node_modules/
+package.json
