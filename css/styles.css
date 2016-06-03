@@ -545,11 +545,8 @@ select {
   margin-left: -11px;
   margin-right: -11px;
   -webkit-box-sizing: content-box;
-  ;
   -moz-box-sizing: content-box;
-  ;
   box-sizing: content-box;
-  ;
 }
 
 .tabela_convidado_topo p {
@@ -561,10 +558,12 @@ select {
   width: 200px !important;
   margin: 0;
   height: 22px;
-  border-radius: 10px;
-  background: #f1f2f2;
+  border-radius: 10px;;
   border-color: #b7b8ba;
   float: right;
+  background: url("../image/lupa.png") 5px center no-repeat #f1f2f2;;
+  padding-left: 19px;
+  padding-right: 7px;
 }
 
 .tabela_convidado_header {
@@ -578,6 +577,7 @@ select {
   display: inline-block;
   width: calc(90%/3);
   font-family: 'Roboto Condensed';
+  margin-bottom: 0;
 }
 
 .tabela_convidado_single {
