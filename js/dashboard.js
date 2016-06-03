@@ -1489,9 +1489,11 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
 
 angular.module("dashboard").controller('enviar_convite2', ['$scope', function ($scope) { }]);
 
-angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'EstatisticaServ', function ($scope, user, EstatisticaServ) {
+angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'EstatisticaServ', '$cookies', function ($scope, user, EstatisticaServ, $cookies) {
 
   $scope.getEstatistica = function () {
+    user = $cookies.getObject('user');
+
     EstatisticaServ.getData(user.id).then(function (resp) {
       var respXml = $.parseXML(resp);
 
