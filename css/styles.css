@@ -534,6 +534,8 @@ select {
   border: thin solid #76777b;
   margin-bottom: 50px;
   padding: 0 11px;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .tabela_convidado_topo {
