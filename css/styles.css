@@ -591,6 +591,7 @@ select {
   width: calc(90%/3);
   font-family: 'Roboto Condensed';
   font-size: 1.2em;
+  margin-bottom: 0;
 }
 
 .tabela_convidado_single .fa {
