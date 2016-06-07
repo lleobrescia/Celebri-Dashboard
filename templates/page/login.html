@@ -22,24 +22,44 @@
         </div>
         <!--login__content-->
         <div class="login__box">
-          <p class="text-center">Acesse sua conta Celebri.</p><br>
+          <p class="text-center" ng-if="!recuperarSenha">Acesse sua conta Celebri.</p><br>
           <div class="erro__box" ng-if="Result == 'false'">
             <p>
               <strong>ERRO:</strong> {{ErrorMessage}}
             </p>
           </div>
-          <form class="login__form" method="POST">
-            <p>E-mail:</p>
-            <input type="text" ng-model="nomeUsuario" name="login" ng-required="required"> <br>
-            <p>Senha:</p>
-            <input type="password" ng-model="senhaUsuario" name="senha" ng-required="required"><br>
-            <input type="submit" value="Entrar" ng-click="autenticar()">
+          <form class="login__form" method="POST" ng-init="recuperarSenha = false">
+            <img src="image/loging.gif" alt="Carregando" style="width: 32px;margin: auto;display: block;" ng-if="carregando">
+            <div ng-if="!recuperarSenha && !carregando">
+              <p>E-mail:</p>
+              <input type="text" ng-model="nomeUsuario" name="login" ng-required="required"> <br>
+              <p>Senha:</p>
+              <input type="password" ng-model="senhaUsuario" name="senha" ng-required="required"><br>
+              <input type="submit" value="Entrar" ng-click="autenticar()">
+            </div>
+
+            <div ng-show="recuperarSenha && !carregando">
+              <p ng-show="confirmacao">Em breve você receberá um email com um link para alterar a senha.</p>
+
+              <div ng-show="!confirmacao">
+                <p class="text-center">Digite o e-mail cadastrado.</p><br><br>
+                <p>E-mail:</p>
+                <input type="email" ng-model="email" name="email" ng-required="required" ng-keyup="preencherEmail(email)">                <br>
+                <input type="submit" value="Enviar" ng-click="enviarEmail()">
+              </div>
+
+            </div>
+
             <div class="clearfix"></div>
           </form>
           <div class="login__text">
-
-            <a href="http://celebri.com.br/" title="Voltar ao Site">← Voltar para Celebri</a>
-
+            <a title="Recuperar Senha" ng-click="chanceScreen()" ng-if="!recuperarSenha">Recuperar Senha</a>
+            <a title="Recuperar Senha" ng-click="chanceScreen();confirmacao = false" ng-if="recuperarSenha">
+              Voltar
+            </a><br><br>
+            <a href="http://celebri.com.br/" title="Voltar ao Site">
+              ← Voltar para Celebri
+            </a>
           </div>
           <!--login__text-->
         </div>

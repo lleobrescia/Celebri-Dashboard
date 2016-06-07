@@ -8,7 +8,7 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', 
     var usuario = $cookies.getObject('user');
     var userAuthenticated = false;
 
-    if (usuario.id != null) {
+    if (usuario == undefined) {
       userAuthenticated = true;
       user = usuario;
     }
@@ -1067,8 +1067,7 @@ angular.module('dashboard').controller('configurar_evento', ['$scope', 'Configur
       var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + $scope.salao_bairro + '</Bairro><Cidade>' + $scope.salao_cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + $scope.salao_email + '</Email><Endereco>' + $scope.salao_end + '</Endereco><Estado>' + $scope.salao_uf + '</Estado><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.salao_local + '</Nome><Numero>' + $scope.salao_numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + $scope.salao_site + '</Site><Telefone>' + $scope.salao_telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
 
       ListaSaloes.setData(xmlVar).then(function (resp) {
-        console.log(resp);
-        console.log(xmlVar);
+
         /**
          * Eh necessario puxar o conteudo do servico novamente
          * pq o ID do novo salao eh gerado no servico.
@@ -1564,10 +1563,18 @@ angular.module("dashboard").controller('estatistica', ['$scope', 'user', 'Estati
 
 
 angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos', 'user', '$location', '$cookies', function ($scope, AutenticacaoNoivos, user, $location, $cookies) {
+  $scope.recuperarSenha = false;
+  $scope.carregando = false;
+  $scope.confirmacao = false;
   $scope.nomeUsuario = '';
   $scope.senhaUsuario = '';
 
   var usuario = $cookies.getObject('user');
+
+  $scope.chanceScreen = function () {
+    $scope.recuperarSenha = !$scope.recuperarSenha;
+  };
+
 
   /**
    * se existir cookie nao ha necessidade de logar
@@ -1632,6 +1639,28 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
         $scope.Result = check;
         $scope.ErrorMessage = $(respXml).find('ErrorMessage').text();
       }
+    });
+  };
+
+  $scope.preencherEmail = function (email) {
+    $scope.email = email;
+  };
+
+  $scope.enviarEmail = function () {
+    $scope.carregando = true;
+    $scope.Result = 'true';
+
+    AutenticacaoNoivos.recuperarSenha($scope.email).then(function (resp) {
+      var respXml = $.parseXML(resp);
+      var check = $(respXml).find('Result').text();
+
+      if (check == 'false') {
+        $scope.ErrorMessage = "E-mail não encontrado na nossa base de dados."
+        $scope.Result = check;
+      } else {
+        $scope.confirmacao = true;
+      }
+      $scope.carregando = false;
     });
   };
 }]);

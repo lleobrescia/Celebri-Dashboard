@@ -948,6 +948,7 @@ rzslider .rz-pointer {
 .login__text a {
   color: white;
   font-size: 1.4em;
+  cursor: pointer;
 }
 
 .erro__box {
