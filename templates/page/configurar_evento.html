@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-init="checkTemplate()">
   <div class="row">
     <div class="col-xs-12">
       <h1 class="titulo">Informações Adicionais</h1>
@@ -40,7 +40,7 @@
           <p class="form__title">
             Nome do local da recepção
           </p>
-          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true">
+          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" ng-keyup="PreencherLocal(festa_local)">
         </div>
         <!-- col-sm-7 -->
 
@@ -48,7 +48,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keypress="consultCEP()">
+          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultFestaCEP(festa_cep);PreencherCep(festa_cep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -66,7 +66,7 @@
           <p class="form__title">
             Número
           </p>
-          <input type="text" name="festa_numero" ng-model="festa_numero" ng-change="$scope.change = true">
+          <input type="text" name="festa_numero" ng-model="festa_numero" ng-change="$scope.change = true" ng-keyup="PreencherNum(festa_numero)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -80,13 +80,20 @@
           <input type="text" name="festa_bairro" ng-model="festa_bairro" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <p class="form__title">
             Cidade
           </p>
           <input type="text" name="festa_cidade" ng-model="festa_cidade" ng-change="$scope.change = true">
         </div>
-        <!-- col-sm-6 -->
+        <!-- col-sm-4 -->
+        <div class="col-sm-2">
+          <p class="form__title">
+            Estado
+          </p>
+          <input type="text" name="festa_uf" ng-model="festa_uf" ng-change="$scope.change = true" maxlength="2">
+        </div>
+        <!-- col-sm-2 -->
       </div>
       <!-- row -->
 
@@ -96,16 +103,14 @@
             Traçar rotas para o local:
           </p>
           <div class="input__radio">
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="true" > Sim</span>
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="false" > Não</span>
+            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="true" ng-change="$scope.change = true"> Sim</span>
+            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="false" ng-change="$scope.change = true"> Não</span>
           </div>
           <!-- input__radio -->
         </div>
         <!-- col-xs-12 -->
       </div>
       <!-- row -->
-
-      <!-- #ENDREGION DADOS DA SERIMONIA -->
 
       <div class="row" ng-if="$scope.change">
         <div class="col-sm-3">
@@ -122,6 +127,8 @@
       <!-- row -->
     </div>
     <!-- festa_igual_cerimonia -->
+
+    <!-- #ENDREGION DADOS DA SERIMONIA -->
 
     <hr>
 
@@ -140,7 +147,7 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Nome do local do hotel
+          Nome do local do hotel*
         </p>
         <input type="text" name="hotel_local" ng-model="hotel_local">
 
@@ -150,7 +157,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keypress="consultCEPHotel()">
+        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keyup="consultCEPHotel()">
       </div>
       <!-- col-sm-3 -->
     </div>
@@ -159,14 +166,14 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Endereço do hotel
+          Endereço do hotel*
         </p>
         <input type="text" name="hotel_end" ng-model="hotel_end">
       </div>
       <!-- col-sm-7 -->
       <div class="col-sm-3">
         <p class="form__title">
-          Número
+          Número*
         </p>
         <input type="text" name="hotel_numero" ng-model="hotel_numero">
       </div>
@@ -177,18 +184,50 @@
     <div class="row">
       <div class="col-sm-4">
         <p class="form__title">
-          Bairro
+          Bairro*
         </p>
         <input type="text" name="hotel_bairro" ng-model="hotel_bairro">
       </div>
       <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <p class="form__title">
-          Cidade
+          Cidade*
         </p>
         <input type="text" name="hotel_cidade" ng-model="hotel_cidade">
       </div>
-      <!-- col-sm-6 -->
+      <!-- col-sm-4 -->
+      <div class="col-sm-2">
+        <p class="form__title">
+          Estado*
+        </p>
+        <input type="text" name="hotel_uf" ng-model="hotel_uf" maxlength="2">
+      </div>
+      <!-- col-sm-4 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="form__title">
+          Telefone*
+        </p>
+        <input type="text" name="hotel_telefone" ng-model="hotel_telefone" mask="(99) 9? 9999-9999">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-3">
+        <p class="form__title">
+          E-mail
+        </p>
+        <input type="email" name="hotel_email" ng-model="hotel_email">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-4">
+        <p class="form__title">
+          Site
+        </p>
+        <input type="url" name="hotel_site" ng-model="hotel_site" http-prefix>
+      </div>
+      <!-- col-sm-4 -->
     </div>
     <!-- row -->
 
@@ -206,7 +245,12 @@
       <!-- col-sm-3 -->
 
       <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-click="adicionarHotel()">
+        <div class="btn btn--save" ng-if="hotel_local && hotel_end && hotel_numero &&hotel_bairro && hotel_cidade && hotel_uf && hotel_telefone"
+          ng-click="adicionarHotel()">
+          Adicionar
+        </div>
+
+        <div class="btn btn--disable" ng-if="!hotel_local || !hotel_end || !hotel_numero || !hotel_bairro || !hotel_cidade || !hotel_uf || !hotel_telefone">
           Adicionar
         </div>
         <!-- btn -->
@@ -216,8 +260,8 @@
     <!-- row -->
     <!-- #ENDREGION CADASTRO DE HOTEL -->
 
+    <!-- #REGION LISTA DE HOTEL -->
     <div class="row">
-      <!-- #REGION LISTA DE HOTEL -->
       <div class="col-sm-10">
         <div class="tabela" ng-if="hotel_lista.length > 0">
           <div class="tabela__header">
@@ -235,9 +279,9 @@
         <!-- tabela -->
       </div>
       <!-- col-xs-12 -->
-      <!-- #ENDREGION LISTA DE HOTEL -->
     </div>
     <!-- row -->
+    <!-- #ENDREGION LISTA DE HOTEL -->
 
     <hr>
 
@@ -257,7 +301,7 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Nome do local do salão
+          Nome do local do salão*
         </p>
         <input type="text" name="salao_local" ng-model="salao_local">
 
@@ -267,7 +311,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keypress="consultCEPHotel()">
+        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keyup="consultCEPSalao()">
       </div>
       <!-- col-sm-3 -->
     </div>
@@ -276,14 +320,14 @@
     <div class="row">
       <div class="col-sm-7">
         <p class="form__title">
-          Endereço do salão
+          Endereço do salão*
         </p>
         <input type="text" name="salao_end" ng-model="salao_end">
       </div>
       <!-- col-sm-7 -->
       <div class="col-sm-3">
         <p class="form__title">
-          Número
+          Número*
         </p>
         <input type="text" name="salao_numero" ng-model="salao_numero">
       </div>
@@ -294,18 +338,50 @@
     <div class="row">
       <div class="col-sm-4">
         <p class="form__title">
-          Bairro
+          Bairro*
         </p>
         <input type="text" name="salao_bairro" ng-model="salao_bairro">
       </div>
       <!-- col-sm-4 -->
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <p class="form__title">
-          Cidade
+          Cidade*
         </p>
         <input type="text" name="salao_cidade" ng-model="salao_cidade">
       </div>
+      <!-- col-sm-4 -->
+      <div class="col-sm-2">
+        <p class="form__title">
+          Estado*
+        </p>
+        <input type="text" name="salao_uf" ng-model="salao_uf">
+      </div>
       <!-- col-sm-6 -->
+    </div>
+    <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="form__title">
+          Telefone*
+        </p>
+        <input type="text" name="salao_telefone" ng-model="salao_telefone" mask="(99) 9? 9999-9999">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-3">
+        <p class="form__title">
+          E-mail
+        </p>
+        <input type="email" name="salao_email" ng-model="salao_email">
+      </div>
+      <!-- col-sm-3 -->
+      <div class="col-sm-4">
+        <p class="form__title">
+          Site
+        </p>
+        <input type="url" name="salao_site" ng-model="salao_site" http-prefix>
+      </div>
+      <!-- col-sm-4 -->
     </div>
     <!-- row -->
 
@@ -315,15 +391,19 @@
           Traçar rotas para o local:
         </p>
         <div class="input__radio">
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="true" > Sim</span>
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="false" > Não</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="sim" > Sim</span>
+          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="nao" > Não</span>
         </div>
         <!-- input__radio -->
       </div>
       <!-- col-sm-3 -->
 
       <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-click="adicionarSalao()">
+        <div class="btn btn--save" ng-click="adicionarSalao()" ng-if="salao_local && salao_end && salao_numero &&salao_bairro && salao_cidade && salao_uf && salao_telefone">
+          Adicionar
+        </div>
+        <!-- btn -->
+        <div class="btn btn--disable" ng-if="!salao_local || !salao_end || !salao_numero || !salao_bairro || !salao_cidade || !salao_uf || !salao_telefone">
           Adicionar
         </div>
         <!-- btn -->
@@ -389,7 +469,7 @@
         <p class="form__title">
           URL da loja
         </p>
-        <input type="text" name="loja_url" ng-model="loja_url">
+        <input type="text" name="loja_url" ng-model="loja_url" http-prefix>
       </div>
       <!-- col-sm-6 -->
     </div>
@@ -503,33 +583,52 @@
       <div class="col-xs-12">
         <h3>Cotas de lua de mel convertidas em dinheiro.</h3>
         <p>
-          O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Para isso você tem duas opções:
-          seus convidados realizam o pagamento pelo aplicativo utilizando cartão de crédito ou fazem uma transferência direto
-          para sua conta bancária.
+          Este recurso estará disponível em breve.
         </p>
-        <p style="margin-top:26px">
-          Para pagamentos via cartão de crédito, o Celebri cobra uma taxa de conveniência repassada à MoIP, que é a intermediadora
-          de pagamentos, e para a administradora do cartão. Há também a opção para transferências bancárias cujas taxas são
-          cobradas pelo banco, não sendo de responsabilidade da CELEBRI o valor destas, bem como o repasse da transferência,
-          porém para o seu convidado pode ser mais incoveniente, pois ele terá que arcar com custos de TED ou DOC se não
-          possuir conta no mesmo banco que os noivos.
-        </p>
-        <p style="margin-top:26px">
+        <p>
+          O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Os seus convidados realizam o
+          pagamento pelo aplicativo utilizando cartão de crédito e o Celebri cobra uma taxa de conveniência repassada à MoIP,
+          que é a intermediadora de pagamentos, e para a administradora do cartão. </p>
+        <p>
           Se você tem interesse em receber cotas de lua de mel onde seus convidados podem pagar com cartão de crédito é preciso criar
-          uma conta na Moip. Para saber mais sobre a Moip, clique aqui.
+          uma conta na Moip. Para saber mais sobre a Moip, <a href="https://moip.com.br/" target="_blank" style="color:blue">clique aqui.</a>
         </p>
-        <p style="margin-top:26px">
+
+        <p>
           Ao utilizar essa opção, as taxas cobradas pela Moip já estarão incluídas na taxa de serviço do Celebri. Assim que o pagamento
           for aprovado pela administradora de cartão de crédito, sua conta MoIP será creditada com o valor da cota, descontada
-          a nossa taxa de serviço de x%.
+          a nossa taxa de serviço de 6%. Ou seja, para cada cota vendida cobramos uma taxa de serviço de 6% do valor da cota,
+          mais R$ 0.69 por transação aprovada.
         </p>
-        <p style="margin-top:26px;margin-top: 26px;display: inline-block;margin-right: 21px;">
+
+        <p style="color:blue;position:relative;cursor: pointer;" ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false">
+          Para cada cota vendida, você escolhe se prefere repassar esta taxa ao convidado ou se irá absorvê-la*.
+
+          <div style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;    font-size: 1.6em;top:143px"
+            ng-if="$scope.exemplo">
+            *Por exemplo, se o seu convidado te pagar R$ 100,00, você pode:
+            <ul style="list-style:disc;padding-left:5px">
+              <li>
+                Escolher que deseja receber R$ 100,00 pela cota, assim, a nossa taxa seria adicionada ao valor da cota e o convidado pagaria
+                R$106.
+              </li>
+              <li>
+                Absorver as taxas de serviço: o convidado pagará R$ 100,00 e a taxa de serviço será absorvida por você. Neste caso, você
+                receberia R$94,00 pela cota.
+              </li>
+            </ul>
+          </div>
+        </p>
+
+
+
+        <!--<p style="margin-top:26px;margin-top: 26px;display: inline-block;margin-right: 21px;">
           Criar conta Moip para recebimento das cotas?
           <div class="input__radio" style="display: inline-block;">
             <span><input type="radio" name="moip_aceitou" ng-model="moip_aceitou" value="sim" > Sim</span>
             <span><input type="radio" name="moip_aceitou" ng-model="moip_aceitou" value="nao" ng-checked="true"> Não</span>
           </div>
-        </p>
+        </p>-->
       </div>
       <!-- col-xs-12 -->
     </div>
@@ -677,13 +776,13 @@
 
       <div class="row">
 
-        <div class="produtos__single col-lg-6" ng-repeat="item in produtos">
-          <img ng-src="{{item.urlImage}}" alt="" class="produto_image">
+        <div class="produtos__single col-lg-6" ng-repeat="(key,value) in produtos">
+          <img ng-src="{{value.urlImage}}" alt="" class="produto_image">
 
           <div class="produto_desc">
-            <p>{{item.nome}}</p>
-            <span>{{item.valor}}</span>
-            <input type="checkbox" name="name">
+            <p>{{value.nome}}</p>
+            <span>{{value.valor}}</span>
+            <input type="checkbox" ng-model="value.marcado" name="name" ng-click="checkProduto(value.marcado,value.id)">
           </div>
           <!-- produto_desc -->
 

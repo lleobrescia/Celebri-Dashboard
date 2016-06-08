@@ -2,7 +2,7 @@
 angular.module("dashboard").config(function($routeProvider){
   $routeProvider
   .when('/',{
-    redirectTo:"/dados-do-casal"
+    redirectTo:"/login"
   })
   .when('/dados-do-casal',{
     templateUrl:"/dashboard/templates/page/dados_casal.html",
@@ -44,5 +44,10 @@ angular.module("dashboard").config(function($routeProvider){
     templateUrl:"/dashboard/templates/page/estatistica.html",
     controller:'estatistica'
   })
-  .otherwise({ redirectTo:'/dados-do-casal'});
+  .when('/login',{
+    templateUrl:"/dashboard/templates/page/login.html",
+    controller:'login',
+    isLogin: true
+  })
+  .otherwise({ redirectTo:'/login'});
 });

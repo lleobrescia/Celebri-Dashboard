@@ -4,4 +4,10 @@ jsconfig.json
 =======
 jsconfig.json
 .vscode/settings.json
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+gulpfile.js
+node_modules/
+package.json
 >>>>>>> develop

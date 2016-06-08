@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofallow">
 
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="content-language" content="pt-br">
+
   <base href="/dashboard/">
   <title>Dashboard</title>
 
@@ -15,11 +18,13 @@
   <!--MODERNIZR-->
   <script src="https://cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js"></script>
   <!--ANGULAR-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
   <!--ANGULAR ROUTE-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
   <!--ANGULAR ANIMATE-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-animate.min.js"></script>
+  <!--ANGULAR COOKIE-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
 
   <!--UPLOAD-->
   <!-- shim is needed to support non-HTML5 FormData browsers (IE8-9)-->
@@ -34,6 +39,15 @@
   <!--GRAPHIC-->
   <script src="https://cdn.jsdelivr.net/chart.js/1.1.1/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.js"></script>
+
+  <!--EXCEL-->
+  <script lang="javascript" src="js/xlsx.core.min.js"></script>
+  <script type="text/javascript" src="js/shim.js"></script>
+  <!-- ODS support -->
+  <script src="js/ods.js"></script>
+
+  <!--IMAGE EDITOR-->
+  <script src="js/ngImageEditor.min.js"></script>
 
   <link rel="shortcut icon" type="image/png" href="image/favicon.png" />
 
@@ -56,43 +70,15 @@
 </head>
 
 <body>
-  <div class="wrapper">
-    <div class="sidebar" ng-controller="sidebar">
-      <header class="header">
-        <div class="logo__box">
-          <img class="logo" src="./image/celebri.png" alt="celebri">
-        </div>
-        <!-- logo__box -->
+  <div class="wrapper" ng-controller="mainController" ng-class="login">
+    <div ng-include="cabecalho" class="cabecalho"></div>
 
-        <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
-          <img class="user__img" src="./image/foto.png" alt="">
-          <p>
-            Olá, Gustavo Anthoniane <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
-          </p>
-        </div>
-        <!-- name__user -->
-
-        <div class="user__options" ng-if="$scope.clicou">
-          <a href="#" rel="nofallow">X Sair</a>
-        </div>
-        <!-- user__options -->
-
-      </header>
-
-      <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}">
-        <navigation menu="menu"></navigation>
-      </nav>
-
-    </div>
-    <!-- sidebar -->
-
-    <section class="content" ng-controller="mainController">
-      <div class="" ng-view autoscroll="true"></div>
+    <section class="content">
+      <div ng-view autoscroll="true"></div>
     </section>
     <!-- content -->
   </div>
   <!-- wrapper -->
-
 
   <script src="js/ngMask.min.js"></script>
   <script src="js/dashboard.js"></script>

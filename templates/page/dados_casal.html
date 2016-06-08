@@ -1,4 +1,4 @@
-<div class="container-fluid dados__header">
+<div class="container-fluid dados__header" ng-init="checkTemplate()">
   <div class="row">
     <div class="col-xs-12 dados_header_title">
       <hr> Parabéns! Você se cadastrou no Celebri.
@@ -12,6 +12,32 @@
   <!-- row -->
 </div>
 <!-- dados__header -->
+
+<div class="image__editor" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.82);z-index: 2;overflow: auto;"
+  ng-show="editar">
+  <div style="width: 400px;background: white;height: auto;margin: 45px auto; position:relative">
+    <div img-src="foto__editor" ng-image-editor="imageEditor" selected="selected" aspect-ratio="2:2" enabled-resize-selector="true"></div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3 col-xs-offset-3">
+        <div class="btn btn--save" ng-click="uploadFoto();editar = false">
+          Salvar
+        </div>
+      </div>
+      <!--col-xs-3-->
+      <div class="col-xs-3">
+        <div class="btn btn--cancel" ng-click="editar = false">
+          Cancelar
+        </div>
+      </div>
+      <!--col-xs-3-->
+    </div>
+    <!--row-->
+  </div>
+  <!--container-->
+</div>
+<!--image__editor-->
 
 <div class="container-fluid">
   <div class="row">
@@ -40,13 +66,16 @@
         <div class="row">
           <div class="col-sm-3">
             <p class="form__title">
-              Foto do Casal
+              Foto do Casal <br>
             </p>
 
-            <div class="upload__image" ngf-select ng-model="foto" name="foto" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
-            ng-change="$scope.change = true">
-              <img ngf-thumbnail="foto" ngf-size="{width: 182, height: 182}">
-              <i class="fa fa-camera" ng-if="!foto"></i>
+            <div class="upload__image">
+              <div ng-if="!carregando">
+                <img id="img" ng-if="foto" ng-src="{{foto}}">
+                <i class="fa fa-camera" ng-if="!foto"></i>
+                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this);editar = true">
+              </div>
+              <img src="image/loging.gif" alt="Carregando" ng-if="carregando" style="margin-top: 61px;margin-left: auto;margin-right: auto;" height="32" width="32">
             </div>
             <!-- upload__image -->
           </div>
@@ -56,7 +85,7 @@
             <p class="form__title">
               Data do Casamento
             </p>
-            <input type="date" name="data_casamento" ng-model="data_casamento" ng-change="$scope.change = true" style="    width: 80%;">
+            <input type="date" name="data_casamento" ng-model="data_casamento" ng-change="$scope.change = true" style="width: 80%;">
             <i class="fa fa-calendar"></i>
           </div>
           <!-- col-xs-3 -->
@@ -64,13 +93,13 @@
         <!-- row -->
 
         <div class="row">
-          <div class="col-sm-3" ng-if="$scope.change">
-            <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosCasal(); $scope.change = false">
+          <div class="col-sm-3" ng-if="$scope.change && !errorFile">
+            <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosCasal(); $scope.change = false;fotoAlterada = false">
               Salvar
             </div>
           </div>
           <div class="col-sm-3" ng-if="$scope.change">
-            <div class="btn btn--cancel" ng-click="casalGetDados(); $scope.change = false">
+            <div class="btn btn--cancel" ng-click="casalGetDados(); $scope.change = false;fotoAlterada = false">
               Cancelar
             </div>
           </div>

@@ -1,8 +1,7 @@
-<div class="container-fluid" ng-init="$scope.change = false">
+<div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;checkTemplate()">
   <div class="row">
     <div class="col-md-8">
-      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento
-      </h1>
+      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento</h1>
       <p>
         Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada
         e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado. Para alterar
@@ -28,7 +27,8 @@
   <!-- row -->
 
   <div class="row">
-    <div class="col-xs-9" style="position:relative" ng-init="$scope.blocoActive = 'bloco_pais_noiva'" ng-cloak>
+    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'bloco_pais_noiva'"
+      ng-cloak>
 
       <img ng-src="{{layoutSelecionado}}" alt="">
 
@@ -85,18 +85,21 @@
         <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
           <div ng-repeat="valor in convites[convite_individual]">
             <div ng-show="showBlocos[$index]['ativo']">
-              <h4 class="controll__title">Alinhamento</h4>
+
               <div class="controll_bloco_opcoes">
+                <h4 class="controll__title">Alinhamento</h4>
+
                 <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'; $scope.change = true"></i>
                 <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'; $scope.change = true"></i>
                 <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'; $scope.change = true"></i>
               </div>
               <!-- controll_bloco_opcoes -->
 
-              <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
 
-              <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = '14'">
-                <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 41}" ng-click="$scope.change = true"></rzslider>
+
+              <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = valor['font-size']">
+                <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
+                <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change = true"></rzslider>
               </div>
               <!-- controll_bloco_opcoes -->
             </div>
@@ -170,31 +173,31 @@
       <carousel interval="myInterval">
         <slide>
           <div class="row">
-            <div class="col-xs-3  col-xs-offset-1">
+            <div class="col-xs-3 col-xs-offset-1">
               <img class="carousel__img" ng-src="./image/convites/convite1.png" ng-click="setConvite('convite1','./image/convites/convite1.png'); $scope.change = true">
             </div>
-            <div class="col-xs-3">
-              <img class="carousel__img" ng-src="./image/convites/convite2.png" ng-click="setConvite('convite2','./image/convites/convite2.png'); $scope.change = true">
-            </div>
-            <div class="col-xs-3">
+            <!--<div class="col-xs-3 ">
               <img class="carousel__img" ng-src="./image/convites/convite3.png" ng-click="setConvite('convite3','./image/convites/convite3.png'); $scope.change = true">
             </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite4.png" ng-click="setConvite('convite4','./image/convites/convite4.png'); $scope.change = true">
+            </div>-->
           </div>
         </slide>
         <slide>
           <div class="row">
-            <div class="col-xs-3  col-xs-offset-1">
+            <!--<div class="col-xs-3  col-xs-offset-1">
               <img class="carousel__img" ng-src="./image/convites/convite4.png" ng-click="setConvite('convite4','./image/convites/convite4.png'); $scope.change = true">
             </div>
             <div class="col-xs-3">
               <img class="carousel__img" ng-src="./image/convites/convite5.png" ng-click="setConvite('convite5','./image/convites/convite5.png'); $scope.change = true">
-            </div>
-            <div class="col-xs-3">
+            </div>-->
+            <!--<div class="col-xs-3">
               <img class="carousel__img" ng-src="./image/convites/convite6.png" ng-click="setConvite('convite6','./image/convites/convite6.png'); $scope.change = true">
-            </div>
+            </div>-->
           </div>
         </slide>
-        <slide>
+        <!--<slide>
           <div class="row">
             <div class="col-xs-3  col-xs-offset-1">
               <img class="carousel__img" ng-src="./image/convites/convite7.png" ng-click="setConvite('convite7','./image/convites/convite7.png'); $scope.change = true">
@@ -206,7 +209,7 @@
               <img class="carousel__img" ng-src="./image/convites/convite9.png" ng-click="setConvite('convite9','./image/convites/convite9.png'); $scope.change = true">
             </div>
           </div>
-        </slide>
+        </slide>-->
       </carousel>
 
     </div>
