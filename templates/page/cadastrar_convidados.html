@@ -2,17 +2,22 @@
   <div class="row">
     <div class="col-xs-12">
       <h1 class="titulo">Cadastro de Convidados</h1>
-      <p style="margin-bottom:46px">
-        Para enviarmos os convites virtuais, você deve cadastrar seus convidados. Para isso, informe o nome do convidado, o e-mail
+      <p>
+        Para enviarmos os convites virtuais, você deve cadastrar seus convidados, informando o nome de cada um, o respectivo e-mail
         e o número de acompanhantes.
       </p>
-      <p style="margin-bottom:46px;position:relative">
-        A qualquer momento você pode carregar uma planilha configurada com essas informações em um
-        <span ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false" style="text-decoration: underline;color: blue;cursor: pointer;">arquivo Excel</span>,
-        quantas vezes for necessário. Se preferir cadastre cada convidado um a um utilizando o formulário abaixo.
-        <div ng-show="$scope.exemplo" style="position: absolute;z-index: 1;top: 0px;">
+      <p style="position:relative">
+        Há também a possibilidade de você carregar, quantas vezes forem necessárias, uma planilha já configurada com essas informações
+        no arquivo Excel . Veja o exemplo
+        <span ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false" style="text-decoration: underline;color: blue;cursor: pointer;">clicando aqui.</span>
+        <div ng-show="$scope.exemplo" style="position: absolute;z-index: 1;top: 0px;    right: 50px;">
           <img src="image/excelExemplo.png" alt="">
         </div>
+      </p>
+      <p>
+        Lembre-se que o convidado pode ter um ou mais acompanhantes. Por exemplo, ao convidar o João e sua esposa, basta inserir
+        um acompanhante. Se convidar o João, sua esposa e o filho, deve inserir dois acompanhantes. Assim, o aplicativo convite
+        contemplará o nome do João mais dois campos para colocar o nome dos acompanhantes, que será da escolha do João.
       </p>
     </div>
     <!-- col-xs-12 -->
