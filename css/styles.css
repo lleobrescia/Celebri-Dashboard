@@ -46,6 +46,22 @@ input[type=checkbox], input[type=radio] {
   color: white;
 }
 
+.ng-hide, .ng-leave, .ng-hide-add, .ng-hide-remove {
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  -ms-transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+
+.ng-hide {
+  opacity: 0;
+}
+
+.ng-leave-active {
+  opacity: 0;
+}
+
 
 /*SIDEBAR*/
 
@@ -558,10 +574,10 @@ select {
   width: 200px !important;
   margin: 0;
   height: 22px;
-  border-radius: 10px;;
+  border-radius: 10px;
   border-color: #b7b8ba;
   float: right;
-  background: url("../image/lupa.png") 5px center no-repeat #f1f2f2;;
+  background: url("../image/lupa.png") 5px center no-repeat #f1f2f2;
   padding-left: 19px;
   padding-right: 7px;
 }
@@ -999,6 +1015,12 @@ rzslider .rz-pointer {
   font-size: 1.2em;
 }
 
+.login_input_group{
+  height: 260px;
+}
+.login_input_group.ng-hide{
+  height: 0;
+}
 
 /*MEIDA*/
 
