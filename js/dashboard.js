@@ -8,7 +8,7 @@ angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', 
     var usuario = $cookies.getObject('user');
     var userAuthenticated = false;
 
-    if (usuario == undefined) {
+    if (usuario != undefined) {
       userAuthenticated = true;
       user = usuario;
     }
@@ -1585,6 +1585,9 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
   }
 
   $scope.autenticar = function () {
+    $scope.carregando = true;
+    $scope.Result = 'true';
+
     AutenticacaoNoivos.autenticar($scope.nomeUsuario, $scope.senhaUsuario).then(function (resp) {
       var respXml = $.parseXML(resp);
       var check = $(respXml).find('Result').text();
@@ -1592,7 +1595,7 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
       //autenticado
       if (check == 'true') {
         //limpa o box de erro, caso houve erro de login anteriormente
-        $scope.Result = true;
+        $scope.Result = 'true';
         $scope.ErrorMessage = "";
 
         //armazena o ID
@@ -1635,6 +1638,7 @@ angular.module("dashboard").controller('login', ['$scope', 'AutenticacaoNoivos',
       }
       //nao autenticado
       else {
+        $scope.carregando = false;
         //Mostra a mensagem de erro
         $scope.Result = check;
         $scope.ErrorMessage = $(respXml).find('ErrorMessage').text();

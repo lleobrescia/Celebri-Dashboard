@@ -30,7 +30,7 @@
           </div>
           <form class="login__form" method="POST" ng-init="recuperarSenha = false">
             <img src="image/loging.gif" alt="Carregando" style="width: 32px;margin: auto;display: block;" ng-if="carregando">
-            <div ng-if="!recuperarSenha && !carregando">
+            <div ng-show="!recuperarSenha && !carregando">
               <p>E-mail:</p>
               <input type="text" ng-model="nomeUsuario" name="login" ng-required="required"> <br>
               <p>Senha:</p>
@@ -53,7 +53,7 @@
             <div class="clearfix"></div>
           </form>
           <div class="login__text">
-            <a title="Recuperar Senha" ng-click="chanceScreen()" ng-if="!recuperarSenha">Recuperar Senha</a>
+            <a title="Recuperar Senha" ng-click="chanceScreen();Result = 'true'" ng-if="!recuperarSenha">Recuperar Senha</a>
             <a title="Recuperar Senha" ng-click="chanceScreen();confirmacao = false" ng-if="recuperarSenha">
               Voltar
             </a><br><br>
