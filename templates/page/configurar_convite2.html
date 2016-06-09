@@ -219,17 +219,23 @@
 
   <!-- #ENDREGION CAROUSEL -->
 
-  <div class="row" style="margin-top:60px" ng-if="$scope.change">
-    <div class="col-sm-3">
+  <div class="row" style="margin-top:60px">
+    <div class="col-sm-3" ng-if="$scope.change">
       <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setConfiguracaoConvite(); $scope.change = false">
         Salvar
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3" ng-if="$scope.change">
       <div class="btn btn--cancel" ng-click="getConfiguracaoConvite(); $scope.change = false">
         Cancelar
       </div>
     </div>
+    <div class="col-sm-3" ng-if="!$scope.change">
+        <div class="btn btn--ok">
+          <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
+        </div>
+      </div>
+      <!-- col-sm-3 -->
   </div>
   <!-- row -->
 
