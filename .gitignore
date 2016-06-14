@@ -3,3 +3,4 @@ jsconfig.json
 gulpfile.js
 node_modules/
 package.json
+js/service/ipService.js
