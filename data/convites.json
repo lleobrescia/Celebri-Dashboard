@@ -153,9 +153,9 @@
       "width": "402px",
       "left": "76px",
       "height": "68px",
-      "font-size": "16px",
+      "font-size": "16",
       "text-align": "left",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_pais_noivo": {
@@ -163,9 +163,9 @@
       "right": "76px",
       "width": "402px",
       "height": "68px",
-      "font-size": "16px",
+      "font-size": "16",
       "text-align": "right",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_msg_1": {
@@ -173,9 +173,9 @@
       "left": "76px",
       "width": "807px",
       "height": "61px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_nome_dos_noivos": {
@@ -185,7 +185,7 @@
       "height": "62px",
       "font-size": "63px",
       "text-align": "center",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_msg_2": {
@@ -193,21 +193,21 @@
       "left": "76px",
       "width": "807px",
       "height": "85px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_msg_personalizada_style": {
       "top": "367px",
-      "left": "76px",
+      "left": "100px",
       "width": "807px",
       "height": "108px",
       "max-width": "807px",
       "max-height": "108px",
       "font-size": "16px",
       "text-align": "center",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_cerimonia": {
@@ -215,9 +215,9 @@
       "left": "76px",
       "width": "807px",
       "height": "81px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 15,
+      "font-family": "Josefin Slab",
       "color": "#000"
     }
   },
@@ -227,9 +227,9 @@
       "width": "428px",
       "left": "72px",
       "height": "89px",
-      "font-size": "27px",
+      "font-size": "27",
       "text-align": "left",
-      "font-family": 68,
+      "font-family": "Pinyon Script",
       "color": "#000"
     },
     "bloco_pais_noivo": {
@@ -237,9 +237,9 @@
       "right": "72px",
       "width": "428px",
       "height": "89px",
-      "font-size": "27px",
+      "font-size": "27",
       "text-align": "right",
-      "font-family": 68,
+      "font-family": "Pinyon Script",
       "color": "#000"
     },
     "bloco_msg_1": {
@@ -249,7 +249,7 @@
       "height": "75px",
       "font-size": "18px",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_nome_dos_noivos": {
@@ -257,9 +257,9 @@
       "left": "72px",
       "width": "855px",
       "height": "109px",
-      "font-size": "62px",
+      "font-size": "62",
       "text-align": "center",
-      "font-family": 66,
+      "font-family": "Courgette",
       "color": "#000"
     },
     "bloco_msg_2": {
@@ -267,9 +267,9 @@
       "left": "72px",
       "width": "855px",
       "height": "82px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     },
     "bloco_msg_personalizada_style": {
@@ -279,19 +279,19 @@
       "height": "161px",
       "max-width": "855px",
       "max-height": "161px",
-      "font-size": "21px",
+      "font-size": "21",
       "text-align": "center",
-      "font-family": 68,
+      "font-family": "Pinyon Script",
       "color": "#000"
     },
     "bloco_cerimonia": {
       "top": "584px",
-      "left": "72px",
+      "left": "117px",
       "width": "765px",
       "height": "83px",
-      "font-size": "17px",
+      "font-size": "17",
       "text-align": "center",
-      "font-family": 29,
+      "font-family": "Roboto Condensed",
       "color": "#000"
     }
   },
@@ -375,19 +375,19 @@
       "width": "436px",
       "left": "64px",
       "height": "85px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "left",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_pais_noivo": {
       "top": "53px",
-      "left": "64px",
+      "left": "499px",
       "width": "436px",
       "height": "85px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "right",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_msg_1": {
@@ -395,9 +395,9 @@
       "left": "64px",
       "width": "872px",
       "height": "65px",
-      "font-size": "21px",
+      "font-size": "21",
       "text-align": "center",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_nome_dos_noivos": {
@@ -405,9 +405,9 @@
       "left": "64px",
       "width": "872px",
       "height": "133px",
-      "font-size": "63px",
-      "text-align": "left",
-      "font-family": 11,
+      "font-size": "63",
+      "text-align": "center",
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_msg_2": {
@@ -417,7 +417,7 @@
       "height": "75px",
       "font-size": "20px",
       "text-align": "center",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_msg_personalizada_style": {
@@ -427,9 +427,9 @@
       "height": "159px",
       "max-width": "872px",
       "max-height": "159px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "center",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     },
     "bloco_cerimonia": {
@@ -437,9 +437,9 @@
       "left": "64px",
       "width": "872px",
       "height": "70px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "center",
-      "font-family": 11,
+      "font-family": "Libre Baskerville",
       "color": "#000"
     }
   },
