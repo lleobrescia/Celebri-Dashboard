@@ -47,6 +47,7 @@ angular.module("dashboard").config(function($routeProvider){
   .when('/login',{
     templateUrl:"/dashboard/templates/page/login.html",
     controller:'login',
+    controllerAs: 'loginCtrl',
     isLogin: true
   })
   .otherwise({ redirectTo:'/login'});
