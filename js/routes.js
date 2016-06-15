@@ -6,7 +6,8 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .when('/dados-do-casal',{
     templateUrl:"/dashboard/templates/page/dados_casal.html",
-    controller:'dados_casal'
+    controller:'dados_casal',
+    controllerAs: 'dadosCasalCtrl'
   })
   .when('/configurar-convite',{
     templateUrl:"/dashboard/templates/page/configurar_convite.html",
