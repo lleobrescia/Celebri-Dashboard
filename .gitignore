@@ -4,3 +4,4 @@ gulpfile.js
 node_modules/
 package.json
 js/service/ipService.js
+js/dashboard.min.js
