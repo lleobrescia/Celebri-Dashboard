@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$cookies', '$scope', function (Upload, $filter, $route, ServiceCasamento, ipService, UserService, $cookies, $scope) {
+angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', function (Upload, $filter, $route, ServiceCasamento, ipService, UserService, $scope) {
 
   var self = this;
   var ID = UserService.dados.ID;
