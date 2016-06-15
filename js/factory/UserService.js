@@ -1,7 +1,8 @@
-angular.module("dashboard").factory('UserService', function () {
-  var userData = {
+angular.module("dashboard").factory('UserService', ['$rootScope', function ($rootScope) {
+
+  var padrao = {
     //Login
-    ID: '',
+    ID: null,
     nomeUsuario: '',
     fotoUrl: '',
     senhaApp: '',
@@ -9,19 +10,35 @@ angular.module("dashboard").factory('UserService', function () {
     //Dados do Casal
     nomeNoiva: '',
     nomeNoivo: '',
-    dataCasamento: ''
-
+    dataCasamento: null
   };
 
-  return {
-    setData: function (name, value) {
-      userData[name] = value;
+  var service = {
+
+    dados: null,
+
+    SaveState: function () {
+      console.log("save");
+      sessionStorage.UserService = angular.toJson(service.dados);
     },
-    getData: function (name) {
-      return userData[name];
+
+    RestoreState: function () {
+      console.log("load");
+      try {
+        service.dados = angular.fromJson(sessionStorage.UserService);
+      } catch (error) {
+        service.dados = padrao;
+      }
+
     },
-    user: function () {
-      return userData;
+    Remove: function () {
+      sessionStorage.UserService = null;
+      service.dados = padrao;
     }
   };
-});
+
+  $rootScope.$on("savestate", service.SaveState);
+  $rootScope.$on("restorestate", service.RestoreState);
+
+  return service;
+}]);
