@@ -11,7 +11,8 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .when('/configurar-convite',{
     templateUrl:"/dashboard/templates/page/configurar_convite.html",
-    controller:'configurar_convite'
+    controller:'configurar_convite',
+    controllerAs: 'configConviteCtrl'
   })
   .when('/configurar-convite/2',{
     templateUrl:"/dashboard/templates/page/configurar_convite2.html",
