@@ -1,13 +1,11 @@
-angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cookies', 'user', function ($scope, $location, $cookies, user) {
+angular.module('dashboard').controller('sidebar', ['$location', 'UserService', '$scope', function ($location, UserService, $scope) {
 
-  if (user.id == null) {
-    user = $cookies.getObject('user');
-    $scope.fotoCasal = user.foto;
-    $scope.usuarioLogado = user.nomeUsuario;
-  } else {
-    $scope.fotoCasal = user.foto;
-    $scope.usuarioLogado = user.nomeUsuario;
-  }
+  var self = this;
+  var id = UserService.dados.ID;
+
+  self.fotoCasal = UserService.dados.fotoUrl;
+  self.usuarioLogado = UserService.dados.nomeUsuario;
+
 
   //Verifica em qual pag esta
   $scope.isActive = function (viewLocation) {
@@ -18,19 +16,16 @@ angular.module('dashboard').controller('sidebar', ['$scope', '$location', '$cook
     return retorno;
   };
 
-  $scope.sair = function () {
-    //Remove o cookie
-    $cookies.remove('user');
-
-    //garante que os dados serao apagados
-    user = null;
+  self.sair = function () {
+    UserService.dados.ID = null;
+    UserService.Remove();
 
     //direciona para a pagina de login
     $location.path('/login');
   };
 
   //Lista do menu
-  $scope.menu =
+  self.menu =
     [
       {
         Id: 1,

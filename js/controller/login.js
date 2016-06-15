@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('login', ['user', '$location', '$cookies', 'UserService', 'ipService', 'ServiceCasamento', function (user, $location, $cookies, UserService, ipService, ServiceCasamento) {
+angular.module("dashboard").controller('login', ['$location', 'ipService', 'ServiceCasamento', 'UserService', function ($location, ipService, ServiceCasamento, UserService) {
 
   var self = this;
   self.recuperarSenha = false;
@@ -7,13 +7,12 @@ angular.module("dashboard").controller('login', ['user', '$location', '$cookies'
   self.nomeUsuario = '';
   self.senhaUsuario = '';
 
-  var usuario = $cookies.getObject('user');
+  var ID = UserService.ID;
 
   /**
-   * se existir cookie nao ha necessidade de logar
+   * se existir ID nao ha necessidade de logar
    */
-  if (usuario != null) {
-    user = usuario;
+  if (ID != null) {
     $location.path('/dados-do-casal');
   }
 
@@ -35,8 +34,7 @@ angular.module("dashboard").controller('login', ['user', '$location', '$cookies'
         self.ErrorMessage = "";
 
         //armazena o ID
-        UserService.setData("ID", $(respXml).find('Id_usuario_logado').text());
-        user.id = $(respXml).find('Id_usuario_logado').text();
+        UserService.dados.ID = $(respXml).find('Id_usuario_logado').text();
 
         /**
          * Verifica qual email esta logando e armazena o nome de acordo.
@@ -44,40 +42,28 @@ angular.module("dashboard").controller('login', ['user', '$location', '$cookies'
         var emailNoivo = $(respXml).find('EmailNoivo').text();
 
         if (self.nomeUsuario == emailNoivo) {
-          UserService.setData("nomeUsuario", $(respXml).find('NomeNoivo').text());
-          UserService.setData("senhaApp", $(respXml).find('SenhaNoivoConvidado').text());
-
-          user.nomeUsuario = $(respXml).find('NomeNoivo').text();
-          user.senhaApp = $(respXml).find('SenhaNoivoConvidado').text();
+          UserService.dados.nomeUsuario = $(respXml).find('NomeNoivo').text();
+          UserService.dados.senhaApp = $(respXml).find('SenhaNoivoConvidado').text();
         } else {
-          UserService.setData("nomeUsuario", $(respXml).find('NomeNoiva').text());
-          UserService.setData("senhaApp", $(respXml).find('SenhaNoivaConvidado').text());
-
-          user.nomeUsuario = $(respXml).find('NomeNoiva').text();
-          user.senhaApp = $(respXml).find('SenhaNoivaConvidado').text();
+          UserService.dados.nomeUsuario = $(respXml).find('NomeNoiva').text();
+          UserService.dados.senhaApp = $(respXml).find('SenhaNoivaConvidado').text();
         }
 
         //Armazena os nomes dos noivos localmente
-        UserService.setData("nomeNoiva", $(respXml).find('NomeNoiva').text());
-        UserService.setData("nomeNoivo", $(respXml).find('NomeNoivo').text());
-        user.nome_noiva = $(respXml).find('NomeNoiva').text();
-        user.nome_noivo = $(respXml).find('NomeNoivo').text();
+        UserService.dados.nomeNoiva = $(respXml).find('NomeNoiva').text();
+        UserService.dados.nomeNoivo = $(respXml).find('NomeNoivo').text();
+
 
         //Armazena a url da foto do casal localmente
         var imagemFoto = $(respXml).find('Url_foto').text();
 
         if (imagemFoto == "NULL") {
-          UserService.setData("fotoUrl", 'image/user_login.png');
-          user.foto = 'image/user_login.png';
+          UserService.dados.fotoUrl = 'image/user_login.png';
         } else {
-          UserService.setData("fotoUrl", $(respXml).find('Url_foto').text() + "?13:45");
-          user.foto = $(respXml).find('Url_foto').text();
-          //evita cache da imagem
-          user.foto += "?13:45";
+          UserService.dados.fotoUrl = $(respXml).find('Url_foto').text() + "?13:45";
         }
 
-        //Salva no cookie o Objeto user (que contem as informacoes globais)
-        $cookies.putObject('user', user);
+        UserService.SaveState();
 
         //Direciona para a primeira pagina do dashboard
         $location.path('/dados-do-casal');

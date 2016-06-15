@@ -1,27 +1,31 @@
 // INIT
 angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies', 'ngImageEditor']);
 
-angular.module("dashboard").run(['$rootScope', '$location', '$cookies', 'user', function ($rootScope, $location, $cookies, user) {
+angular.module("dashboard").run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
+UserService.RestoreState();
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-  $rootScope.$on('$routeChangeStart', function (event, next) {
+    if (sessionStorage.restorestate == "true") {
+      $rootScope.$broadcast('restorestate'); //let everything know we need to restore state
+      sessionStorage.restorestate = false;
+    }
 
-    var usuario = $cookies.getObject('user');
+    var id = UserService.dados.ID;
     var userAuthenticated = false;
 
-    if (usuario != undefined) {
+    if (id != null) {
       userAuthenticated = true;
-      user = usuario;
     }
 
     if (!userAuthenticated && !next.isLogin) {
-      //Remove o cookie
-      $cookies.remove('user');
-
-      //garante que os dados serao apagados
-      user = null;
       $location.path('/login');
     }
   });
+
+  //let everthing know that we need to save state now.
+  window.onbeforeunload = function (event) {
+    $rootScope.$broadcast('savestate');
+  };
 }]);
 
 // Variavel Global. Armazena todos os dados do usuario
