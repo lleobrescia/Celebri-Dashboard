@@ -5,6 +5,6 @@ angular.module('dashboard').directive("navigation", [function () {
     scope: {
       menu: '='
     },
-    templateUrl: '/dashboard/templates/navigation.html'
+    templateUrl: '/dashboard/templates/parts/navigation.html'
   };
 }]);
