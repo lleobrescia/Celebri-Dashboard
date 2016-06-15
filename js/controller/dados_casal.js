@@ -61,7 +61,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
 
     //Envia para o servidor
     var upload = Upload.upload({
-      url: 'http://celebri.com.br/dashboard/teste.php',
+      url: 'http://celebri.com.br/dashboard/php/enviarFoto.php',
       data: { image: imagemCortada, name: ID }
     });
 
@@ -97,7 +97,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
 
   //pega os dados do servidor
   self.casalGetDados = function () {
-    var urlVar = "http://23.238.16.114/celebri_dev/ServiceCasamento.svc/RetornarDadosCadastroNoivos";
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarDadosCadastroNoivos";
     var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
