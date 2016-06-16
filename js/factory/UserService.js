@@ -31,7 +31,32 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     cerimonia_local: '',
     cerimonia_rota: '',
     cerimonia_hora: '',
-    cerimonia_min: ''
+    cerimonia_min: '',
+
+    //Formatacao do Convite
+    listaFonts: null,
+    listaConvites: null,
+    bloco_msg_1: {
+      'font-family': '29'
+    },
+    bloco_msg_2: {
+      'font-family': '29'
+    },
+    bloco_msg_personalizada: {
+      'font-family': '29'
+    },
+    bloco_cerimonia: {
+      'font-family': '29'
+    },
+    bloco_nome_dos_noivos: {
+      'font-family': '7'
+    },
+    bloco_pais_noiva: {
+      'font-family': '29'
+    },
+    bloco_pais_noivo: {
+      'font-family': '29'
+    }
   };
 
   var service = {
