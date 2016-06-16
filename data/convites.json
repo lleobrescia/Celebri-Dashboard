@@ -183,13 +183,13 @@
       "left": "76px",
       "width": "807px",
       "height": "62px",
-      "font-size": "63px",
+      "font-size": "63",
       "text-align": "center",
       "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_msg_2": {
-      "top": "282px",
+      "top": "315px",
       "left": "76px",
       "width": "807px",
       "height": "85px",
@@ -199,19 +199,19 @@
       "color": "#000"
     },
     "bloco_msg_personalizada_style": {
-      "top": "367px",
+      "top": "405px",
       "left": "100px",
       "width": "807px",
       "height": "108px",
       "max-width": "807px",
       "max-height": "108px",
-      "font-size": "16px",
+      "font-size": "16",
       "text-align": "center",
       "font-family": "Josefin Slab",
       "color": "#000"
     },
     "bloco_cerimonia": {
-      "top": "475px",
+      "top": "512px",
       "left": "76px",
       "width": "807px",
       "height": "81px",
@@ -247,7 +247,7 @@
       "left": "72px",
       "width": "855px",
       "height": "75px",
-      "font-size": "18px",
+      "font-size": "18",
       "text-align": "center",
       "font-family": "Roboto Condensed",
       "color": "#000"
@@ -415,7 +415,7 @@
       "left": "64px",
       "width": "872px",
       "height": "75px",
-      "font-size": "20px",
+      "font-size": "20",
       "text-align": "center",
       "font-family": "Libre Baskerville",
       "color": "#000"
