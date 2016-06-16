@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('mainController', ['$scope', '$location','UserService', function ($scope, $location,UserService) {
+angular.module("dashboard").controller('mainController', ['$scope', '$location', 'UserService', '$http', function ($scope, $location, UserService, $http) {
 
   $scope.checkTemplate = function () {
 
@@ -15,4 +15,20 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
   $scope.getTimes = function (n) {
     return new Array(n);
   };
+
+  if (UserService.listaFonts == null) {
+    //carrega as informações dos blocos(altura,largura, posicao) de cada convite
+    $http.get('data/convites.json')
+      .then(function (res) {
+        UserService.dados.listaConvites = res.data;
+      });
+
+    //carrega as fonts
+    $http.get('data/fonts.json')
+      .then(function (res) {
+        UserService.dados.listaFonts = res.data;
+      });
+    UserService.SaveState();
+  }
+
 }]);
