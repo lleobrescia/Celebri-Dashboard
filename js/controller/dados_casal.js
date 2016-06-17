@@ -106,9 +106,9 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
       self.nome_noiva = $(respXml).find('NomeNoiva').text();
 
       var data = $(respXml).find('DataCasamento').text().split('/');
-      self.data_casamento = new Date("/" + data[1] + "/" + data[0] + "/" + data[2]);
+      self.data_casamento = new Date( data[1] + "/" + data[0] + "/" + data[2]);
 
-      UserService.dados.dataCasamento = self.data_casamento;
+      UserService.dados.dataCasamento = data[1] + "/" + data[0] + "/" + data[2];
       UserService.SaveState();
     });
   };
