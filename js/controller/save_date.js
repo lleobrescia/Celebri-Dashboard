@@ -1,56 +1,63 @@
-angular.module("dashboard").controller('save_date', ['$scope', 'user', 'SaveTheDate', '$cookies', function ($scope, user, SaveTheDate, $cookies) {
+angular.module("dashboard").controller('save_date', ['UserService', 'ServiceCasamento', 'ipService', function (UserService, ServiceCasamento, ipService) {
 
-  $scope.salvar = function () {
-    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + user.id + '</id_casal>  <id_modelo>' + $scope.modelo + '</id_modelo>  <msg>' + $scope.mensagem + '</msg>  <nomecasal>' + user.dadosCasal.nome_noiva + ' e ' + user.dadosCasal.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
+  var self = this;
+  var ID = UserService.dados.ID;
+  self.showDate = false;
 
-    user.saveDate.modelo = $scope.modelo;
-    user.saveDate.mensagem = $scope.mensagem;
+  self.salvar = function () {
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/FormatacaoSaveTheDate";
+    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + ID + '</id_casal>  <id_modelo>' + self.modelo + '</id_modelo>  <msg>' + self.mensagem + '</msg>  <nomecasal>' + UserService.dados.nome_noiva + ' e ' + UserService.dados.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
 
-    $cookies.putObject('user', user);
 
-    SaveTheDate.setData(xmlVar).then(function (resp) {
-    });
+    UserService.dados.modeloDate = self.modelo;
+    UserService.dados.msgDate = self.mensagem;
+
+    UserService.SaveState();
+
+    ServiceCasamento.SendData(urlVar, xmlVar);
   };
 
-  $scope.getData = function () {
+  self.getData = function () {
+    self.showDate = false;
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarFormatacaoSaveTheDate";
+    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
-    SaveTheDate.getData(user.id).then(function (resp) {
+    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
+      var dataCasamento = '';
 
-      $scope.modelo = $(respXml).find('id_modelo').text();
-      $scope.mensagem = $(respXml).find('msg').text();
+      self.modelo = $(respXml).find('id_modelo').text();
+      self.mensagem = $(respXml).find('msg').text();
 
-      if ($scope.modelo == 0) {
-        $scope.modelo = 1;
-
-        if (user.id == null) {
-          user = $cookies.getObject('user');
-        }
+      if (self.modelo == 0) {
+        self.modelo = 1;
 
         try {
-          var casamento = user.dadosCasal.data_casamento.split("/");
-          var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
+          var casamento = UserService.dados.dataCasamento.split("/");
+          dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
         } catch (error) {
-          var dataCasamento = "00/00/0000";
+          dataCasamento = "00/00/0000";
         }
 
-        $scope.mensagem = 'Em momentos especiais como este, não tinha como não lembrarmos de você! Dia ' + dataCasamento + ' é um dia marcante para nós, o dia do nosso casamento e gostaríamos de compartilhar este momento com você. Marque esta data no seu calendário para não se esquecer. A sua participação é muito importante para nós! \r\n Em breve você receberá por e-mail, o convite do nosso casamento.';
+        self.mensagem = 'Em momentos especiais como este, não tinha como não lembrarmos de você! Dia ' + dataCasamento + ' é um dia marcante para nós, o dia do nosso casamento e gostaríamos de compartilhar este momento com você. Marque esta data no seu calendário para não se esquecer. A sua participação é muito importante para nós! \r\n Em breve você receberá por e-mail, o convite do nosso casamento.';
 
-        $scope.salvar();
+        self.salvar();
       } else {
+        UserService.dados.modeloDate = self.modelo;
+        UserService.dados.msgDate = self.mensagem;
 
-        user.saveDate.modelo = $scope.modelo;
-        user.saveDate.mensagem = $scope.mensagem;
-
-        $cookies.putObject('user', user);
+        UserService.SaveState();
       }
+      UserService.dados.dateCheck = true;
+      self.showDate = true;
     });
   };
-  user = $cookies.getObject('user');
-  if (user.saveDate.modelo == null) {
-    $scope.getData();
+
+  if (!UserService.dados.dateCheck) {
+    self.getData();
   } else {
-    $scope.modelo = user.saveDate.modelo;
-    $scope.mensagem = user.saveDate.mensagem;
+    self.modelo = UserService.dados.modeloDate;
+    self.mensagem = UserService.dados.msgDate;
+    self.showDate = true;
   }
 }]);
