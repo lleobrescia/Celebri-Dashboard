@@ -56,7 +56,23 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     },
     bloco_pais_noivo: {
       'font-family': '29'
-    }
+    },
+
+    //Recepcao
+    festaCheck: false,
+    festa_igual_cerimonia: '',
+    festa_local: '',
+    festa_end: '',
+    festa_numero: '',
+    festa_bairro: '',
+    festa_uf: '',
+    festa_cidade: '',
+    festa_rota: '',
+    festa_cep: '',
+    lista_hotel: '',
+    lista_salao: '',
+    lista_presente: '',
+    lista_cardapio: ''
   };
 
   var service = {
