@@ -21,7 +21,8 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .when('/configurar-evento',{
     templateUrl:"/dashboard/templates/page/configurar_evento.html",
-    controller:'configurar_evento'
+    controller:'configurar_evento',
+    controllerAs: 'eventoCtrl'
   })
   .when('/cadastrar-convidados',{
     templateUrl:"/dashboard/templates/page/cadastrar_convidados.html",
