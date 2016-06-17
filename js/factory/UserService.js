@@ -75,7 +75,12 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     lista_cardapio: '',
 
     //Convidados
-    convidado_lista: null
+    convidado_lista: null,
+
+    //Save the Date
+    dateCheck:false,
+    modeloDate:'',
+    msgDate:''
   };
 
   var service = {
