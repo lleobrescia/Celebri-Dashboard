@@ -31,7 +31,8 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .when('/save-the-date',{
     templateUrl:"/dashboard/templates/page/save_the_date.html",
-    controller:"save_date"
+    controller:"save_date",
+    controllerAs: 'dateCtrl'
   })
   .when('/save-the-date/2',{
     templateUrl:"/dashboard/templates/page/save_the_date2.html",
