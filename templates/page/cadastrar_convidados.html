@@ -10,7 +10,7 @@
         Há também a possibilidade de você carregar, quantas vezes forem necessárias, uma planilha já configurada com essas informações
         no arquivo Excel . Veja o exemplo
         <span ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false" style="text-decoration: underline;color: blue;cursor: pointer;">clicando aqui.</span>
-        <div ng-show="$scope.exemplo" style="position: absolute;z-index: 1;top: 0px;    right: 50px;">
+        <div ng-show="$scope.exemplo" style="position: absolute;z-index: 1;top: 0px;right: 50px;">
           <img src="image/excelExemplo.png" alt="">
         </div>
       </p>
@@ -24,22 +24,24 @@
   </div>
   <!-- row -->
 
-
-  <form class="form" enctype="multipart/form-data">
-
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Convidado(a):
-        </p>
-        <input type="text" name="convidado_nome" ng-model="convidado_nome" value="">
-      </div>
-      <!-- col-sm-7 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          Núm. de acompanhantes
-        </p>
-        <select name="convidado_acompanhantes" ng-model="convidado_acompanhantes">
+  <form class="form" style="padding-top: 30px;">
+    <span style="height: 297px;line-height: 297px;text-align: center;display:block" ng-show="!convidadosCtrl.showConvidados">
+      <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
+    </span>
+    <div ng-show="convidadosCtrl.showConvidados">
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="form__title">
+            Convidado(a):*
+          </p>
+          <input type="text" name="convidado_nome" ng-model="convidadosCtrl.convidado_nome">
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            Núm. de acompanhantes
+          </p>
+          <select name="convidado_acompanhantes" ng-model="convidadosCtrl.convidado_acompanhantes">
           <option value="0" ng-selected="true">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -47,68 +49,59 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
+        </div>
+        <!-- col-sm-3 -->
       </div>
-      <!-- col-sm-3 -->
-    </div>
-    <!-- row -->
+      <!-- row -->
 
-    <div class="row">
-      <div class="col-sm-5">
-        <p class="form__title">
-          E-mail:
-        </p>
-        <input type="text" name="convidado_email" ng-model="convidado_email" value="">
-      </div>
-      <!-- col-sm-5 -->
-      <!--<div class="col-sm-5">
-        <p class="form__title">
-          Telefone
-        </p>
-        <input type="text" name="convidado_telefone" ng-model="convidado_telefone" value="" mask="(99) 9? 9999-9999">
-      </div>-->
-      <!-- col-sm-5 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-3">
-        <div class="btn btn--save" ng-click="adicionarConvidado()">
-          Adicionar
+      <div class="row">
+        <div class="col-sm-5">
+          <p class="form__title">
+            E-mail:*
+          </p>
+          <input type="text" name="convidado_email" ng-model="convidadosCtrl.convidado_email">
         </div>
       </div>
-      <!-- col-sm-3 -->
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="btn" ng-click="convidadosCtrl.adicionarConvidado()" ng-class="(convidadosCtrl.convidado_nome && convidadosCtrl.convidado_email) ? 'btn--save': 'btn--disable'">
+            Adicionar
+          </div>
+        </div>
+        <!-- col-sm-3 -->
+      </div>
+      <!-- row -->
+
+      <hr>
+
+      <div class="row">
+        <div class="col-sm-7">
+          <p style="line-height:52px">
+            Carregue sua lista de convidados em uma planilha aqui:
+          </p>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="btn btn--save" style="position: relative;overflow: hidden;cursor: pointer;">
+            <span>Carregar lista</span>
+            <input type="file" name="xlfile" id="xlf" accept=".ods,.xls,.xlsx" style="position: absolute;top: -36px;left: 0;right: 0;bottom: 0;opacity: 0;filter: alpha(opacity=0);cursor: pointer;width: 100%;height: 91px;padding: 0;margin: 0;z-index: 1;line-height: normal;">
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- row -->
 
     <hr>
 
-    <div class="row">
-      <div class="col-sm-7" ng-model="arquivo" name="arquivo">
-        <p style="line-height:52px">
-          Carregue sua lista de convidados em uma planilha aqui:
-        </p>
-      </div>
-
-      <div class="col-sm-3">
-        <div class="btn btn--save" style="position: relative;overflow: hidden;cursor: pointer;">
-          <span>Carregar lista</span>
-          <input type="file" name="xlfile" id="xlf" accept=".ods,.xls,.xlsx" style="position: absolute;top: -36px;left: 0;right: 0;bottom: 0;opacity: 0;filter: alpha(opacity=0);cursor: pointer;width: 100%;height: 91px;padding: 0;margin: 0;z-index: 1;line-height: normal;">
-        </div>
-      </div>
-
-    </div>
-
-
-    <hr>
-
-    <div class="row" ng-if="convidado_lista.length > 0">
+    <div class="row" ng-show="convidadosCtrl.convidado_lista.length > 0">
       <div class="col-sm-10">
         <div class="tabela__convidado">
           <div class="tabela_convidado_topo">
             <p>
               Convidados cadastrados:
             </p>
-            <input type="text" name="name" value="" ng-model="searchText">
+            <input type="text" name="name" value="" ng-model="convidadosCtrl.searchText">
           </div>
           <!-- tabela_convidado_topo -->
           <div class="tabela_convidado_header">
@@ -123,7 +116,7 @@
             </p>
           </div>
           <!-- tabela_convidado_header -->
-          <div class="tabela_convidado_single" ng-repeat="(key,value) in convidado_lista  | filter:searchText">
+          <div class="tabela_convidado_single" ng-repeat="(key,value) in convidadosCtrl.convidado_lista  | filter:convidadosCtrl.searchText">
             <p>
               {{value.nome}}
             </p>
@@ -133,7 +126,7 @@
             <p>
               {{value.convidados}}
             </p>
-            <i class="fa fa-times-circle-o" ng-click="removeConvidado(value.Id, key)"></i>
+            <i class="fa fa-times-circle-o" ng-click="convidadosCtrl.removeConvidado(value.Id, key)"></i>
           </div>
           <!-- tabela_convidado_single -->
         </div>
@@ -153,6 +146,5 @@
     </div>
     <!-- row -->
   </form>
-
 </div>
 <!-- container-fluid -->
