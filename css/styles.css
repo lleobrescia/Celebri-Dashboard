@@ -580,6 +580,7 @@ select {
   background: url("../image/lupa.png") 5px center no-repeat #f1f2f2;
   padding-left: 19px;
   padding-right: 7px;
+  outline: none;
 }
 
 .tabela_convidado_header {
