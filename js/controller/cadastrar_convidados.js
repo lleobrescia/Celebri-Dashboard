@@ -1,56 +1,66 @@
-angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convidados', 'user', '$cookies', function ($scope, Convidados, user, $cookies) {
+angular.module("dashboard").controller('cadastrar_convidados', ['ServiceCasamento', 'UserService', 'ipService', function (ServiceCasamento, UserService, ipService) {
 
   var self = this;
+  var ID = UserService.dados.ID;
+  self.showConvidados = false;
+  self.convidado_acompanhantes = '0';
 
-  self.setCookie = function () {
-    user.lista_convidados = $scope.convidado_lista;
-    $cookies.putObject('user', user);
-  };
-
-  $scope.getConvidados = function () {
-
-    if (user.id == null) {
-      user = $cookies.getObject('user');
-    }
-
-    Convidados.getData(user.id).then(function (resp) {
+  self.getConvidados = function () {
+    self.showConvidados = false;
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarConvidados";
+    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
+    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
-      $scope.convidado_lista = [];
 
+      self.convidado_lista = [];
       $(respXml).find('Convidado').each(function () {
-        $scope.convidado_lista.push(
+        self.convidado_lista.push(
           {
             'Id': $(this).find('Id').text(),
             'nome': $(this).find('Nome').text(),
             'email': $(this).find('Email').text(),
-            'convidados': $(this).find('Qtde_Acompanhantes').text(),
-            'telefone': $(this).find('Bairro').text()
+            'convidados': $(this).find('Qtde_Acompanhantes').text()
           }
         );
       });
-      self.setCookie();
+      self.showConvidados = true;
+      UserService.dados.convidado_lista = self.convidado_lista;
+      UserService.SaveState();
     });
   };
 
-  $scope.removeConvidado = function (id, key) {
-    Convidados.remove(user.id, id).then(function () {
-      $scope.convidado_lista.splice(key, 1);
-      self.setCookie();
-    });
+  self.removeConvidado = function (dataId, key) {
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/ExcluirConvidados";
+    var xmlVar = '<ListaRegistrosExcluir xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_registro><int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + dataId + '</int></Id_registro></ListaRegistrosExcluir>';
+
+    self.convidado_lista.splice(key, 1);
+    UserService.dados.convidado_lista = self.convidado_lista;
+    UserService.SaveState();
+
+    ServiceCasamento.SendData(urlVar, xmlVar);
   };
 
-  $scope.adicionarConvidado = function () {
-    if ($scope.convidado_nome != "" && $scope.convidado_nome != null) {
-      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + $scope.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + $scope.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + $scope.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+  self.adicionarConvidado = function () {
+    if (self.convidado_nome && self.convidado_email) {
+      self.showConvidados = false;
+      if (self.convidado_acompanhantes) {
+        self.convidado_acompanhantes = 0;
+      }
 
-      Convidados.setData(xmlVar).then(function (resp) {
-        $scope.getConvidados();
-        $scope.convidado_nome = "";
-        $scope.convidado_acompanhantes = "";
-        $scope.convidado_email = "";
-        $scope.convidado_telefone = "";
+      var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastroConvidados";
+      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + self.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
 
-        $scope.getConvidados();
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+        console.log(urlVar);
+        console.log(xmlVar);
+        console.log(resp);
+        self.getConvidados();
+        self.convidado_nome = "";
+        self.convidado_acompanhantes = '0';
+        self.convidado_email = "";
+        self.convidado_telefone = "";
+
+        self.getConvidados();
       });
     }
   };
@@ -78,9 +88,11 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
             result[count] = worksheet[z].v;
 
             if (count == 2) {
-              var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + result[1] + '</Email><Id>0</Id><Id_usuario_logado>' + user.id + '</Id_usuario_logado><Nome>' + result[0] + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + result[2] + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
-              Convidados.setData(xmlVar).then(function (resp) {
-                $scope.getConvidados();
+              self.showConvidados = false;
+              var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastroConvidados";
+              var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + result[1] + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + result[0] + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + result[2] + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+              ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
+                self.getConvidados();
               });
 
               count = 0;
@@ -92,15 +104,13 @@ angular.module("dashboard").controller('cadastrar_convidados', ['$scope', 'Convi
       };
       reader.readAsBinaryString(f);
     }
-  };
+  }
   document.getElementById("xlf").addEventListener('change', handleFile, false);
 
-  user = $cookies.getObject('user');
-
-  if (user.lista_convidados == null || user.lista_convidados == '') {
-    $scope.getConvidados();
+  if (!UserService.dados.convidado_lista) {
+    self.getConvidados();
   } else {
-    $scope.convidado_lista = user.lista_convidados;
+    self.convidado_lista = UserService.dados.convidado_lista;
+    self.showConvidados = true;
   }
-
 }]);
