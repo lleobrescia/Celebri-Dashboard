@@ -72,7 +72,10 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     lista_hotel: '',
     lista_salao: '',
     lista_presente: '',
-    lista_cardapio: ''
+    lista_cardapio: '',
+
+    //Convidados
+    convidado_lista: null
   };
 
   var service = {
