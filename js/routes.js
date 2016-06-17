@@ -26,7 +26,8 @@ angular.module("dashboard").config(function($routeProvider){
   })
   .when('/cadastrar-convidados',{
     templateUrl:"/dashboard/templates/page/cadastrar_convidados.html",
-    controller:'cadastrar_convidados'
+    controller:'cadastrar_convidados',
+    controllerAs: 'convidadosCtrl'
   })
   .when('/save-the-date',{
     templateUrl:"/dashboard/templates/page/save_the_date.html",
