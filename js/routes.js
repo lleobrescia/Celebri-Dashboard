@@ -50,7 +50,8 @@ angular.module("dashboard").config(function ($routeProvider) {
     })
     .when('/estatisticas', {
       templateUrl: "/dashboard/templates/page/estatistica.html",
-      controller: 'estatistica'
+      controller: 'estatistica',
+      controllerAs: 'estatisticaCtrl'
     })
     .when('/login', {
       templateUrl: "/dashboard/templates/page/login.html",
