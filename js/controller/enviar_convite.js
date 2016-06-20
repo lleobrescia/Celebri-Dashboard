@@ -1,73 +1,79 @@
-angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', 'user', '$cookies', 'Convidados', function ($scope, Convite, user, $cookies, Convidados) {
+angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipService','ServiceCasamento', function (UserService, ipService,ServiceCasamento) {
 
-  $scope.carregando = true;
-  $scope.allowToSend = false;
-  $scope.mensagem = false;
+  var self = this;
+  var ID = UserService.dados.ID;
+  self.senhaApp = UserService.dados.senhaApp;
 
-  $scope.convidado_lista = [];
-  $scope.selecionados = [];
+  self.carregando = true;
+  self.allowToSend = false;
+  self.mensagem = false;
 
-  $scope.checkAll = function () {
-    if ($scope.selectedAll) {
-      $scope.selectedAll = true;
-      $scope.allowToSend = true;
+  self.convidado_lista = [];
+  self.selecionados = [];
+
+  self.checkAll = function () {
+    if (self.selectedAll) {
+      self.selectedAll = true;
+      self.allowToSend = true;
     } else {
-      $scope.selectedAll = false;
-      $scope.allowToSend = false;
-      $scope.selecionados = [];
+      self.selectedAll = false;
+      self.allowToSend = false;
+      self.selecionados = [];
     }
-    angular.forEach($scope.convidado_lista, function (item) {
-      item.Selected = $scope.selectedAll;
+    angular.forEach(self.convidado_lista, function (item) {
+      item.Selected = self.selectedAll;
 
-      if ($scope.selectedAll) {
-        $scope.selecionados.push(item.Id);
+      if (self.selectedAll) {
+        self.selecionados.push(item.Id);
       }
     });
   };
 
-  $scope.checkConvidado = function (id, selected) {
+  self.checkConvidado = function (id, selected) {
     if (selected) {
-      $scope.selecionados.push(id);
+      self.selecionados.push(id);
     } else {
       var count = 0;
-      angular.forEach($scope.selecionados, function (item) {
+      angular.forEach(self.selecionados, function (item) {
         if (item == id) {
-          $scope.selecionados.splice(count, 1);
+          self.selecionados.splice(count, 1);
         }
         count++;
       });
     }
-    if ($scope.selecionados.length > 0) {
-      $scope.allowToSend = true;
+    if (self.selecionados.length > 0) {
+      self.allowToSend = true;
     } else {
-      $scope.allowToSend = false;
+      self.allowToSend = false;
     }
   };
 
-  $scope.enviar = function () {
-    var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + user.id + '</Id_casal>  <Id_convidado>';
+  self.enviar = function () {
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/EnvioEmailConvite";
+    var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_convidado>';
 
-    angular.forEach($scope.selecionados, function (item) {
+    angular.forEach(self.selecionados, function (item) {
       xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item + '</int>';
     });
     xmlVar += '</Id_convidado></ListaEmailConvidados>';
 
-    Convite.enviarEmail(xmlVar).then(function (resp) {
-      $scope.mensagem = true;
+    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+      self.mensagem = true;
     });
   };
 
-  $scope.getConvidados = function () {
-    user = $cookies.getObject('user');
+  self.getConvidados = function () {
+    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarConvidados";
+    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
-    Convidados.getData(user.id).then(function (resp) {
+    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
 
       $(respXml).find('Convidado').each(function () {
         var status = "Enviado";
         if ($(this).find('ConviteEnviado').text() == 'false') status = "Não Enviado";
 
-        $scope.convidado_lista.push(
+        self.convidado_lista.push(
           {
             'Id': $(this).find('Id').text(),
             'Nome': $(this).find('Nome').text(),
@@ -76,10 +82,9 @@ angular.module("dashboard").controller('enviar_convite', ['$scope', 'Convite', '
           }
         );
       });
-      $scope.carregando = false;
+      self.carregando = false;
     });
   };
 
-  $scope.getConvidados();
-  $scope.senhaApp = user.senhaApp;
+  self.getConvidados();
 }]);
