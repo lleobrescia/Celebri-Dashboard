@@ -46,17 +46,17 @@ $body .= '</table>
 
 
 $to      = $_POST['EmailEnvio'];
-$subject = 'Lista';
+$subject = 'Lista de Casamento [Celebri]';
 $message = $body;
-$headers = "From: lleobrescia@gmail.com \r\n";
-$headers .= "Reply-To:lleobrescia@gmail.com \r\n";
+$headers = "From: celebri@celebri.com.br \r\n";
+$headers .= "Reply-To:celebri@celebri.com.br \r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=utf-8\r\n";
+
 
 if (mail($to, $subject, $message, $headers)) {
   echo "ok";
 } else {
   echo "nao";
 }
-
 ?>
