@@ -106,5 +106,26 @@
       </div>
     </div>
   </form>
+
+  <div class="row">
+    <div class="col-md-10">
+      <h1 class="titulo">Download</h1>
+      <p>
+        Clique no botão abaixo para baixar a lista.
+      </p>
+    </div>
+    <!-- col-xs-10 -->
+  </div>
+  <!-- row -->
+  <div class="row">
+    <div class="col-md-10" ng-if="confirmadosCtrl.listaConfirmados.length == 0">
+      <p style="margin: 50px auto;text-align: center;">Nenhum convidado confirmou ainda</p>
+    </div>
+    <div class="col-md-3" ng-show="confirmadosCtrl.listaConfirmados.length > 0">
+      <div class="btn" ng-click="confirmadosCtrl.download()">
+        Baixar
+      </div>
+    </div>
+  </div>
 </div>
 <!-- container-fluid -->

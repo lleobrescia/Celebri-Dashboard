@@ -76,5 +76,26 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
       });
     }
   };
+
+  self.download = function () {
+    var columns = ["Nome do convidado", "Acompanhantes", "Total de Confirmados"];
+    var rows = [];
+
+    angular.forEach(self.listaConfirmados, function (item) {
+      var acompanhantes = '';
+
+      angular.forEach(item.Acompanhantes, function (itens) {
+        acompanhantes += itens.Nome + "\n";
+      });
+      rows.push(
+        [item.Nome, acompanhantes, item.Total]
+      );
+    });
+
+    var doc = new jsPDF('p', 'pt');
+    doc.autoTable(columns, rows);
+    doc.save('lista_convidados.pdf');
+  };
+
   self.getConfirmados();
 }]);
