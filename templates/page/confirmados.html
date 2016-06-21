@@ -1,0 +1,110 @@
+<div class="container-fluid confirmados" ng-init="checkTemplate()">
+  <div class="row">
+    <div class="col-md-10">
+      <h1 class="titulo">Lista de Confirmados</h1>
+      <p>
+        Esta é a lista dos convidados e acompanhantes que baixaram o aplicativo Celebri e confirmaram presença no seu casamento.
+      </p>
+      <p>
+        Para enviá-la por email, basta preencher o formulário abaixo.
+      </p>
+      <p style="margin-bottom:46px">
+        Caso a organização do seu casamento conte com um cerimonial, este é um recurso prático, conveniente e eficiente para o envio
+        da lista de confirmados.
+      </p>
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <img src="image/loging.gif" alt="Carregando" style="width: 64px;display: block;margin: 50px auto;" ng-show="confirmadosCtrl.carregando">
+
+  <div class="row" ng-show="!confirmadosCtrl.carregando">
+    <div class="col-sm-10">
+      <div class="tabela__convidado">
+        <div class="tabela_convidado_topo">
+          <p>
+            Convidados confirmados:
+          </p>
+          <input type="text" name="name" ng-model="confirmadosCtrl.searchText">
+        </div>
+        <!-- tabela_convidado_topo -->
+        <div class="tabela_convidado_header">
+          <p>
+            Nome do convidado
+          </p>
+          <p>
+            Acompanhantes
+          </p>
+          <p class="text-center">
+            Nº de Confirmados<br> (Convidado + Acompanhantes)
+          </p>
+        </div>
+
+        <p style="margin: 50px auto;text-align: center;" ng-if="confirmadosCtrl.listaConfirmados.length == 0">Nenhum convidado confirmou ainda</p>
+
+        <!-- tabela_convidado_header -->
+        <div class="tabela_convidado_single" ng-repeat="value in confirmadosCtrl.listaConfirmados  | filter:confirmadosCtrl.searchText">
+          <p>
+            {{value.Nome}}
+          </p>
+          <p>
+            <span ng-repeat="acompanhante in value.Acompanhantes">
+              {{acompanhante.Nome}}
+            </span>
+          </p>
+          <p class="text-center" style="font-size: 1.6em;">
+            {{value.Total}}
+          </p>
+        </div>
+        <!-- tabela_convidado_single -->
+      </div>
+      <!-- tabela__convidado -->
+      <p class="pull-right" ng-show="confirmadosCtrl.total > 0">Total geral confirmados: {{confirmadosCtrl.total}}</p>
+    </div>
+  </div>
+
+  <form class="form" style="margin-top: 50px;" ng-show="!confirmadosCtrl.carregando">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 class="titulo">Enviar a lista por e-mail</h1>
+        <p style="margin: 50px auto;text-align: center;" ng-if="confirmadosCtrl.listaConfirmados.length == 0">Nenhum convidado confirmou ainda</p>
+      </div>
+    </div>
+    <!-- row -->
+
+    <div class="row" ng-show="confirmadosCtrl.listaConfirmados.length > 0">
+      <div class="col-md-5">
+        <p class="form__title">
+          Nome:*
+        </p>
+        <input type="text" ng-model="confirmadosCtrl.nome">
+      </div>
+      <!-- col-md-5 -->
+      <div class="col-md-5">
+        <p class="form__title">
+          E-mail:*
+        </p>
+        <input type="email" ng-model="confirmadosCtrl.email">
+      </div>
+      <!-- col-md-5 -->
+      <div class="col-md-3">
+        <img src="image/loging.gif" alt="Carregando" style="width: 32px;display: block;margin: 10px auto;" ng-show="confirmadosCtrl.enviando">
+        <div class="btn" ng-click="confirmadosCtrl.enviar()" ng-class="(confirmadosCtrl.nome && confirmadosCtrl.email) ? ' btn--save':'btn--disable'"
+          ng-show="!confirmadosCtrl.enviando">
+          Enviar
+        </div>
+      </div>
+      <!-- col-md-3 -->
+    </div>
+    <!-- row -->
+    <div class="row" style="margin-top: 35px;" ng-if="confirmadosCtrl.msg">
+      <div class="col-md-10">
+        <p class="bg-success" style="padding: 20px;">
+          E-mail enviado!
+        </p>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- container-fluid -->

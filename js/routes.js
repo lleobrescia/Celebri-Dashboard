@@ -48,6 +48,11 @@ angular.module("dashboard").config(function ($routeProvider) {
       templateUrl: "/dashboard/templates/page/enviar_convite2.html",
       controller: 'enviar_convite2'
     })
+    .when('/confirmados', {
+      templateUrl: "/dashboard/templates/page/confirmados.html",
+      controller: 'confirmados',
+      controllerAs: 'confirmadosCtrl'
+    })
     .when('/estatisticas', {
       templateUrl: "/dashboard/templates/page/estatistica.html",
       controller: 'estatistica',

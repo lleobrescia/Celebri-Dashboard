@@ -1023,6 +1023,13 @@ rzslider .rz-pointer {
   height: 0;
 }
 
+/*LISTA DE CONFIRMADOS*/
+
+.confirmados .tabela_convidado_single p span{
+  float: none;
+  display: block;
+}
+
 /*MEIDA*/
 
 @media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {

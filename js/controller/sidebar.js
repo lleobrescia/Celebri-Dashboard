@@ -59,6 +59,11 @@ angular.module('dashboard').controller('sidebar', ['$location', 'UserService', '
       },
       {
         Id: 7,
+        Name: 'Lista de Confirmados',
+        url: 'confirmados'
+      },
+      {
+        Id: 8,
         Name: 'Estatísticas do Convite',
         url: 'estatisticas'
       }
