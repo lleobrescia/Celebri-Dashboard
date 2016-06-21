@@ -1,4 +1,4 @@
-<div class="sidebar" ng-controller="sidebar">
+<div class="sidebar" ng-controller="sidebar as sideCtrl">
   <header class="header">
     <div class="logo__box">
       <img class="logo" src="./image/celebri.png" alt="Celebri">
@@ -6,22 +6,22 @@
     <!-- logo__box -->
 
     <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
-      <img class="user__img" ng-src="{{fotoCasal}}" alt="Foto Casal">
+      <img class="user__img" ng-src="{{sideCtrl.fotoCasal}}" alt="Foto Casal">
       <p>
-        Olá, {{usuarioLogado}} <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
+        Olá, {{sideCtrl.usuarioLogado}} <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
       </p>
     </div>
     <!-- name__user -->
 
     <div class="user__options" ng-if="$scope.clicou">
-      <a rel="nofallow" ng-click="sair()">X Sair</a>
+      <a rel="nofallow" ng-click="sideCtrl.sair()">X Sair</a>
     </div>
     <!-- user__options -->
 
   </header>
 
   <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}">
-    <navigation menu="menu"></navigation>
+    <navigation menu="sideCtrl.menu"></navigation>
   </nav>
 
 </div>

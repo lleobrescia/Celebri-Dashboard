@@ -23,7 +23,7 @@
         </a>
         <br><br>
       </div>
-      <p style="margin-bottom: 80px;">Ao abrir o aplicativo, utilize a senha: <span style="border: solid thin;padding: 10px;" ng-bind="senhaApp"></span></p>
+      <p style="margin-bottom: 80px;">Ao abrir o aplicativo, utilize a senha: <span style="border: solid thin;padding: 10px;" ng-bind="conviteCtrl.senhaApp"></span></p>
 
       <p style="margin-bottom:46px">
         Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência,
@@ -45,7 +45,7 @@
           <p>
             Enviar convites:
           </p>
-          <input type="text" name="name" value="" ng-model="searchText" style="outline: none;">
+          <input type="text" ng-model="conviteCtrl.searchText" style="outline: none;">
         </div>
         <!-- tabela_convidado_topo -->
         <div class="tabela_convidado_header">
@@ -58,18 +58,18 @@
           <p>
             Status
           </p>
-          <input type="checkbox" name="name" ng-model="selectedAll" ng-click="checkAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;">
+          <input type="checkbox" ng-model="conviteCtrl.selectedAll" ng-click="conviteCtrl.checkAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;">
         </div>
 
-        <div style="height: 100px;line-height: 89px;text-align: center;" ng-if="carregando || convidado_lista.length == 0">
-          <img src="image/loging.gif" alt="Carregando" ng-if="carregando" width="32" height="32">
-          <p ng-if="convidado_lista.length == 0 && !carregando">
+        <div style="height: 100px;line-height: 89px;text-align: center;" ng-if="conviteCtrl.carregando || conviteCtrl.convidado_lista.length == 0">
+          <img src="image/loging.gif" alt="Carregando" ng-if="conviteCtrl.carregando" width="32" height="32">
+          <p ng-if="conviteCtrl.convidado_lista.length == 0 && !conviteCtrl.carregando">
             <a ng-href="/dashboard/#/cadastrar-convidados">Cadastre convidados</a> para poder enviar o convite.
           </p>
         </div>
 
         <!-- tabela_convidado_header -->
-        <div class="tabela_convidado_single" ng-repeat="(key,value) in convidado_lista  | filter:searchText">
+        <div class="tabela_convidado_single" ng-repeat="(key,value) in conviteCtrl.convidado_lista  | filter:searchText">
           <p>
             {{value.Nome}}
           </p>
@@ -80,7 +80,7 @@
             {{value.ConviteEnviado}}
           </p>
           <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;"
-            ng-click="checkConvidado(value.Id, value.Selected)">
+            ng-click="conviteCtrl.checkConvidado(value.Id, value.Selected)">
         </div>
         <!-- tabela_convidado_single -->
       </div>
@@ -91,15 +91,15 @@
   <!-- row -->
   <div class="row">
 
-    <div class="col-sm-3 col-sm-offset-7" ng-if="allowToSend">
-      <div class="btn btn--save" ng-click="enviar();selectedAll = false;checkAll()">
+    <div class="col-sm-3 col-sm-offset-7" ng-if="conviteCtrl.allowToSend">
+      <div class="btn btn--save" ng-click="conviteCtrl.enviar(); conviteCtrl.selectedAll = false; conviteCtrl.checkAll()">
         Enviar
       </div>
     </div>
     <!-- col-sm-3 -->
   </div>
   <!-- row -->
-  <div class="row" ng-if="mensagem" style="margin-top: 35px;">
+  <div class="row" ng-if="conviteCtrl.mensagem" style="margin-top: 35px;">
     <div class="col-md-10">
       <p class="bg-success" style="padding: 20px;">
         Convite enviado!

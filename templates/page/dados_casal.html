@@ -14,20 +14,21 @@
 <!-- dados__header -->
 
 <div class="image__editor" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.82);z-index: 2;overflow: auto;"
-  ng-show="editar">
+  ng-show="dadosCasalCtrl.editar">
   <div style="width: 400px;background: white;height: auto;margin: 45px auto; position:relative">
-    <div img-src="foto__editor" ng-image-editor="imageEditor" selected="selected" aspect-ratio="2:2" enabled-resize-selector="true"></div>
+    <div img-src="dadosCasalCtrl.foto__editor" ng-image-editor="dadosCasalCtrl.imageEditor" selected="dadosCasalCtrl.selected"
+      aspect-ratio="2:2" enabled-resize-selector="true"></div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-xs-3 col-xs-offset-3">
-        <div class="btn btn--save" ng-click="uploadFoto();editar = false">
+        <div class="btn btn--save" ng-click="dadosCasalCtrl.uploadFoto();dadosCasalCtrl.editar = false">
           Salvar
         </div>
       </div>
       <!--col-xs-3-->
       <div class="col-xs-3">
-        <div class="btn btn--cancel" ng-click="editar = false">
+        <div class="btn btn--cancel" ng-click="dadosCasalCtrl.editar = false">
           Cancelar
         </div>
       </div>
@@ -49,7 +50,7 @@
             <p class="form__title">
               Nome da Noiva
             </p>
-            <input type="text" name="nome_noiva" ng-model="nome_noiva" ng-change="$scope.change = true">
+            <input type="text" name="nome_noiva" ng-model="dadosCasalCtrl.nome_noiva" ng-change="$scope.change = true">
           </div>
           <!-- col-xs-5 -->
 
@@ -57,7 +58,7 @@
             <p class="form__title">
               Nome da Noivo
             </p>
-            <input type="text" name="nome_noivo" ng-model="nome_noivo" ng-change="$scope.change = true">
+            <input type="text" name="nome_noivo" ng-model="dadosCasalCtrl.nome_noivo" ng-change="$scope.change = true">
           </div>
           <!-- col-xs-5 -->
         </div>
@@ -70,12 +71,13 @@
             </p>
 
             <div class="upload__image">
-              <div ng-if="!carregando">
-                <img id="img" ng-if="foto" ng-src="{{foto}}">
-                <i class="fa fa-camera" ng-if="!foto"></i>
-                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this);editar = true">
+              <div ng-if="!dadosCasalCtrl.carregando">
+                <img id="img" ng-if="dadosCasalCtrl.foto" ng-src="{{dadosCasalCtrl.foto}}">
+                <i class="fa fa-camera" ng-if="!dadosCasalCtrl.foto"></i>
+                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this);dadosCasalCtrl.editar = true">
               </div>
-              <img src="image/loging.gif" alt="Carregando" ng-if="carregando" style="margin-top: 61px;margin-left: auto;margin-right: auto;" height="32" width="32">
+              <img src="image/loging.gif" alt="Carregando" ng-if="dadosCasalCtrl.carregando" style="margin-top: 61px;margin-left: auto;margin-right: auto;"
+                height="32" width="32">
             </div>
             <!-- upload__image -->
           </div>
@@ -85,7 +87,7 @@
             <p class="form__title">
               Data do Casamento
             </p>
-            <input type="date" name="data_casamento" ng-model="data_casamento" ng-change="$scope.change = true" style="width: 80%;">
+            <input type="date" name="data_casamento" ng-model="dadosCasalCtrl.data_casamento" ng-change="$scope.change = true" style="width: 80%;">
             <i class="fa fa-calendar"></i>
           </div>
           <!-- col-xs-3 -->
@@ -93,13 +95,13 @@
         <!-- row -->
 
         <div class="row">
-          <div class="col-sm-3" ng-if="$scope.change && !errorFile">
-            <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosCasal(); $scope.change = false;fotoAlterada = false">
+          <div class="col-sm-3" ng-if="$scope.change && !dadosCasalCtrl.errorFile">
+            <div class="btn btn--save" style="margin-bottom:24px;" ng-click="dadosCasalCtrl.setDadosCasal(); $scope.change = false;dadosCasalCtrl.fotoAlterada = false">
               Salvar
             </div>
           </div>
           <div class="col-sm-3" ng-if="$scope.change">
-            <div class="btn btn--cancel" ng-click="casalGetDados(); $scope.change = false;fotoAlterada = false">
+            <div class="btn btn--cancel" ng-click="dadosCasalCtrl.casalGetDados(); $scope.change = false;dadosCasalCtrl.fotoAlterada = false">
               Cancelar
             </div>
           </div>

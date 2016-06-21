@@ -580,6 +580,7 @@ select {
   background: url("../image/lupa.png") 5px center no-repeat #f1f2f2;
   padding-left: 19px;
   padding-right: 7px;
+  outline: none;
 }
 
 .tabela_convidado_header {
@@ -1020,6 +1021,13 @@ rzslider .rz-pointer {
 }
 .login_input_group.ng-hide{
   height: 0;
+}
+
+/*LISTA DE CONFIRMADOS*/
+
+.confirmados .tabela_convidado_single p span{
+  float: none;
+  display: block;
 }
 
 /*MEIDA*/

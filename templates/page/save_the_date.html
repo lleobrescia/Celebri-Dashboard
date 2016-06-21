@@ -17,50 +17,56 @@
   </div>
   <!-- row -->
 
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="save__layout">
-        <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda':modelo == '1'}" ng-click=" modelo='1'; $scope.change = true">
-        <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda':modelo == '3'}" ng-click=" modelo='3'; $scope.change = true">
-        <img src="./image/savethedate/Modelo8.png" alt="" ng-class="{'layout__borda':modelo == '8'}" ng-click=" modelo='8'; $scope.change = true">
-      </div>
-    </div>
-    <!-- row -->
-  </div>
-  <!-- row -->
+  <span ng-show="!dateCtrl.showDate" style="display: block;text-align: center;height: 300px;line-height: 300px;">
+    <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
+  </span>
 
-  <form class="form" action="index.html" method="post">
+  <div ng-show="dateCtrl.showDate">
     <div class="row">
-      <div class="col-sm-10">
-        <p class="form__title">
-          Mensagem:
-        </p>
-        <textarea class="save__menssage" ng-model="mensagem" ng-change="$scope.change = true"></textarea>
+      <div class="col-xs-12">
+        <div class="save__layout">
+          <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '1'}" ng-click=" dateCtrl.modelo='1'; $scope.change = true">
+          <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '3'}" ng-click=" dateCtrl.modelo='3'; $scope.change = true">
+          <img src="./image/savethedate/Modelo8.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '8'}" ng-click=" dateCtrl.modelo='8'; $scope.change = true">
+        </div>
       </div>
-      <!-- col-sm-10 -->
+      <!-- row -->
     </div>
     <!-- row -->
-  </form>
 
-  <div class="row">
-    <div class="col-sm-3" ng-if="$scope.change">
-      <div class="btn btn--save" style="margin-bottom:24px;" ng-click="salvar(); $scope.change = false">
-        Salvar
+    <form class="form" action="index.html" method="post">
+      <div class="row">
+        <div class="col-sm-10">
+          <p class="form__title">
+            Mensagem:
+          </p>
+          <textarea class="save__menssage" ng-model="dateCtrl.mensagem" ng-change="$scope.change = true"></textarea>
+        </div>
+        <!-- col-sm-10 -->
       </div>
-    </div>
-    <div class="col-sm-3" ng-if="$scope.change">
-      <div class="btn btn--cancel" ng-click="getData(); $scope.change = false">
-        Cancelar
+      <!-- row -->
+    </form>
+
+    <div class="row">
+      <div class="col-sm-3" ng-if="$scope.change">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="dateCtrl.salvar(); $scope.change = false">
+          Salvar
+        </div>
       </div>
-    </div>
-    <div class="col-sm-3 ">
-      <div class="btn btn--ok">
-        <a ng-href="/dashboard/#/save-the-date/2">Avançar</a>
+      <div class="col-sm-3" ng-if="$scope.change">
+        <div class="btn btn--cancel" ng-click="dateCtrl.getData(); $scope.change = false">
+          Cancelar
+        </div>
       </div>
+      <div class="col-sm-3 ">
+        <div class="btn btn--ok">
+          <a ng-href="/dashboard/#/save-the-date/2">Avançar</a>
+        </div>
+      </div>
+      <!-- col-sm-3 -->
     </div>
-    <!-- col-sm-3 -->
+    <!-- row -->
   </div>
-  <!-- row -->
 
 </div>
 <!-- container-fluid  -->

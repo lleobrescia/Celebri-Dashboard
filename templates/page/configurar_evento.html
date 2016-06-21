@@ -16,15 +16,22 @@
   </div>
   <!-- row -->
 
-  <form class="form" enctype="multipart/form-data" ng-init="$scope.change = false" novalidate>
+  <form class="form" ng-init="$scope.change = false">
     <div class="row" style="margin-top:24px">
-      <div class="col-xs-12">
+      <img src="image/loging.gif" alt="Carregando" ng-show="!eventoCtrl.showCerimonia" style="width: 32px;display: block;margin-left: 15%;">
+      <div class="col-xs-12" ng-show="eventoCtrl.showCerimonia">
         <p class="form__title">
           Mesmo local da cerimônia?
         </p>
         <div class="input__radio">
-          <span><input type="radio" ng-model="festa_igual_cerimonia" name="festa_igual_cerimonia" value="false"  ng-init="festa_igual_cerimonia = 'true'"> Não</span>
-          <span><input type="radio" ng-model="festa_igual_cerimonia" name="festa_igual_cerimonia" value="true" ng-checked="true"> Sim</span>
+          <span>
+            <input type="radio" ng-model="eventoCtrl.festa_igual_cerimonia" name="festa_igual_cerimonia" value="'false'" ng-checked="eventoCtrl.festa_igual_cerimonia == 'false'">
+             Não
+          </span>
+          <span>
+            <input type="radio" ng-model="eventoCtrl.festa_igual_cerimonia" name="festa_igual_cerimonia" value="'true'" ng-checked="eventoCtrl.festa_igual_cerimonia == 'true'">
+             Sim
+          </span>
         </div>
         <!-- input__radio -->
       </div>
@@ -32,7 +39,7 @@
     </div>
     <!-- row -->
 
-    <div class="festa_igual_cerimonia" ng-if="festa_igual_cerimonia != 'true'">
+    <div class="festa_igual_cerimonia" ng-show="eventoCtrl.festa_igual_cerimonia != 'true' && eventoCtrl.showCerimonia">
 
       <!-- #REGION DADOS DA SERIMONIA -->
       <div class="row">
@@ -40,7 +47,7 @@
           <p class="form__title">
             Nome do local da recepção
           </p>
-          <input type="text" name="festa_local" ng-model="festa_local" ng-change="$scope.change = true" ng-keyup="PreencherLocal(festa_local)">
+          <input type="text" name="festa_local" ng-model="eventoCtrl.festa_local" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-7 -->
 
@@ -48,7 +55,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" name="festa_cep" ng-model="festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="consultFestaCEP(festa_cep);PreencherCep(festa_cep)">
+          <input type="text" name="festa_cep" ng-model="eventoCtrl.festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="eventoCtrl.consultFestaCEP(eventoCtrl.festa_cep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -59,14 +66,14 @@
           <p class="form__title">
             Endereço da recepção
           </p>
-          <input type="text" name="festa_end" ng-model="festa_end" ng-change="$scope.change = true">
+          <input type="text" name="festa_end" ng-model="eventoCtrl.festa_end" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-7 -->
         <div class="col-sm-3">
           <p class="form__title">
             Número
           </p>
-          <input type="text" name="festa_numero" ng-model="festa_numero" ng-change="$scope.change = true" ng-keyup="PreencherNum(festa_numero)">
+          <input type="text" name="festa_numero" ng-model="eventoCtrl.festa_numero" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -77,21 +84,21 @@
           <p class="form__title">
             Bairro
           </p>
-          <input type="text" name="festa_bairro" ng-model="festa_bairro" ng-change="$scope.change = true">
+          <input type="text" name="festa_bairro" ng-model="eventoCtrl.festa_bairro" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-4">
           <p class="form__title">
             Cidade
           </p>
-          <input type="text" name="festa_cidade" ng-model="festa_cidade" ng-change="$scope.change = true">
+          <input type="text" name="festa_cidade" ng-model="eventoCtrl.festa_cidade" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-2">
           <p class="form__title">
             Estado
           </p>
-          <input type="text" name="festa_uf" ng-model="festa_uf" ng-change="$scope.change = true" maxlength="2">
+          <input type="text" name="festa_uf" ng-model="eventoCtrl.festa_uf" ng-change="$scope.change = true" maxlength="2">
         </div>
         <!-- col-sm-2 -->
       </div>
@@ -103,8 +110,14 @@
             Traçar rotas para o local:
           </p>
           <div class="input__radio">
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="true" ng-change="$scope.change = true"> Sim</span>
-            <span><input type="radio" name="festa_rota" ng-model="festa_rota" value="false" ng-change="$scope.change = true"> Não</span>
+            <span>
+              <input type="radio" name="festa_rota" ng-model="eventoCtrl.festa_rota" value="true" ng-change="$scope.change = true">
+                  Sim
+            </span>
+            <span>
+              <input type="radio" name="festa_rota" ng-model="eventoCtrl.festa_rota" value="false" ng-change="$scope.change = true">
+                Não
+            </span>
           </div>
           <!-- input__radio -->
         </div>
@@ -114,12 +127,12 @@
 
       <div class="row" ng-if="$scope.change">
         <div class="col-sm-3">
-          <div class="btn btn--save" style="margin-bottom:24px;" ng-click="setDadosEvento(); $scope.change = false">
+          <div class="btn btn--save" style="margin-bottom:24px;" ng-click="eventoCtrl.setDadosEvento(); $scope.change = false">
             Salvar
           </div>
         </div>
         <div class="col-sm-3">
-          <div class="btn btn--cancel" ng-click="getDadosEvento(); $scope.change = false">
+          <div class="btn btn--cancel" ng-click="eventoCtrl.getDadosLocal(); $scope.change = false">
             Cancelar
           </div>
         </div>
@@ -144,118 +157,125 @@
     <!-- row -->
 
     <!-- #REGION CADASTRO DE HOTEL -->
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Nome do local do hotel*
-        </p>
-        <input type="text" name="hotel_local" ng-model="hotel_local">
+    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showHotel">
+        <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
+    </span>
 
-      </div>
-      <!-- col-sm-7 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          CEP
-        </p>
-        <input type="text" name="hotel_cep" ng-model="hotel_cep" mask="99.999-999" ng-keyup="consultCEPHotel()">
-      </div>
-      <!-- col-sm-3 -->
-    </div>
-    <!-- row -->
+    <div ng-show="eventoCtrl.showHotel">
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="form__title">
+            Nome do local do hotel*
+          </p>
+          <input type="text" name="hotel_local" ng-model="eventoCtrl.hotel_local">
 
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Endereço do hotel*
-        </p>
-        <input type="text" name="hotel_end" ng-model="hotel_end">
-      </div>
-      <!-- col-sm-7 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          Número*
-        </p>
-        <input type="text" name="hotel_numero" ng-model="hotel_numero">
-      </div>
-      <!-- col-sm-3 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="form__title">
-          Bairro*
-        </p>
-        <input type="text" name="hotel_bairro" ng-model="hotel_bairro">
-      </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-4">
-        <p class="form__title">
-          Cidade*
-        </p>
-        <input type="text" name="hotel_cidade" ng-model="hotel_cidade">
-      </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-2">
-        <p class="form__title">
-          Estado*
-        </p>
-        <input type="text" name="hotel_uf" ng-model="hotel_uf" maxlength="2">
-      </div>
-      <!-- col-sm-4 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-3">
-        <p class="form__title">
-          Telefone*
-        </p>
-        <input type="text" name="hotel_telefone" ng-model="hotel_telefone" mask="(99) 9? 9999-9999">
-      </div>
-      <!-- col-sm-3 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          E-mail
-        </p>
-        <input type="email" name="hotel_email" ng-model="hotel_email">
-      </div>
-      <!-- col-sm-3 -->
-      <div class="col-sm-4">
-        <p class="form__title">
-          Site
-        </p>
-        <input type="url" name="hotel_site" ng-model="hotel_site" http-prefix>
-      </div>
-      <!-- col-sm-4 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="form__title">
-          Traçar rotas para o local:
-        </p>
-        <div class="input__radio">
-          <span><input type="radio" name="hotel_rota" ng-model="hotel_rota" value="sim" > Sim</span>
-          <span><input type="radio" name="hotel_rota" ng-model="hotel_rota" value="nao" > Não</span>
         </div>
-        <!-- input__radio -->
-      </div>
-      <!-- col-sm-3 -->
-
-      <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-if="hotel_local && hotel_end && hotel_numero &&hotel_bairro && hotel_cidade && hotel_uf && hotel_telefone"
-          ng-click="adicionarHotel()">
-          Adicionar
+        <!-- col-sm-7 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            CEP
+          </p>
+          <input type="text" name="hotel_cep" ng-model="eventoCtrl.hotel_cep" mask="99.999-999" ng-keyup="eventoCtrl.consultCEPHotel(eventoCtrl.hotel_cep)">
         </div>
-
-        <div class="btn btn--disable" ng-if="!hotel_local || !hotel_end || !hotel_numero || !hotel_bairro || !hotel_cidade || !hotel_uf || !hotel_telefone">
-          Adicionar
-        </div>
-        <!-- btn -->
+        <!-- col-sm-3 -->
       </div>
-      <!-- col-sm-3 -->
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="form__title">
+            Endereço do hotel*
+          </p>
+          <input type="text" name="hotel_end" ng-model="eventoCtrl.hotel_end">
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            Número*
+          </p>
+          <input type="text" name="hotel_numero" ng-model="eventoCtrl.hotel_numero">
+        </div>
+        <!-- col-sm-3 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <p class="form__title">
+            Bairro*
+          </p>
+          <input type="text" name="hotel_bairro" ng-model="eventoCtrl.hotel_bairro">
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-4">
+          <p class="form__title">
+            Cidade*
+          </p>
+          <input type="text" name="hotel_cidade" ng-model="eventoCtrl.hotel_cidade">
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-2">
+          <p class="form__title">
+            Estado*
+          </p>
+          <input type="text" name="hotel_uf" ng-model="eventoCtrl.hotel_uf" maxlength="2">
+        </div>
+        <!-- col-sm-4 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="form__title">
+            Telefone*
+          </p>
+          <input type="text" name="hotel_telefone" ng-model="eventoCtrl.hotel_telefone" mask="(99) 9? 9999-9999">
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            E-mail
+          </p>
+          <input type="email" name="hotel_email" ng-model="eventoCtrl.hotel_email">
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-4">
+          <p class="form__title">
+            Site
+          </p>
+          <input type="url" name="hotel_site" ng-model="eventoCtrl.hotel_site" http-prefix>
+        </div>
+        <!-- col-sm-4 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <p class="form__title">
+            Traçar rotas para o local:
+          </p>
+          <div class="input__radio">
+            <span>
+            <input type="radio" name="hotel_rota" ng-model="eventoCtrl.hotel_rota" value="sim" >
+            Sim
+            </span>
+            <span>
+            <input type="radio" name="hotel_rota" ng-model="eventoCtrl.hotel_rota" value="nao" >
+             Não
+             </span>
+          </div>
+          <!-- input__radio -->
+        </div>
+        <!-- col-sm-3 -->
+
+        <div class="col-sm-3 col-sm-offset-3">
+          <div class="btn" ng-click="eventoCtrl.adicionarHotel()" ng-class="(eventoCtrl.hotel_local && eventoCtrl.hotel_end && eventoCtrl.hotel_numero && eventoCtrl.hotel_bairro && eventoCtrl.hotel_cidade && eventoCtrl.hotel_uf && eventoCtrl.hotel_telefone) ? ' btn--save':'btn--disable'">
+            Adicionar
+          </div>
+          <!-- btn -->
+        </div>
+        <!-- col-sm-3 -->
+      </div>
     </div>
     <!-- row -->
     <!-- #ENDREGION CADASTRO DE HOTEL -->
@@ -263,16 +283,16 @@
     <!-- #REGION LISTA DE HOTEL -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-if="hotel_lista.length > 0">
+        <div class="tabela" ng-show="eventoCtrl.hotel_lista.length > 0">
           <div class="tabela__header">
             Hotéis cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in hotel_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.hotel_lista">
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="removeHotel(value.Id,key)">X Remover</span>
+            <span ng-click="eventoCtrl.removeHotel(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -298,135 +318,144 @@
     </div>
     <!-- row -->
 
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Nome do local do salão*
-        </p>
-        <input type="text" name="salao_local" ng-model="salao_local">
+    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showSalao">
+        <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
+    </span>
 
-      </div>
-      <!-- col-sm-7 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          CEP
-        </p>
-        <input type="text" name="salao_cep" ng-model="salao_cep" mask="99.999-999" ng-keyup="consultCEPSalao()">
-      </div>
-      <!-- col-sm-3 -->
-    </div>
-    <!-- row -->
+    <div ng-show="eventoCtrl.showSalao">
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="form__title">
+            Nome do local do salão*
+          </p>
+          <input type="text" name="salao_local" ng-model="eventoCtrl.salao_local">
 
-    <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Endereço do salão*
-        </p>
-        <input type="text" name="salao_end" ng-model="salao_end">
-      </div>
-      <!-- col-sm-7 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          Número*
-        </p>
-        <input type="text" name="salao_numero" ng-model="salao_numero">
-      </div>
-      <!-- col-sm-3 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="form__title">
-          Bairro*
-        </p>
-        <input type="text" name="salao_bairro" ng-model="salao_bairro">
-      </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-4">
-        <p class="form__title">
-          Cidade*
-        </p>
-        <input type="text" name="salao_cidade" ng-model="salao_cidade">
-      </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-2">
-        <p class="form__title">
-          Estado*
-        </p>
-        <input type="text" name="salao_uf" ng-model="salao_uf">
-      </div>
-      <!-- col-sm-6 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-3">
-        <p class="form__title">
-          Telefone*
-        </p>
-        <input type="text" name="salao_telefone" ng-model="salao_telefone" mask="(99) 9? 9999-9999">
-      </div>
-      <!-- col-sm-3 -->
-      <div class="col-sm-3">
-        <p class="form__title">
-          E-mail
-        </p>
-        <input type="email" name="salao_email" ng-model="salao_email">
-      </div>
-      <!-- col-sm-3 -->
-      <div class="col-sm-4">
-        <p class="form__title">
-          Site
-        </p>
-        <input type="url" name="salao_site" ng-model="salao_site" http-prefix>
-      </div>
-      <!-- col-sm-4 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="form__title">
-          Traçar rotas para o local:
-        </p>
-        <div class="input__radio">
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="sim" > Sim</span>
-          <span><input type="radio" name="salao_rota" ng-model="salao_rota" value="nao" > Não</span>
         </div>
-        <!-- input__radio -->
-      </div>
-      <!-- col-sm-3 -->
-
-      <div class="col-sm-3 col-sm-offset-3">
-        <div class="btn btn--save" ng-click="adicionarSalao()" ng-if="salao_local && salao_end && salao_numero &&salao_bairro && salao_cidade && salao_uf && salao_telefone">
-          Adicionar
+        <!-- col-sm-7 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            CEP
+          </p>
+          <input type="text" name="salao_cep" ng-model="eventoCtrl.salao_cep" mask="99.999-999" ng-keyup="eventoCtrl.consultCEPSalao(eventoCtrl.salao_cep)">
         </div>
-        <!-- btn -->
-        <div class="btn btn--disable" ng-if="!salao_local || !salao_end || !salao_numero || !salao_bairro || !salao_cidade || !salao_uf || !salao_telefone">
-          Adicionar
-        </div>
-        <!-- btn -->
+        <!-- col-sm-3 -->
       </div>
-      <!-- col-sm-3 -->
-      <!-- #ENDREGION CADASTRO DE SALAO -->
+      <!-- row -->
 
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="form__title">
+            Endereço do salão*
+          </p>
+          <input type="text" name="salao_end" ng-model="eventoCtrl.salao_end">
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            Número*
+          </p>
+          <input type="text" name="salao_numero" ng-model="eventoCtrl.salao_numero">
+        </div>
+        <!-- col-sm-3 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <p class="form__title">
+            Bairro*
+          </p>
+          <input type="text" name="salao_bairro" ng-model="eventoCtrl.salao_bairro">
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-4">
+          <p class="form__title">
+            Cidade*
+          </p>
+          <input type="text" name="salao_cidade" ng-model="eventoCtrl.salao_cidade">
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-2">
+          <p class="form__title">
+            Estado*
+          </p>
+          <input type="text" name="salao_uf" ng-model="eventoCtrl.salao_uf">
+        </div>
+        <!-- col-sm-6 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="form__title">
+            Telefone*
+          </p>
+          <input type="text" name="salao_telefone" ng-model="eventoCtrl.salao_telefone" mask="(99) 9? 9999-9999">
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-3">
+          <p class="form__title">
+            E-mail
+          </p>
+          <input type="email" name="salao_email" ng-model="eventoCtrl.salao_email">
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-4">
+          <p class="form__title">
+            Site
+          </p>
+          <input type="url" name="salao_site" ng-model="eventoCtrl.salao_site" http-prefix>
+        </div>
+        <!-- col-sm-4 -->
+      </div>
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <p class="form__title">
+            Traçar rotas para o local:
+          </p>
+          <div class="input__radio">
+            <span>
+            <input type="radio" name="salao_rota" ng-model="eventoCtrl.salao_rota" value="sim" >
+            Sim
+          </span>
+            <span>
+            <input type="radio" name="salao_rota" ng-model="eventoCtrl.salao_rota" value="nao" >
+            Não
+          </span>
+          </div>
+          <!-- input__radio -->
+        </div>
+        <!-- col-sm-3 -->
+
+        <div class="col-sm-3 col-sm-offset-3">
+          <div class="btn" ng-click="eventoCtrl.adicionarSalao()" ng-class="(eventoCtrl.salao_local && eventoCtrl.salao_end && eventoCtrl.salao_numero && eventoCtrl.salao_bairro && eventoCtrl.salao_cidade && eventoCtrl.salao_uf && eventoCtrl.salao_telefone) ? 'btn--save': 'btn--disable'">
+            Adicionar
+          </div>
+          <!-- btn -->
+        </div>
+        <!-- col-sm-3 -->
+        <!-- #ENDREGION CADASTRO DE SALAO -->
+
+      </div>
+      <!-- row -->
     </div>
-    <!-- row -->
+
 
     <div class="row">
       <div class="col-sm-10">
         <!-- #REGION TABELA DE SALAO -->
-        <div class="tabela" ng-if="salao_lista.length > 0">
+        <div class="tabela" ng-show="eventoCtrl.salao_lista.length > 0">
           <div class="tabela__header">
             Salões cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in salao_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.salao_lista">
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="removeSalao(value.Id,key)">X Remover</span>
+            <span ng-click="eventoCtrl.removeSalao(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -457,48 +486,54 @@
     </div>
     <!-- row -->
 
-    <div class="row">
-      <div class="col-sm-5">
-        <p class="form__title">
-          Nome da loja
-        </p>
-        <input type="text" name="loja_nome" ng-model="loja_nome">
-      </div>
-      <!-- col-sm-6 -->
-      <div class="col-sm-5">
-        <p class="form__title">
-          URL da loja
-        </p>
-        <input type="text" name="loja_url" ng-model="loja_url" http-prefix>
-      </div>
-      <!-- col-sm-6 -->
-    </div>
-    <!-- row -->
+    <span style="height: 84px;line-height: 84px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showPresente">
+        <img src="image/loging.gif" alt="Carregando" style="width: 32px;">
+    </span>
 
-    <div class="row">
-      <div class="col-sm-3 col-sm-offset-7">
-        <div class="btn btn--save" ng-click="adicionarUrl()">
-          Adicionar
+    <div ng-show="eventoCtrl.showPresente">
+      <div class="row">
+        <div class="col-sm-5">
+          <p class="form__title">
+            Nome da loja*
+          </p>
+          <input type="text" name="loja_nome" ng-model="eventoCtrl.loja_nome">
         </div>
+        <!-- col-sm-6 -->
+        <div class="col-sm-5">
+          <p class="form__title">
+            URL da loja*
+          </p>
+          <input type="text" name="loja_url" ng-model="eventoCtrl.loja_url" http-prefix>
+        </div>
+        <!-- col-sm-6 -->
       </div>
-      <!-- col-sm-3  -->
+      <!-- row -->
+
+      <div class="row">
+        <div class="col-sm-3 col-sm-offset-7">
+          <div class="btn" ng-click="eventoCtrl.adicionarUrl()" ng-class="(eventoCtrl.loja_nome &&eventoCtrl.loja_url) ? 'btn--save' : 'btn--disable'">
+            Adicionar
+          </div>
+        </div>
+        <!-- col-sm-3  -->
+      </div>
+      <!-- row -->
     </div>
-    <!-- row -->
     <!-- #ENDREGION CADASTRO DE LISTA DE PRESENTE -->
 
     <!-- #REGION LISTA DA LISTA DE PRESENTE -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-if="loja_lista.length > 0">
+        <div class="tabela" ng-show="eventoCtrl.loja_lista.length > 0">
           <div class="tabela__header">
             Lojas cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in loja_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.loja_lista">
             <p>
               {{value.Nome}}
             </p>
-            <span ng-click="removeUrl(value.Id,key)">X Remover</span>
+            <span ng-click="eventoCtrl.removeUrl(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -524,48 +559,55 @@
       </div>
       <!-- col-xs-12 -->
 
-      <div class="col-sm-10">
-        <p class="form__title">
-          Título da etapa
-        </p>
-        <input type="text" name="cardapio_title" ng-model="cardapio_title" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
-
-        <p class="form__title">
-          Descrição do cardápio
-        </p>
-        <textarea name="cardapio_descricao" ng-model="cardapio_descricao" placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
-      </div>
-      <!--col-sm-10-->
+      <span style="height: 358px;line-height: 358px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showCardapio">
+        <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
+    </span>
     </div>
     <!--row-->
-    <div class="row">
-      <div class="col-sm-3 col-sm-offset-7">
-        <div class="btn btn--save" ng-click="setCardapio()">
-          Adicionar
+    <div ng-show="eventoCtrl.showCardapio">
+      <div class="row">
+        <div class="col-sm-10">
+          <p class="form__title">
+            Título da etapa*
+          </p>
+          <input type="text" name="cardapio_title" ng-model="eventoCtrl.cardapio_title" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
+
+          <p class="form__title">
+            Descrição do cardápio*
+          </p>
+          <textarea name="cardapio_descricao" ng-model="eventoCtrl.cardapio_descricao" placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
         </div>
+        <!--col-sm-10-->
       </div>
-      <!-- col-sm-3  -->
+      <div class="row">
+        <div class="col-sm-3 col-sm-offset-7">
+          <div class="btn" ng-click="eventoCtrl.setCardapio()" ng-class="(eventoCtrl.cardapio_title && eventoCtrl.cardapio_descricao) ? 'btn--save' : 'btn--disable'">
+            Adicionar
+          </div>
+        </div>
+        <!-- col-sm-3  -->
+      </div>
+      <!-- row -->
     </div>
-    <!-- row -->
     <!-- #ENDREGION CADASTRO CARDAPIO -->
 
 
     <!-- #REGION LISTA DA LISTA DE PRESENTE -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-if="lista_cardapio.length > 0">
+        <div class="tabela" ng-show="eventoCtrl.lista_cardapio.length > 0">
           <div class="tabela__header">
             Cardápio cadastrado:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in lista_cardapio" style="height:auto">
+          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.lista_cardapio" style="height:auto">
             <p>
               {{value.Nome}}
             </p>
             <p style="width: 50%;line-height: 1.2;clear:both">
               {{value.Descricao}}
             </p>
-            <span ng-click="removerCardapio(value.Id,key)">X Remover</span>
+            <span ng-click="eventoCtrl.removerCardapio(value.Id,key)">X Remover</span>
             <div class="clearfix"></div>
           </div>
           <!-- tabela__item -->
@@ -604,7 +646,7 @@
         <p style="color:blue;position:relative;cursor: pointer;" ng-mouseover="$scope.exemplo = true" ng-mouseleave="$scope.exemplo = false">
           Para cada cota vendida, você escolhe se prefere repassar esta taxa ao convidado ou se irá absorvê-la*.
 
-          <div style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;    font-size: 1.6em;top:143px"
+          <div style="position: absolute;color: white;z-index: 1;background: grey;padding: 22px;width: 90%;font-size: 1.6em;top:143px"
             ng-if="$scope.exemplo">
             *Por exemplo, se o seu convidado te pagar R$ 100,00, você pode:
             <ul style="list-style:disc;padding-left:5px">
@@ -619,180 +661,10 @@
             </ul>
           </div>
         </p>
-
-
-
-        <!--<p style="margin-top:26px;margin-top: 26px;display: inline-block;margin-right: 21px;">
-          Criar conta Moip para recebimento das cotas?
-          <div class="input__radio" style="display: inline-block;">
-            <span><input type="radio" name="moip_aceitou" ng-model="moip_aceitou" value="sim" > Sim</span>
-            <span><input type="radio" name="moip_aceitou" ng-model="moip_aceitou" value="nao" ng-checked="true"> Não</span>
-          </div>
-        </p>-->
       </div>
       <!-- col-xs-12 -->
     </div>
     <!-- row -->
-
-    <div class="moip_aceitou" ng-if="moip_aceitou == 'sim'" ng-style="moip__form">
-
-      <div class="row">
-        <div class="col-xs-12">
-          <p style="margin-bottom:48px;margin-top:26px">
-            Criar sua conta MoIP é simples e rápido, basta preencher os dados abaixo, aguardar pelo recebimento do email de confirmação,
-            validá-lo clicando no link e terminar o cadastro no site da MoIP criando seu login e senha. Guarde bem seu login
-            MoIP, pois é necessário acessar o site MoIP para solicitar a transferência para sua conta bancária.
-          </p>
-        </div>
-        <!-- col-xs-12 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-
-        <!-- #REGION CADASTRO MOIP -->
-        <div class="col-md-7">
-          <p class="form__title">
-            Nome do noivo(a)
-          </p>
-          <input type="text" name="moip_nome" ng-model="moip_nome" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-7 -->
-        <div class="col-md-3">
-          <p class="form__title">
-            CPF
-          </p>
-          <input type="text" name="moip_cpf" ng-model="moip_cpf" ng-change="$scope.change = true" mask="999.999.999-99">
-        </div>
-        <!-- col-md-3 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-        <div class="col-md-7">
-          <p class="form__title">
-            Email
-          </p>
-          <input type="email" name="moip_email" ng-model="moip_email" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-7 -->
-        <div class="col-md-3">
-          <p class="form__title">
-            Data de nascimento
-          </p>
-          <input type="date" name="moip_nascimento" ng-model="moip_nascimento" ng-change="$scope.change = true" mask="99/99/9999" restrict="reject"
-            limit="false">
-        </div>
-        <!-- col-md-3 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="form__title">
-            CEP
-          </p>
-          <input type="text" name="moip_cep" ng-model="moip_cep" ng-change="$scope.change = true" mask="99.999-999">
-        </div>
-        <!-- col-md-3 -->
-        <div class="col-sm-7">
-          <p class="form__title">
-            Rua
-          </p>
-          <input type="text" name="moip_rua" ng-model="moip_rua" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-7 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-        <div class="col-sm-2">
-          <p class="form__title">
-            Número
-          </p>
-          <input type="text" name="moip_numero" ng-model="moip_numero" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-2 -->
-        <div class="col-sm-3">
-          <p class="form__title">
-            Complemento
-          </p>
-          <input type="text" name="moip_complemento" ng-model="moip_complemento" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-3 -->
-        <div class="col-sm-5">
-          <p class="form__title">
-            Bairro
-          </p>
-          <input type="text" name="moip_bairro" ng-model="moip_bairro" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-5 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="form__title">
-            Estado
-          </p>
-          <input type="text" name="moip_estado" ng-model="moip_estado" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-3 -->
-        <div class="col-sm-7">
-          <p class="form__title">
-            Cidade
-          </p>
-          <input type="text" name="moip_cidade" ng-model="moip_cidade" ng-change="$scope.change = true">
-        </div>
-        <!-- col-md-7 -->
-      </div>
-      <!-- row -->
-
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="btn btn--ok">
-            Salvar
-          </div>
-        </div>
-        <!-- col-sm-3  -->
-        <!-- #ENDREGION CADASTRO MOIP -->
-
-      </div>
-      <!-- row -->
-
-      <hr>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <h3><strong>Produtos:</strong></h3>
-          <p style="margin-bottom:46px">
-            Você pode utilizar os produtos abaixo para ilustrarem suas cotas de lua de mel no aplicativo dos seus convidados.
-          </p>
-        </div>
-        <!-- col-xs-12 -->
-      </div>
-      <!-- row -->
-
-
-      <div class="row">
-
-        <div class="produtos__single col-lg-6" ng-repeat="(key,value) in produtos">
-          <img ng-src="{{value.urlImage}}" alt="" class="produto_image">
-
-          <div class="produto_desc">
-            <p>{{value.nome}}</p>
-            <span>{{value.valor}}</span>
-            <input type="checkbox" ng-model="value.marcado" name="name" ng-click="checkProduto(value.marcado,value.id)">
-          </div>
-          <!-- produto_desc -->
-
-          <div class="clearfix"></div>
-        </div>
-        <!-- produtos__single -->
-      </div>
-      <!-- row -->
-    </div>
-    <!-- moip_aceitou -->
 
     <div class="row">
       <div class="col-sm-3">
