@@ -20,9 +20,10 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
 
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
+      var listaAcompanhante = [];
 
       $(respXml).find('ListaConvidadosConfirmados').each(function () {
-        var listaAcompanhante = [];
+
         var count = 1;
 
         $(respXml).find('Lista_Acompanhantes').each(function () {
