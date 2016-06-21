@@ -43,9 +43,7 @@ angular.module("dashboard").controller('cadastrar_convidados', ['ServiceCasament
   self.adicionarConvidado = function () {
     if (self.convidado_nome && self.convidado_email) {
       self.showConvidados = false;
-      if (self.convidado_acompanhantes) {
-        self.convidado_acompanhantes = 0;
-      }
+
 
       var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastroConvidados";
       var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + self.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
