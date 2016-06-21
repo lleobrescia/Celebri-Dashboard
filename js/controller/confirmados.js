@@ -21,22 +21,25 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
       var listaAcompanhante = [];
+      self.listaConfirmados = [];
 
       $(respXml).find('ListaConvidadosConfirmados').each(function () {
-
         var count = 1;
+        var convidado = this;
+        listaAcompanhante = [];
 
-        $(respXml).find('Lista_Acompanhantes').each(function () {
+        $(convidado).find('ListaAcompanhantes').each(function () {
           count++;
           listaAcompanhante.push(
             {
-              'Nome': $(this).find('Nome'),
+              'Nome': $(this).find('Nome').text(),
             }
           );
         });
+
         self.listaConfirmados.push(
           {
-            'Nome': $(respXml).find('Nome'),
+            'Nome': $(this).find('NomeConvidado').text(),
             'Acompanhantes': listaAcompanhante,
             'Total': count
           }
@@ -51,12 +54,15 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
   self.enviar = function () {
     if (self.email && self.nome) {
       self.enviando = true;
+      var data = dataCasamento.split('/');
+      data = data[1] + "/" + data[0] + "/" + data[2];
+
       var dados = {
-        'NomeEnvio': self.email,
-        'EmailEnvio': self.nome,
+        'NomeEnvio': self.nome,
+        'EmailEnvio': self.email,
         'nomeNoiva': nomeNoiva,
         'nomeNoivo': nomeNoivo,
-        'dataCasamento': dataCasamento,
+        'dataCasamento': data,
         'TotalGeral': self.total,
         'Dados': self.listaConfirmados
       };
@@ -64,6 +70,9 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
       $http.post('php/enviarListaConfirmados.php', dados).success(function (data) {
         self.enviando = false;
         self.msg = true;
+        console.log(data);
+        self.nome = '';
+        self.email = '';
       });
     }
   };
