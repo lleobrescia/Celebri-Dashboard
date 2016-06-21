@@ -59,6 +59,7 @@ angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipServ
 
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       self.mensagem = true;
+      self.getConvidados();
     });
   };
 
@@ -68,6 +69,7 @@ angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipServ
 
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       var respXml = $.parseXML(resp);
+      self.convidado_lista = [];
 
       $(respXml).find('Convidado').each(function () {
         var status = "Enviado";
@@ -83,6 +85,7 @@ angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipServ
         );
       });
       self.carregando = false;
+      self.mensagem = false;
     });
   };
 

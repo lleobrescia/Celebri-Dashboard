@@ -88,12 +88,10 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     dados: null,
 
     SaveState: function () {
-      console.log("save");
       sessionStorage.UserService = angular.toJson(service.dados);
     },
 
     RestoreState: function () {
-      console.log("load");
       try {
         service.dados = angular.fromJson(sessionStorage.UserService);
       } catch (error) {
