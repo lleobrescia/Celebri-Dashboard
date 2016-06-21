@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('mainController', ['$scope', '$location', 'UserService', '$http', function ($scope, $location, UserService, $http) {
+angular.module("dashboard").controller('mainController', ['$scope', '$location', 'UserService', '$http', '$window',function ($scope, $location, UserService, $http,$window) {
 
   $scope.checkTemplate = function () {
 
@@ -20,7 +20,11 @@ angular.module("dashboard").controller('mainController', ['$scope', '$location',
     //carrega as informações dos blocos(altura,largura, posicao) de cada convite
     $http.get('data/convites.json')
       .then(function (res) {
-        UserService.dados.listaConvites = res.data;
+        try {
+          UserService.dados.listaConvites = res.data;
+        } catch (error) {
+          $window.location.reload();
+        }
       });
 
     //carrega as fonts
