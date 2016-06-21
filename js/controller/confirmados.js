@@ -22,7 +22,7 @@ angular.module("dashboard").controller('confirmados', ['UserService', 'ipService
       var respXml = $.parseXML(resp);
 
       $(respXml).find('ListaConvidadosConfirmados').each(function () {
-        var listaAcompanhante = null;
+        var listaAcompanhante = [];
         var count = 1;
 
         $(respXml).find('Lista_Acompanhantes').each(function () {
