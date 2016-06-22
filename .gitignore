@@ -13,3 +13,4 @@ package.json
 >>>>>>> develop
 js/dashboard.min.js
 js/service/ipService.js
+.vscode/
