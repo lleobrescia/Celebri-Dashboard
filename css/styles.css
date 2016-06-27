@@ -1016,19 +1016,61 @@ rzslider .rz-pointer {
   font-size: 1.2em;
 }
 
-.login_input_group{
+.login_input_group {
   height: 260px;
 }
-.login_input_group.ng-hide{
+
+.login_input_group.ng-hide {
   height: 0;
 }
 
+
 /*LISTA DE CONFIRMADOS*/
 
-.confirmados .tabela_convidado_single p span{
+.confirmados .tabela_convidado_single p span {
   float: none;
   display: block;
 }
+
+
+/*PAGAMENTO*/
+
+.pagamento {
+  background: #6f91ff;
+}
+
+.pagamento .wrapper {
+  padding: 0;
+}
+
+.pagamento .form {
+  margin-bottom: 70px;
+  margin-left: 20px;
+}
+
+.pagamento .content {
+  padding-bottom: 0;
+}
+
+.pagamento .login__content {
+  max-width: 100%;
+  margin-bottom: 50px
+}
+
+.pagamento .form__title {
+  color: white;
+}
+
+.pagamento .btn--ok {
+  background: #d1d3d4;
+  margin-top: 30px;
+}
+
+.pagamento .btn--ok a {
+  color: black;
+  font-weight: 300;
+}
+
 
 /*MEIDA*/
 
