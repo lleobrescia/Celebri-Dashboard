@@ -5,7 +5,7 @@ angular.module("dashboard").service("CallAjax", ['ipService', function (ipServic
       var dataVar = { "uri": urlVar, "xml": xmlVar };
       var call = $.ajax({
         type: 'POST',
-        url: "http://" + ipService.ip + "/web/service_request.aspx",
+        url: "https://" + ipService.ip + "/web/service_request.aspx",
         contentType: 'text/xml; charset=utf-8',
         data: dataVar,
         xhrFields: {

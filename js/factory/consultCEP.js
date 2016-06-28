@@ -5,7 +5,7 @@ angular.module("dashboard").factory('consultCEP', ['CallAjax', '$q', function (C
     cep = cep.replace(/\-/g, '');
 
     if (cep.length > 7) {
-      var call = $.ajax({ url: "http://api.postmon.com.br/v1/cep/" + cep });
+      var call = $.ajax({ url: "https://api.postmon.com.br/v1/cep/" + cep });
       var deferred = $q.defer();
 
       call.success(function (data) {
