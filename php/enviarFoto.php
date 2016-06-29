@@ -1,6 +1,6 @@
 <?php
 
-$url = 'http://23.238.16.114/celebri/web/uploadFotoCasal.aspx';
+$url = 'http://celebri.com.br/celebri/web/uploadFotoCasal.aspx';
 $data = array('image' => $_POST['image'], 'name' => $_POST['name']);
 
 // use key 'http' even if you send the request to https://...
