@@ -1,8 +1,8 @@
 // INIT
-angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngCookies', 'ngImageEditor']);
+angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngImageEditor']);
 
 angular.module("dashboard").run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
-UserService.RestoreState();
+  UserService.RestoreState();
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
     if (sessionStorage.restorestate == "true") {
