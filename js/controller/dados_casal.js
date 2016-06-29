@@ -13,7 +13,13 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
    */
   self.nome_noiva = nomeNoiva;
   self.nome_noivo = nomeNoivo;
-  self.foto = fotoNoivos;
+
+  if (fotoNoivos == "image/user_login.png") {
+    self.foto = null;
+  } else {
+    self.foto = fotoNoivos;
+  }
+
 
   /**
    * Dados iniciais para o ngImageEditor
@@ -61,7 +67,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
 
     //Envia para o servidor
     var upload = Upload.upload({
-      url: 'http://celebri.com.br/dashboard/php/enviarFoto.php',
+      url: 'https://celebri.com.br/dashboard/php/enviarFoto.php',
       data: { image: imagemCortada, name: ID }
     });
 
@@ -106,7 +112,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
       self.nome_noiva = $(respXml).find('NomeNoiva').text();
 
       var data = $(respXml).find('DataCasamento').text().split('/');
-      self.data_casamento = new Date( data[1] + "/" + data[0] + "/" + data[2]);
+      self.data_casamento = new Date(data[1] + "/" + data[0] + "/" + data[2]);
 
       UserService.dados.dataCasamento = data[1] + "/" + data[0] + "/" + data[2];
       UserService.SaveState();
