@@ -74,7 +74,7 @@
               <div ng-if="!dadosCasalCtrl.carregando">
                 <img id="img" ng-if="dadosCasalCtrl.foto" ng-src="{{dadosCasalCtrl.foto}}">
                 <i class="fa fa-camera" ng-if="!dadosCasalCtrl.foto"></i>
-                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this);dadosCasalCtrl.editar = true">
+                <input type="file" accept="image/*" onchange="angular.element(this).scope().openFile(this)">
               </div>
               <img src="image/loging.gif" alt="Carregando" ng-if="dadosCasalCtrl.carregando" style="margin-top: 61px;margin-left: auto;margin-right: auto;"
                 height="32" width="32">
