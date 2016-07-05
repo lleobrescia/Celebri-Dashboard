@@ -1,5 +1,5 @@
 // INIT
-angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngImageEditor']);
+angular.module("dashboard", ['ngRoute', 'ngFileUpload', 'ngMask', 'rzModule', 'ngAnimate', 'ui.bootstrap', 'chart.js', 'ngImageEditor', 'ngMaterial']);
 
 angular.module("dashboard").run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
   UserService.RestoreState();
@@ -106,3 +106,35 @@ angular.module("dashboard")
     lista_cardapio: [],
     lista_presentes_lua_mel: []
   });
+
+angular.module("dashboard").config(function ($mdDateLocaleProvider) {
+  $mdDateLocaleProvider.months = [
+    'Janeiro', 'Fevereiro', 'Março',
+    'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro',
+    'Outubro', 'Novembro', 'Dezembro'
+  ];
+
+  $mdDateLocaleProvider.shortMonths = [
+    'Jan', 'Fev', 'Mar',
+    'Abr', 'Mai', 'Jun',
+    'Jul', 'Ago', 'Set',
+    'Out', 'Nov', 'Dez'
+  ];
+  $mdDateLocaleProvider.days = [
+    'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta',
+    'Sábado', 'Domingo'
+  ];
+  $mdDateLocaleProvider.shortDays = [
+    'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'
+  ];
+  $mdDateLocaleProvider.formatDate = function (date) {
+    return moment(date).format('DD/MM/YYYY');
+  };
+  $mdDateLocaleProvider.parseDate = function (dateString) {
+    var m = moment(dateString, 'DD/MM/YYYY', true);
+    return m.isValid() ? m.toDate() : new Date(NaN);
+  };
+  $mdDateLocaleProvider.msgCalendar = 'Calendario';
+  $mdDateLocaleProvider.msgOpenCalendar = 'Abrir calendario';
+});
