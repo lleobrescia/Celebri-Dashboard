@@ -36,7 +36,8 @@
 
       <!-- #REGION BLOCOS -->
 
-      <p class="bloco_pais_noiva bloco" ng-init="configConvite2Ctrl.styleHold = 'bloco_pais_noiva'" ng-style="configConvite2Ctrl.bloco_pais_noiva" ng-click="configConvite2Ctrl.setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva';configConvite2Ctrl.styleHold = 'bloco_pais_noiva'"
+      <p class="bloco_pais_noiva bloco" ng-init="configConvite2Ctrl.styleHold = 'bloco_pais_noiva'" ng-style="configConvite2Ctrl.bloco_pais_noiva"
+        ng-click="configConvite2Ctrl.setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva';configConvite2Ctrl.styleHold = 'bloco_pais_noiva'"
         ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}" ng-bind-html="configConvite2Ctrl.conteudo_pais_noiva"></p>
 
       <p class="bloco_pais_noivo bloco" ng-style="configConvite2Ctrl.bloco_pais_noivo" ng-click="configConvite2Ctrl.setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo';configConvite2Ctrl.styleHold = 'bloco_pais_noivo'"
@@ -51,8 +52,8 @@
       <p class="bloco_msg_2 bloco" ng-style="configConvite2Ctrl.bloco_msg_2" ng-click="configConvite2Ctrl.setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2';configConvite2Ctrl.styleHold = 'bloco_msg_2'"
         ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}" ng-bind-html="configConvite2Ctrl.conteudo_msg2"></p>
 
-      <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco" ng-model="configConvite2Ctrl.bloco_msg_personalizada" ng-style="configConvite2Ctrl.bloco_msg_personalizada_style"
-        ng-click="configConvite2Ctrl.setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada_style';configConvite2Ctrl.styleHold = 'bloco_msg_personalizada'"
+      <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco" ng-model="configConvite2Ctrl.bloco_msg_personalizada"
+        ng-style="configConvite2Ctrl.bloco_msg_personalizada_style" ng-click="configConvite2Ctrl.setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada_style';configConvite2Ctrl.styleHold = 'bloco_msg_personalizada'"
         ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
 
       <p class="bloco_cerimonia bloco" ng-style="configConvite2Ctrl.bloco_cerimonia" ng-click="configConvite2Ctrl.setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia';configConvite2Ctrl.styleHold = 'bloco_cerimonia'"
@@ -118,7 +119,8 @@
             <span>Serif</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}" ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -128,7 +130,8 @@
             <span>Sans Serif</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}" ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -138,7 +141,8 @@
             <span>Display</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}" ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -148,7 +152,8 @@
             <span>Handwritting</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}" ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
