@@ -389,7 +389,7 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
   };
 
   self.setCardapio = function () {
-    if (eventoCtrl.cardapio_title && eventoCtrl.cardapio_descricao) {
+    if (self.cardapio_title && self.cardapio_descricao) {
       self.showCardapio = false;
       var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastrarCardapio";
       var xmlVar = '<Cardapio xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Descricao>' + self.cardapio_descricao + '</Descricao><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.cardapio_title + '</Nome></Cardapio>';
