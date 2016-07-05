@@ -66,7 +66,7 @@
   <!--SLIDE-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.10.3/rzslider.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.css">
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
   <!--CSS SITE-->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -80,8 +80,10 @@
   <div class="wrapper" ng-controller="mainController" ng-class="login">
     <div ng-include="cabecalho" class="cabecalho"></div>
 
+    <img src="image/loging.gif" alt="Carregando" ng-if="loading" style="width: 128px;position: absolute;top: 0;bottom: 0;margin: auto;left: 0;right: 0;">
+
     <section class="content">
-      <div ng-view autoscroll="true"></div>
+      <div ng-view autoscroll="true" ng-show="!loading"></div>
     </section>
     <!-- content -->
   </div>
