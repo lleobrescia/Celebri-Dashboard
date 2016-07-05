@@ -4,13 +4,6 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico|Dancing+Script|Kaushan+Script|Satisfy|Courgette|Cookie|Pinyon+Script|Tangerine|Great+Vibes|Niconne|Damion|Alex+Brush|Yellowtail|Allura|Grand+Hotel|Parisienne|Rochester|Berkshire+Swash|Italianno|Arizonia|Condiment|Rouge+Script|Bilbo|Monsieur+La+Doulaise|Romanesco);
 @import url(https://fonts.googleapis.com/css?family=Lobster|Patua+One|Abril+Fatface|Lobster+Two|Fugaz+One|Playball|Oleo+Script|Sansita+One|Cinzel+Decorative|UnifrakturMaguntia|Oleo+Script+Swash+Caps|Yeseva+One|Lily+Script+One|Sail|Dynalight|Pirata+One);
 
-/*TEMPORARIO */
-
-.carousel-control {
-  display: none;
-}
-
-
 /*GERAL*/
 
 * {
@@ -27,6 +20,11 @@ body {
   /*config para usar em no lugar de px*/
   font-size: 62.5%;
   overflow-x: hidden;
+  background: white;
+}
+
+.wrapper {
+  background: white
 }
 
 a, a:hover, a:focus {
