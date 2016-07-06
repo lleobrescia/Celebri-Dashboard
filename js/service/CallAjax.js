@@ -1,8 +1,8 @@
 // retorna um ajax formatado de acordo com o serviço do sistema
 angular.module("dashboard").service("CallAjax", ['ipService', function (ipService) {
   return {
-    resposta: function (urlVar, xmlVar) {
-      var dataVar = { "uri": urlVar, "xml": xmlVar };
+    resposta: function (urlVar, xmlVar, appid, token) {
+      var dataVar = { "uri": urlVar, "xml": xmlVar, appid: appid, token: token };
       var call = $.ajax({
         type: 'POST',
         url: "https://" + ipService.ip + "/web/service_request.aspx",
