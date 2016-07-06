@@ -115,6 +115,7 @@ input[type=checkbox], input[type=radio] {
   text-align: center;
   position: relative;
   cursor: pointer;
+  outline: none;
 }
 
 .user__img {
