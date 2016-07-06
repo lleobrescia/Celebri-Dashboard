@@ -1086,7 +1086,7 @@ rzslider .rz-pointer {
 @media screen and ( min-height:800px), ( min-height:800px) and (-webkit-min-device-pixel-ratio:0) {
   /*SIDEBAR*/
   .menu-item, .menu-item__hover, .menu-item a {
-    height: 90px;
+    height: 75px;
   }
   /*DADOS CASAL*/
   .menu-item a {
