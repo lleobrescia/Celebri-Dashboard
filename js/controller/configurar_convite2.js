@@ -115,7 +115,13 @@ angular.module("dashboard").controller('configurar_convite2', ['$http', '$sce', 
   };
   // set font family do bloco
   self.setFontToBloco = function (font, idFont) {
+    //Formata o bloco atual
     $('.' + self.styleHold).css('font-family', font);
+
+    //lista de convites -> numero do convte selecionado -> bloco -> estilo da font
+    self.convites[self.convite_individual][self.styleHold]['font-family'] = font;
+
+    //Salva o id para ser enviado ao servidor
     UserService.dados[self.styleHold]['font-family'] = idFont;
   };
 
@@ -249,7 +255,7 @@ angular.module("dashboard").controller('configurar_convite2', ['$http', '$sce', 
         self.bloco_cerimonia["font-size"] = $(resp).find('tamanho_fonte_msg4').text();
         self.bloco_nome_dos_noivos["font-size"] = $(resp).find('tamanho_nomecasal').text();
         self.bloco_pais_noiva["font-size"] = $(resp).find('tamanho_fonte_pais_noiva').text();
-        self.bloco_pais_noivo["font-size"] = $(resp).find('tamanho_fonte_pais_noiva').text();
+        self.bloco_pais_noivo["font-size"] = $(resp).find('tamanho_fonte_pais_noivo').text();
 
         self.bloco_msg_personalizada = $(resp).find('conteudo_msg3').text();
 
@@ -270,7 +276,57 @@ angular.module("dashboard").controller('configurar_convite2', ['$http', '$sce', 
     var modelo = aux[1];
     var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/FormatacaoConvite";
 
-    var xmlVar = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + self.getTextAlingIndice(self.bloco_msg_1["text-align"]) + '</alinhamento_msg1><alinhamento_msg2>' + self.getTextAlingIndice(self.bloco_msg_2["text-align"]) + '</alinhamento_msg2><alinhamento_msg3>' + self.getTextAlingIndice(self.bloco_msg_personalizada_style["text-align"]) + '</alinhamento_msg3><alinhamento_msg4>' + self.getTextAlingIndice(self.bloco_cerimonia["text-align"]) + '</alinhamento_msg4><alinhamento_nomecasal>' + self.getTextAlingIndice(self.bloco_nome_dos_noivos["text-align"]) + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + self.getTextAlingIndice(self.bloco_pais_noiva["text-align"]) + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + self.getTextAlingIndice(self.bloco_pais_noivo["text-align"]) + '</alinhamento_pais_noivo><conteudo_msg1>' + self.changeBr(self.conteudo_msg1.toString()) + '</conteudo_msg1><conteudo_msg2>' + self.changeBr(self.conteudo_msg2.toString()) + '</conteudo_msg2><conteudo_msg3>' + self.changeBr(self.bloco_msg_personalizada.toString()) + '</conteudo_msg3><conteudo_msg4>' + self.changeBr(self.conteudo_msg4.toString()) + '</conteudo_msg4><conteudo_nomecasal>' + nome_noiva + ' &#38; ' + nome_noivo + '</conteudo_nomecasal><conteudo_pais_noiva>' + noiva_pai + '#' + noiva_mae + '</conteudo_pais_noiva><conteudo_pais_noivo>' + noivo_pai + '#' + noivo_mae + '</conteudo_pais_noivo><cor_msg1>' + self.bloco_msg_1["color"] + '</cor_msg1><cor_msg2>' + self.bloco_msg_2["color"] + '</cor_msg2><cor_msg3>' + self.bloco_msg_personalizada_style["color"] + '</cor_msg3><cor_msg4>' + self.bloco_cerimonia["color"] + '</cor_msg4><cor_nomecasal>' + self.bloco_nome_dos_noivos["color"] + '</cor_nomecasal><cor_pais_noiva>' + self.bloco_pais_noiva["color"] + '</cor_pais_noiva><cor_pais_noivo>' + self.bloco_pais_noivo["color"] + '</cor_pais_noivo><fonte_msg1>' + UserService.dados.bloco_msg_1['font-family'] + '</fonte_msg1><fonte_msg2>' + UserService.dados.bloco_msg_2['font-family'] + '</fonte_msg2><fonte_msg3>' + UserService.dados.bloco_msg_personalizada['font-family'] + '</fonte_msg3><fonte_msg4>' + UserService.dados.bloco_cerimonia['font-family'] + '</fonte_msg4><fonte_nomecasal>' + UserService.dados.bloco_nome_dos_noivos['font-family'] + '</fonte_nomecasal><fonte_pais_noiva>' + UserService.dados.bloco_pais_noiva['font-family'] + '</fonte_pais_noiva><fonte_pais_noivo>' + UserService.dados.bloco_pais_noivo['font-family'] + '</fonte_pais_noivo><id_casal>' + ID + '</id_casal><id_modelo>' + modelo + '</id_modelo><tamanho_fonte_msg1>' + self.removePx(self.bloco_msg_1["font-size"]) + '</tamanho_fonte_msg1><tamanho_fonte_msg2>' + self.removePx(self.bloco_msg_2["font-size"]) + '</tamanho_fonte_msg2><tamanho_fonte_msg3>' + self.removePx(self.bloco_msg_personalizada_style["font-size"]) + '</tamanho_fonte_msg3><tamanho_fonte_msg4>' + self.removePx(self.bloco_cerimonia["font-size"]) + '</tamanho_fonte_msg4><tamanho_fonte_pais_noiva>' + self.removePx(self.bloco_pais_noiva["font-size"]) + '</tamanho_fonte_pais_noiva><tamanho_fonte_pais_noivo>' + self.removePx(self.bloco_pais_noivo["font-size"]) + '</tamanho_fonte_pais_noivo><tamanho_nomecasal>' + self.removePx(self.bloco_nome_dos_noivos["font-size"]) + '</tamanho_nomecasal></DadosFormatacaoConvite>';
+    var alinhamento_msg1 = self.getTextAlingIndice(self.bloco_msg_1["text-align"]);
+    var alinhamento_msg2 = self.getTextAlingIndice(self.bloco_msg_2["text-align"]);
+    var alinhamento_msg3 = self.getTextAlingIndice(self.bloco_msg_personalizada_style["text-align"]);
+    var alinhamento_msg4 = self.getTextAlingIndice(self.bloco_cerimonia["text-align"]);
+    var alinhamento_nomecasal = self.getTextAlingIndice(self.bloco_nome_dos_noivos["text-align"]);
+    var alinhamento_pais_noiva = self.getTextAlingIndice(self.bloco_pais_noiva["text-align"]);
+    var alinhamento_pais_noivo = self.getTextAlingIndice(self.bloco_pais_noivo["text-align"]);
+
+    var conteudo_msg1 = self.changeBr(self.conteudo_msg1.toString());
+    var conteudo_msg2 = self.changeBr(self.conteudo_msg2.toString());
+    var conteudo_msg3 = self.changeBr(self.bloco_msg_personalizada.toString());
+    var conteudo_msg4 = self.changeBr(self.conteudo_msg4.toString());
+    var conteudo_nomecasal = nome_noiva + ' &#38; ' + nome_noivo;
+    var conteudo_pais_noiva = noiva_pai + '#' + noiva_mae;
+    var conteudo_pais_noivo = noivo_pai + '#' + noivo_mae;
+
+    var cor_msg1 = self.bloco_msg_1["color"];
+    var cor_msg2 = self.bloco_msg_2["color"];
+    var cor_msg3 = self.bloco_msg_personalizada_style["color"];
+    var cor_msg4 = self.bloco_cerimonia["color"];
+    var cor_nomecasal = self.bloco_nome_dos_noivos["color"];
+    var cor_pais_noiva = self.bloco_pais_noiva["color"];
+    var cor_pais_noivo = self.bloco_pais_noivo["color"];
+
+    var fonte_msg1 = UserService.dados.bloco_msg_1['font-family'];
+    var fonte_msg2 = UserService.dados.bloco_msg_2['font-family'];
+    var fonte_msg3 = UserService.dados.bloco_msg_personalizada['font-family'];
+    var fonte_msg4 = UserService.dados.bloco_cerimonia['font-family'];
+    var fonte_nomecasal = UserService.dados.bloco_nome_dos_noivos['font-family'];
+    var fonte_pais_noiva = UserService.dados.bloco_pais_noiva['font-family'];
+    var fonte_pais_noivo = UserService.dados.bloco_pais_noivo['font-family'];
+
+    var tamanho_fonte_msg1 = self.removePx(self.bloco_msg_1["font-size"]);
+    var tamanho_fonte_msg2 = self.removePx(self.bloco_msg_2["font-size"]);
+    var tamanho_fonte_msg3 = self.removePx(self.bloco_msg_personalizada_style["font-size"]);
+    var tamanho_fonte_msg4 = self.removePx(self.bloco_cerimonia["font-size"]);
+    var tamanho_fonte_pais_noiva = self.removePx(self.bloco_pais_noiva["font-size"]);
+    var tamanho_fonte_pais_noivo = self.removePx(self.bloco_pais_noivo["font-size"]);
+    var tamanho_nomecasal = self.removePx(self.bloco_nome_dos_noivos["font-size"]);
+
+    var xmlVar = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + alinhamento_msg1 + '</alinhamento_msg1><alinhamento_msg2>' + alinhamento_msg2 + '</alinhamento_msg2><alinhamento_msg3>' + alinhamento_msg3 + '</alinhamento_msg3><alinhamento_msg4>' + alinhamento_msg4 + '</alinhamento_msg4><alinhamento_nomecasal>' + alinhamento_nomecasal + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + alinhamento_pais_noiva + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + alinhamento_pais_noivo + '</alinhamento_pais_noivo>';
+
+    xmlVar += '<conteudo_msg1>' + conteudo_msg1 + '</conteudo_msg1><conteudo_msg2>' + conteudo_msg2 + '</conteudo_msg2><conteudo_msg3>' + conteudo_msg3 + '</conteudo_msg3><conteudo_msg4>' + conteudo_msg4 + '</conteudo_msg4><conteudo_nomecasal>' + conteudo_nomecasal + '</conteudo_nomecasal><conteudo_pais_noiva>' + conteudo_pais_noiva + '</conteudo_pais_noiva><conteudo_pais_noivo>' + conteudo_pais_noivo + '</conteudo_pais_noivo>';
+
+    xmlVar += '<cor_msg1>' + cor_msg1 + '</cor_msg1><cor_msg2>' + cor_msg2 + '</cor_msg2><cor_msg3>' + cor_msg3 + '</cor_msg3><cor_msg4>' + cor_msg4 + '</cor_msg4><cor_nomecasal>' + cor_nomecasal + '</cor_nomecasal><cor_pais_noiva>' + cor_pais_noiva + '</cor_pais_noiva><cor_pais_noivo>' + cor_pais_noivo + '</cor_pais_noivo>';
+
+    xmlVar += '<fonte_msg1>' + fonte_msg1 + '</fonte_msg1> <fonte_msg2>' + fonte_msg2 + '</fonte_msg2> <fonte_msg3>' + fonte_msg3 + '</fonte_msg3> <fonte_msg4>' + fonte_msg4 + '</fonte_msg4> <fonte_nomecasal>' + fonte_nomecasal + '</fonte_nomecasal> <fonte_pais_noiva>' + fonte_pais_noiva + '</fonte_pais_noiva> <fonte_pais_noivo>' + fonte_pais_noivo + '</fonte_pais_noivo>';
+
+    xmlVar += ' <id_casal>' + ID + '</id_casal> <id_modelo>' + modelo + '</id_modelo>';
+
+    xmlVar += ' <tamanho_fonte_msg1>' + tamanho_fonte_msg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanho_fonte_msg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanho_fonte_msg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanho_fonte_msg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanho_fonte_pais_noiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanho_fonte_pais_noivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanho_nomecasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
 
     ServiceCasamento.SendData(urlVar, xmlVar);
   };
