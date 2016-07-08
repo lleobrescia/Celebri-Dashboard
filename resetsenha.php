@@ -15,11 +15,11 @@ if (isset($_POST['enviar'])) {
     $result = "Senha não confere.";
   }
   else{
-    $url = 'http://23.238.16.114/celebri/web/service_request.aspx';
-    $uri = 'http://23.238.16.114/celebri/ServiceCasamento.svc/AlteracaoSenhaCasal';
+    $url = 'http://celebri.com.br/celebri/web/service_request.aspx';
+    $uri = 'http://celebri.com.br/celebri/ServiceCasamento.svc/AlteracaoSenhaCasal';
     $xml = '<DadosCasalAlteracaoSenha xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Chave>'.$key.'</Chave>  <NovaSenha>'.$senha.'</NovaSenha></DadosCasalAlteracaoSenha>';
 
-    $data = array('uri' => $uri , 'xml' => $xml );
+    $data = array('uri' => $uri , 'xml' => $xml , appid => '60e74b56ffa91185c5fc8732e94cbb1e' , token=>  'ea7021f308d7d4e691093dc16f6a8c8d');
 
     // use key 'http' even if you send the request to https://...
     $options = array(
