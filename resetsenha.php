@@ -1,7 +1,7 @@
 <?php
 
 $key = $_GET['chaveConfirmacao'];
-
+$result='';
 if (!$key) {
 	header("Location: http://celebri.com.br/dashboard/#/login");
 }
@@ -31,6 +31,7 @@ if (isset($_POST['enviar'])) {
     );
     $context  = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
+
   }
 }
 ?>
@@ -88,23 +89,27 @@ if (isset($_POST['enviar'])) {
             <!--col-xs-12-->
           </div>
           <!--row-->
-          <div class="row">
+          <div class="row" >
             <div class="col-xs-12" style="margin-bottom: 70px;color: white;">
               <!--login__content-->
               <div class="login__box">
                 <p class="text-center">Digite sua nova senha.</p><br>
 
                 <form class="login__form" method="POST" enctype="multipart/form-data">
-
-                  <p>Senha:</p>
+                <?php
+                    if($result == true){
+                      echo '<p> Senha Alterada.<br> <a style="color:white" href="http://celebri.com.br/dashboard">Ir para página de login</a></p>';
+                    }else{
+                      echo ' <p>Senha:</p>
                   <input type="password" name="senha" required style="color: black;"> <br>
                   <p>Repetir senha:</p>
                   <input type="password" name="segundaSenha" required style="color: black;"><br>
                   <input type="submit" value="OK" name="enviar">
 
                   <div class="clearfix"></div>
-
-                  <p><br><br><br><?php echo $result; ?></p>
+                  <p><br><br><br>'.$result.'</p>';
+                    }
+                ?>
 
                 </form>
               </div>
