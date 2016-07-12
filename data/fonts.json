@@ -1,22 +1,13 @@
 {
   "SERIF": {
-    "1": {
-      "font-name": "Slabo 27px"
-    },
     "2": {
       "font-name": "Lora"
-    },
-    "3": {
-      "font-name": "Roboto Slab"
     },
     "4": {
       "font-name": "Droid Serif"
     },
     "5": {
       "font-name": "Merriweather"
-    },
-    "6": {
-      "font-name": "PT Serif"
     },
     "7": {
       "font-name": "Playfair Display"
