@@ -133,6 +133,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
     UserService.dados.dataCasamento = self.data_casamento;
     UserService.dados.nomeNoiva = self.nome_noiva;
     UserService.dados.nomeNoivo = self.nome_noivo;
+    UserService.SaveState();
   };
 
   /**
