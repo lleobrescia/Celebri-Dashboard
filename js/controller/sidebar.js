@@ -3,7 +3,6 @@ angular.module('dashboard').controller('sidebar', ['$location', 'UserService', '
   var self = this;
   var id = UserService.dados.ID;
 
-  self.fotoCasal = UserService.dados.fotoUrl;
   self.usuarioLogado = UserService.dados.nomeUsuario;
 
 
