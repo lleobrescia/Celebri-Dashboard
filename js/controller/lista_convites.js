@@ -1,1 +1,0 @@
-angular.module("dashboard").controller('lista_convites', ['$scope', function ($scope) { }]);
