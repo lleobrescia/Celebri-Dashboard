@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', function (Upload, $filter, $route, ServiceCasamento, ipService, UserService, $scope) {
+angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', function (Upload, $filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope) {
 
   var self = this;
   var ID = UserService.dados.ID;
@@ -90,7 +90,7 @@ angular.module("dashboard").controller('dados_casal', ['Upload', '$filter', '$ro
        * O filtro [$filter('date')] mostra so a hora
        */
       fotoNoivos = novaImg[0] + "?" + $filter('date')(time, 'H:mm', '-0300');
-      self.foto = fotoNoivos;
+      self.foto = $rootScope.fotoCasal = fotoNoivos;
       UserService.dados.fotoUrl = fotoNoivos;
 
       //seconde o gif de loding e mostra a nova imagem
