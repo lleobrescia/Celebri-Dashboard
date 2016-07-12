@@ -5,7 +5,7 @@
     </div>
     <!-- logo__box -->
 
-    <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false">
+    <div class="name__user" ng-class="{'name__user--active': $scope.clicou}" ng-click="$scope.clicou = !$scope.clicou" ng-init="$scope.clicou = false" ng-show="hideSideBar">
       <img class="user__img" ng-src="{{sideCtrl.fotoCasal}}" alt="Foto Casal">
       <p>
         Olá, {{sideCtrl.usuarioLogado}} <i class="fa" ng-class="{ 'fa-angle-down' : $scope.clicou == false , 'fa-angle-up' : $scope.clicou == true  }"></i>
@@ -20,7 +20,7 @@
 
   </header>
 
-  <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}">
+  <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}" ng-show="hideSideBar">
     <navigation menu="sideCtrl.menu"></navigation>
   </nav>
 
