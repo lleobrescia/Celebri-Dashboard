@@ -16,13 +16,13 @@ angular.module("dashboard").config(function ($routeProvider) {
     })
     .when('/configurar-convite/2', {
       templateUrl: "/dashboard/templates/page/lista_convites.html",
-      controller: 'configurar_convite2',
-      controllerAs: 'configConvite2Ctrl'
+      controller: 'lista_convites',
+      controllerAs: 'listaConviteCtrl'
     })
     .when('/personalizar-convite', {
       templateUrl: "/dashboard/templates/page/configurar_convite2.html",
-      controller: 'personalizar_convite',
-      controllerAs: 'personalizarCtrl'
+      controller: 'configurar_convite2',
+      controllerAs: 'configConvite2Ctrl'
     })
     .when('/configurar-evento', {
       templateUrl: "/dashboard/templates/page/configurar_evento.html",

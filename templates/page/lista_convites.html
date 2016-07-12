@@ -1,56 +1,16 @@
-<div class="container-fluid convite__modelos" ng-init="checkTemplate()">
+<div class="container-fluid" ng-init="checkTemplate()">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
       <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento</h1>
       <p>Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar.</p>
-      <p>A tipologia usada, pode ser alterada clicando sobre a mesma ou utilizando o menu
+      <p>A tipologia usada e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu
         ao lado.</p>
-      <p>Para alterar informções de data, local ou nome dos pais, <a ng-href="/dashboard/#/configurar-convite/">volte à página anterior</a>.</p>
+      <p>Para alterar informções de data, local ou nome dos pais, volte à página anterior.</p>
 
     </div>
     <!--col-md-8-->
   </div>
   <!--row-->
-  <hr>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{configConvite2Ctrl.thumbNome}}</h4>
-        </div>
-        <!--modal-header-->
-        <div class="modal-body">
-          <img ng-src="{{configConvite2Ctrl.thumbEscolhido}}" alt="" class="img-responsive">
-          <hr>
-        </div>
-        <!--modal-body-->
-        <div class="modal-footer">
-          <button type="button" class="btn btn--save">Customizar</button>
-        </div>
-        <!--modal-footer-->
-      </div>
-      <!--modal-content-->
-    </div>
-    <!--modal-dialog-->
-  </div>
-  <!--modal-->
-
-
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="lista__convites">
-        <li ng-repeat="imagem in configConvite2Ctrl.thumbs">
-          <a ng-click="configConvite2Ctrl.setConvite(imagem.ID,imagem.nome,imagem.url)" data-toggle="modal" data-target="#myModal">
-            <img ng-src="{{imagem.url}}" alt="" class="convite__thumb img-responsive">
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!--col-md-10-->
-  </div>
-  <!--row-->
+    <hr>
 </div>
 <!--container-fluid-->

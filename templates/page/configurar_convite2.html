@@ -1,16 +1,36 @@
 <img src="image/loging.gif" alt="Carregando" ng-show="configConvite2Ctrl.cerregando" style="width: 64px;display: block;margin-left: auto;margin-right: auto;margin-top: 15%;">
 
-
-<a ng-href="/dashboard/#/configurar-convite/2" style="font-size: 2em;color: black;padding: 10px;margin-top: -35px;margin-bottom: -10px;display: block;">
-  < Voltar
-</a>
-
-<hr style="border-color: black">
-
 <div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;checkTemplate()" ng-show="!configConvite2Ctrl.cerregando">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento</h1>
+      <p>
+        Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar. A tipologia usada
+        e a mensagem no centro do convite, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado. Para alterar
+        informações de data, local ou nome dos pais, volte à página anterior.
+      </p>
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row" style="margin-top:60px" ng-if="$scope.change">
+    <div class="col-sm-3">
+      <div class="btn btn--save" style="margin-bottom:24px;" ng-click="configConvite2Ctrl.setConfiguracaoConvite(); $scope.change = false">
+        Salvar
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="btn btn--cancel" ng-click="configConvite2Ctrl.getConfiguracaoConvite(); $scope.change = false">
+        Cancelar
+      </div>
+    </div>
+  </div>
+  <!-- row -->
 
   <div class="row">
-    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'bloco_pais_noiva'">
+    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'bloco_pais_noiva'"
+      ng-cloak>
 
       <img ng-src="{{configConvite2Ctrl.layoutSelecionado}}" alt="">
 
@@ -45,7 +65,7 @@
   </div>
   <!-- row -->
 
-  <div class="row controll">
+  <div class="row controll" ng-cloak>
     <div class="col-sm-12">
 
       <!-- #REGION NAV TABS -->
@@ -99,8 +119,8 @@
             <span>Serif</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -110,8 +130,8 @@
             <span>Sans Serif</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -121,8 +141,8 @@
             <span>Display</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -132,8 +152,8 @@
             <span>Handwritting</span>
           </div>
           <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
+            <li class="font__item" ng-repeat="(key,value) in configConvite2Ctrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}"
+              ng-click="configConvite2Ctrl.setFontToBloco(value['font-name'],key); $scope.change = true">
               {{value['font-name']}}
             </li>
           </ul>
@@ -150,5 +170,80 @@
     <!-- col-sm-12 -->
   </div>
   <!-- controll -->
+
+  <!-- #REGION CAROUSEL -->
+
+  <div class="row layouts" id="convites_layout">
+    <div class="col-xs-10 col-xs-offset-1">
+
+      <carousel interval="myInterval">
+        <slide>
+          <div class="row">
+            <div class="col-xs-3 col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/thumb/thumb1.png" ng-click="configConvite2Ctrl.setConvite('convite1','./image/convites/convite1.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3 ">
+              <img class="carousel__img" ng-src="./image/convites/thumb/thumb3.png" ng-click="configConvite2Ctrl.setConvite('convite3','./image/convites/convite3.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/thumb/thumb4.png" ng-click="configConvite2Ctrl.setConvite('convite4','./image/convites/convite4.png'); $scope.change = true">
+            </div>
+          </div>
+        </slide>
+        <slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/thumb/thumb6.png" ng-click="configConvite2Ctrl.setConvite('convite6','./image/convites/convite6.png'); $scope.change = true">
+            </div>
+            <!--<div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite5.png" ng-click="setConvite('convite5','./image/convites/convite5.png'); $scope.change = true">
+            </div>-->
+            <!--<div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite6.png" ng-click="setConvite('convite6','./image/convites/convite6.png'); $scope.change = true">
+            </div>-->
+          </div>
+        </slide>
+        <!--<slide>
+          <div class="row">
+            <div class="col-xs-3  col-xs-offset-1">
+              <img class="carousel__img" ng-src="./image/convites/convite7.png" ng-click="setConvite('convite7','./image/convites/convite7.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite8.png" ng-click="setConvite('convite8','./image/convites/convite8.png'); $scope.change = true">
+            </div>
+            <div class="col-xs-3">
+              <img class="carousel__img" ng-src="./image/convites/convite9.png" ng-click="setConvite('convite9','./image/convites/convite9.png'); $scope.change = true">
+            </div>
+          </div>
+        </slide>-->
+      </carousel>
+
+    </div>
+    <!--col-xs-10-->
+  </div>
+  <!--layouts-->
+
+  <!-- #ENDREGION CAROUSEL -->
+
+  <div class="row" style="margin-top:60px">
+    <div class="col-sm-3" ng-if="$scope.change">
+      <div class="btn btn--save" style="margin-bottom:24px;" ng-click="configConvite2Ctrl.setConfiguracaoConvite(); $scope.change = false">
+        Salvar
+      </div>
+    </div>
+    <div class="col-sm-3" ng-if="$scope.change">
+      <div class="btn btn--cancel" ng-click="configConvite2Ctrl.getConfiguracaoConvite(); $scope.change = false">
+        Cancelar
+      </div>
+    </div>
+    <div class="col-sm-3" ng-if="!$scope.change">
+      <div class="btn btn--ok">
+        <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
+      </div>
+    </div>
+    <!-- col-sm-3 -->
+  </div>
+  <!-- row -->
+
 </div>
 <!-- container-fluid -->
