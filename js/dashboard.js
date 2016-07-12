@@ -6,6 +6,13 @@ angular.module("dashboard").run(['$rootScope', '$location', 'UserService', funct
   UserService.RestoreState();
 
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    //hide sidebar on personalizar-convite
+    $rootScope.hideSideBar = true;
+
+    if ($location.path() == "/personalizar-convite") {
+      $rootScope.hideSideBar = false;
+      console.log($location.path());
+    }
     //show loading gif
     $rootScope.loading = true;
 
