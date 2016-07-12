@@ -31,8 +31,10 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
     UserService.dados.festa_numero = self.festa_numero;
     UserService.dados.festa_bairro = self.festa_bairro;
     UserService.dados.festa_cidade = self.festa_cidade;
+    UserService.dados.festa_uf = self.festa_uf;
     UserService.dados.festa_rota = self.festa_rota;
     UserService.dados.festa_cep = self.festa_cep;
+    UserService.SaveState();
   };
 
   //Pega os dados que estao armezados localmente e coloca no site
@@ -72,21 +74,48 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
       //Salva informacao no local
       self.showCerimonia = true;
       self.cerimoniaRemotoToLocal();
-      UserService.SaveState();
     });
   };
 
   self.setDadosEvento = function () {
 
     var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/ConfiguracaoEvento";
-    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + self.festa_bairro + '</Bairro><Cep>' + self.festa_cep + '</Cep><Cidade>' + self.festa_cidade + '</Cidade><Endereco>' + self.festa_end + '</Endereco><Estado>' + self.festa_uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + self.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + self.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + self.festa_numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + self.festa_rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+    var bairro = '',
+      cep = '',
+      cidade = '',
+      end = '',
+      uf = '',
+      local = '',
+      numero = '',
+      rota = '';
+
+    if (self.festa_igual_cerimonia == true) {
+      bairro = UserService.dados.cerimonia_bairro;
+      cep = UserService.dados.cerimonia_cep;
+      cidade = UserService.dados.cerimonia_cidade;
+      uf = UserService.dados.cerimonia_uf;
+      end = UserService.dados.cerimonia_end;
+      local = UserService.dados.cerimonia_local;
+      numero = UserService.dados.cerimonia_numero;
+      rota = UserService.dados.cerimonia_rota;
+    } else {
+      bairro = self.festa_bairro;
+      cep = self.festa_cep;
+      cidade = self.festa_cidade;
+      end = self.festa_end;
+      uf = self.festa_uf;
+      local = self.festa_local;
+      numero = self.festa_numero;
+      rota = self.festa_rota;
+    }
+
+    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + self.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + local + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
     //envia para o servico
     ServiceCasamento.SendData(urlVar, xmlVar);
 
     //add informacao local
     self.cerimoniaRemotoToLocal();
-    UserService.SaveState();
   };
 
   self.consultFestaCEP = function (cepFesta) {
@@ -154,7 +183,6 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
   self.adicionarHotel = function () {
     if (self.hotel_local &&
       self.hotel_end &&
-      self.hotel_numero &&
       self.hotel_bairro &&
       self.hotel_cidade &&
       self.hotel_uf &&
@@ -248,7 +276,6 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
   self.adicionarSalao = function () {
     if (self.salao_local &&
       self.salao_end &&
-      self.salao_numero &&
       self.salao_bairro &&
       self.salao_cidade &&
       self.salao_uf &&
