@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipService','ServiceCasamento', function (UserService, ipService,ServiceCasamento) {
+angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipService', 'ServiceCasamento', function (UserService, ipService, ServiceCasamento) {
 
   var self = this;
   var ID = UserService.dados.ID;
@@ -49,6 +49,7 @@ angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipServ
   };
 
   self.enviar = function () {
+    self.carregando = true;
     var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/EnvioEmailConvite";
     var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_convidado>';
 
@@ -59,6 +60,7 @@ angular.module("dashboard").controller('enviar_convite', ['UserService', 'ipServ
 
     ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
       self.mensagem = true;
+      self.carregando = false;
       self.getConvidados();
     });
   };

@@ -223,7 +223,8 @@ input[type=checkbox], input[type=radio] {
 .btn {
   height: 52px;
   width: 100%;
-  line-height: 42px;
+  line-height: 52px;
+  padding: 0;
   text-align: center;
   text-transform: uppercase;
   float: left;
@@ -238,6 +239,7 @@ input[type=checkbox], input[type=radio] {
 .btn a {
   color: white;
   display: block;
+  width: 100%;
 }
 
 .btn:hover {
@@ -674,11 +676,44 @@ select {
 }
 
 
-/*CONFIGURAR CONVITE2*/
+/*LISTA DE CONVITES*/
 
-.configurar_convite_2 {
-  padding-top: 140px;
+.convite__modelos button {
+  outline: none;
 }
+
+.convite__modelos .modal-dialog {
+  width: 60%;
+}
+
+.convite__modelos .modal-footer {
+  max-width: 600px;
+  text-align: center;
+  margin: auto;
+  border: none;
+}
+
+.convite__modelos .modal-dialog hr {
+  margin-bottom: 0;
+}
+
+.lista__convites {
+  list-style: none;
+}
+
+.lista__convites li {
+  display: inline-block;
+  max-width: 300px;
+  margin: 10px;
+}
+
+.lista__convites li a {
+  display: block;
+  cursor: pointer;
+}
+
+
+/*CONFIGURAR CONVITE2*/
 
 .bloco {
   position: absolute;
@@ -700,24 +735,41 @@ select {
 
 .controll {
   position: fixed;
-  height: 165px;
-  width: 80%;
-  margin: auto;
-  overflow-y: auto;
-  border-bottom-width: thin;
-  border-bottom-style: solid;
-  border-bottom-color: grey;
-  background: white;
+  height: 70%;
+  width: 255px;
+  overflow-x: auto;
   top: 0;
+  left: 0;
+  z-index: 1;
+  margin-top: 190px;
+}
+
+.controll .col-sm-12 {
+  padding-right: 0;
 }
 
 .controll .tab-content {
   padding-top: 10px;
 }
 
+.controll .nav-tabs {
+  border-bottom: 1px solid black;
+}
+
 .controll .nav-tabs>li>a {
   font-size: 1.4em;
   cursor: pointer;
+  border: 1px solid rgb(0, 0, 0);
+  border-bottom-color: transparent;
+  color: #b7b5b5;
+}
+
+.controll .nav-tabs>li.active>a {
+  color: #337ab7;
+  background-color: whitesmoke;
+  border: 1px solid rgb(0, 0, 0);
+  border-bottom: none;
+  margin-top: 1px;
 }
 
 .controll_bloco_opcoes {
@@ -749,40 +801,8 @@ select {
   margin-right: 0;
 }
 
-rzslider .rz-bubble {
-  display: none !important;
-}
-
-rzslider .rz-pointer {
-  background-color: #6F91FF;
-  outline: none;
-}
-
-.carousel-control.left, .carousel-control.right {
-  background: none
-}
-
 .layouts {
   padding-top: 100px
-}
-
-.carousel__img {
-  width: 100%;
-  margin: auto;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.carousel-control.left {
-  left: -60px;
-}
-
-.carousel-control.right {
-  right: -60px;
-}
-
-.carousel-indicators {
-  display: none;
 }
 
 .typeface__title {
@@ -791,25 +811,21 @@ rzslider .rz-pointer {
 }
 
 .typeface__title span {
-  background: #fff;
-  color: #bbb;
+  background: whitesmoke;
+  color: gray;
   padding: 0 12px;
   position: relative;
+  font-size: 14px;
   text-transform: capitalize;
 }
 
 .typeface__title::before {
-  background-image: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #ffffff), color-stop(50%, #dddddd), color-stop(100%, #ffffff));
-  background-image: -webkit-linear-gradient(right, #ffffff, #dddddd, #ffffff);
-  background-image: -moz-linear-gradient(right, #ffffff, #dddddd, #ffffff);
-  background-image: -o-linear-gradient(right, #ffffff, #dddddd, #ffffff);
-  background-image: linear-gradient(right, #ffffff, #dddddd, #ffffff);
-  background: linear-gradient(to right, #ffffff, #dddddd, #ffffff);
+  background: grey;
   content: "";
   display: block;
   height: 1px;
   position: relative;
-  top: 8px;
+  top: 11px;
   width: 100%;
 }
 
@@ -820,15 +836,13 @@ rzslider .rz-pointer {
 }
 
 .font__item {
-  display: inline-block;
-  width: 103px;
+  display: block;
+  width: 100%;
   cursor: pointer;
   font-size: 1.5em;
-  word-wrap: break-word;
-  vertical-align: sub;
   padding-top: 11px;
-  text-align: center;
   min-height: 45px;
+  padding-left: 10px;
 }
 
 

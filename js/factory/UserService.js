@@ -34,6 +34,7 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     cerimonia_min: '',
 
     //Formatacao do Convite
+    modeloConvite:0,
     listaFonts: null,
     listaConvites: null,
     bloco_msg_1: {
@@ -42,7 +43,7 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     bloco_msg_2: {
       'font-family': '29'
     },
-    bloco_msg_personalizada: {
+    bloco_msg_personalizada_style: {
       'font-family': '29'
     },
     bloco_cerimonia: {

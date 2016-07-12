@@ -1,4 +1,4 @@
-angular.module("dashboard").controller('login', ['$location', 'ipService', 'ServiceCasamento', 'UserService', function ($location, ipService, ServiceCasamento, UserService) {
+angular.module("dashboard").controller('login', ['$location', 'ipService', 'ServiceCasamento', 'UserService', '$rootScope', function ($location, ipService, ServiceCasamento, UserService, $rootScope) {
 
   var self = this;
   self.recuperarSenha = false;
@@ -60,7 +60,7 @@ angular.module("dashboard").controller('login', ['$location', 'ipService', 'Serv
         if (imagemFoto == "NULL") {
           UserService.dados.fotoUrl = 'image/user_login.png';
         } else {
-          UserService.dados.fotoUrl = $(respXml).find('Url_foto').text() + "?13:45";
+          UserService.dados.fotoUrl = $rootScope.fotoCasal = $(respXml).find('Url_foto').text() + "?13:45";
         }
 
         UserService.SaveState();
