@@ -34,6 +34,10 @@ angular.module("dashboard").run(['$rootScope', '$location', 'UserService', funct
   });
   $rootScope.$on('$routeChangeSuccess', function () {
 
+    if ($rootScope.fotoCasal === undefined) {
+      $rootScope.fotoCasal = UserService.dados.fotoUrl;
+    }
+
     //hide loading gif
     $rootScope.loading = false;
 
