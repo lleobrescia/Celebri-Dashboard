@@ -11,7 +11,6 @@ angular.module("dashboard").run(['$rootScope', '$location', 'UserService', funct
 
     if ($location.path() == "/personalizar-convite") {
       $rootScope.hideSideBar = false;
-      console.log($location.path());
     }
     //show loading gif
     $rootScope.loading = true;

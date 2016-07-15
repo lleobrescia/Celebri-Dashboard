@@ -34,29 +34,59 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     cerimonia_min: '',
 
     //Formatacao do Convite
-    modeloConvite:0,
+    modeloConvite: 0,
     listaFonts: null,
     listaConvites: null,
+    conviteCriado: true,
     bloco_msg_1: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
     bloco_msg_2: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
     bloco_msg_personalizada_style: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px',
+      'conteudo': null
     },
     bloco_cerimonia: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
     bloco_nome_dos_noivos: {
-      'font-family': '7'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
     bloco_pais_noiva: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
     bloco_pais_noivo: {
-      'font-family': '29'
+      'font-family': null,
+      'text-align': 'right',
+      'color': 'black',
+      'font-id': '29',
+      'font-size': '16px'
     },
 
     //Recepcao
@@ -79,9 +109,9 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
     convidado_lista: null,
 
     //Save the Date
-    dateCheck:false,
-    modeloDate:'',
-    msgDate:''
+    dateCheck: false,
+    modeloDate: '',
+    msgDate: ''
   };
 
   var service = {

@@ -1,43 +1,74 @@
-<img src="image/loging.gif" alt="Carregando" ng-show="configConvite2Ctrl.cerregando" style="width: 64px;display: block;margin-left: auto;margin-right: auto;margin-top: 15%;">
-
-
-<a ng-href="/dashboard/#/configurar-convite/2" style="font-size: 2em;color: black;padding: 10px;margin-top: -35px;margin-bottom: -10px;display: block;">
-  < Voltar
-</a>
-
-<hr style="border-color: black">
-
-<div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;checkTemplate()" ng-show="!configConvite2Ctrl.cerregando">
-
+<div class="container-fluid convite__modelos" ng-init="checkTemplate()">
   <div class="row">
+    <div class="col-xs-12" ng-if="!configConvite2Ctrl.hasContent">
+      <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento</h1>
+      <p>Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar.</p>
+      <p>A tipologia usada, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.</p>
+      <p>Para alterar informções de data, local ou nome dos pais, <a ng-href="/dashboard/#/configurar-convite/">volte à página anterior</a>.</p>
+    </div>
+    <!--col-xs-12 -->
+
+    <div class="col-xs-12" ng-if="configConvite2Ctrl.hasContent">
+      <h1 class="titulo titulo--passo2">Convite configurado</h1>
+      <p>Clique em <strong>Editar</strong> para alterar a tipologia.</p>
+      <p>Ou clique em <strong>Alterar Convite</strong> para alterar o layout e a tipologia.</p>
+    </div>
+    <!--col-xs-12 -->
+
+  </div>
+  <!--row-->
+
+  <hr>
+
+  <img src="image/loging.gif" alt="Carregando" ng-show="configConvite2Ctrl.cerregando" style="width: 64px;margin: 70px auto;display: block;">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{configConvite2Ctrl.thumbNome}}</h4>
+        </div>
+        <!--modal-header-->
+        <div class="modal-body">
+          <img ng-src="{{configConvite2Ctrl.thumbEscolhido}}" alt="" class="img-responsive">
+          <hr>
+        </div>
+        <!--modal-body-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn--save">
+            <a ng-click="configConvite2Ctrl.SalvarConvite()" >Customizar</a>
+            </button>
+        </div>
+        <!--modal-footer-->
+      </div>
+      <!--modal-content-->
+    </div>
+    <!--modal-dialog-->
+  </div>
+  <!--modal-->
+
+  <div class="row" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
     <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'bloco_pais_noiva'">
 
       <img ng-src="{{configConvite2Ctrl.layoutSelecionado}}" alt="">
 
       <!-- #REGION BLOCOS -->
 
-      <p class="bloco_pais_noiva bloco" ng-init="configConvite2Ctrl.styleHold = 'bloco_pais_noiva'" ng-style="configConvite2Ctrl.bloco_pais_noiva"
-        ng-click="configConvite2Ctrl.setBlocoActive(0); $scope.blocoActive = 'bloco_pais_noiva';configConvite2Ctrl.styleHold = 'bloco_pais_noiva'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noiva'}" ng-bind-html="configConvite2Ctrl.conteudo_pais_noiva"></p>
+      <p class="bloco_pais_noiva bloco" ng-style="configConvite2Ctrl.bloco_pais_noiva" ng-bind-html="configConvite2Ctrl.conteudo_pais_noiva"></p>
 
-      <p class="bloco_pais_noivo bloco" ng-style="configConvite2Ctrl.bloco_pais_noivo" ng-click="configConvite2Ctrl.setBlocoActive(1); $scope.blocoActive = 'bloco_pais_noivo';configConvite2Ctrl.styleHold = 'bloco_pais_noivo'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_pais_noivo'}" ng-bind-html="configConvite2Ctrl.conteudo_pais_noivo"></p>
+      <p class="bloco_pais_noivo bloco" ng-style="configConvite2Ctrl.bloco_pais_noivo" ng-bind-html="configConvite2Ctrl.conteudo_pais_noivo"></p>
 
-      <p class="bloco_msg_1 bloco" ng-style="configConvite2Ctrl.bloco_msg_1" ng-click="configConvite2Ctrl.setBlocoActive(2); $scope.blocoActive = 'bloco_msg_1';configConvite2Ctrl.styleHold = 'bloco_msg_1'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_1'}" ng-bind-html="configConvite2Ctrl.conteudo_msg1"></p>
+      <p class="bloco_msg_1 bloco" ng-style="configConvite2Ctrl.bloco_msg_1" ng-bind-html="configConvite2Ctrl.conteudo_msg1"></p>
 
-      <p class="bloco_nome_dos_noivos bloco" ng-style="configConvite2Ctrl.bloco_nome_dos_noivos" ng-click="configConvite2Ctrl.setBlocoActive(3); $scope.blocoActive = 'bloco_nome_dos_noivos';configConvite2Ctrl.styleHold = 'bloco_nome_dos_noivos'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_nome_dos_noivos'}" ng-bind-html="configConvite2Ctrl.conteudo_nomecasal"></p>
+      <p class="bloco_nome_dos_noivos bloco" ng-style="configConvite2Ctrl.bloco_nome_dos_noivos" ng-bind-html="configConvite2Ctrl.conteudo_nomecasal"></p>
 
-      <p class="bloco_msg_2 bloco" ng-style="configConvite2Ctrl.bloco_msg_2" ng-click="configConvite2Ctrl.setBlocoActive(4); $scope.blocoActive = 'bloco_msg_2';configConvite2Ctrl.styleHold = 'bloco_msg_2'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_2'}" ng-bind-html="configConvite2Ctrl.conteudo_msg2"></p>
+      <p class="bloco_msg_2 bloco" ng-style="configConvite2Ctrl.bloco_msg_2" ng-bind-html="configConvite2Ctrl.conteudo_msg2"></p>
 
-      <textarea name="bloco_msg_personalizada" class="bloco_msg_personalizada bloco" ng-model="configConvite2Ctrl.bloco_msg_personalizada"
-        ng-style="configConvite2Ctrl.bloco_msg_personalizada_style" ng-click="configConvite2Ctrl.setBlocoActive(5); $scope.blocoActive = 'bloco_msg_personalizada_style';configConvite2Ctrl.styleHold = 'bloco_msg_personalizada'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_msg_personalizada'}"></textarea>
+      <p class="bloco_msg_personalizada_style bloco" ng-style="configConvite2Ctrl.bloco_msg_personalizada_style" ng-bind-html="configConvite2Ctrl.bloco_msg_personalizada"></p>
 
-      <p class="bloco_cerimonia bloco" ng-style="configConvite2Ctrl.bloco_cerimonia" ng-click="configConvite2Ctrl.setBlocoActive(6); $scope.blocoActive = 'bloco_cerimonia';configConvite2Ctrl.styleHold = 'bloco_cerimonia'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'bloco_cerimonia'}" ng-bind-html="configConvite2Ctrl.conteudo_msg4"></p>
+      <p class="bloco_cerimonia bloco" ng-style="configConvite2Ctrl.bloco_cerimonia" ng-bind-html="configConvite2Ctrl.conteudo_msg4"></p>
 
       <!-- #ENDREGION BLOCOS -->
     </div>
@@ -45,110 +76,67 @@
   </div>
   <!-- row -->
 
-  <div class="row controll">
-    <div class="col-sm-12">
-
-      <!-- #REGION NAV TABS -->
-
-      <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
-        <li role="presentation" ng-class="{active : $scope.tab == 'formato'}">
-          <a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a>
-        </li>
-        <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}">
-          <a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a>
+  <div class="row" ng-hide="configConvite2Ctrl.hasContent || configConvite2Ctrl.cerregando">
+    <div class="col-md-12">
+      <ul class="lista__convites">
+        <li ng-repeat="imagem in configConvite2Ctrl.thumbs">
+          <a ng-click="configConvite2Ctrl.SetConvite(imagem.ID,imagem.nome,imagem.url)" data-toggle="modal" data-target="#myModal">
+            <img ng-src="{{imagem.url}}" alt="" class="convite__thumb img-responsive">
+          </a>
         </li>
       </ul>
-
-      <!-- #ENDREGION NAV TABS -->
-
-
-      <div class="tab-content">
-        <!-- #REGION TAB PANEL 1 -->
-
-        <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
-          <div ng-repeat="valor in configConvite2Ctrl.convites[configConvite2Ctrl.convite_individual]">
-            <div ng-show="configConvite2Ctrl.showBlocos[$index]['ativo']">
-
-              <div class="controll_bloco_opcoes">
-                <h4 class="controll__title">Alinhamento</h4>
-
-                <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'; $scope.change = true"></i>
-                <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'; $scope.change = true"></i>
-                <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'; $scope.change = true"></i>
-              </div>
-              <!-- controll_bloco_opcoes -->
-
-
-              <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = valor['font-size']">
-                <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
-                <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change = true"></rzslider>
-              </div>
-              <!-- controll_bloco_opcoes -->
-            </div>
-            <!--showBlocos-->
-          </div>
-          <!-- formato -->
-        </div>
-
-        <!-- #ENDREGION TAB PANEL 1 -->
-
-        <!-- #REGION TAB PANEL 2 -->
-
-        <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">
-          <div class="typeface__title">
-            <span>Serif</span>
-          </div>
-          <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
-              {{value['font-name']}}
-            </li>
-          </ul>
-          <!--serif-->
-
-          <div class="typeface__title">
-            <span>Sans Serif</span>
-          </div>
-          <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
-              {{value['font-name']}}
-            </li>
-          </ul>
-          <!--sans serif-->
-
-          <div class="typeface__title">
-            <span>Display</span>
-          </div>
-          <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
-              {{value['font-name']}}
-            </li>
-          </ul>
-          <!--display-->
-
-          <div class="typeface__title">
-            <span>Handwritting</span>
-          </div>
-          <ul class="font__list">
-            <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}"
-              ng-click="personalizarCtrl.setFontToBloco(value['font-name'],key); $scope.change = true">
-              {{value['font-name']}}
-            </li>
-          </ul>
-          <!--handwritting-->
-
-        </div>
-        <!--tab-pane-->
-
-        <!-- #ENDREGION TAB PANEL 2 -->
-
-      </div>
-      <!-- tab-content -->
     </div>
-    <!-- col-sm-12 -->
+    <!--col-md-10-->
   </div>
-  <!-- controll -->
+  <!--row-->
+
+  <!-- confirmacao -->
+  <div class="modal fade" id="confirmacao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="confirmacaoLabel">Alterar Convite</h4>
+        </div>
+        <!--modal-header-->
+        <div class="modal-body">
+          <p>
+            Ao alterar o modelo do convite todo conteúdo salvo será perdido.<br> Deseja continuar?
+          </p>
+        </div>
+        <!--modal-body"-->
+        <div class="modal-footer row">
+          <div class="col-md-6">
+            <button type="button" class="btn btn--ok" data-dismiss="modal">Não</button>
+          </div>
+          <!--col-md-6-->
+          <div class="col-md-6">
+            <button type="button" class="btn btn--save" ng-click="configConvite2Ctrl.AlterarConvite()">Sim</button>
+          </div>
+          <!--col-md-6-->
+        </div>
+        <!--modal-footer-->
+      </div>
+      <!--modal-content-->
+    </div>
+    <!--modal-dialog-->
+  </div>
+  <!--modal-->
+
+  <div class="row" style="margin-top: 50px;" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
+    <div class="col-sm-3">
+      <div class="btn btn--ok" data-toggle="modal" data-target="#confirmacao">
+        Alterar convite
+      </div>
+    </div>
+    <!-- col-sm-3 -->
+    <div class="col-sm-3">
+      <div class="btn btn--ok">
+        <a ng-href="/dashboard/#/personalizar-convite">Editar</a>
+      </div>
+    </div>
+    <!-- col-sm-3 -->
+  </div>
+  <!-- row -->
 </div>
-<!-- container-fluid -->
+<!--container-fluid-->

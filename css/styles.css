@@ -697,6 +697,10 @@ select {
   margin-bottom: 0;
 }
 
+.convite__modelos .bloco {
+  cursor: default;
+}
+
 .lista__convites {
   list-style: none;
 }
@@ -721,6 +725,7 @@ select {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  line-height: 1;
 }
 
 .bloco--active {
@@ -728,7 +733,7 @@ select {
   box-sizing: content-box;
 }
 
-.bloco_msg_personalizada {
+.bloco_msg_personalizada_style {
   background: transparent;
   border: none;
 }
@@ -774,12 +779,35 @@ select {
 
 .controll_bloco_opcoes {
   text-align: center;
-  margin: 15px 0 50px 70px;
-  display: inline-block;
+  margin: 15px auto 50px auto;
+  display: block;
+  width: 90%;
 }
 
-.controll_bloco_opcoes:first-child {
-  margin-left: 0;
+.tab-pane * {
+  -webkit-transition: all linear 0s;
+  -moz-transition: all linear 0s;
+  -ms-transition: all linear 0s;
+  -o-transition: all linear 0s;
+  transition: all linear 0s;
+}
+
+rzslider .rz-pointer {
+  top: -11px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  outline: none;
+  border: solid thin;
+}
+
+rzslider .rz-bar {
+  background: black;
+  height: 2px;
+}
+
+rzslider .rz-pointer:after, rzslider .rz-bubble {
+  display: none;
 }
 
 .controll_bloco_opcoes .fa {
@@ -787,6 +815,7 @@ select {
   font-size: 3.8em;
   cursor: pointer;
   opacity: 0.5;
+  outline: none;
 }
 
 .fa--active {
