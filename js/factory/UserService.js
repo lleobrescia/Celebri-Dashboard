@@ -14,45 +14,45 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
 
     //Dados Convite
     conviteCheck: false,
-    noiva_mae: '',
-    noiva_mae_memorian: '',
-    noiva_pai: '',
-    noiva_pai_memorian: '',
-    noivo_mae: '',
-    noivo_mae_memorian: '',
-    noivo_pai: '',
-    noivo_pai_memorian: '',
-    cerimonia_cep: '',
-    cerimonia_end: '',
-    cerimonia_numero: '',
-    cerimonia_bairro: '',
-    cerimonia_uf: '',
-    cerimonia_cidade: '',
-    cerimonia_local: '',
-    cerimonia_rota: '',
-    cerimonia_hora: '',
-    cerimonia_min: '',
+    noivaMae: '',
+    noivaMaeMmemorian: '',
+    noivaPai: '',
+    noivaPaiMemorian: '',
+    noivoMae: '',
+    noivoMaeMemorian: '',
+    noivoPai: '',
+    noivoPaiMemorian: '',
+    cerimoniaCep: '',
+    cerimoniaEnd: '',
+    cerimoniaNumero: '',
+    cerimoniaBairro: '',
+    cerimoniaUf: '',
+    cerimoniaCidade: '',
+    cerimoniaLocal: '',
+    cerimoniaRota: '',
+    cerimoniaHora: '',
+    cerimoniaMin: '',
 
     //Formatacao do Convite
     modeloConvite: 0,
     listaFonts: null,
     listaConvites: null,
     conviteCriado: true,
-    bloco_msg_1: {
+    blocoMsg1: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
       'font-id': '29',
       'font-size': '16px'
     },
-    bloco_msg_2: {
+    blocoMsg2: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
       'font-id': '29',
       'font-size': '16px'
     },
-    bloco_msg_personalizada_style: {
+    blocoMsgPersonalizadaStyle: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
@@ -60,28 +60,28 @@ angular.module("dashboard").factory('UserService', ['$rootScope', function ($roo
       'font-size': '16px',
       'conteudo': null
     },
-    bloco_cerimonia: {
+    blocoCerimonia: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
       'font-id': '29',
       'font-size': '16px'
     },
-    bloco_nome_dos_noivos: {
+    blocoNomeNoivos: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
       'font-id': '29',
       'font-size': '16px'
     },
-    bloco_pais_noiva: {
+    blocoPaisNoiva: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',
       'font-id': '29',
       'font-size': '16px'
     },
-    bloco_pais_noivo: {
+    blocoPaisNoivo: {
       'font-family': null,
       'text-align': 'right',
       'color': 'black',

@@ -1,6 +1,6 @@
 // Modules
 angular
-  .module("dashboard", [
+  .module('dashboard', [
     'ngRoute',//Controlar URL
     'ngFileUpload',//Usado para upload da foto do casal
     'ngMask',//Mascara dos inputs
@@ -15,7 +15,7 @@ angular
   'use strict';
 
   angular
-    .module("dashboard")
+    .module('dashboard')
     .run(Run);
 
   Run.$inject = ['$rootScope', '$location', 'UserService'];
@@ -36,14 +36,15 @@ angular
       //hide sidebar on personalizar-convite
       $rootScope.hideSideBar = true;
 
-      if ($location.path() == "/personalizar-convite") {
+      if ($location.path() === '/personalizar-convite') {
         $rootScope.hideSideBar = false;
       }
       //show loading gif
       $rootScope.loading = true;
 
-      if (sessionStorage.restorestate == "true") {
-        $rootScope.$broadcast('restorestate'); //let everything know we need to restore state
+      if (sessionStorage.restorestate === 'true') {
+        //Restaura os dados do usuario
+        $rootScope.$broadcast('restorestate');
         sessionStorage.restorestate = false;
       }
 
@@ -54,16 +55,18 @@ angular
         userAuthenticated = true;
       }
 
+      //Se nao tiver autenticado o usuario eh redirecionado para o login
       if (!userAuthenticated && !next.isLogin) {
         $location.path('/login');
       }
     }
 
     function ChangeSuccess() {
+      //Verifica a foto do casal. Previne erro se o usuario atualizar a pagina
       if ($rootScope.fotoCasal === undefined) {
         $rootScope.fotoCasal = UserService.dados.fotoUrl;
       }
-      //hide loading gif
+      //Esconde loading gif
       $rootScope.loading = false;
     }
   }
@@ -73,7 +76,7 @@ angular
   'use strict';
 
   angular
-    .module("dashboard")
+    .module('dashboard')
     .config(Config);
 
   //Configura aliguagem do calendario

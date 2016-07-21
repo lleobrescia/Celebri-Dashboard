@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 //para o unglify funcionar no angular
 var ngAnnotate = require('gulp-ng-annotate');
+var autoprefixer = require('gulp-autoprefixer');
 
 // Compacta os js presentes na pasta js/ e minifica
 // desconsidera os arquivos dentro de js/vendor
@@ -16,6 +17,15 @@ gulp.task('scripts', function () {
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(gulp.dest('js/'));
+});
+
+gulp.task('css', function () {
+  return gulp.src(['css/**/*.css'])
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', 'ie 7', 'ie 8'],
+      cascade: false
+    }))
+    .pipe(gulp.dest('css/'));
 });
 
 // Observa as modificacoes nos arquivos dentro de js/

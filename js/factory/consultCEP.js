@@ -1,4 +1,4 @@
-angular.module("dashboard").factory('consultCEP', ['CallAjax', '$q', function (CallAjax, $q) {
+angular.module('dashboard').factory('consultCEP', ['CallAjax', '$q', function (CallAjax, $q) {
 
   var consultar = function (cepToConsult) {
     var cep = cepToConsult.replace(/\./g, '');

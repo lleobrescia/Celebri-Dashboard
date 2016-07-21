@@ -24,7 +24,7 @@
         <p class="form__title">
           Nome do local da cerimônia
         </p>
-        <input type="text" name="cerimonia_local" ng-model="configConviteCtrl.cerimonia_local" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaLocal" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-7 -->
 
@@ -32,8 +32,7 @@
         <p class="form__title">
           CEP
         </p>
-        <input type="text" name="cerimonia_cep" ng-model="configConviteCtrl.cerimonia_cep" ng-change="$scope.change = true" mask="99.999-999"
-          ng-keyup="configConviteCtrl.consultCEP(configConviteCtrl.cerimonia_cep)">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaCep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="configConviteCtrl.ConsultarCep(configConviteCtrl.cerimoniaCep)">
       </div>
       <!-- col-sm-4 -->
 
@@ -45,7 +44,7 @@
         <p class="form__title">
           Endereço da cerimônia
         </p>
-        <input type="text" name="cerimonia_end" ng-model="configConviteCtrl.cerimonia_end" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaEnd" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-7 -->
 
@@ -53,7 +52,7 @@
         <p class="form__title">
           Número
         </p>
-        <input type="text" name="cerimonia_numero" ng-model="configConviteCtrl.cerimonia_numero" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaNumero" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-4 -->
     </div>
@@ -64,14 +63,14 @@
         <p class="form__title">
           Bairro
         </p>
-        <input type="text" name="bairro" ng-model="configConviteCtrl.cerimonia_bairro" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaBairro" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-4 -->
       <div class="col-sm-5">
         <p class="form__title">
           Cidade
         </p>
-        <input type="text" name="cidade" ng-model="configConviteCtrl.cerimonia_cidade" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaCidade" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
 
@@ -79,7 +78,7 @@
         <p class="form__title">
           Estado
         </p>
-        <input type="text" name="uf" ng-model="configConviteCtrl.cerimonia_uf" ng-change="$scope.change = true" maxlength="2">
+        <input type="text" ng-model="configConviteCtrl.cerimoniaUf" ng-change="$scope.change = true" maxlength="2">
       </div>
       <!-- col-sm-2 -->
     </div>
@@ -91,8 +90,8 @@
           Traçar rotas para o local:
         </p>
         <div class="input__radio">
-          <span><input type="radio" name="cerimonia_rota" ng-model="configConviteCtrl.cerimonia_rota" value="true" ng-change="$scope.change = true"> Sim</span>
-          <span><input type="radio" name="cerimonia_rota" ng-model="configConviteCtrl.cerimonia_rota" value="false" ng-change="$scope.change = true"> Não</span>
+          <span><input type="radio" ng-model="configConviteCtrl.cerimoniaRota" value="true" ng-change="$scope.change = true"> Sim</span>
+          <span><input type="radio" ng-model="configConviteCtrl.cerimoniaRota" value="false" ng-change="$scope.change = true"> Não</span>
         </div>
         <!-- input__radio -->
       </div>
@@ -104,7 +103,7 @@
         </p>
         <div class="row">
           <div class="col-xs-5">
-            <select class="" name="cerimonia_hora" ng-model="configConviteCtrl.cerimonia_hora" ng-change="$scope.change = true">
+            <select ng-model="configConviteCtrl.cerimoniaHora" ng-change="$scope.change = true">
               <option value="{{$index}}" ng-repeat="t in getTimes(24) track by $index">{{$index | twoDigits}}</option>
             </select>
           </div>
@@ -116,7 +115,7 @@
           </div>
           <!-- col-xs-1 -->
           <div class="col-xs-5">
-            <select class="" name="cerimonia_min" ng-model="configConviteCtrl.cerimonia_min" ng-change="$scope.change = true">
+            <select ng-model="configConviteCtrl.cerimoniaMin" ng-change="$scope.change = true">
               <option value="{{$index * 15}}" ng-repeat="t in getTimes(4) track by $index">{{$index * 15 | twoDigits }}</option>
             </select>
           </div>
@@ -141,20 +140,20 @@
         <p class="form__title">
           Pai da Noiva:
           <span>
-            <input type="checkbox" name="noiva_pai_memorian" value="sim" ng-model="configConviteCtrl.noiva_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+            <input type="checkbox" value="sim" ng-model="configConviteCtrl.noivaPaiMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noiva_pai" ng-model="configConviteCtrl.noiva_pai" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.noivaPai" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
           Mãe da Noiva:
           <span>
-            <input type="checkbox" name="noiva_mae_memorian" value="sim" ng-model="configConviteCtrl.noiva_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+            <input type="checkbox" value="sim" ng-model="configConviteCtrl.noivaMaeMmemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noiva_mae" ng-model="configConviteCtrl.noiva_mae" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.noivaMae" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
     </div>
@@ -165,20 +164,20 @@
         <p class="form__title">
           Pai do Noivo:
           <span>
-            <input type="checkbox" name="noivo_pai_memorian" value="true" ng-model="configConviteCtrl.noivo_pai_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+            <input type="checkbox" value="true" ng-model="configConviteCtrl.noivoPaiMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noivo_pai" ng-model="configConviteCtrl.noivo_pai" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.noivoPai" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
           Mãe do Noivo:
           <span>
-            <input type="checkbox" name="noivo_mae_memorian" value="sim" ng-model="configConviteCtrl.noivo_mae_memorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
+            <input type="checkbox" value="sim" ng-model="configConviteCtrl.noivoMaeMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
-        <input type="text" name="noivo_mae" ng-model="configConviteCtrl.noivo_mae" ng-change="$scope.change = true">
+        <input type="text" ng-model="configConviteCtrl.noivoMae" ng-change="$scope.change = true">
       </div>
       <!-- col-sm-5 -->
     </div>
@@ -197,12 +196,12 @@
 
     <div class="row">
       <div class="col-sm-3" ng-show="$scope.change">
-        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="configConviteCtrl.setDadosConvite(); $scope.change = false">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="configConviteCtrl.SetDadosConvite(); $scope.change = false">
           Salvar
         </div>
       </div>
       <div class="col-sm-3" ng-show="$scope.change">
-        <div class="btn btn--cancel" ng-click="configConviteCtrl.getLocal(); $scope.change = false">
+        <div class="btn btn--cancel" ng-click="configConviteCtrl.GetLocal(); $scope.change = false">
           Cancelar
         </div>
       </div>
