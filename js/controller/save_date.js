@@ -6,7 +6,7 @@ angular.module("dashboard").controller('save_date', ['UserService', 'ServiceCasa
 
   self.salvar = function () {
     var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/FormatacaoSaveTheDate";
-    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + ID + '</id_casal>  <id_modelo>' + self.modelo + '</id_modelo>  <msg>' + self.mensagem + '</msg>  <nomecasal>' + UserService.dados.nome_noiva + ' e ' + UserService.dados.nome_noivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
+    var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + ID + '</id_casal>  <id_modelo>' + self.modelo + '</id_modelo>  <msg>' + self.mensagem + '</msg>  <nomecasal>' + UserService.dados.nomeNoiva + ' e ' + UserService.dados.nomeNoivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
 
 
     UserService.dados.modeloDate = self.modelo;

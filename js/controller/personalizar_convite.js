@@ -1,301 +1,365 @@
-angular.module("dashboard").controller('personalizar_convite', ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService', function ($sce, $filter, UserService, ServiceCasamento, ipService) {
+/**
+ * Personalizar Convite Controller
+ * controllerAs: 'personalizarCtrl'
+ * @namespace Controllers
+ */
+(function () {
+  'use strict';
+  angular
+    .module('dashboard')
+    .controller('personalizar_convite', PersonalizarConvite);
 
-  var self = this;
-  var ID = UserService.dados.ID;
-  var conviteCriado = UserService.dados.conviteCriado;
-
-  /*indice da lista de convites.
-  * Define qual convite o sistema vai pegar as informacoes dos blocos
-  */
-  self.convite_individual = UserService.dados.modeloConvite;
-
-  var data_casamento = UserService.dados.dataCasamento;
-  var cerimonia_hora = UserService.dados.cerimonia_hora;
-  var cerimonia_min = UserService.dados.cerimonia_min;
-  var cerimonia_local = UserService.dados.cerimonia_local;
-  var cerimonia_end = UserService.dados.cerimonia_end;
-  var cerimonia_numero = UserService.dados.cerimonia_numero;
-  var cerimonia_bairro = UserService.dados.cerimonia_bairro;
-  var cerimonia_cidade = UserService.dados.cerimonia_cidade;
-  var nome_noiva = UserService.dados.nomeNoiva;
-  var nome_noivo = UserService.dados.nomeNoivo;
-  var noiva_pai = UserService.dados.noiva_pai;
-  var noiva_pai_memorian = UserService.dados.noiva_pai_memorian;
-  var noiva_mae = UserService.dados.noiva_mae;
-  var noiva_mae_memorian = UserService.dados.noiva_mae_memorian;
-  var noivo_pai = UserService.dados.noivo_pai;
-  var noivo_pai_memorian = UserService.dados.noivo_pai_memorian;
-  var noivo_mae = UserService.dados.noivo_mae;
-  var noivo_mae_memorian = UserService.dados.noivo_mae_memorian;
-
-  self.layoutSelecionado = './image/convites/' + self.convite_individual + '.png';
-  self.bloco_msg_personalizada = "Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.";
-  self.convites = UserService.dados.listaConvites;
-  self.fonts = UserService.dados.listaFonts;
-  self.styleHold = [];
-  self.cerregando = true;
-
-  function GetLocal() {
-    self.bloco_msg_1["text-align"] = UserService.dados.bloco_msg_1["text-align"];
-    self.bloco_msg_2["text-align"] = UserService.dados.bloco_msg_2["text-align"];
-    self.bloco_msg_personalizada_style["text-align"] = UserService.dados.bloco_msg_personalizada_style["text-align"];
-    self.bloco_cerimonia["text-align"] = UserService.dados.bloco_cerimonia["text-align"];
-    self.bloco_nome_dos_noivos["text-align"] = UserService.dados.bloco_nome_dos_noivos["text-align"];
-    self.bloco_pais_noiva["text-align"] = UserService.dados.bloco_pais_noiva["text-align"];
-    self.bloco_pais_noivo["text-align"] = UserService.dados.bloco_pais_noivo["text-align"];
-
-    self.bloco_msg_1.color = UserService.dados.bloco_msg_1.color;
-    self.bloco_msg_2.color = UserService.dados.bloco_msg_2.color;
-    self.bloco_msg_personalizada_style.color = UserService.dados.bloco_msg_personalizada_style.color;
-    self.bloco_cerimonia.color = UserService.dados.bloco_cerimonia.color;
-    self.bloco_nome_dos_noivos.color = UserService.dados.bloco_nome_dos_noivos.color;
-    self.bloco_pais_noiva.color = UserService.dados.bloco_pais_noiva.color;
-    self.bloco_pais_noivo.color = UserService.dados.bloco_pais_noivo.color;
-
-    self.bloco_msg_1["font-family"] = UserService.dados.bloco_msg_1["font-family"];
-    self.bloco_msg_2["font-family"] = UserService.dados.bloco_msg_2["font-family"];
-    self.bloco_msg_personalizada_style["font-family"] = UserService.dados.bloco_msg_personalizada_style['font-family'];
-    self.bloco_cerimonia["font-family"] = UserService.dados.bloco_cerimonia["font-family"];
-    self.bloco_nome_dos_noivos["font-family"] = UserService.dados.bloco_nome_dos_noivos["font-family"];
-    self.bloco_pais_noiva["font-family"] = UserService.dados.bloco_pais_noiva["font-family"];
-    self.bloco_pais_noivo["font-family"] = UserService.dados.bloco_pais_noivo["font-family"];
-
-    self.bloco_msg_1["font-size"] = self.removePx(UserService.dados.bloco_msg_1["font-size"]);
-    self.bloco_msg_2["font-size"] = self.removePx(UserService.dados.bloco_msg_2["font-size"]);
-    self.bloco_msg_personalizada_style["font-size"] = self.removePx(UserService.dados.bloco_msg_personalizada_style["font-size"]);
-    self.bloco_cerimonia["font-size"] = self.removePx(UserService.dados.bloco_cerimonia["font-size"]);
-    self.bloco_nome_dos_noivos["font-size"] = self.removePx(UserService.dados.bloco_nome_dos_noivos["font-size"]);
-    self.bloco_pais_noiva["font-size"] = self.removePx(UserService.dados.bloco_pais_noiva["font-size"]);
-    self.bloco_pais_noivo["font-size"] = self.removePx(UserService.dados.bloco_pais_noivo["font-size"]);
-
-    self.bloco_msg_personalizada = $sce.trustAsHtml(UserService.dados.bloco_msg_personalizada_style.conteudo);
-  }
+  PersonalizarConvite.$inject = ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService'];
 
   /**
-   * troca <br> por #
-   * O servico nao reconhece <br>
-  */
-  self.changeBr = function (text) {
-    var res = text.replace(/<br>/g, "#");
+   * @namespace PersonalizarConvite
+   * @desc Personalização do convite
+   * @memberOf Controllers
+   */
+  function PersonalizarConvite($sce, $filter, UserService, ServiceCasamento, ipService) {
 
-    return res;
-  };
+    var self = this;
+    var ID = UserService.dados.ID;
+    var conviteCriado = UserService.dados.conviteCriado;
+    var dataCasamento = UserService.dados.dataCasamento;
+    var cerimoniaHora = UserService.dados.cerimoniaHora;
+    var cerimoniaMin = UserService.dados.cerimoniaMin;
+    var cerimoniaLocal = UserService.dados.cerimoniaLocal;
+    var cerimoniaEnd = UserService.dados.cerimoniaEnd;
+    var cerimoniaNumero = UserService.dados.cerimoniaNumero;
+    var cerimoniaBairro = UserService.dados.cerimoniaBairro;
+    var cerimoniaCidade = UserService.dados.cerimoniaCidade;
+    var nomeNoiva = UserService.dados.nomeNoiva;
+    var nomeNoivo = UserService.dados.nomeNoivo;
+    var noivaPai = UserService.dados.noivaPai;
+    var noivaPaiMemorian = UserService.dados.noivaPaiMemorian;
+    var noivaMae = UserService.dados.noivaMae;
+    var noivaMaeMemorian = UserService.dados.noivaMaeMemorian;
+    var noivoPai = UserService.dados.noivoPai;
+    var noivoPaiMemorian = UserService.dados.noivoPaiMemorian;
+    var noivoMae = UserService.dados.noivoMae;
+    var noivoMaeMemorian = UserService.dados.noivoMaeMemorian;
 
-  //retorna uma cruz em html
-  self.inMemorian = function (itIs) {
-    if (itIs == 'true') {
-      return " &#10013;";
-    } else {
-      return " ";
-    }
-  };
-
-  //O servico so aceita numero para o alinhamento. Essa funcao faz a conversao
-  self.getTextAlingIndice = function (texto) {
-    var retorno = '';
-
-    switch (texto) {
-      case "right": retorno = 2; break;
-      case "left": retorno = 0; break;
-      case "center": retorno = 1; break;
-      default: retorno = 0; break;
-    }
-    return retorno;
-  };
-
-  // set font family do bloco
-  self.setFontToBloco = function (font, idFont) {
-    //Formata o bloco atual
-    $('.' + self.styleHold).css('font-family', font);
-
-    //lista de convites -> numero do convte selecionado -> bloco -> estilo da font
-    self.convites[self.convite_individual][self.styleHold]['font-family'] = font;
-
-    //Salva o id para ser enviado ao servidor
-    UserService.dados[self.styleHold]['font-id'] = idFont;
-    UserService.SaveState();
-  };
-
-  //O servico nao reconhece px. Essa funcao retira o px, para poder enviar ao servidor
-  self.removePx = function (texto) {
-    var retorno = '';
-
-    retorno = texto.toString().split('px');
-
-    return retorno[0];
-  };
-
-  // gerencia qual bloco esta ativo para edicao
-  self.showBlocos = [
-    { "ativo": true },
-    { "ativo": true },
-    { "ativo": true },
-    { "ativo": true },
-    { "ativo": true },
-    { "ativo": true },
-    { "ativo": true }
-  ];
-
-  // ativa o bloco quando clicado
-  self.setBlocoActive = function (index) {
-    for (var i = 0; i < self.showBlocos.length; i++) {
-      self.showBlocos[i].ativo = false;
-    }
-    self.showBlocos[index].ativo = true;
-  };
-
-  //mensagens
-  self.setMsg = function () {
-
-    var casamento = data_casamento.split("/");
-    var dataCasamento = casamento[1] + "/" + casamento[0] + "/" + casamento[2];
-
-    self.conteudo_msg1 = $sce.trustAsHtml("convidam para a cerimônia de casamento dos seus filhos");
-    self.conteudo_msg2 = $sce.trustAsHtml("a realizar-se às " + $filter("twoDigits")(cerimonia_hora) + ":" + $filter("twoDigits")(cerimonia_min) + " horas, dia " + dataCasamento + ", " + cerimonia_local);
-
-    self.conteudo_msg4 = $sce.trustAsHtml("Cerimônia: <br> " + cerimonia_local + " <br> " + cerimonia_end + ", " + cerimonia_numero + " - " + cerimonia_bairro + " " + cerimonia_cidade);
-
-    self.conteudo_nomecasal = $sce.trustAsHtml(nome_noiva + " &#38; " + nome_noivo);
-
-    self.conteudo_pais_noiva = $sce.trustAsHtml(
-      noiva_pai + self.inMemorian(noiva_pai_memorian) + " <br> " +
-      noiva_mae + self.inMemorian(noiva_mae_memorian)
-    );
-
-    self.conteudo_pais_noivo = $sce.trustAsHtml(
-      noivo_pai + self.inMemorian(noivo_pai_memorian) + " <br> " +
-      noivo_mae + self.inMemorian(noivo_mae_memorian)
-    );
-  };
-
-
-  //Aplica a posicao dos blocos de acordo com o convite escolhido
-  self.setConvite = function () {
-    var bloco = self.convites[self.convite_individual];
-
-    self.bloco_pais_noiva = bloco.bloco_pais_noiva;
-    self.bloco_pais_noivo = bloco.bloco_pais_noivo;
-    self.bloco_msg_1 = bloco.bloco_msg_1;
-    self.bloco_nome_dos_noivos = bloco.bloco_nome_dos_noivos;
-    self.bloco_msg_2 = bloco.bloco_msg_2;
-    self.bloco_msg_personalizada_style = bloco.bloco_msg_personalizada_style;
-    self.bloco_cerimonia = bloco.bloco_cerimonia;
-  };
-
-  // pega os dados do servidor
-  self.getConfiguracaoConvite = function () {
+    self.conviteIndividual = UserService.dados.modeloConvite;
+    self.layoutSelecionado = './image/convites/' + self.conviteIndividual + '.png';
+    self.blocoMsgPersonalizada = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
+    self.convites = UserService.dados.listaConvites;
+    self.fonts = UserService.dados.listaFonts;
+    self.styleHold = [];
     self.cerregando = true;
-    self.setMsg();
-    self.setConvite();
+    self.showBlocos = [
+      { 'ativo': true },
+      { 'ativo': true },
+      { 'ativo': true },
+      { 'ativo': true },
+      { 'ativo': true },
+      { 'ativo': true },
+      { 'ativo': true }
+    ];
 
-    if (conviteCriado) {
-      GetLocal();
-    } else {
-      self.setConfiguracaoConvite();
+    self.SetFontToBloco = SetFontToBloco;
+    self.SetBlocoActive = SetBlocoActive;
+    self.SetConfiguracaoConvite = SetConfiguracaoConvite;
+
+    GetConfiguracaoConvite();
+
+    /**
+     * @name ChangeBr
+     * @param {String} text conteudo do bloco
+     * @desc O servidor nao reconhece <br>, portanto eh preciso alterar para #
+     * @returns {String}
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function ChangeBr(text) {
+      var res = text.replace(/<br>/g, '#');
+      return res;
     }
 
-    self.cerregando = false;
-    self.setBlocoActive(0);
-  };
+    /**
+     * @name GetConfiguracaoConvite
+     * @desc Init
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function GetConfiguracaoConvite() {
+      self.cerregando = true;
+      SetMsg();
+      SetConvite();
 
-  self.setConfiguracaoConvite = function () {
-    var aux = self.convite_individual.split("convite");
-    var modelo = aux[1];
-    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/FormatacaoConvite";
+      if (conviteCriado) {
+        GetLocal();
 
-    var alinhamento_msg1 =
-      UserService.dados.bloco_msg_1["text-align"] =
-      self.getTextAlingIndice(self.bloco_msg_1["text-align"]);
-    var alinhamento_msg2 =
-      UserService.dados.bloco_msg_2["text-align"] =
-      self.getTextAlingIndice(self.bloco_msg_2["text-align"]);
-    var alinhamento_msg3 =
-      UserService.dados.bloco_msg_personalizada_style["text-align"] =
-      self.getTextAlingIndice(self.bloco_msg_personalizada_style["text-align"]);
-    var alinhamento_msg4 =
-      UserService.dados.bloco_cerimonia["text-align"] =
-      self.getTextAlingIndice(self.bloco_cerimonia["text-align"]);
-    var alinhamento_nomecasal =
-      UserService.dados.bloco_nome_dos_noivos["text-align"] =
-      self.getTextAlingIndice(self.bloco_nome_dos_noivos["text-align"]);
-    var alinhamento_pais_noiva =
-      UserService.dados.bloco_pais_noiva["text-align"] =
-      self.getTextAlingIndice(self.bloco_pais_noiva["text-align"]);
-    var alinhamento_pais_noivo =
-      UserService.dados.bloco_pais_noivo["text-align"] =
-      self.getTextAlingIndice(self.bloco_pais_noivo["text-align"]);
+      } else {
+        self.SetConfiguracaoConvite();
+      }
 
-    var conteudo_msg1 = self.changeBr(self.conteudo_msg1.toString());
-    var conteudo_msg2 = self.changeBr(self.conteudo_msg2.toString());
-    var conteudo_msg3 = self.changeBr(self.bloco_msg_personalizada.toString());
-    var conteudo_msg4 = self.changeBr(self.conteudo_msg4.toString());
-    var conteudo_nomecasal = nome_noiva + ' &#38; ' + nome_noivo;
-    var conteudo_pais_noiva = noiva_pai + '#' + noiva_mae;
-    var conteudo_pais_noivo = noivo_pai + '#' + noivo_mae;
+      self.cerregando = false;
+      self.SetBlocoActive(0);
+    }
 
-    var cor_msg1 =
-      UserService.dados.bloco_msg_1.color =
-      self.bloco_msg_1.color;
-    var cor_msg2 =
-      UserService.dados.bloco_msg_2.color =
-      self.bloco_msg_2.color;
-    var cor_msg3 =
-      UserService.dados.bloco_msg_personalizada_style.color =
-      self.bloco_msg_personalizada_style.color;
-    var cor_msg4 =
-      UserService.dados.bloco_cerimonia.color =
-      self.bloco_cerimonia.color;
-    var cor_nomecasal =
-      UserService.dados.bloco_nome_dos_noivos.color =
-      self.bloco_nome_dos_noivos.color;
-    var cor_pais_noiva =
-      UserService.dados.bloco_pais_noiva.color =
-      self.bloco_pais_noiva.color;
-    var cor_pais_noivo =
-      UserService.dados.bloco_pais_noivo.color =
-      self.bloco_pais_noivo.color;
+    /**
+     * @name GetLocal
+     * @desc Carrega as configuracoes do convite salvas locamente
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function GetLocal() {
+      self.blocoMsg1['text-align'] = UserService.dados.blocoMsg1['text-align'];
+      self.blocoMsg2['text-align'] = UserService.dados.blocoMsg2['text-align'];
+      self.blocoMsgPersonalizadaStyle['text-align'] = UserService.dados.blocoMsgPersonalizadaStyle['text-align'];
+      self.blocoCerimonia['text-align'] = UserService.dados.blocoCerimonia['text-align'];
+      self.blocoNomeNoivos['text-align'] = UserService.dados.blocoNomeNoivos['text-align'];
+      self.blocoPaisNoiva['text-align'] = UserService.dados.blocoPaisNoiva['text-align'];
+      self.blocoPaisNoivo['text-align'] = UserService.dados.blocoPaisNoivo['text-align'];
 
-    var fonte_msg1 = UserService.dados.bloco_msg_1['font-id'];
-    var fonte_msg2 = UserService.dados.bloco_msg_2['font-id'];
-    var fonte_msg3 = UserService.dados.bloco_msg_personalizada_style['font-id'];
-    var fonte_msg4 = UserService.dados.bloco_cerimonia['font-id'];
-    var fonte_nomecasal = UserService.dados.bloco_nome_dos_noivos['font-id'];
-    var fonte_pais_noiva = UserService.dados.bloco_pais_noiva['font-id'];
-    var fonte_pais_noivo = UserService.dados.bloco_pais_noivo['font-id'];
+      self.blocoMsg1.color = UserService.dados.blocoMsg1.color;
+      self.blocoMsg2.color = UserService.dados.blocoMsg2.color;
+      self.blocoMsgPersonalizadaStyle.color = UserService.dados.blocoMsgPersonalizadaStyle.color;
+      self.blocoCerimonia.color = UserService.dados.blocoCerimonia.color;
+      self.blocoNomeNoivos.color = UserService.dados.blocoNomeNoivos.color;
+      self.blocoPaisNoiva.color = UserService.dados.blocoPaisNoiva.color;
+      self.blocoPaisNoivo.color = UserService.dados.blocoPaisNoivo.color;
 
-    var tamanho_fonte_msg1 = self.removePx(self.bloco_msg_1["font-size"]);
-    var tamanho_fonte_msg2 = self.removePx(self.bloco_msg_2["font-size"]);
-    var tamanho_fonte_msg3 = self.removePx(self.bloco_msg_personalizada_style["font-size"]);
-    var tamanho_fonte_msg4 = self.removePx(self.bloco_cerimonia["font-size"]);
-    var tamanho_fonte_pais_noiva = self.removePx(self.bloco_pais_noiva["font-size"]);
-    var tamanho_fonte_pais_noivo = self.removePx(self.bloco_pais_noivo["font-size"]);
-    var tamanho_nomecasal = self.removePx(self.bloco_nome_dos_noivos["font-size"]);
+      self.blocoMsg1['font-family'] = UserService.dados.blocoMsg1['font-family'];
+      self.blocoMsg2['font-family'] = UserService.dados.blocoMsg2['font-family'];
+      self.blocoMsgPersonalizadaStyle['font-family'] = UserService.dados.blocoMsgPersonalizadaStyle['font-family'];
+      self.blocoCerimonia['font-family'] = UserService.dados.blocoCerimonia['font-family'];
+      self.blocoNomeNoivos['font-family'] = UserService.dados.blocoNomeNoivos['font-family'];
+      self.blocoPaisNoiva['font-family'] = UserService.dados.blocoPaisNoiva['font-family'];
+      self.blocoPaisNoivo['font-family'] = UserService.dados.blocoPaisNoivo['font-family'];
 
-    UserService.dados.bloco_msg_1["font-size"] = self.bloco_msg_1["font-size"];
-    UserService.dados.bloco_msg_2["font-size"] = self.bloco_msg_2["font-size"];
-    UserService.dados.bloco_msg_personalizada_style["font-size"] = self.bloco_msg_personalizada_style["font-size"];
-    UserService.dados.bloco_cerimonia["font-size"] = self.bloco_cerimonia["font-size"];
-    UserService.dados.bloco_nome_dos_noivos["font-size"] = self.bloco_pais_noiva["font-size"];
-    UserService.dados.bloco_pais_noiva["font-size"] = self.bloco_pais_noivo["font-size"];
-    UserService.dados.bloco_pais_noivo["font-size"] = self.bloco_nome_dos_noivos["font-size"];
+      self.blocoMsg1['font-size'] = RemovePx(UserService.dados.blocoMsg1['font-size']);
+      self.blocoMsg2['font-size'] = RemovePx(UserService.dados.blocoMsg2['font-size']);
+      self.blocoMsgPersonalizadaStyle['font-size'] = RemovePx(UserService.dados.blocoMsgPersonalizadaStyle['font-size']);
+      self.blocoCerimonia['font-size'] = RemovePx(UserService.dados.blocoCerimonia['font-size']);
+      self.blocoNomeNoivos['font-size'] = RemovePx(UserService.dados.blocoNomeNoivos['font-size']);
+      self.blocoPaisNoiva['font-size'] = RemovePx(UserService.dados.blocoPaisNoiva['font-size']);
+      self.blocoPaisNoivo['font-size'] = RemovePx(UserService.dados.blocoPaisNoivo['font-size']);
 
-    UserService.SaveState();
+      self.blocoMsgPersonalizada = $sce.trustAsHtml(UserService.dados.blocoMsgPersonalizadaStyle.conteudo);
+    }
 
-    var xmlVar = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + alinhamento_msg1 + '</alinhamento_msg1><alinhamento_msg2>' + alinhamento_msg2 + '</alinhamento_msg2><alinhamento_msg3>' + alinhamento_msg3 + '</alinhamento_msg3><alinhamento_msg4>' + alinhamento_msg4 + '</alinhamento_msg4><alinhamento_nomecasal>' + alinhamento_nomecasal + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + alinhamento_pais_noiva + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + alinhamento_pais_noivo + '</alinhamento_pais_noivo>';
+    /**
+     * @name GetTextAlingIndice
+     * @param {String} texto alinhamento do texto(right,left,center)
+     * @desc Converte o alinhamento do texto do bloco em indice, para salvar no servidor
+     * @returns {Int}
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function GetTextAlingIndice(texto) {
+      var retorno = '';
 
-    xmlVar += '<conteudo_msg1>' + conteudo_msg1 + '</conteudo_msg1><conteudo_msg2>' + conteudo_msg2 + '</conteudo_msg2><conteudo_msg3>' + conteudo_msg3 + '</conteudo_msg3><conteudo_msg4>' + conteudo_msg4 + '</conteudo_msg4><conteudo_nomecasal>' + conteudo_nomecasal + '</conteudo_nomecasal><conteudo_pais_noiva>' + conteudo_pais_noiva + '</conteudo_pais_noiva><conteudo_pais_noivo>' + conteudo_pais_noivo + '</conteudo_pais_noivo>';
+      switch (texto) {
+        case 'right': retorno = 2; break;
+        case 'left': retorno = 0; break;
+        case 'center': retorno = 1; break;
+        default: retorno = 0; break;
+      }
+      return retorno;
+    }
 
-    xmlVar += '<cor_msg1>' + cor_msg1 + '</cor_msg1><cor_msg2>' + cor_msg2 + '</cor_msg2><cor_msg3>' + cor_msg3 + '</cor_msg3><cor_msg4>' + cor_msg4 + '</cor_msg4><cor_nomecasal>' + cor_nomecasal + '</cor_nomecasal><cor_pais_noiva>' + cor_pais_noiva + '</cor_pais_noiva><cor_pais_noivo>' + cor_pais_noivo + '</cor_pais_noivo>';
+    /**
+      * @name SalvarConvite
+      * @desc Salva o convite selecionado e direciona o usuario para a edição
+      * @memberOf Controllers.PersonalizarConvite
+      */
+    function InMemorian(itIs) {
+      if (itIs === 'true') {
+        return ' &#10013;';
+      } else {
+        return ' ';
+      }
+    }
 
-    xmlVar += '<fonte_msg1>' + fonte_msg1 + '</fonte_msg1> <fonte_msg2>' + fonte_msg2 + '</fonte_msg2> <fonte_msg3>' + fonte_msg3 + '</fonte_msg3> <fonte_msg4>' + fonte_msg4 + '</fonte_msg4> <fonte_nomecasal>' + fonte_nomecasal + '</fonte_nomecasal> <fonte_pais_noiva>' + fonte_pais_noiva + '</fonte_pais_noiva> <fonte_pais_noivo>' + fonte_pais_noivo + '</fonte_pais_noivo>';
+    /**
+     * @name RemovePx
+     * @param {String} texto
+     * @desc Remove o px do tamanho das fonts
+     * @returns {String}
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function RemovePx(texto) {
+      return texto.toString().split('px')[0];
+    }
 
-    xmlVar += ' <id_casal>' + ID + '</id_casal> <id_modelo>' + modelo + '</id_modelo>';
+    /**
+     * @name SetBlocoActive
+     * @param {int} index id do bloco
+     * @desc Marca como ativo o bloco indicado pelo index
+     * @memberOf Controllers.PersonalizarConvite
+     */
+    function SetBlocoActive(index) {
+      for (var i = 0; i < self.showBlocos.length; i++) {
+        self.showBlocos[i].ativo = false;
+      }
+      self.showBlocos[index].ativo = true;
+    }
 
-    xmlVar += ' <tamanho_fonte_msg1>' + tamanho_fonte_msg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanho_fonte_msg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanho_fonte_msg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanho_fonte_msg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanho_fonte_pais_noiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanho_fonte_pais_noivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanho_nomecasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
+    /**
+      * @name SetConfiguracaoConvite
+      * @desc Salva a configuracao do convite no servidor e locamente
+      * @memberOf Controllers.PersonalizarConvite
+      */
+    function SetConfiguracaoConvite() {
 
-    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-    });
-  };
-  self.getConfiguracaoConvite();
+      var aux = self.conviteIndividual.split('convite');
+      var modelo = aux[1];
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/FormatacaoConvite';
 
-}]);
+      var alinhamentoMsg1 =
+        UserService.dados.blocoMsg1['text-align'] =
+        GetTextAlingIndice(self.blocoMsg1['text-align']);
+      var alinhamentoMsg2 =
+        UserService.dados.blocoMsg2['text-align'] =
+        GetTextAlingIndice(self.blocoMsg2['text-align']);
+      var alinhamentoMsg3 =
+        UserService.dados.blocoMsgPersonalizadaStyle['text-align'] =
+        GetTextAlingIndice(self.blocoMsgPersonalizadaStyle['text-align']);
+      var alinhamentoMsg4 =
+        UserService.dados.blocoCerimonia['text-align'] =
+        GetTextAlingIndice(self.blocoCerimonia['text-align']);
+      var alinhamentoNomeCasal =
+        UserService.dados.blocoNomeNoivos['text-align'] =
+        GetTextAlingIndice(self.blocoNomeNoivos['text-align']);
+      var alinhamentoPaisNoiva =
+        UserService.dados.blocoPaisNoiva['text-align'] =
+        GetTextAlingIndice(self.blocoPaisNoiva['text-align']);
+      var alinhamentoPaisNoivo =
+        UserService.dados.blocoPaisNoivo['text-align'] =
+        GetTextAlingIndice(self.blocoPaisNoivo['text-align']);
+
+      var conteudoMsg1 = ChangeBr(self.conteudoMsg1.toString());
+      var conteudoMsg2 = ChangeBr(self.conteudoMsg2.toString());
+      var conteudoMsg3 = ChangeBr(self.blocoMsgPersonalizada.toString());
+      var conteudoMsg4 = ChangeBr(self.conteudoMsg4.toString());
+      var conteudoNomeCasal = nomeNoiva + ' &#38; ' + nomeNoivo;
+      var conteudoPaisNoiva = noivaPai + '#' + noivaMae;
+      var conteudoPaisNoivo = noivoPai + '#' + noivoMae;
+
+      var corMsg1 =
+        UserService.dados.blocoMsg1.color =
+        self.blocoMsg1.color;
+      var corMsg2 =
+        UserService.dados.blocoMsg2.color =
+        self.blocoMsg2.color;
+      var corMsg3 =
+        UserService.dados.blocoMsgPersonalizadaStyle.color =
+        self.blocoMsgPersonalizadaStyle.color;
+      var corMsg4 =
+        UserService.dados.blocoCerimonia.color =
+        self.blocoCerimonia.color;
+      var corNomeCasal =
+        UserService.dados.blocoNomeNoivos.color =
+        self.blocoNomeNoivos.color;
+      var corPaisNoiva =
+        UserService.dados.blocoPaisNoiva.color =
+        self.blocoPaisNoiva.color;
+      var corPaisNoivo =
+        UserService.dados.blocoPaisNoivo.color =
+        self.blocoPaisNoivo.color;
+
+      var fonteMsg1 = UserService.dados.blocoMsg1['font-id'];
+      var fonteMsg2 = UserService.dados.blocoMsg2['font-id'];
+      var fonteMsg3 = UserService.dados.blocoMsgPersonalizadaStyle['font-id'];
+      var fonteMsg4 = UserService.dados.blocoCerimonia['font-id'];
+      var fonteNomeCasal = UserService.dados.blocoNomeNoivos['font-id'];
+      var fontePaisNoiva = UserService.dados.blocoPaisNoiva['font-id'];
+      var fontePaisNoivo = UserService.dados.blocoPaisNoivo['font-id'];
+
+      var tamanhoFonteMsg1 = RemovePx(self.blocoMsg1['font-size']);
+      var tamanhoFonteMsg2 = RemovePx(self.blocoMsg2['font-size']);
+      var tamanhoFonteMsg3 = RemovePx(self.blocoMsgPersonalizadaStyle['font-size']);
+      var tamanhoFonteMsg4 = RemovePx(self.blocoCerimonia['font-size']);
+      var tamanhoFontePaisNoiva = RemovePx(self.blocoPaisNoiva['font-size']);
+      var tamanhoFontePaisNoivo = RemovePx(self.blocoPaisNoivo['font-size']);
+      var tamanhoNomeCasal = RemovePx(self.blocoNomeNoivos['font-size']);
+
+      UserService.dados.blocoMsg1['font-size'] = self.blocoMsg1['font-size'];
+      UserService.dados.blocoMsg2['font-size'] = self.blocoMsg2['font-size'];
+      UserService.dados.blocoMsgPersonalizadaStyle['font-size'] = self.blocoMsgPersonalizadaStyle['font-size'];
+      UserService.dados.blocoCerimonia['font-size'] = self.blocoCerimonia['font-size'];
+      UserService.dados.blocoNomeNoivos['font-size'] = self.blocoPaisNoiva['font-size'];
+      UserService.dados.blocoPaisNoiva['font-size'] = self.blocoPaisNoivo['font-size'];
+      UserService.dados.blocoPaisNoivo['font-size'] = self.blocoNomeNoivos['font-size'];
+
+      UserService.SaveState();
+
+      var xmlVar = '<DadosFormatacaoConvite xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><alinhamento_msg1>' + alinhamentoMsg1 + '</alinhamento_msg1><alinhamento_msg2>' + alinhamentoMsg2 + '</alinhamento_msg2><alinhamento_msg3>' + alinhamentoMsg3 + '</alinhamento_msg3><alinhamento_msg4>' + alinhamentoMsg4 + '</alinhamento_msg4><alinhamento_nomecasal>' + alinhamentoNomeCasal + '</alinhamento_nomecasal><alinhamento_pais_noiva>' + alinhamentoPaisNoiva + '</alinhamento_pais_noiva><alinhamento_pais_noivo>' + alinhamentoPaisNoivo + '</alinhamento_pais_noivo>';
+
+      xmlVar += '<conteudo_msg1>' + conteudoMsg1 + '</conteudo_msg1><conteudo_msg2>' + conteudoMsg2 + '</conteudo_msg2><conteudo_msg3>' + conteudoMsg3 + '</conteudo_msg3><conteudo_msg4>' + conteudoMsg4 + '</conteudo_msg4><conteudo_nomecasal>' + conteudoNomeCasal + '</conteudo_nomecasal><conteudo_pais_noiva>' + conteudoPaisNoiva + '</conteudo_pais_noiva><conteudo_pais_noivo>' + conteudoPaisNoivo + '</conteudo_pais_noivo>';
+
+      xmlVar += '<cor_msg1>' + corMsg1 + '</cor_msg1><cor_msg2>' + corMsg2 + '</cor_msg2><cor_msg3>' + corMsg3 + '</cor_msg3><cor_msg4>' + corMsg4 + '</cor_msg4><cor_nomecasal>' + corNomeCasal + '</cor_nomecasal><cor_pais_noiva>' + corPaisNoiva + '</cor_pais_noiva><cor_pais_noivo>' + corPaisNoivo + '</cor_pais_noivo>';
+
+      xmlVar += '<fonte_msg1>' + fonteMsg1 + '</fonte_msg1> <fonte_msg2>' + fonteMsg2 + '</fonte_msg2> <fonte_msg3>' + fonteMsg3 + '</fonte_msg3> <fonte_msg4>' + fonteMsg4 + '</fonte_msg4> <fonte_nomecasal>' + fonteNomeCasal + '</fonte_nomecasal> <fonte_pais_noiva>' + fontePaisNoiva + '</fonte_pais_noiva> <fonte_pais_noivo>' + fontePaisNoivo + '</fonte_pais_noivo>';
+
+      xmlVar += ' <id_casal>' + ID + '</id_casal> <id_modelo>' + modelo + '</id_modelo>';
+
+      xmlVar += ' <tamanho_fonte_msg1>' + tamanhoFonteMsg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanhoFonteMsg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanhoFonteMsg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanhoFonteMsg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanhoFontePaisNoiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanhoFontePaisNoivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanhoNomeCasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
+
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+      });
+    }
+
+    /**
+    * @name SetConvite
+    * @desc Carrega o posicionamento dos blocos
+    * @memberOf Controllers.PersonalizarConvite
+    */
+    function SetConvite() {
+      var bloco = self.convites[self.conviteIndividual];
+
+      self.blocoPaisNoiva = bloco.blocoPaisNoiva;
+      self.blocoPaisNoivo = bloco.blocoPaisNoivo;
+      self.blocoMsg1 = bloco.blocoMsg1;
+      self.blocoNomeNoivos = bloco.blocoNomeNoivos;
+      self.blocoMsg2 = bloco.blocoMsg2;
+      self.blocoMsgPersonalizadaStyle = bloco.blocoMsgPersonalizadaStyle;
+      self.blocoCerimonia = bloco.blocoCerimonia;
+    }
+
+    /**
+    * @name SetFontToBloco
+    * @desc Pega a fonte da lista de fontes e aplica no bloco que esta ativado
+    * @param {int} idFont id da fonte
+    * @param {String} font nome da fonte
+    * @memberOf Controllers.PersonalizarConvite
+    */
+    function SetFontToBloco(font, idFont) {
+      console.log('setfont');
+      //Formata o bloco atual
+      $('.' + self.styleHold).css('font-family', font);
+
+      //lista de convites -> numero do convte selecionado -> bloco -> estilo da font
+      self.convites[self.conviteIndividual][self.styleHold]['font-family'] = font;
+
+      //Salva o id para ser enviado ao servidor
+      UserService.dados[self.styleHold]['font-id'] = idFont;
+      UserService.SaveState();
+    }
+
+    /**
+      * @name SetMsg
+      * @desc Configura o conteudo de cada bloco.
+      * @memberOf Controllers.PersonalizarConvite
+      */
+    function SetMsg() {
+      var casamento = dataCasamento.split('/');
+      var dataCasamentoAux = casamento[1] + '/' + casamento[0] + '/' + casamento[2];
+
+      self.conteudoMsg1 = $sce.trustAsHtml('convidam para a cerimônia de casamento dos seus filhos');
+      self.conteudoMsg2 = $sce.trustAsHtml('a realizar-se às ' + $filter('twoDigits')(cerimoniaHora) + ':' + $filter('twoDigits')(cerimoniaMin) + ' horas, dia ' + dataCasamentoAux + ', ' + cerimoniaLocal);
+
+      self.conteudoMsg4 = $sce.trustAsHtml('Cerimônia: <br> ' + cerimoniaLocal + ' <br> ' + cerimoniaEnd + ', ' + cerimoniaNumero + ' - ' + cerimoniaBairro + ' ' + cerimoniaCidade);
+
+      self.conteudoNomeCasal = $sce.trustAsHtml(nomeNoiva + ' &#38; ' + nomeNoivo);
+
+      self.conteudoPaisNoiva = $sce.trustAsHtml(
+        noivaPai + InMemorian(noivaPaiMemorian) + ' <br> ' +
+        noivaMae + InMemorian(noivaMaeMemorian)
+      );
+
+      self.conteudoPaisNoivo = $sce.trustAsHtml(
+        noivoPai + InMemorian(noivoPaiMemorian) + ' <br> ' +
+        noivoMae + InMemorian(noivoMaeMemorian)
+      );
+    }
+  }
+})();

@@ -1,6 +1,6 @@
 {
   "convite1": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "32px",
       "width": "474px",
       "left": "27px",
@@ -10,7 +10,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "32px",
       "right": "27px",
       "width": "474px",
@@ -20,7 +20,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "98px",
       "left": "27px",
       "width": "947px",
@@ -30,7 +30,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "191px",
       "left": "27px",
       "width": "947px",
@@ -40,7 +40,7 @@
       "font-family": 7,
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "319px",
       "left": "27px",
       "width": "947px",
@@ -50,7 +50,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "442px",
       "left": "27px",
       "width": "948px",
@@ -62,7 +62,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "top": "600px",
       "left": "27px",
       "width": "947px",
@@ -74,7 +74,7 @@
     }
   },
   "convite2": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "32px",
       "width": "280px",
       "left": "51px",
@@ -84,7 +84,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "32px",
       "left": "401px",
       "width": "280px",
@@ -94,7 +94,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "154px",
       "left": "51px",
       "width": "631px",
@@ -104,7 +104,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "242px",
       "left": "52px",
       "width": "631px",
@@ -114,7 +114,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "385px",
       "left": "73px",
       "width": "587px",
@@ -124,7 +124,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "465px",
       "left": "82px",
       "width": "566px",
@@ -136,7 +136,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "bottom": "180px",
       "left": "185px",
       "width": "359px",
@@ -148,7 +148,7 @@
     }
   },
   "convite3": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "91px",
       "width": "402px",
       "left": "76px",
@@ -158,7 +158,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "91px",
       "right": "76px",
       "width": "402px",
@@ -168,7 +168,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "159px",
       "left": "76px",
       "width": "807px",
@@ -178,7 +178,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "220px",
       "left": "76px",
       "width": "807px",
@@ -188,7 +188,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "315px",
       "left": "76px",
       "width": "807px",
@@ -198,7 +198,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "405px",
       "left": "100px",
       "width": "807px",
@@ -210,7 +210,7 @@
       "font-family": "Josefin Slab",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "top": "512px",
       "left": "76px",
       "width": "807px",
@@ -222,7 +222,7 @@
     }
   },
   "convite4": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "68px",
       "width": "428px",
       "left": "72px",
@@ -232,7 +232,7 @@
       "font-family": "Pinyon Script",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "68px",
       "right": "72px",
       "width": "428px",
@@ -242,7 +242,7 @@
       "font-family": "Pinyon Script",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "157px",
       "left": "72px",
       "width": "855px",
@@ -252,7 +252,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "232px",
       "left": "72px",
       "width": "855px",
@@ -262,7 +262,7 @@
       "font-family": "Courgette",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "341px",
       "left": "72px",
       "width": "855px",
@@ -272,7 +272,7 @@
       "font-family": "Roboto Condensed",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "423px",
       "left": "72px",
       "width": "855px",
@@ -284,7 +284,7 @@
       "font-family": "Pinyon Script",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "top": "584px",
       "left": "117px",
       "width": "765px",
@@ -296,7 +296,7 @@
     }
   },
   "convite5": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "252px",
       "width": "295px",
       "left": "44px",
@@ -306,7 +306,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "252px",
       "left": "385px",
       "width": "295px",
@@ -316,7 +316,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "365px",
       "left": "44px",
       "width": "636px",
@@ -326,7 +326,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "430px",
       "left": "43px",
       "width": "637px",
@@ -336,7 +336,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "527px",
       "left": "43px",
       "width": "636px",
@@ -346,7 +346,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "620px",
       "left": "45px",
       "width": "631px",
@@ -358,7 +358,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "bottom": "150px",
       "left": "170px",
       "width": "359px",
@@ -370,7 +370,7 @@
     }
   },
   "convite6": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "53px",
       "width": "436px",
       "left": "64px",
@@ -380,7 +380,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "53px",
       "left": "499px",
       "width": "436px",
@@ -390,7 +390,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "138px",
       "left": "64px",
       "width": "872px",
@@ -400,7 +400,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "203px",
       "left": "64px",
       "width": "872px",
@@ -410,7 +410,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "336px",
       "left": "64px",
       "width": "872px",
@@ -420,7 +420,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "411px",
       "left": "64px",
       "width": "872px",
@@ -432,7 +432,7 @@
       "font-family": "Libre Baskerville",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "top": "569px",
       "left": "64px",
       "width": "872px",
@@ -444,7 +444,7 @@
     }
   },
   "convite7": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "84px",
       "width": "235px",
       "left": "92px",
@@ -454,7 +454,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "84px",
       "left": "402px",
       "width": "235px",
@@ -464,7 +464,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "167px",
       "left": "92px",
       "width": "545px",
@@ -474,7 +474,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "243px",
       "left": "93px",
       "width": "544px",
@@ -484,7 +484,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "337px",
       "left": "95px",
       "width": "542px",
@@ -494,7 +494,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "462px",
       "left": "94px",
       "width": "543px",
@@ -506,7 +506,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "bottom": "181px",
       "left": "93px",
       "width": "541px",
@@ -518,7 +518,7 @@
     }
   },
   "convite8": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "60px",
       "width": "280px",
       "left": "60px",
@@ -528,7 +528,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "60px",
       "left": "386px",
       "width": "280px",
@@ -538,7 +538,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "170px",
       "left": "61px",
       "width": "604px",
@@ -548,7 +548,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "258px",
       "left": "61px",
       "width": "604px",
@@ -558,7 +558,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "379px",
       "left": "62px",
       "width": "603px",
@@ -568,7 +568,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "450px",
       "left": "63px",
       "width": "602px",
@@ -580,7 +580,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "bottom": "234px",
       "left": "62px",
       "width": "603px",
@@ -592,7 +592,7 @@
     }
   },
   "convite9": {
-    "bloco_pais_noiva": {
+    "blocoPaisNoiva": {
       "top": "146px",
       "width": "280px",
       "left": "69px",
@@ -602,7 +602,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_pais_noivo": {
+    "blocoPaisNoivo": {
       "top": "146px",
       "left": "380px",
       "width": "280px",
@@ -612,7 +612,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_1": {
+    "blocoMsg1": {
       "top": "278px",
       "left": "71px",
       "width": "589px",
@@ -622,7 +622,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_nome_dos_noivos": {
+    "blocoNomeNoivos": {
       "top": "320px",
       "left": "71px",
       "width": "588px",
@@ -632,7 +632,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_2": {
+    "blocoMsg2": {
       "top": "422px",
       "left": "71px",
       "width": "589px",
@@ -642,7 +642,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_msg_personalizada_style": {
+    "blocoMsgPersonalizadaStyle": {
       "top": "556px",
       "left": "72px",
       "width": "589px",
@@ -654,7 +654,7 @@
       "font-family": "",
       "color": "#000"
     },
-    "bloco_cerimonia": {
+    "blocoCerimonia": {
       "bottom": "54px",
       "left": "73px",
       "width": "588px",

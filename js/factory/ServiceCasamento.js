@@ -1,6 +1,17 @@
-angular.module("dashboard").factory('ServiceCasamento', ['CallAjax', '$q', '$http', function (CallAjax, $q, $http) {
+angular
+  .module('dashboard')
+  .factory('ServiceCasamento', ServiceCasamento);
 
-  var SendData = function (urlVar, xmlVar) {
+ServiceCasamento.$inject = ['CallAjax', '$q', '$http']
+
+function ServiceCasamento(CallAjax, $q, $http) {
+
+  var service = {
+    SendData: SendData
+  };
+  return service;
+
+  function SendData(urlVar, xmlVar) {
     var call;
     var deferred = $q.defer();
 
@@ -22,9 +33,5 @@ angular.module("dashboard").factory('ServiceCasamento', ['CallAjax', '$q', '$htt
     });
 
     return deferred.promise;
-  };
-
-  return {
-    SendData: SendData
-  };
-}]);
+  }
+}
