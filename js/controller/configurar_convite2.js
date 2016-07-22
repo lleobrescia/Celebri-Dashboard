@@ -79,6 +79,7 @@
     self.thumbNome = 'Laranja'; //Inicializa o nome do convite
     self.SalvarConvite = SalvarConvite;
     self.SetConvite = SetConvite;
+    self.enableEditor = true;
 
     GetConfiguracaoConvite(); //Init
 
@@ -129,9 +130,10 @@
       * @memberOf Controllers.ConfigurarConvite2
       */
     function GetConfiguracaoConvite() {
-
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarFormatacaoConvite';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
+
+      HasSend();
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         resp = $.parseXML(resp);
@@ -329,6 +331,28 @@
         default: retorno = 'left'; break;
       }
       return retorno;
+    }
+
+    /**
+     * @name HasSend
+     * @desc Verifica se um dos noivos ja enviou os convites.
+     * @memberOf Controllers.ConfigurarConvite2
+     */
+    function HasSend() {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarEstatisticaCasamento';
+      var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
+
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+        var respXml = $.parseXML(resp);
+        var numConvites = parseInt($(respXml).find('total_convites_enviados_apenas_cerimonia').text());
+
+        if (numConvites > 0) {
+          self.enableEditor = false;
+        }
+      }).catch(function (error) {
+        console.error('HasSend -> ', error);
+        console.warn('Dados enviados:', xmlVar);
+      });
     }
 
     /**

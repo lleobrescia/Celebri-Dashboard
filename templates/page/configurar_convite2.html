@@ -124,7 +124,7 @@
   <!--modal-->
 
   <div class="row" style="margin-top: 50px;" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
-    <div class="col-sm-3">
+    <div class="col-sm-3" ng-if="configConvite2Ctrl.enableEditor">
       <div class="btn btn--ok" data-toggle="modal" data-target="#confirmacao">
         Alterar convite
       </div>
