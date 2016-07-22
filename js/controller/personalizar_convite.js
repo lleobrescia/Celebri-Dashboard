@@ -46,6 +46,7 @@
     self.convites = UserService.dados.listaConvites;
     self.fonts = UserService.dados.listaFonts;
     self.styleHold = [];
+    self.senhaApp = UserService.dados.senhaApp;
     self.cerregando = true;
     self.showBlocos = [
       { 'ativo': true },

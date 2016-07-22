@@ -43,6 +43,7 @@
         <!-- col-xs-12 -->
       </div>
       <!-- row -->
+
       <div class="row" ng-if="$scope.change">
         <div class="col-sm-3">
           <div class="btn btn--save" ng-click="$scope.change = false;personalizarCtrl.SetConfiguracaoConvite()">
@@ -57,42 +58,60 @@
       </div>
       <!-- row -->
 
-      <div class="row controll">
-        <div class="col-sm-12">
+      <div class="row" ng-if="!$scope.change">
+        <div class="col-sm-3">
+          <div class="btn btn--ok">
+            <a href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizarCtrl.senhaApp}}" target="_blank">Visualizar Convite Final</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="btn btn--ok">
+            <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+
+      <div class="row controll ">
+        <div class="col-sm-12 ">
 
           <!-- #REGION NAV TABS -->
 
-          <ul class="nav nav-tabs" role="tablist" ng-init="$scope.tab = 'formato'">
-            <li role="presentation" ng-class="{active : $scope.tab == 'formato'}">
-              <a aria-controls="formato" role="tab" data-toggle="tab" ng-click="$scope.tab = 'formato'">Formato</a>
+          <ul class="nav nav-tabs " role="tablist " ng-init="$scope.tab='formato' ">
+            <li role="presentation " ng-class="{active : $scope.tab=='formato' } ">
+              <a aria-controls="formato " role="tab " data-toggle="tab " ng-click="$scope.tab='formato' ">Formato</a>
             </li>
-            <li role="presentation" ng-class="{active : $scope.tab == 'typefaces'}">
-              <a aria-controls="typefaces" role="tab" data-toggle="tab" ng-click="$scope.tab = 'typefaces'">Fonte</a>
+            <li role="presentation " ng-class="{active : $scope.tab=='typefaces' } ">
+              <a aria-controls="typefaces " role="tab " data-toggle="tab " ng-click="$scope.tab='typefaces' ">Fonte</a>
             </li>
           </ul>
 
           <!-- #ENDREGION NAV TABS -->
 
 
-          <div class="tab-content">
+          <div class="tab-content ">
             <!-- #REGION TAB PANEL 1 -->
 
-            <div role="tabpanel" class="tab-pane" id="formato" ng-class="{active : $scope.tab == 'formato'}">
-              <div ng-repeat="valor in personalizarCtrl.convites[personalizarCtrl.conviteIndividual]" ng-cloak>
-                <div ng-show="personalizarCtrl.showBlocos[$index]['ativo']">
+            <div role="tabpanel " class="tab-pane " id="formato " ng-class="{active : $scope.tab=='formato' } ">
+              <div ng-repeat="valor in personalizarCtrl.convites[personalizarCtrl.conviteIndividual] " ng-cloak>
+                <div ng-show="personalizarCtrl.showBlocos[$index][ 'ativo'] ">
 
-                  <div class="controll_bloco_opcoes" ng-init="valor['font-size'] = valor['font-size']">
-                    <h4 class="controll__title">Tamanho da Fonte: {{valor['font-size']}}</h4>
-                    <rzslider rz-slider-model="valor['font-size']" rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change = true"></rzslider>
+                  <div class="controll_bloco_opcoes " ng-init="valor[ 'font-size']=v alor[ 'font-size'] ">
+                    <h4 class="controll__title ">Tamanho da Fonte: {{valor['font-size']}}</h4>
+                    <rzslider rz-slider-model="valor[ 'font-size'] " rz-slider-options="{floor: 10, ceil: 100}
+            " ng-click="$scope.change=t rue "></rzslider>
                   </div>
                   <!-- controll_bloco_opcoes -->
 
-                  <div class="controll_bloco_opcoes">
-                    <h4 class="controll__title">Alinhamento</h4>
+                  <div class="controll_bloco_opcoes ">
+                    <h4 class="controll__title ">Alinhamento</h4>
 
-                    <i class="fa fa-align-left" ng-class="{'fa--active '  : valor['text-align'] == 'left'}" ng-click="valor['text-align'] = 'left'; $scope.change = true"></i>
-                    <i class="fa fa-align-center" ng-class="{'fa--active' : valor['text-align'] == 'center'}" ng-click="valor['text-align'] = 'center'; $scope.change = true"></i>
-                    <i class="fa fa-align-right" ng-class="{'fa--active'  : valor['text-align'] == 'right'}" ng-click="valor['text-align'] = 'right'; $scope.change = true"></i>
+                    <i class="fa fa-align-left " ng-class="{ 'fa--active ' : valor[ 'text-align']=='left' }
+            " ng-click="valor[ 'text-align']='left' ; $scope.change=t rue "></i>
+                    <i class="fa fa-align-center " ng-class="{ 'fa--active' : valor[ 'text-align']=='center' }
+            " ng-click="valor[ 'text-align']='center' ; $scope.change=t rue "></i>
+                    <i class="fa fa-align-right " ng-class="{ 'fa--active' : valor[ 'text-align']=='right' }
+            " ng-click="valor[ 'text-align']='right' ; $scope.change=t rue "></i>
                   </div>
                   <!-- controll_bloco_opcoes -->
 
@@ -106,46 +125,46 @@
 
             <!-- #REGION TAB PANEL 2 -->
 
-            <div role="tabpanel" class="tab-pane" id="typefaces" ng-class="{active : $scope.tab == 'typefaces'}">
-              <div class="typeface__title">
+            <div role="tabpanel " class="tab-pane " id="typefaces " ng-class="{active : $scope.tab=='typefaces' } ">
+              <div class="typeface__title ">
                 <span>Serif</span>
               </div>
-              <ul class="font__list">
-                <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF" ng-style="{'font-family':value['font-name']}"
-                  ng-click="personalizarCtrl.SetFontToBloco(value['font-name'],key); $scope.change = true">
+              <ul class="font__list ">
+                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=t rue ">
                   {{value['font-name']}}
                 </li>
               </ul>
               <!--serif-->
 
-              <div class="typeface__title">
+              <div class="typeface__title ">
                 <span>Sans Serif</span>
               </div>
-              <ul class="font__list">
-                <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF" ng-style="{'font-family':value['font-name']}"
-                  ng-click="personalizarCtrl.SetFontToBloco(value['font-name'],key); $scope.change = true">
+              <ul class="font__list ">
+                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=t rue ">
                   {{value['font-name']}}
                 </li>
               </ul>
               <!--sans serif-->
 
-              <div class="typeface__title">
+              <div class="typeface__title ">
                 <span>Display</span>
               </div>
-              <ul class="font__list">
-                <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY" ng-style="{'font-family':value['font-name']}"
-                  ng-click="personalizarCtrl.SetFontToBloco(value['font-name'],key); $scope.change = true">
+              <ul class="font__list ">
+                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=t rue ">
                   {{value['font-name']}}
                 </li>
               </ul>
               <!--display-->
 
-              <div class="typeface__title">
+              <div class="typeface__title ">
                 <span>Handwritting</span>
               </div>
-              <ul class="font__list">
-                <li class="font__item" ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING" ng-style="{'font-family':value['font-name']}"
-                  ng-click="personalizarCtrl.SetFontToBloco(value['font-name'],key); $scope.change = true">
+              <ul class="font__list ">
+                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=t rue ">
                   {{value['font-name']}}
                 </li>
               </ul>
