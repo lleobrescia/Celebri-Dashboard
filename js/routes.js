@@ -45,13 +45,14 @@ angular.module('dashboard').config(function ($routeProvider) {
       controllerAs: 'date2Ctrl'
     })
     .when('/enviar-convite', {
-      templateUrl: '/dashboard/templates/page/enviar_convite2.html',
-      controller: 'enviar_convite',
-      controllerAs: 'conviteCtrl'
+      templateUrl: '/dashboard/templates/page/enviar_convite.html',
+      controller: 'PagamentoCtrl',
+      controllerAs: 'Pagamento'
     })
     .when('/enviar-convite/2', {
-      templateUrl: '/dashboard/templates/page/enviar_convite.html',
-      controller: 'enviar_convite2'
+      templateUrl: '/dashboard/templates/page/enviar_convite2.html',
+      controller: 'enviar_convite2',
+      controllerAs: 'conviteCtrl2'
     })
     .when('/confirmados', {
       templateUrl: '/dashboard/templates/page/confirmados.html',
