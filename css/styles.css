@@ -1078,40 +1078,32 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 
 /*PAGAMENTO*/
 
-.pagamento {
-  background: #6f91ff;
+.pagamento .pagamento__bandeiras span {
+  display: inline-block;
+  margin-right: 36px;
+  outline: none;
 }
 
-.pagamento .wrapper {
-  padding: 0;
+.pagamento .pagamento__bandeiras input[type="radio"] {
+  margin-right: 5px;
 }
 
-.pagamento .form {
-  margin-bottom: 70px;
-  margin-left: 20px;
+.pagamento .pagamento__bandeiras span:last-child {
+  margin-right: 0;
 }
 
-.pagamento .content {
-  padding-bottom: 0;
+.form input[type="radio"] {
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  margin: 0;
 }
 
-.pagamento .login__content {
-  max-width: 100%;
-  margin-bottom: 50px
-}
-
-.pagamento .form__title {
-  color: white;
-}
-
-.pagamento .btn--ok {
-  background: #d1d3d4;
-  margin-top: 30px;
-}
-
-.pagamento .btn--ok a {
-  color: black;
-  font-weight: 300;
+.pagamento__codigo input {
+  width: 80%;
+  margin-right: 10px;
+  vertical-align: sub;
 }
 
 
