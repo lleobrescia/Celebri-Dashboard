@@ -18,7 +18,7 @@ $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>
 <requisicao-transacao id="a97ab62a-7956-41ea-b03f-c2e9f612c293" versao="1.2.1">
   <dados-ec>
     <numero>1006993069</numero>
-    <chave>25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3</chave>
+    <chave>2148f89a6778fa1f00a77c89d79e4c516ab0e765a37ed5c51c98167e72672880</chave>
   </dados-ec>
 
   <dados-portador>
@@ -30,7 +30,7 @@ $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>
 
   <dados-pedido>
     <numero>178148599</numero>
-    <valor>18500</valor>
+    <valor>100</valor>
     <moeda>986</moeda>
     <data-hora>'.$horaLocal.'</data-hora>
     <idioma>PT</idioma>
