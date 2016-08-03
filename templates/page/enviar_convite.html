@@ -30,23 +30,40 @@
 
       <p style="margin-bottom:46px">
         Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência,
-        para seus convidados terem tempo suficiente para baixarem o aplicativo e terem acesso às informações do seu casamento.
+        para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações do seu casamento/evento
+        para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer momento, bastando
+        voltar nesta página e selecionar o convidado escolhido.
       </p>
       <p>
-        Para enviarmos os convites virtuais, é necessário efetuar o pagamento de R$ 185, utilizando seu cartão de crédito.
+        Lembramos que os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser
+        feito por meio de cartão de crédito.
       </p>
     </div>
     <!--col-sm-12-->
   </div>
   <!--row-->
 
-  <div class="row" style="margin-top: 50px;background: green;color: white;font-weight: 600;font-size: 1.8em;padding-top: 10px;padding-bottom: 10px;" ng-show="Pagamento.mensagemPagamento">
-    <div class="col-sm-10">
+  <div class="row" ng-if="Pagamento.mensagemPagamento">
+    <div class="col-sm-3" style="margin-top: 50px;color: white;font-weight: 600;font-size: 1.8em;" ng-if="Pagamento.mensagemPagamento == 'autorizada'">
+      <p style="background: green;padding:10px">
+        Transação autorizada!
+      </p>
       <p>
-        {{Pagamento.mensagemPagamento}}
+        Pronto!<br> Seu pagamento foi efetuado com sucesso. Você já pode enviar seus convites.<br> Se precisar adicionar
+        mais convidados, basta clicar em "Cadastrar Convidados" no menu lateral.
+      </p>
+      <p>
+        Para enviar os convites bastaclicar no botão abaixo.
       </p>
     </div>
+    <div class="col-md-6" ng-if="Pagamento.mensagemPagamento != 'autorizada'">
+      <div style="margin-top: 50px;background: red;color: white;font-weight: 600;font-size: 1.8em;padding: 10px;">
+        {{Pagamento.mensagemPagamento}}
+      </div>
+    </div>
+    <!--col-xs-12-->
   </div>
+  <!--row-->
 
   <img src="image/loging.gif" alt="Carregando" class="center-block" ng-if="Pagamento.carregandoPagina" width="64" height="64"
     style="margin-top: 90px;">
@@ -122,11 +139,11 @@
         <p class="form__title">
           Valor
         </p>
-        <input type="text" value="R$185,00" disabled>
+        <input type="text" value="R$1,00" disabled>
       </form>
       <div class="row">
         <div class="col-sm-3 col-sm-offset-9">
-          <div class="btn btn--save" ng-click="Pagamento.EnviarPagamento()">
+          <div class="btn" ng-click="Pagamento.EnviarPagamento()" ng-class="(Pagamento.cartao &&Pagamento.numeroCartao && Pagamento.nome && Pagamento.validadeMes && Pagamento.validadeAno) ? 'btn--save ': 'btn--disable'">
             Concluir Pagamento
           </div>
         </div>
