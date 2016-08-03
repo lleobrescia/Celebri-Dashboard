@@ -155,6 +155,15 @@
     }
 
     function EnviarPagamento() {
+      if (!self.cartao &&
+        !self.numeroCartao &&
+        !self.nome &&
+        !self.validadeMes &&
+        !self.validadeAno &&
+        !self.numeroSeg) {
+        return null;
+      }
+
       var dataVar = {
         'cartao': self.cartao,
         'numeroCartao': self.numeroCartao,
@@ -174,14 +183,16 @@
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       }).then(function (resp) {
-        console.log(resp);
         var status = null;
+        var codigo = 0;
 
         try {
           status = self.mensagemPagamento = resp.autorizacao.mensagem;
+          codigo = resp.autorizacao.codigo;
         } catch (error) {
           status = 'Erro ao enviar os dados. Por favor, tente novamente.';
-          self.mensagemPagamento = resp.autorizacao.mensagem = status;
+          self.mensagemPagamento = status;
+
         }
 
         var aprovado = 'false';
@@ -194,12 +205,14 @@
         self.validadeAno = null;
         self.numeroSeg = null;
 
-        if (resp.autorizacao.codigo === '4') {
+        if (codigo=== '4') {
           aprovado = 'true';
           self.isPg = true;
+          self.mensagemPagamento = 'autorizada';
         }
 
-        AtualizarStatus(aprovado, status, cod);
+         self.carregandoPagina = false;
+        // AtualizarStatus(aprovado, status, cod);
       });
     }
 
