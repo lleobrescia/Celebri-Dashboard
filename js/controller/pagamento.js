@@ -183,8 +183,11 @@
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       }).then(function (resp) {
+        console.log(resp);
+        var aprovado = 'false';
         var status = null;
         var codigo = 0;
+        var tid = null;
 
         try {
           status = self.mensagemPagamento = resp.autorizacao.mensagem;
@@ -192,11 +195,11 @@
         } catch (error) {
           status = 'Erro ao enviar os dados. Por favor, tente novamente.';
           self.mensagemPagamento = status;
-
         }
 
-        var aprovado = 'false';
-        var cod = resp.tid;
+        tid = resp.tid;
+
+        console.log(codigo);
 
         self.cartao = null;
         self.numeroCartao = null;
@@ -212,7 +215,7 @@
         }
 
          self.carregandoPagina = false;
-        // AtualizarStatus(aprovado, status, cod);
+        // AtualizarStatus(aprovado, status, tid);
       });
     }
 
@@ -249,7 +252,7 @@
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        status = $(respXml).find('PagamentoRealizado').text();
+        // status = $(respXml).find('PagamentoRealizado').text();
 
       }).then(function () {
         if (status === 'true') {
