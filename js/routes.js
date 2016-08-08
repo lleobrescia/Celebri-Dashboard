@@ -57,11 +57,6 @@
         controller: 'PagamentoCtrl',
         controllerAs: 'Pagamento'
       })
-      .when('/enviar-convite/2', {
-        templateUrl: '/dashboard/templates/page/enviar_convite2.html',
-        controller: 'enviar_convite2',
-        controllerAs: 'conviteCtrl2'
-      })
       .when('/confirmados', {
         templateUrl: '/dashboard/templates/page/confirmados.html',
         controller: 'confirmados',
