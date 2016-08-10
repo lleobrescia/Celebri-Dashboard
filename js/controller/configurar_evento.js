@@ -109,7 +109,7 @@ angular.module('dashboard').controller('configurar_evento', ['ServiceCasamento',
       rota = self.festa_rota;
     }
 
-    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + self.festa_local + '</Local_festa><Mesmo_local_cerimonia>' + local + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+    var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + local + '</Local_festa><Mesmo_local_cerimonia>' + self.festa_igual_cerimonia + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
     //envia para o servico
     ServiceCasamento.SendData(urlVar, xmlVar);
