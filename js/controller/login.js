@@ -89,9 +89,13 @@
 
           //Verifica a existencia da foto
           if (imagemFoto === 'NULL') {
-            UserService.dados.fotoUrl = 'image/user_login.png';
+            UserService.dados.fotoUrl = $rootScope.fotoCasal = 'image/user_login.png';
           } else {
-            UserService.dados.fotoUrl = $rootScope.fotoCasal = $(respXml).find('Url_foto').text() + '?13:45';
+            var d = new Date();
+            var h = d.getHours();
+            var m = d.getMinutes();
+
+            UserService.dados.fotoUrl = $rootScope.fotoCasal = $(respXml).find('Url_foto').text() + '?' + h + ':' + m;
           }
 
           //Salva os dados localmente
