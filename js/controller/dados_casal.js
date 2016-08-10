@@ -86,13 +86,13 @@ self.CasalGetDados();
       var imagemCortada = self.imageEditor.toDataURL({ useOriginalImg: true, imageType: 'image/jpg' });
 
       //Envia para o servidor
-      var Upload = Upload.upload({
+      var upload = Upload.upload({
         url: 'https://celebri.com.br/dashboard/php/enviarFoto.php',
         data: { image: imagemCortada, name: ID }
       });
 
       //Retorno do servidor
-      Upload.then(function (resp) {
+      upload.then(function (resp) {
         /**
          * O nome da imagem nunca muda,portanto
          * ela fica no cache. Para evitar o cache
