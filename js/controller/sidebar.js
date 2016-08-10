@@ -1,70 +1,98 @@
-angular.module('dashboard').controller('sidebar', ['$location', 'UserService', '$scope', function ($location, UserService, $scope) {
+/**
+ * Sidebar Convite Controller
+ * controllerAs: 'sidebar'
+ * @namespace Controllers
+ */
+(function () {
+  'use strict';
+  angular
+    .module('dashboard')
+    .controller('SidebarCtrl', SidebarCtrl);
 
-  var self = this;
-  var id = UserService.dados.ID;
+  SidebarCtrl.$inject = ['$location', 'UserService', '$scope'];
 
-  self.usuarioLogado = UserService.dados.nomeUsuario;
+  /**
+   * @namespace SidebarCtrl
+   * @desc Responsavel pela barra lateral do dashboard
+   * @memberOf Controllers
+   */
+  function SidebarCtrl($location, UserService, $scope) {
 
+    var self  = this;
+    var id    = UserService.dados.ID;
 
-  //Verifica em qual pag esta
-  $scope.isActive = function (viewLocation) {
-    var retorno = false;
-    if (viewLocation == $location.path() || viewLocation + "/2" == $location.path()) {
-      retorno = true;
-    }
-    return retorno;
-  };
-
-  self.sair = function () {
-    UserService.dados.ID = null;
-    UserService.Remove();
-
-    //direciona para a pagina de login
-    $location.path('/login');
-  };
-
-  //Lista do menu
-  self.menu =
-    [
+    self.usuarioLogado = UserService.dados.nomeUsuario;
+    self.menu          = [ //Lista do menu
       {
         Id: 1,
-        Name: "Dados do Casal",
-        url: 'dados-do-casal'
+        Name  : 'Dados do Casal',
+        url   : 'dados-do-casal'
       },
       {
         Id: 2,
-        Name: 'Configurar Convite',
-        url: 'configurar-convite'
+        Name  : 'Configurar Convite',
+        url   : 'configurar-convite'
       },
       {
         Id: 3,
-        Name: 'Configurar Evento',
-        url: 'configurar-evento'
+        Name  : 'Configurar Evento',
+        url   : 'configurar-evento'
       },
       {
         Id: 4,
-        Name: 'Cadastrar Convidados',
-        url: 'cadastrar-convidados'
+        Name  : 'Cadastrar Convidados',
+        url   : 'cadastrar-convidados'
       },
       {
         Id: 5,
-        Name: 'Save the Date',
-        url: 'save-the-date'
+        Name  : 'Save the Date',
+        url   : 'save-the-date'
       },
       {
         Id: 6,
-        Name: 'Enviar Convite',
-        url: 'enviar-convite'
+        Name  : 'Enviar Convite',
+        url   : 'enviar-convite'
       },
       {
         Id: 7,
-        Name: 'Lista de Confirmados',
-        url: 'confirmados'
+        Name  : 'Lista de Confirmados',
+        url   : 'confirmados'
       },
       {
         Id: 8,
-        Name: 'Estatísticas do Convite',
-        url: 'estatisticas'
+        Name  : 'Estatísticas do Convite',
+        url   : 'estatisticas'
       }
     ];
-}]);
+
+    $scope.IsActive = IsActive;
+    self.Sair       = Sair;
+
+  /**
+   * @name IsActive
+   * @param {String} menu que o usuario clicou
+   * @desc Ativa o menu conrrespondente ao local que o usuario esta
+   * @memberOf Controllers.SidebarCtrl
+   */
+    function IsActive(viewLocation) {
+      var retorno = false;
+      if (viewLocation === $location.path() || viewLocation + '/2' === $location.path()) {
+        retorno = true;
+      }
+      return retorno;
+    }
+
+  /**
+   * @name Sair
+   * @desc Remove os dados local e envia o susuario para o login
+   * @memberOf Controllers.SidebarCtrl
+   */
+    function Sair() {
+      UserService.dados.ID = null;
+      UserService.Remove();
+
+      //direciona para a pagina de login
+      $location.path('/login');
+    }
+  }
+} ());
