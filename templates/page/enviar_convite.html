@@ -65,7 +65,8 @@
   </div>
   <!--row-->
 
-  <img src="image/loging.gif" alt="Carregando" class="center-block" ng-if="Pagamento.carregandoPagina" width="64" height="64"  style="margin-top: 90px;">
+  <img src="image/loging.gif" alt="Carregando" class="center-block" ng-if="Pagamento.carregandoPagina" width="64" height="64"
+    style="margin-top: 90px;">
 
   <div class="row" style="margin-top:50px" ng-if="!Pagamento.isPg && !Pagamento.carregandoPagina">
     <div class="col-md-10">
@@ -165,16 +166,19 @@
         </div>
         <!-- tabela_convidado_topo -->
         <div class="tabela_convidado_header">
-          <p>
+          <p style="width: calc(90%/4);">
             Nome
           </p>
-          <p>
+          <p style="width: calc(90%/4);">
             E-mail
           </p>
-          <p>
+          <p style="width: calc(90%/4);">
             Status
           </p>
-          <input type="checkbox" ng-model="Pagamento.SelectedAll" ng-click="Pagamento.CheckAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;">
+          <div class="text-right" style="display: inline-block;width: calc(90%/3);">
+            Selecionar todos:
+            <input type="checkbox" ng-model="Pagamento.SelectedAll" ng-click="Pagamento.CheckAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;">
+          </div>
         </div>
 
         <div style="height: 100px;line-height: 89px;text-align: center;" ng-if="Pagamento.carregando || Pagamento.convidadoLista.length == 0">
@@ -186,16 +190,17 @@
 
         <!-- tabela_convidado_header -->
         <div class="tabela_convidado_single" ng-repeat="(key,value) in Pagamento.convidadoLista  | filter:searchText">
-          <p>
+          <p style="width: calc(90%/4);">
             {{value.Nome}}
           </p>
-          <p>
+          <p style="width: calc(90%/4);">
             {{value.Email}}
           </p>
-          <p>
+          <p style="width: calc(90%/4);">
             {{value.ConviteEnviado}}
           </p>
-          <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;"
+
+          <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;right: 11px;float: right;"
             ng-click="Pagamento.checkConvidado(value.Id, value.Selected)">
         </div>
         <!-- tabela_convidado_single -->

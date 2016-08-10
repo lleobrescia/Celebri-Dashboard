@@ -27,16 +27,19 @@
             </div>
             <!-- tabela_convidado_topo -->
             <div class="tabela_convidado_header">
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 Nome
               </p>
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 E-mail
               </p>
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 Status
               </p>
-              <input type="checkbox" name="name" ng-model="date2Ctrl.selectedAll" ng-click="date2Ctrl.checkAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;">
+              <div class="text-right" style="display: inline-block;width: calc(90%/3);">
+                Selecionar todos:
+                <input type="checkbox" name="name" ng-model="date2Ctrl.selectedAll" ng-click="date2Ctrl.checkAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;">
+              </div>
             </div>
 
             <div class="" style="text-align: center;">
@@ -48,16 +51,16 @@
 
             <!-- tabela_convidado_header -->
             <div class="tabela_convidado_single" ng-repeat="(key,value) in date2Ctrl.convidado_lista  | filter:date2Ctrl.searchText">
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 {{value.nome}}
               </p>
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 {{value.email}}
               </p>
-              <p style="width: calc(90%/3);">
+              <p style="width: calc(90%/4);">
                 {{value.status}}
               </p>
-              <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;right: -50px;"
+              <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;right: 11px;float: right;"
                 ng-click="date2Ctrl.checkConvidado(key, value.Id, value.Selected)">
             </div>
             <!-- tabela_convidado_single -->
