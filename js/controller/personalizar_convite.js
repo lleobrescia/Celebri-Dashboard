@@ -9,14 +9,14 @@
     .module('dashboard')
     .controller('personalizar_convite', PersonalizarConvite);
 
-  PersonalizarConvite.$inject = ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService'];
+  PersonalizarConvite.$inject = ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService', '$window'];
 
   /**
    * @namespace PersonalizarConvite
    * @desc Personalização do convite
    * @memberOf Controllers
    */
-  function PersonalizarConvite($sce, $filter, UserService, ServiceCasamento, ipService) {
+  function PersonalizarConvite($sce, $filter, UserService, ServiceCasamento, ipService, $window) {
 
     var self = this;
     var ID = UserService.dados.ID;
@@ -295,8 +295,7 @@
 
       xmlVar += ' <tamanho_fonte_msg1>' + tamanhoFonteMsg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanhoFonteMsg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanhoFonteMsg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanhoFonteMsg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanhoFontePaisNoiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanhoFontePaisNoivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanhoNomeCasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
 
-      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-      });
+      ServiceCasamento.SendData(urlVar, xmlVar);
     }
 
     /**
@@ -314,6 +313,15 @@
       self.blocoMsg2 = bloco.blocoMsg2;
       self.blocoMsgPersonalizadaStyle = bloco.blocoMsgPersonalizadaStyle;
       self.blocoCerimonia = bloco.blocoCerimonia;
+
+      /**
+       * Quando o usuario apaga o convite e seleciona ele logo
+       * em seguida a fonte aparece como NaN.
+       * Para evitar isso, a pagina eh recarregada.
+       */
+      if (isNaN(bloco.blocoPaisNoiva['font-size'])) {
+        $window.location.reload();
+      }
     }
 
     /**
@@ -324,7 +332,6 @@
     * @memberOf Controllers.PersonalizarConvite
     */
     function SetFontToBloco(font, idFont) {
-      console.log('setfont');
       //Formata o bloco atual
       $('.' + self.styleHold).css('font-family', font);
 
