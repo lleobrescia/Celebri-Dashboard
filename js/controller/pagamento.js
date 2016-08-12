@@ -183,7 +183,6 @@
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       }).then(function (resp) {
-        console.log(resp);
         var aprovado = 'false';
         var status = null;
         var codigo = 0;
@@ -199,8 +198,6 @@
 
         tid = resp.tid;
 
-        console.log(codigo);
-
         self.cartao = null;
         self.numeroCartao = null;
         self.nome = null;
@@ -208,14 +205,14 @@
         self.validadeAno = null;
         self.numeroSeg = null;
 
-        if (codigo=== '4') {
+        if (codigo === '4') {
           aprovado = 'true';
           self.isPg = true;
           self.mensagemPagamento = 'autorizada';
         }
 
-         self.carregandoPagina = false;
-        // AtualizarStatus(aprovado, status, tid);
+        self.carregandoPagina = false;
+        AtualizarStatus(aprovado, status, tid);
       });
     }
 
