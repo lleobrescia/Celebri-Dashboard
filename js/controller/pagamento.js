@@ -73,6 +73,7 @@
     self.numeroCartao = null;
     self.numeroSeg = null;
     self.selecionados = [];
+    self.selectedAll = false;
     self.senhaApp = UserService.dados.senhaApp;
     self.validadeAno = null;
     self.validadeMes = null;
@@ -249,7 +250,7 @@
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        // status = $(respXml).find('PagamentoRealizado').text();
+        status = $(respXml).find('PagamentoRealizado').text();
 
       }).then(function () {
         if (status === 'true') {
