@@ -41,7 +41,7 @@ $xml = '<?xml version="1.0" encoding="ISO-8859-1"?>
     <parcelas>1</parcelas>
   </forma-pagamento>
   <autorizar>3</autorizar>
-  <capturar>false</capturar>
+  <capturar>true</capturar>
   <gerar-token>true</gerar-token>
 </requisicao-transacao>';
 $data = array('mensagem' => $xml);
