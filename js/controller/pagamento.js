@@ -206,7 +206,7 @@
         self.validadeAno = null;
         self.numeroSeg = null;
 
-        if (codigo === '4') {
+        if (codigo === '4' || codigo === '6') {
           aprovado = 'true';
           self.isPg = true;
           self.mensagemPagamento = 'autorizada';
