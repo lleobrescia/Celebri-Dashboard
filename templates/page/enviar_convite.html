@@ -28,13 +28,13 @@
         <span style="border: solid thin;padding: 10px;" ng-bind="Pagamento.senhaApp"></span>
       </p>
 
-      <p style="margin-bottom:46px">
+      <p style="margin-bottom:30px">
         Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência,
         para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações do seu casamento/evento
         para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer momento, bastando
         voltar nesta página e selecionar o convidado escolhido.
       </p>
-      <p>
+      <p ng-if="Pagamento.mensagemPagamento">
         Lembramos que os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser
         feito por meio de cartão de crédito.
       </p>
@@ -44,16 +44,18 @@
   <!--row-->
 
   <div class="row" ng-if="Pagamento.mensagemPagamento">
-    <div class="col-sm-3" style="margin-top: 50px;color: white;font-weight: 600;font-size: 1.8em;" ng-if="Pagamento.mensagemPagamento == 'autorizada'">
-      <p style="background: green;padding:10px">
+    <div class="col-sm-10" style="margin-top: 50px;color: white;font-weight: 600;font-size: 1.8em;" ng-if="Pagamento.mensagemPagamento == 'autorizada'">
+      <p style="background: green;padding:10px;margin-bottom:30px">
         Transação autorizada!
       </p>
-      <p>
+    </div>
+    <div class="col-sm-10">
+      <p style="margin-bottom:30px">
         Pronto!<br> Seu pagamento foi efetuado com sucesso. Você já pode enviar seus convites.<br> Se precisar adicionar
         mais convidados, basta clicar em "Cadastrar Convidados" no menu lateral.
       </p>
-      <p>
-        Para enviar os convites bastaclicar no botão abaixo.
+      <p style="margin-bottom:30px">
+        Se por acaso você já tem o aplicativo instalado no seu smartphone, é necessário deletá-lo antes de fazer o novo download.
       </p>
     </div>
     <div class="col-md-6" ng-if="Pagamento.mensagemPagamento != 'autorizada'">
@@ -177,7 +179,7 @@
           </p>
           <div class="text-right" style="display: inline-block;width: calc(90%/3);">
             Selecionar todos:
-            <input type="checkbox" ng-model="Pagamento.SelectedAll" ng-click="Pagamento.CheckAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;">
+            <input type="checkbox" ng-model="Pagamento.selectedAll" ng-click="Pagamento.CheckAll()" style="line-height: 22px;width: 20px;height: 20px;position: relative;top: 6px;">
           </div>
         </div>
 
@@ -189,7 +191,7 @@
         </div>
 
         <!-- tabela_convidado_header -->
-        <div class="tabela_convidado_single" ng-repeat="(key,value) in Pagamento.convidadoLista  | filter:searchText">
+        <div class="tabela_convidado_single" ng-repeat="(key,value) in Pagamento.convidadoLista  | filter:Pagamento.searchText" ng-show="!Pagamento.carregando">
           <p style="width: calc(90%/4);">
             {{value.Nome}}
           </p>
@@ -201,7 +203,7 @@
           </p>
 
           <input type="checkbox" name="name" ng-model="value.Selected" style="line-height: 22px;width: 20px;height: 20px;position: relative;right: 11px;float: right;"
-            ng-click="Pagamento.checkConvidado(value.Id, value.Selected)">
+            ng-click="Pagamento.CheckConvidado(value.Id, value.Selected)">
         </div>
         <!-- tabela_convidado_single -->
       </div>
@@ -212,7 +214,7 @@
   <!-- row -->
   <div class="row">
     <div class="col-sm-3 col-sm-offset-7" ng-if="Pagamento.allowToSend">
-      <div class="btn btn--save" ng-click="Pagamento.Enviar(); Pagamento.SelectedAll = false; Pagamento.CheckAll()">
+      <div class="btn btn--save" ng-click="Pagamento.Enviar(); Pagamento.selectedAll = false; Pagamento.CheckAll()">
         Enviar
       </div>
     </div>
