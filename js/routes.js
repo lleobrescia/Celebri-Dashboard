@@ -34,8 +34,8 @@
       })
       .when('/configurar-evento', {
         templateUrl: '/dashboard/templates/page/configurar_evento.html',
-        controller: 'configurar_evento',
-        controllerAs: 'eventoCtrl'
+        controller: 'configurarEventoCtrl',
+        controllerAs: 'evento'
       })
       .when('/cadastrar-convidados', {
         templateUrl: '/dashboard/templates/page/cadastrar_convidados.html',
