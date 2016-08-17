@@ -18,18 +18,18 @@
 
   <form class="form" ng-init="$scope.change = false">
     <div class="row" style="margin-top:24px">
-      <img src="image/loging.gif" alt="Carregando" ng-show="!eventoCtrl.showCerimonia" style="width: 32px;display: block;margin-left: 15%;">
-      <div class="col-xs-12" ng-show="eventoCtrl.showCerimonia">
+      <img src="image/loging.gif" alt="Carregando" ng-show="!evento.showCerimonia" style="width: 32px;display: block;margin-left: 15%;">
+      <div class="col-xs-12" ng-show="evento.showCerimonia">
         <p class="form__title">
           Mesmo local da cerimônia?
         </p>
         <div class="input__radio">
           <span>
-            <input type="radio" ng-model="eventoCtrl.festa_igual_cerimonia" value="false" ng-checked="eventoCtrl.festa_igual_cerimonia == 'false'" ng-change="$scope.change = true">
+            <input type="radio" ng-model="evento.festaIgualCerimonia" value="false" ng-checked="evento.festaIgualCerimonia == 'false'" ng-change="$scope.change = true">
              Não
           </span>
           <span>
-            <input type="radio" ng-model="eventoCtrl.festa_igual_cerimonia" value="true" ng-checked="eventoCtrl.festa_igual_cerimonia == 'true'" ng-change="$scope.change = true">
+            <input type="radio" ng-model="evento.festaIgualCerimonia" value="true" ng-checked="evento.festaIgualCerimonia == 'true'" ng-change="$scope.change = true">
              Sim
           </span>
         </div>
@@ -39,7 +39,7 @@
     </div>
     <!-- row -->
 
-    <div class="festa_igual_cerimonia" ng-show="eventoCtrl.festa_igual_cerimonia == 'false' && eventoCtrl.showCerimonia">
+    <div class="festaIgualCerimonia" ng-show="evento.festaIgualCerimonia == 'false' && evento.showCerimonia">
 
       <!-- #REGION DADOS DA SERIMONIA -->
       <div class="row">
@@ -47,7 +47,7 @@
           <p class="form__title">
             Nome do local da recepção
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_local" ng-change="$scope.change = true">
+          <input type="text" ng-model="evento.festaLocal" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-7 -->
 
@@ -55,7 +55,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_cep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="eventoCtrl.consultFestaCEP(eventoCtrl.festa_cep)">
+          <input type="text" ng-model="evento.festaCep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="evento.ConsultCEPFesta(evento.festaCep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -66,14 +66,14 @@
           <p class="form__title">
             Endereço da recepção
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_end" ng-change="$scope.change = true">
+          <input type="text" ng-model="evento.festaEnd" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-7 -->
         <div class="col-sm-3">
           <p class="form__title">
             Número
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_numero" ng-change="$scope.change = true">
+          <input type="text" ng-model="evento.festaNumero" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -84,21 +84,21 @@
           <p class="form__title">
             Bairro
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_bairro" ng-change="$scope.change = true">
+          <input type="text" ng-model="evento.festaBairro" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-4">
           <p class="form__title">
             Cidade
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_cidade" ng-change="$scope.change = true">
+          <input type="text" ng-model="evento.festaCidade" ng-change="$scope.change = true">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-2">
           <p class="form__title">
             Estado
           </p>
-          <input type="text" ng-model="eventoCtrl.festa_uf" ng-change="$scope.change = true" maxlength="2">
+          <input type="text" ng-model="evento.festaUf" ng-change="$scope.change = true" maxlength="2">
         </div>
         <!-- col-sm-2 -->
       </div>
@@ -111,11 +111,11 @@
           </p>
           <div class="input__radio">
             <span>
-              <input type="radio" ng-model="eventoCtrl.festa_rota" value="true" ng-change="$scope.change = true">
+              <input type="radio" ng-model="evento.festaRota" value="true" ng-change="$scope.change = true">
                   Sim
             </span>
             <span>
-              <input type="radio" ng-model="eventoCtrl.festa_rota" value="false" ng-change="$scope.change = true">
+              <input type="radio" ng-model="evento.festaRota" value="false" ng-change="$scope.change = true">
                 Não
             </span>
           </div>
@@ -125,15 +125,15 @@
       </div>
       <!-- row -->
     </div>
-    <!-- festa_igual_cerimonia -->
+    <!-- festaIgualCerimonia -->
     <div class="row" ng-if="$scope.change">
       <div class="col-sm-3">
-        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="eventoCtrl.setDadosEvento(); $scope.change = false">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="evento.SetDadosEvento(); $scope.change = false">
           Salvar
         </div>
       </div>
       <div class="col-sm-3">
-        <div class="btn btn--cancel" ng-click="eventoCtrl.getDadosLocal(); $scope.change = false">
+        <div class="btn btn--cancel" ng-click="evento.GetDadosLocal(); $scope.change = false">
           Cancelar
         </div>
       </div>
@@ -157,17 +157,17 @@
     <!-- row -->
 
     <!-- #REGION CADASTRO DE HOTEL -->
-    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showHotel">
+    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!evento.showHotel">
         <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
     </span>
 
-    <div ng-show="eventoCtrl.showHotel">
+    <div ng-show="evento.showHotel">
       <div class="row">
         <div class="col-sm-7">
           <p class="form__title">
             Nome do hotel*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_local">
+          <input type="text" ng-model="evento.hotel.local">
 
         </div>
         <!-- col-sm-7 -->
@@ -175,7 +175,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_cep" mask="99.999-999" ng-keyup="eventoCtrl.consultCEPHotel(eventoCtrl.hotel_cep)">
+          <input type="text" ng-model="evento.hotel.cep" mask="99.999-999" ng-keyup="evento.ConsultCEPHotel(evento.hotel.cep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -186,14 +186,14 @@
           <p class="form__title">
             Endereço do hotel*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_end">
+          <input type="text" ng-model="evento.hotel.end">
         </div>
         <!-- col-sm-7 -->
         <div class="col-sm-3">
           <p class="form__title">
             Número
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_numero">
+          <input type="text" ng-model="evento.hotel.numero">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -204,21 +204,21 @@
           <p class="form__title">
             Bairro*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_bairro">
+          <input type="text" ng-model="evento.hotel.bairro">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-4">
           <p class="form__title">
             Cidade*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_cidade">
+          <input type="text" ng-model="evento.hotel.cidade">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-2">
           <p class="form__title">
             Estado*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_uf" maxlength="2">
+          <input type="text" ng-model="evento.hotel.uf" maxlength="2">
         </div>
         <!-- col-sm-4 -->
       </div>
@@ -229,21 +229,21 @@
           <p class="form__title">
             Telefone*
           </p>
-          <input type="text" ng-model="eventoCtrl.hotel_telefone" mask="(99) 9? 9999-9999">
+          <input type="text" ng-model="evento.hotel.telefone" mask="(99) 9? 9999-9999">
         </div>
         <!-- col-sm-3 -->
         <div class="col-sm-3">
           <p class="form__title">
             E-mail
           </p>
-          <input type="email" ng-model="eventoCtrl.hotel_email">
+          <input type="email" ng-model="evento.hotel.email">
         </div>
         <!-- col-sm-3 -->
         <div class="col-sm-4">
           <p class="form__title">
             Site
           </p>
-          <input type="url" ng-model="eventoCtrl.hotel_site" http-prefix>
+          <input type="url" ng-model="evento.hotel.site" http-prefix>
         </div>
         <!-- col-sm-4 -->
       </div>
@@ -256,11 +256,11 @@
           </p>
           <div class="input__radio">
             <span>
-            <input type="radio"  ng-model="eventoCtrl.hotel_rota" value="sim" >
+            <input type="radio"  ng-model="evento.hotel.rota" value="sim" >
             Sim
             </span>
             <span>
-            <input type="radio"  ng-model="eventoCtrl.hotel_rota" value="nao" >
+            <input type="radio"  ng-model="evento.hotel.rota" value="nao" >
              Não
              </span>
           </div>
@@ -269,7 +269,7 @@
         <!-- col-sm-3 -->
 
         <div class="col-sm-3 col-sm-offset-3">
-          <div class="btn" ng-click="eventoCtrl.adicionarHotel()" ng-class="(eventoCtrl.hotel_local && eventoCtrl.hotel_end && eventoCtrl.hotel_bairro && eventoCtrl.hotel_cidade && eventoCtrl.hotel_uf && eventoCtrl.hotel_telefone) ? ' btn--save':'btn--disable'">
+          <div class="btn" ng-click="evento.AdicionarHotel()" ng-class="(evento.hotel.local && evento.hotel.end && evento.hotel.bairro && evento.hotel.cidade && evento.hotel.uf && evento.hotel.telefone) ? ' btn--save':'btn--disable'">
             Adicionar
           </div>
           <!-- btn -->
@@ -283,16 +283,16 @@
     <!-- #REGION LISTA DE HOTEL -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-show="eventoCtrl.hotel_lista.length > 0">
+        <div class="tabela" ng-show="evento.hotelLista.length > 0">
           <div class="tabela__header">
             Hotéis cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.hotel_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in evento.hotelLista">
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="eventoCtrl.removeHotel(value.Id,key)">X Remover</span>
+            <span ng-click="evento.RemoverHotel(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -318,17 +318,17 @@
     </div>
     <!-- row -->
 
-    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showSalao">
+    <span style="height: 417px;line-height: 417px;width: 100%;display: block;text-align: center;" ng-show="!evento.showSalao">
         <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
     </span>
 
-    <div ng-show="eventoCtrl.showSalao">
+    <div ng-show="evento.showSalao">
       <div class="row">
         <div class="col-sm-7">
           <p class="form__title">
             Nome do salão*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_local">
+          <input type="text" ng-model="evento.salao.local">
 
         </div>
         <!-- col-sm-7 -->
@@ -336,7 +336,7 @@
           <p class="form__title">
             CEP
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_cep" mask="99.999-999" ng-keyup="eventoCtrl.consultCEPSalao(eventoCtrl.salao_cep)">
+          <input type="text" ng-model="evento.salao.cep" mask="99.999-999" ng-keyup="evento.ConsultCEPSalao(evento.salao.cep)">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -347,14 +347,14 @@
           <p class="form__title">
             Endereço do salão*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_end">
+          <input type="text" ng-model="evento.salao.end">
         </div>
         <!-- col-sm-7 -->
         <div class="col-sm-3">
           <p class="form__title">
             Número
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_numero">
+          <input type="text" ng-model="evento.salao.numero">
         </div>
         <!-- col-sm-3 -->
       </div>
@@ -365,21 +365,21 @@
           <p class="form__title">
             Bairro*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_bairro">
+          <input type="text" ng-model="evento.salao.bairro">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-4">
           <p class="form__title">
             Cidade*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_cidade">
+          <input type="text" ng-model="evento.salao.cidade">
         </div>
         <!-- col-sm-4 -->
         <div class="col-sm-2">
           <p class="form__title">
             Estado*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_uf">
+          <input type="text" ng-model="evento.salao.uf">
         </div>
         <!-- col-sm-6 -->
       </div>
@@ -390,21 +390,21 @@
           <p class="form__title">
             Telefone*
           </p>
-          <input type="text" ng-model="eventoCtrl.salao_telefone" mask="(99) 9? 9999-9999">
+          <input type="text" ng-model="evento.salao.telefone" mask="(99) 9? 9999-9999">
         </div>
         <!-- col-sm-3 -->
         <div class="col-sm-3">
           <p class="form__title">
             E-mail
           </p>
-          <input type="email" ng-model="eventoCtrl.salao_email">
+          <input type="email" ng-model="evento.salao.email">
         </div>
         <!-- col-sm-3 -->
         <div class="col-sm-4">
           <p class="form__title">
             Site
           </p>
-          <input type="url" ng-model="eventoCtrl.salao_site" http-prefix>
+          <input type="url" ng-model="evento.salao.site" http-prefix>
         </div>
         <!-- col-sm-4 -->
       </div>
@@ -417,11 +417,11 @@
           </p>
           <div class="input__radio">
             <span>
-            <input type="radio"  ng-model="eventoCtrl.salao_rota" value="sim" >
+            <input type="radio"  ng-model="evento.salao.rota" value="sim" >
             Sim
           </span>
             <span>
-            <input type="radio"  ng-model="eventoCtrl.salao_rota" value="nao" >
+            <input type="radio"  ng-model="evento.salao.rota" value="nao" >
             Não
           </span>
           </div>
@@ -430,7 +430,7 @@
         <!-- col-sm-3 -->
 
         <div class="col-sm-3 col-sm-offset-3">
-          <div class="btn" ng-click="eventoCtrl.adicionarSalao()" ng-class="(eventoCtrl.salao_local && eventoCtrl.salao_end && eventoCtrl.salao_bairro && eventoCtrl.salao_cidade && eventoCtrl.salao_uf && eventoCtrl.salao_telefone) ? 'btn--save': 'btn--disable'">
+          <div class="btn" ng-click="evento.AdicionarSalao()" ng-class="(evento.salao.local && evento.salao.end && evento.salao.bairro && evento.salao.cidade && evento.salao.uf && evento.salao.telefone) ? 'btn--save': 'btn--disable'">
             Adicionar
           </div>
           <!-- btn -->
@@ -446,16 +446,16 @@
     <div class="row">
       <div class="col-sm-10">
         <!-- #REGION TABELA DE SALAO -->
-        <div class="tabela" ng-show="eventoCtrl.salao_lista.length > 0">
+        <div class="tabela" ng-show="evento.salaoLista.length > 0">
           <div class="tabela__header">
             Salões cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.salao_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in evento.salaoLista">
             <p>
               {{value.Local}}
             </p>
-            <span ng-click="eventoCtrl.removeSalao(value.Id,key)">X Remover</span>
+            <span ng-click="evento.RemoverSalao(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -486,24 +486,24 @@
     </div>
     <!-- row -->
 
-    <span style="height: 84px;line-height: 84px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showPresente">
+    <span style="height: 84px;line-height: 84px;width: 100%;display: block;text-align: center;" ng-show="!evento.showPresente">
         <img src="image/loging.gif" alt="Carregando" style="width: 32px;">
     </span>
 
-    <div ng-show="eventoCtrl.showPresente">
+    <div ng-show="evento.showPresente">
       <div class="row">
         <div class="col-sm-5">
           <p class="form__title">
             Nome da loja*
           </p>
-          <input type="text" ng-model="eventoCtrl.loja_nome">
+          <input type="text" ng-model="evento.loja.nome">
         </div>
         <!-- col-sm-6 -->
         <div class="col-sm-5">
           <p class="form__title">
             URL da loja*
           </p>
-          <input type="text" ng-model="eventoCtrl.loja_url" http-prefix>
+          <input type="text" ng-model="evento.loja.url" http-prefix>
         </div>
         <!-- col-sm-6 -->
       </div>
@@ -511,7 +511,7 @@
 
       <div class="row">
         <div class="col-sm-3 col-sm-offset-7">
-          <div class="btn" ng-click="eventoCtrl.adicionarUrl()" ng-class="(eventoCtrl.loja_nome &&eventoCtrl.loja_url) ? 'btn--save' : 'btn--disable'">
+          <div class="btn" ng-click="evento.AdicionarUrl()" ng-class="(evento.loja.nome &&evento.loja.url) ? 'btn--save' : 'btn--disable'">
             Adicionar
           </div>
         </div>
@@ -524,16 +524,16 @@
     <!-- #REGION LISTA DA LISTA DE PRESENTE -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-show="eventoCtrl.loja_lista.length > 0">
+        <div class="tabela" ng-show="evento.lojaLista.length > 0">
           <div class="tabela__header">
             Lojas cadastrados:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.loja_lista">
+          <div class="tabela__item" ng-repeat="(key,value) in evento.lojaLista">
             <p>
               {{value.Nome}}
             </p>
-            <span ng-click="eventoCtrl.removeUrl(value.Id,key)">X Remover</span>
+            <span ng-click="evento.RemoverUrl(value.Id,key)">X Remover</span>
           </div>
           <!-- tabela__item -->
         </div>
@@ -559,29 +559,29 @@
       </div>
       <!-- col-xs-12 -->
 
-      <span style="height: 358px;line-height: 358px;width: 100%;display: block;text-align: center;" ng-show="!eventoCtrl.showCardapio">
+      <span style="height: 358px;line-height: 358px;width: 100%;display: block;text-align: center;" ng-show="!evento.showCardapio">
         <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
     </span>
     </div>
     <!--row-->
-    <div ng-show="eventoCtrl.showCardapio">
+    <div ng-show="evento.showCardapio">
       <div class="row">
         <div class="col-sm-10">
           <p class="form__title">
             Título da etapa*
           </p>
-          <input type="text" ng-model="eventoCtrl.cardapio_title" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
+          <input type="text" ng-model="evento.cardapio.titulo" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
 
           <p class="form__title">
             Descrição do cardápio*
           </p>
-          <textarea ng-model="eventoCtrl.cardapio_descricao" placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
+          <textarea ng-model="evento.cardapio.descricao" placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
         </div>
         <!--col-sm-10-->
       </div>
       <div class="row">
         <div class="col-sm-3 col-sm-offset-7">
-          <div class="btn" ng-click="eventoCtrl.setCardapio()" ng-class="(eventoCtrl.cardapio_title && eventoCtrl.cardapio_descricao) ? 'btn--save' : 'btn--disable'">
+          <div class="btn" ng-click="evento.SetCardapio()" ng-class="(evento.cardapio.titulo && evento.cardapio.descricao) ? 'btn--save' : 'btn--disable'">
             Adicionar
           </div>
         </div>
@@ -595,19 +595,19 @@
     <!-- #REGION LISTA DA LISTA DE PRESENTE -->
     <div class="row">
       <div class="col-sm-10">
-        <div class="tabela" ng-show="eventoCtrl.lista_cardapio.length > 0">
+        <div class="tabela" ng-show="evento.listaCardapio.length > 0">
           <div class="tabela__header">
             Cardápio cadastrado:
           </div>
           <!-- tabela__header -->
-          <div class="tabela__item" ng-repeat="(key,value) in eventoCtrl.lista_cardapio" style="height:auto">
+          <div class="tabela__item" ng-repeat="(key,value) in evento.listaCardapio" style="height:auto">
             <p>
               {{value.Nome}}
             </p>
             <p style="width: 50%;line-height: 1.2;clear:both">
               {{value.Descricao}}
             </p>
-            <span ng-click="eventoCtrl.removerCardapio(value.Id,key)">X Remover</span>
+            <span ng-click="evento.RemoverCardapio(value.Id,key)">X Remover</span>
             <div class="clearfix"></div>
           </div>
           <!-- tabela__item -->
