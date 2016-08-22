@@ -8,6 +8,7 @@
   PagamentoCtrl.$inject = ['$http', 'ipService', 'UserService', 'ServiceCasamento'];
 
   function PagamentoCtrl($http, ipService, UserService, ServiceCasamento) {
+    var emailUsuario = UserService.dados.emailUsuario;
     var ID = UserService.dados.ID;
     var self = this;
 
@@ -262,7 +263,23 @@
       });
     }
 
+    function VerificarPagamento() {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarExisteEmailIsentoPagtoCelebri';
+      var xmlVar = '<EmailCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Email>' + emailUsuario + '</Email></EmailCasal>';
+
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+        var respXml = $.parseXML(resp);
+        var result = $(respXml).find('Result').text();
+
+        if (result === 'true') {
+          self.isPg = true;
+          AtualizarStatus(true, 'Pagou', 0);
+        }
+      });
+    }
+
     function init() {
+      VerificarPagamento();
       GetConvidados();
       GetStatusPagamento();
     }
