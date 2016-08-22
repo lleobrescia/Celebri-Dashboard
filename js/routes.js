@@ -59,8 +59,8 @@
       })
       .when('/confirmados', {
         templateUrl: '/dashboard/templates/page/confirmados.html',
-        controller: 'confirmados',
-        controllerAs: 'confirmadosCtrl'
+        controller: 'ConfirmadosCtrl',
+        controllerAs: 'confirmados'
       })
       .when('/estatisticas', {
         templateUrl: '/dashboard/templates/page/estatistica.html',
