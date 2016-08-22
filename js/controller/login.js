@@ -32,7 +32,7 @@
     self.recuperarSenha = false;//Controla o display da tela de recuperar a senha
     self.carregando = false;//Controla o display do gif de loading
     self.confirmacao = false;//Controla o display da tela de confirmação do email enviado
-    self.nomeUsuario = '';//Input nome do usuario
+    self.nomeUsuario = '';//Input nome do usuario(email)
     self.senhaUsuario = '';//Input senha do usuario
 
     self.Autenticar = Autenticar;
@@ -83,6 +83,8 @@
           //Armazena os nomes dos noivos localmente
           UserService.dados.nomeNoiva = $(respXml).find('NomeNoiva').text();
           UserService.dados.nomeNoivo = $(respXml).find('NomeNoivo').text();
+
+          UserService.dados.emailUsuario = self.nomeUsuario;
 
           //Armazena a url da foto do casal localmente
           var imagemFoto = $(respXml).find('Url_foto').text();
