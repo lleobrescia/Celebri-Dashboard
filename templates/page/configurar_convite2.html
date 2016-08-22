@@ -50,7 +50,7 @@
   <!--modal-->
 
   <div class="row" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
-    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;">
+    <div id="Convite" class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;">
 
       <img ng-src="{{configConvite2Ctrl.layoutSelecionado}}" alt="">
 
@@ -133,6 +133,12 @@
     <div class="col-sm-3">
       <div class="btn btn--ok">
         <a ng-href="/dashboard/#/personalizar-convite">Editar</a>
+      </div>
+    </div>
+    <!-- col-sm-3 -->
+    <div class="col-sm-3">
+      <div class="btn btn--ok" ng-click="configConvite2Ctrl.ConviteToCanvas()">
+        BAIXAR CONVITE
       </div>
     </div>
     <!-- col-sm-3 -->
