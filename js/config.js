@@ -2,7 +2,6 @@
 angular
   .module('dashboard', [
     'ngRoute',//Controlar URL
-    'ngFileUpload',//Usado para upload da foto do casal
     'ngMask',//Mascara dos inputs
     'rzModule',//Usado no slider para alterar o tamanho da fonte
     'ngAnimate',//Usado nas trancições de telas
