@@ -51,6 +51,7 @@
 
     self.AlterarConvite = AlterarConvite;
     self.cerregando = true; //Controlado o display do gif de carregar
+    self.ConviteToCanvas = ConviteToCanvas;
     self.hasContent = UserService.dados.conviteCriado; //O convite ja foi criado?
     self.thumbEscolhido = 'image/convites/thumb/thumb1.png'; //Inicializa um thumb
     //thumb disponiveis
@@ -125,6 +126,19 @@
         console.error('AlterarConvite -> ', error);
         console.warn('Dados enviados:', xmlVar);
       });
+    }
+
+    function ConviteToCanvas() {
+      html2canvas($('#Convite'), {
+        onrendered: function (canvas) {
+          var img = canvas.toDataURL('image/jpeg');
+          var doc = new jsPDF('l', 'in', 'a4');
+
+          doc.addImage(img, 'JPEG', 0.6, 0.5);
+          doc.save('convite.pdf');
+        }
+      });
+
     }
 
     /**
