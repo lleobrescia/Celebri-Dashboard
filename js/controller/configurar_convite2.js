@@ -61,6 +61,11 @@
         nome: 'Laranja'
       },
       {
+        ID: 2,
+        url: 'image/convites/thumb/thumb2.png',
+        nome: 'Arabescos'
+      },
+      {
         ID: 3,
         url: 'image/convites/thumb/thumb3.png',
         nome: 'Ramos'
@@ -71,9 +76,24 @@
         nome: 'Plain'
       },
       {
+        ID: 5,
+        url: 'image/convites/thumb/thumb5.png',
+        nome: 'Orquidea'
+      },
+      {
         ID: 6,
         url: 'image/convites/thumb/thumb6.png',
         nome: 'Gold'
+      },
+      {
+        ID: 7,
+        url: 'image/convites/thumb/thumb7.png',
+        nome: 'Floral'
+      },
+      {
+        ID: 9,
+        url: 'image/convites/thumb/thumb9.png',
+        nome: 'Árvore'
       }
     ];
     self.thumbNome = 'Laranja'; //Inicializa o nome do convite
