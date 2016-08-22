@@ -97,6 +97,19 @@
       self.SetBlocoActive(0);
     }
 
+    function GetFontID(fontName) {
+      var retorno = null;
+      angular.forEach(self.fonts, function (value, key) {
+        angular.forEach(self.fonts[key], function (value, key) {
+          var font = value['font-name'];
+          if (font === fontName) {
+            retorno = key;
+          }
+        });
+      });
+      return retorno;
+    }
+
     /**
      * @name GetLocal
      * @desc Carrega as configuracoes do convite salvas locamente
@@ -257,13 +270,21 @@
         UserService.dados.blocoPaisNoivo.color =
         self.blocoPaisNoivo.color;
 
-      var fonteMsg1 = UserService.dados.blocoMsg1['font-id'];
-      var fonteMsg2 = UserService.dados.blocoMsg2['font-id'];
-      var fonteMsg3 = UserService.dados.blocoMsgPersonalizadaStyle['font-id'];
-      var fonteMsg4 = UserService.dados.blocoCerimonia['font-id'];
-      var fonteNomeCasal = UserService.dados.blocoNomeNoivos['font-id'];
-      var fontePaisNoiva = UserService.dados.blocoPaisNoiva['font-id'];
-      var fontePaisNoivo = UserService.dados.blocoPaisNoivo['font-id'];
+      var fonteMsg1 = UserService.dados.blocoMsg1['font-id'] = GetFontID(self.blocoMsg1['font-family']);
+      var fonteMsg2 = UserService.dados.blocoMsg2['font-id'] = GetFontID(self.blocoMsg2['font-family']);
+      var fonteMsg3 = UserService.dados.blocoMsgPersonalizadaStyle['font-id'] = GetFontID(self.blocoMsgPersonalizadaStyle['font-family']);
+      var fonteMsg4 = UserService.dados.blocoCerimonia['font-id'] = GetFontID(self.blocoCerimonia['font-family']);
+      var fonteNomeCasal = UserService.dados.blocoNomeNoivos['font-id'] = GetFontID(self.blocoNomeNoivos['font-family']);
+      var fontePaisNoiva = UserService.dados.blocoPaisNoiva['font-id'] = GetFontID(self.blocoPaisNoiva['font-family']);
+      var fontePaisNoivo = UserService.dados.blocoPaisNoivo['font-id'] = GetFontID(self.blocoPaisNoivo['font-family']);
+
+      UserService.dados.blocoMsg1['font-family'] = self.blocoMsg1['font-family'];
+      UserService.dados.blocoMsg2['font-family'] = self.blocoMsg2['font-family'];
+      UserService.dados.blocoMsgPersonalizadaStyle['font-family'] = self.blocoMsgPersonalizadaStyle['font-family'];
+      UserService.dados.blocoCerimonia['font-family'] = self.blocoCerimonia['font-family'];
+      UserService.dados.blocoNomeNoivos['font-family'] = self.blocoNomeNoivos['font-family'];
+      UserService.dados.blocoPaisNoiva['font-family'] = self.blocoPaisNoiva['font-family'];
+      UserService.dados.blocoPaisNoivo['font-family'] = self.blocoPaisNoivo['font-family'];
 
       var tamanhoFonteMsg1 = RemovePx(self.blocoMsg1['font-size']);
       var tamanhoFonteMsg2 = RemovePx(self.blocoMsg2['font-size']);
@@ -295,7 +316,8 @@
 
       xmlVar += ' <tamanho_fonte_msg1>' + tamanhoFonteMsg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanhoFonteMsg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanhoFonteMsg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanhoFonteMsg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanhoFontePaisNoiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanhoFontePaisNoivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanhoNomeCasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
 
-      ServiceCasamento.SendData(urlVar, xmlVar);
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+      });
     }
 
     /**
