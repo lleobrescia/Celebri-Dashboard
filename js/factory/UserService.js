@@ -21,6 +21,7 @@
       //Login
       ID: null,
       nomeUsuario: '',
+      emailUsuario: '',
       fotoUrl: '',
       senhaApp: '',
 
