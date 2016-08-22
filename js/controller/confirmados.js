@@ -1,101 +1,125 @@
-angular.module("dashboard").controller('confirmados', ['UserService', 'ipService', 'ServiceCasamento', '$http', function (UserService, ipService, ServiceCasamento, $http) {
+(function () {
+  'use strict';
 
-  var self = this;
-  var ID = UserService.dados.ID;
-  var nomeNoiva = UserService.dados.nomeNoiva;
-  var nomeNoivo = UserService.dados.nomeNoivo;
-  var dataCasamento = UserService.dados.dataCasamento;
+  angular
+    .module('dashboard')
+    .controller('ConfirmadosCtrl', ConfirmadosCtrl);
 
-  self.carregando = true;
-  self.enviando = false;
-  self.msg = false;
-  self.total = 0;
+  ConfirmadosCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento', '$http', 'EnviarEmail'];
+  function ConfirmadosCtrl(UserService, ipService, ServiceCasamento, $http, EnviarEmail) {
+    var self          = this;
+    var dataCasamento = UserService.dados.dataCasamento;
+    var ID            = UserService.dados.ID;
+    var nomeNoiva     = UserService.dados.nomeNoiva;
+    var nomeNoivo     = UserService.dados.nomeNoivo;
 
-  self.listaConfirmados = [];
+    self.carregando       = true;
+    self.enviando         = false;
+    self.listaConfirmados = [];
+    self.msg              = false;
+    self.total            = 0;
 
-  self.getConfirmados = function () {
+    Init();
 
-    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarConvidadosConfirmados";
-    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
+    function Download() {
+      var columns = ['Nome do convidado', 'Acompanhantes', 'Total de Confirmados'];
+      var rows    = [];
 
-    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-      var respXml = $.parseXML(resp);
-      var listaAcompanhante = [];
-      self.listaConfirmados = [];
+      angular.forEach(self.listaConfirmados, function (item) {
+        var acompanhantes = '';
 
-      $(respXml).find('ListaConvidadosConfirmados').each(function () {
-        var count = 1;
-        var convidado = this;
-        listaAcompanhante = [];
+        angular.forEach(item.Acompanhantes, function (itens) {
+          acompanhantes += itens.Nome + '\n';
+        });
+        rows.push(
+          [item.Nome, acompanhantes, item.Total]
+        );
+      });
 
-        $(convidado).find('ListaAcompanhantes').each(function () {
-          count++;
-          listaAcompanhante.push(
-            {
-              'Nome': $(this).find('Nome').text(),
-            }
-          );
+      var doc = new jsPDF('p', 'pt');
+      doc.autoTable(columns, rows);
+      doc.save('lista_convidados.pdf');
+    }
+
+    function Enviar() {
+      if (self.email && self.nome) {
+        self.enviando = true;
+        var data      = dataCasamento.split('/');
+        data          = data[1] + '/' + data[0] + '/' + data[2];
+
+        var destinatario  = self.email;
+        var assunto       = 'Lista de Casamento [Celebri]';
+        var conteudo      = '<span>Olá ' + self.nome + ', <br>essa é a lista dos convidados confirmados para o casamento de ' + nomeNoiva + ' e ' + nomeNoivo + ', no dia ' + data + '</span><br><br><table width="500" cellspacing="0" cellpadding="0" border="1">  <thead>    <tr>      <td style="padding: 10px;">        <b>Nome do convidado</b>      </td>      <td style="padding: 10px;">        <b>Acompanhantes</b>      </td>      <td style="padding: 10px;">        <b>Nº de Confirmados <br> (Convidado + Acompanhantes)</b>      </td>    </tr>  </thead>';
+
+        angular.forEach(self.listaConfirmados, function (item) {
+          conteudo += '<tr><td style="padding: 10px;">' + item.Nome + '</td><td style="padding: 10px;">';
+
+          angular.forEach(item.Acompanhantes, function (acompanhant) {
+            conteudo += acompanhant.Nome + '<br>';
+          });
+          conteudo += '</td><td align="center" style="padding: 10px;">' + item.Total + '</td></tr>';
         });
 
-        self.listaConfirmados.push(
-          {
-            'Nome': $(this).find('NomeConvidado').text(),
-            'Acompanhantes': listaAcompanhante,
-            'Total': count
-          }
-        );
-        self.total += count;
-      });
-      self.carregando = false;
-    });
+        conteudo += '</table><span style="margin-top: 30px;display: block;width: 500px;text-align: right;">  Total geral de convidados: <b>' + self.total + '</b></span>';
 
-  };
 
-  self.enviar = function () {
-    if (self.email && self.nome) {
-      self.enviando = true;
-      var data = dataCasamento.split('/');
-      data = data[1] + "/" + data[0] + "/" + data[2];
-
-      var dados = {
-        'NomeEnvio': self.nome,
-        'EmailEnvio': self.email,
-        'nomeNoiva': nomeNoiva,
-        'nomeNoivo': nomeNoivo,
-        'dataCasamento': data,
-        'TotalGeral': self.total,
-        'Dados': self.listaConfirmados
-      };
-
-      $http.post('php/enviarListaConfirmados.php', dados).success(function (data) {
-        self.enviando = false;
-        self.msg = true;
-        console.log(data);
-        self.nome = '';
-        self.email = '';
-      });
+        EnviarEmail.Mail(destinatario, assunto, conteudo).then(function (data) {
+          console.log(data);
+          console.log(conteudo);
+          self.enviando   = false;
+          self.msg        = true;
+          self.nome       = '';
+          self.email      = '';
+        });
+      }
     }
-  };
 
-  self.download = function () {
-    var columns = ["Nome do convidado", "Acompanhantes", "Total de Confirmados"];
-    var rows = [];
+    function GetConfirmados() {
 
-    angular.forEach(self.listaConfirmados, function (item) {
-      var acompanhantes = '';
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConvidadosConfirmados';
+      var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
-      angular.forEach(item.Acompanhantes, function (itens) {
-        acompanhantes += itens.Nome + "\n";
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+        var respXml           = $.parseXML(resp);
+        var listaAcompanhante = [];
+        self.listaConfirmados = [];
+
+        $(respXml).find('ListaConvidadosConfirmados').each(function () {
+          var count         = 1;
+          var convidado     = this;
+          listaAcompanhante = [];
+
+          $(convidado).find('ListaAcompanhantes').each(function () {
+            count++;
+            listaAcompanhante.push(
+              {
+                'Nome': $(this).find('Nome').text(),
+              }
+            );
+          });
+
+          self.listaConfirmados.push(
+            {
+              'Nome'          : $(this).find('NomeConvidado').text(),
+              'Acompanhantes' : listaAcompanhante,
+              'Total'         : count
+            }
+          );
+          self.total    += count;
+        });
+        self.carregando = false;
       });
-      rows.push(
-        [item.Nome, acompanhantes, item.Total]
-      );
-    });
 
-    var doc = new jsPDF('p', 'pt');
-    doc.autoTable(columns, rows);
-    doc.save('lista_convidados.pdf');
-  };
+    }
 
-  self.getConfirmados();
-}]);
+    function Init() {
+      /**
+       * Adiciona as funcoes ao scope do controlador
+       */
+      self.Download = Download;
+      self.Enviar   = Enviar;
+
+      GetConfirmados();
+    }
+  }
+} ());
