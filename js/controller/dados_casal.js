@@ -19,14 +19,14 @@
    * $scope - scopo para input file
    * $rootScope - Usado para a imagem do casal
    */
-  DadosCasal.$inject = ['Upload', '$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope'];
+  DadosCasal.$inject = ['$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', 'EnviarFoto'];
 
   /**
    * @namespace DadosCasal
    * @desc Controla todos os itens Referente aos dados do casal.(Nome, data e foto)
    * @memberOf Controllers
    */
-  function DadosCasal(Upload, $filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope) {
+  function DadosCasal($filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope, EnviarFoto) {
 
     var self = this;
     var ID = UserService.dados.ID;
@@ -69,7 +69,7 @@
     // } else {
     //   self.dataCasamento = new Date(dataNoivos);
     // }
-self.CasalGetDados();
+    self.CasalGetDados();
     /**
      * @name UploadFoto
      * @desc Envia o foto do casal recortada para o servidor na base64
@@ -85,14 +85,9 @@ self.CasalGetDados();
        */
       var imagemCortada = self.imageEditor.toDataURL({ useOriginalImg: true, imageType: 'image/jpg' });
 
-      //Envia para o servidor
-      var upload = Upload.upload({
-        url: 'https://celebri.com.br/dashboard/php/enviarFoto.php',
-        data: { image: imagemCortada, name: ID }
-      });
 
-      //Retorno do servidor
-      upload.then(function (resp) {
+      EnviarFoto.Request(ID, imagemCortada).then(function (resp) {
+        console.log(resp);
         /**
          * O nome da imagem nunca muda,portanto
          * ela fica no cache. Para evitar o cache
