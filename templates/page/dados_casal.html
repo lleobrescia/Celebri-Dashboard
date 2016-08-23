@@ -72,7 +72,7 @@
 
             <div class="upload__image">
               <div ng-if="!dadosCasalCtrl.carregando">
-                <img id="img" ng-if="dadosCasalCtrl.foto" ng-src="{{dadosCasalCtrl.foto}}">
+                <img id="img" ng-if="dadosCasalCtrl.foto" ng-src="{{dadosCasalCtrl.foto}}" alt="Foto Casal">
                 <i class="fa fa-camera" ng-if="!dadosCasalCtrl.foto"></i>
                 <input type="file" accept="image/*" onchange="angular.element(this).scope().OpenFile(this)">
               </div>
