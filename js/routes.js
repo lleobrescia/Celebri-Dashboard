@@ -39,8 +39,8 @@
       })
       .when('/cadastrar-convidados', {
         templateUrl: '/dashboard/templates/page/cadastrar_convidados.html',
-        controller: 'cadastrar_convidados',
-        controllerAs: 'convidadosCtrl'
+        controller: 'CadastrarConvidadosCtrl',
+        controllerAs: 'convidados'
       })
       .when('/save-the-date', {
         templateUrl: '/dashboard/templates/page/save_the_date.html',
