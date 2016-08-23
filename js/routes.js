@@ -64,8 +64,8 @@
       })
       .when('/estatisticas', {
         templateUrl: '/dashboard/templates/page/estatistica.html',
-        controller: 'estatistica',
-        controllerAs: 'estatisticaCtrl'
+        controller: 'EstatisticaCtrl',
+        controllerAs: 'estatistica'
       })
       .when('/login', {
         templateUrl: '/dashboard/templates/page/login.html',
