@@ -44,8 +44,8 @@
       })
       .when('/save-the-date', {
         templateUrl: '/dashboard/templates/page/save_the_date.html',
-        controller: 'save_date',
-        controllerAs: 'dateCtrl'
+        controller: 'SaveTheDateCtrl',
+        controllerAs: 'saveDate'
       })
       .when('/save-the-date/2', {
         templateUrl: '/dashboard/templates/page/save_the_date2.html',
