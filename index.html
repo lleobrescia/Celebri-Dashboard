@@ -78,8 +78,8 @@
 </head>
 
 <body>
-  <div class="wrapper" ng-controller="mainController" ng-class="login">
-    <div ng-include="cabecalho" class="cabecalho"></div>
+  <div class="wrapper" ng-controller="MainCtrl as Main" ng-class="login">
+    <div ng-include="Main.cabecalho" class="cabecalho"></div>
 
     <img src="image/loging.gif" alt="Carregando" ng-if="loading" style="width: 64px;position: absolute;top: 0;bottom: 0;margin: auto;left: 0;right: 0;">
 
