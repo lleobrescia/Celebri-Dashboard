@@ -1,114 +1,135 @@
-angular.module("dashboard").controller('cadastrar_convidados', ['ServiceCasamento', 'UserService', 'ipService', function (ServiceCasamento, UserService, ipService) {
+(function () {
+  'use strict';
 
-  var self = this;
-  var ID = UserService.dados.ID;
-  self.showConvidados = false;
-  self.convidado_acompanhantes = '0';
+  angular
+    .module('dashboard')
+    .controller('CadastrarConvidadosCtrl', CadastrarConvidadosCtrl);
 
-  self.getConvidados = function () {
-    self.showConvidados = false;
-    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarConvidados";
-    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
-    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-      var respXml = $.parseXML(resp);
+  CadastrarConvidadosCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService'];
+  function CadastrarConvidadosCtrl(ServiceCasamento, UserService, ipService) {
+    var self  = this;
+    var ID    = UserService.dados.ID;
 
-      self.convidado_lista = [];
-      $(respXml).find('Convidado').each(function () {
-        self.convidado_lista.push(
-          {
-            'Id': $(this).find('Id').text(),
-            'nome': $(this).find('Nome').text(),
-            'email': $(this).find('Email').text(),
-            'convidados': $(this).find('Qtde_Acompanhantes').text()
-          }
-        );
-      });
-      self.showConvidados = true;
-      UserService.dados.convidado_lista = self.convidado_lista;
-      UserService.SaveState();
-    });
-  };
+    self.showConvidados         = false;
+    self.convidadoAcompanhantes = '0';
 
-  self.removeConvidado = function (dataId, key) {
-    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/ExcluirConvidados";
-    var xmlVar = '<ListaRegistrosExcluir xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_registro><int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + dataId + '</int></Id_registro></ListaRegistrosExcluir>';
+    self.RemoverConvidado   = RemoverConvidado;
+    self.AdicionarConvidado = AdicionarConvidado;
 
-    self.convidado_lista.splice(key, 1);
-    UserService.dados.convidado_lista = self.convidado_lista;
-    UserService.SaveState();
+    init();
 
-    ServiceCasamento.SendData(urlVar, xmlVar);
-  };
+    function AdicionarConvidado() {
+      if (self.convidadoNome && self.convidadoEmail) {
+        self.showConvidados = false;
 
-  self.adicionarConvidado = function () {
-    if (self.convidado_nome && self.convidado_email) {
+        var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/CadastroConvidados';
+        var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.convidadoEmail + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.convidadoNome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + self.convidadoAcompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+
+        ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+          GetConvidados();
+
+          self.convidadoNome          = '';
+          self.convidadoAcompanhantes = '0';
+          self.convidadoEmail         = '';
+        });
+      }
+    }
+
+    function HandleFile(e) {
+      var files = e.target.files;
+      var i, f;
+
+      for (i = 0, f = files[i]; i !== files.length; ++i) {
+        var reader  = new FileReader();
+        var name    = f.name;
+
+        reader.onload = function (e) {
+          var data          = e.target.result;
+          var workbook      = XLSX.read(data, { type: 'binary' });
+          var sheetNameList = workbook.SheetNames;
+
+          sheetNameList.forEach(function (y) { /* iterate through sheets */
+            var worksheet = workbook.Sheets[y];
+            var count     = 0;
+            var result    = [];
+
+            for (z in worksheet) {
+
+              /* all keys that do not begin with '!' correspond to cell addresses */
+              if (z[0] === '!') continue;
+              result[count] = worksheet[z].v;
+
+              if (count === 2) {
+                self.showConvidados = false;
+
+                var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/CadastroConvidados';
+                var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + result[1] + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + result[0] + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + result[2] + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+
+                ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
+                  GetConvidados();
+                });
+
+                count   = 0;
+                result  = [];
+              }
+              else count++;
+            }
+          });
+        };
+        reader.readAsBinaryString(f);
+      }
+    }
+
+    function init() {
+      document.getElementById('xlf').addEventListener('change', HandleFile, false);
+
+      if (!UserService.dados.convidadoLista) {
+        GetConvidados();
+      } else {
+        self.convidadoLista = UserService.dados.convidadoLista;
+        self.showConvidados = true;
+      }
+    }
+
+    function GetConvidados() {
       self.showConvidados = false;
 
-
-      var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastroConvidados";
-      var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.convidado_email + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.convidado_nome + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + self.convidado_acompanhantes + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConvidados';
+      var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-        console.log(urlVar);
-        console.log(xmlVar);
-        console.log(resp);
-        self.getConvidados();
-        self.convidado_nome = "";
-        self.convidado_acompanhantes = '0';
-        self.convidado_email = "";
-        self.convidado_telefone = "";
+        var respXml = $.parseXML(resp);
 
-        self.getConvidados();
+        self.convidadoLista = [];
+
+        $(respXml).find('Convidado').each(function () {
+          self.convidadoLista.push(
+            {
+              'Id'        : $(this).find('Id').text(),
+              'nome'      : $(this).find('Nome').text(),
+              'email'     : $(this).find('Email').text(),
+              'convidados': $(this).find('Qtde_Acompanhantes').text()
+            }
+          );
+        });
+
+        self.showConvidados               = true;
+        UserService.dados.convidadoLista  = self.convidadoLista;
+
+        UserService.SaveState();
       });
     }
-  };
 
-  function handleFile(e) {
-    var files = e.target.files;
-    var i, f;
-    for (i = 0, f = files[i]; i != files.length; ++i) {
-      var reader = new FileReader();
-      var name = f.name;
-      reader.onload = function (e) {
-        var data = e.target.result;
+    function RemoverConvidado(dataId, key) {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ExcluirConvidados';
+      var xmlVar = '<ListaRegistrosExcluir xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_registro><int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + dataId + '</int></Id_registro></ListaRegistrosExcluir>';
 
-        var workbook = XLSX.read(data, { type: 'binary' });
+      self.convidadoLista.splice(key, 1);
 
-        var sheet_name_list = workbook.SheetNames;
-        sheet_name_list.forEach(function (y) { /* iterate through sheets */
-          var worksheet = workbook.Sheets[y];
-          var count = 0;
-          var result = [];
-          for (z in worksheet) {
+      UserService.dados.convidadoLista = self.convidadoLista;
+      UserService.SaveState();
 
-            /* all keys that do not begin with "!" correspond to cell addresses */
-            if (z[0] === '!') continue;
-            result[count] = worksheet[z].v;
-
-            if (count == 2) {
-              self.showConvidados = false;
-              var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/CadastroConvidados";
-              var xmlVar = '<Convidado xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + result[1] + '</Email><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + result[0] + '</Nome><Padrinho>false</Padrinho><Qtde_Acompanhantes>' + result[2] + '</Qtde_Acompanhantes><Senha></Senha></Convidado>';
-              ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
-                self.getConvidados();
-              });
-
-              count = 0;
-              result = [];
-            }
-            else count++;
-          }
-        });
-      };
-      reader.readAsBinaryString(f);
+      ServiceCasamento.SendData(urlVar, xmlVar);
     }
   }
-  document.getElementById("xlf").addEventListener('change', handleFile, false);
-
-  if (!UserService.dados.convidado_lista) {
-    self.getConvidados();
-  } else {
-    self.convidado_lista = UserService.dados.convidado_lista;
-    self.showConvidados = true;
-  }
-}]);
+} ());

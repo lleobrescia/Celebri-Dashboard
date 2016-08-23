@@ -25,23 +25,24 @@
   <!-- row -->
 
   <form class="form" style="padding-top: 30px;">
-    <span style="height: 297px;line-height: 297px;text-align: center;display:block" ng-show="!convidadosCtrl.showConvidados">
+    <span style="height: 297px;line-height: 297px;text-align: center;display:block" ng-show="!convidados.showConvidados">
       <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
     </span>
-    <div ng-show="convidadosCtrl.showConvidados">
+
+    <div ng-show="convidados.showConvidados">
       <div class="row">
         <div class="col-sm-7">
           <p class="form__title">
             Convidado(a):*
           </p>
-          <input type="text" name="convidado_nome" ng-model="convidadosCtrl.convidado_nome">
+          <input type="text" name="convidadoNome" ng-model="convidados.convidadoNome">
         </div>
         <!-- col-sm-7 -->
         <div class="col-sm-3">
           <p class="form__title">
             Núm. de acompanhantes
           </p>
-          <select name="convidado_acompanhantes" ng-model="convidadosCtrl.convidado_acompanhantes">
+          <select name="convidadoAcompanhantes" ng-model="convidados.convidadoAcompanhantes">
           <option value="0" ng-selected="true">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -59,14 +60,14 @@
           <p class="form__title">
             E-mail:*
           </p>
-          <input type="text" name="convidado_email" ng-model="convidadosCtrl.convidado_email">
+          <input type="text" name="convidadoEmail" ng-model="convidados.convidadoEmail">
         </div>
       </div>
       <!-- row -->
 
       <div class="row">
         <div class="col-sm-3">
-          <div class="btn" ng-click="convidadosCtrl.adicionarConvidado()" ng-class="(convidadosCtrl.convidado_nome && convidadosCtrl.convidado_email) ? 'btn--save': 'btn--disable'">
+          <div class="btn" ng-click="convidados.AdicionarConvidado()" ng-class="(convidados.convidadoNome && convidados.convidadoEmail) ? 'btn--save': 'btn--disable'">
             Adicionar
           </div>
         </div>
@@ -82,6 +83,7 @@
             Carregue sua lista de convidados em uma planilha aqui:
           </p>
         </div>
+        <!--col-sm-7-->
 
         <div class="col-sm-3">
           <div class="btn btn--save" style="position: relative;overflow: hidden;cursor: pointer;">
@@ -89,19 +91,21 @@
             <input type="file" name="xlfile" id="xlf" accept=".ods,.xls,.xlsx" style="position: absolute;top: -36px;left: 0;right: 0;bottom: 0;opacity: 0;filter: alpha(opacity=0);cursor: pointer;width: 100%;height: 91px;padding: 0;margin: 0;z-index: 1;line-height: normal;">
           </div>
         </div>
+        <!--col-sm-3-->
       </div>
+      <!--row-->
     </div>
 
     <hr>
 
-    <div class="row" ng-show="convidadosCtrl.convidado_lista.length > 0">
+    <div class="row" ng-show="convidados.convidadoLista.length > 0">
       <div class="col-sm-10">
         <div class="tabela__convidado">
           <div class="tabela_convidado_topo">
             <p>
               Convidados cadastrados:
             </p>
-            <input type="text" name="name" value="" ng-model="convidadosCtrl.searchText">
+            <input type="text" name="name" value="" ng-model="convidados.searchText">
           </div>
           <!-- tabela_convidado_topo -->
           <div class="tabela_convidado_header">
@@ -116,7 +120,8 @@
             </p>
           </div>
           <!-- tabela_convidado_header -->
-          <div class="tabela_convidado_single" ng-repeat="(key,value) in convidadosCtrl.convidado_lista  | filter:convidadosCtrl.searchText">
+
+          <div class="tabela_convidado_single" ng-repeat="(key,value) in convidados.convidadoLista  | filter:convidados.searchText">
             <p>
               {{value.nome}}
             </p>
@@ -126,7 +131,7 @@
             <p>
               {{value.convidados}}
             </p>
-            <i class="fa fa-times-circle-o" ng-click="convidadosCtrl.removeConvidado(value.Id, key)"></i>
+            <i class="fa fa-times-circle-o" ng-click="convidados.RemoverConvidado(value.Id, key)"></i>
           </div>
           <!-- tabela_convidado_single -->
         </div>
