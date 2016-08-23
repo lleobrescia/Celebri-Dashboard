@@ -14,23 +14,25 @@
         Escolha abaixo o layout que preferir.
       </p>
     </div>
+    <!--col-sm-12-->
   </div>
   <!-- row -->
 
-  <span ng-show="!dateCtrl.showDate" style="display: block;text-align: center;height: 300px;line-height: 300px;">
+  <span ng-show="!saveDate.showDate" style="display: block;text-align: center;height: 300px;line-height: 300px;">
     <img src="image/loging.gif" alt="Carregando" style="width: 64px;">
   </span>
 
-  <div ng-show="dateCtrl.showDate">
+  <div ng-show="saveDate.showDate">
     <div class="row">
       <div class="col-xs-12">
         <div class="save__layout">
-          <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '1'}" ng-click=" dateCtrl.modelo='1'; $scope.change = true">
-          <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '3'}" ng-click=" dateCtrl.modelo='3'; $scope.change = true">
-          <img src="./image/savethedate/Modelo8.png" alt="" ng-class="{'layout__borda' : dateCtrl.modelo == '8'}" ng-click=" dateCtrl.modelo='8'; $scope.change = true">
+          <img src="./image/savethedate/Modelo1.png" alt="" ng-class="{'layout__borda' : saveDate.modelo == '1'}" ng-click=" saveDate.modelo='1'; $scope.change = true">
+          <img src="./image/savethedate/Modelo3.png" alt="" ng-class="{'layout__borda' : saveDate.modelo == '3'}" ng-click=" saveDate.modelo='3'; $scope.change = true">
+          <img src="./image/savethedate/Modelo8.png" alt="" ng-class="{'layout__borda' : saveDate.modelo == '8'}" ng-click=" saveDate.modelo='8'; $scope.change = true">
         </div>
+        <!--save__layout-->
       </div>
-      <!-- row -->
+      <!-- col-xs-12 -->
     </div>
     <!-- row -->
 
@@ -40,7 +42,7 @@
           <p class="form__title">
             Mensagem:
           </p>
-          <textarea class="save__menssage" ng-model="dateCtrl.mensagem" ng-change="$scope.change = true"></textarea>
+          <textarea class="save__menssage" ng-model="saveDate.mensagem" ng-change="$scope.change = true"></textarea>
         </div>
         <!-- col-sm-10 -->
       </div>
@@ -49,12 +51,13 @@
 
     <div class="row">
       <div class="col-sm-3" ng-if="$scope.change">
-        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="dateCtrl.salvar(); $scope.change = false">
+        <div class="btn btn--save" style="margin-bottom:24px;" ng-click="saveDate.Salvar(); $scope.change = false">
           Salvar
         </div>
       </div>
+      <!--col-sm-3-->
       <div class="col-sm-3" ng-if="$scope.change">
-        <div class="btn btn--cancel" ng-click="dateCtrl.getData(); $scope.change = false">
+        <div class="btn btn--cancel" ng-click="saveDate.GetData(); $scope.change = false">
           Cancelar
         </div>
       </div>
@@ -67,6 +70,5 @@
     </div>
     <!-- row -->
   </div>
-
 </div>
 <!-- container-fluid  -->
