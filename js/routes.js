@@ -49,8 +49,8 @@
       })
       .when('/save-the-date/2', {
         templateUrl: '/dashboard/templates/page/save_the_date2.html',
-        controller: 'save_date2',
-        controllerAs: 'date2Ctrl'
+        controller: 'SaveTheDatePg2Ctrl',
+        controllerAs: 'saveDatePg2'
       })
       .when('/enviar-convite', {
         templateUrl: '/dashboard/templates/page/enviar_convite.html',
