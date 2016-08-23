@@ -1,36 +1,49 @@
-angular.module("dashboard").controller('estatistica', ['UserService', 'ipService', 'ServiceCasamento', function (UserService, ipService, ServiceCasamento) {
+(function () {
+  'use strict';
 
-  var self = this;
-  var ID = UserService.dados.ID;
-  self.carregando = true;
+  angular
+    .module('dashboard')
+    .controller('EstatisticaCtrl', EstatisticaCtrl)
 
-  self.getEstatistica = function () {
-    var urlVar = "http://" + ipService.ip + "/ServiceCasamento.svc/RetornarEstatisticaCasamento";
-    var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
+  EstatisticaCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento'];
+  function EstatisticaCtrl(UserService, ipService, ServiceCasamento) {
+    var self  = this;
+    var ID    = UserService.dados.ID;
 
-    ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-      var respXml = $.parseXML(resp);
+    init();
 
-      //emails enviados
-      self.total_convites_enviados = $(respXml).find('total_convites_enviados_cerimonia_e_festa').text();
+    function init() {
+      self.carregando = true;
+      GetEstatistica();
+    }
 
-      //convidados cadastrados
-      self.total_convidados = $(respXml).find('total_convidados').text();
+    function GetEstatistica() {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarEstatisticaCasamento';
+      var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
-      //convidados + acompanhantes
-      self.total_geral_convidados = $(respXml).find('total_geral_convidados').text();
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+        var respXml = $.parseXML(resp);
 
-      //baixou o app
-      self.total_confirmados = $(respXml).find('total_convidados_confirmados').text();
+        //emails enviados
+        self.totalConvitesEnviados = $(respXml).find('total_convites_enviados_cerimonia_e_festa').text();
 
-      self.total_acompanhantes = $(respXml).find('total_acompanhantes').text();
+        //convidados cadastrados
+        var totalConvidados        = $(respXml).find('total_convidados').text();
+
+        //convidados + acompanhantes
+        self.totalGeralConvidados  = $(respXml).find('total_geral_convidados').text();
+
+        //baixou o app
+        self.totalConfirmados      = $(respXml).find('total_convidados_confirmados').text();
+
+        var totalAcompanhantes     = $(respXml).find('total_acompanhantes').text();
 
 
-      self.convidados_geral_labels = ["Convidados Direto", "Acompanhantes"];
-      self.convidados_geral_data = [self.total_convidados, self.total_acompanhantes];
+        self.convidadosGeralLabels = ['Convidados Direto', 'Acompanhantes'];
+        self.convidadosGeralData   = [totalConvidados, totalAcompanhantes];
 
-      self.carregando = false;
-    });
-  };
-  self.getEstatistica();
-}]);
+        self.carregando            = false;
+      });
+    }
+  }
+} ());
