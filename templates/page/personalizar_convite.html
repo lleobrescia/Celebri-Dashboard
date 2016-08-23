@@ -2,183 +2,183 @@
 
 
 <a ng-href="/dashboard/#/configurar-convite/2" style="font-size: 2em;color: black;padding: 10px;margin-top: -35px;margin-bottom: -10px;display: block;">
-  < Voltar </a>
+  	&lArr; Voltar </a>
 
-    <hr style="border-color: black">
+<hr style="border-color: black">
 
-    <div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;Main.CheckTemplate()" ng-show="!personalizarCtrl.cerregando">
+<div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;Main.CheckTemplate()" ng-show="!personalizarCtrl.cerregando">
 
-      <div class="row">
-        <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'blocoPaisNoiva'">
+  <div class="row">
+    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'blocoPaisNoiva'">
 
-          <img ng-src="{{personalizarCtrl.layoutSelecionado}}" alt="">
+      <img ng-src="{{personalizarCtrl.layoutSelecionado}}" alt="">
 
-          <!-- #REGION BLOCOS -->
+      <!-- #REGION BLOCOS -->
 
-          <p class="blocoPaisNoiva bloco" ng-init="personalizarCtrl.styleHold = 'blocoPaisNoiva'" ng-style="personalizarCtrl.blocoPaisNoiva"
-            ng-click="personalizarCtrl.SetBlocoActive(0); $scope.blocoActive = 'blocoPaisNoiva';personalizarCtrl.styleHold = 'blocoPaisNoiva'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoiva'}" ng-bind-html="personalizarCtrl.conteudoPaisNoiva"></p>
+      <p class="blocoPaisNoiva bloco" ng-init="personalizarCtrl.styleHold = 'blocoPaisNoiva'" ng-style="personalizarCtrl.blocoPaisNoiva"
+        ng-click="personalizarCtrl.SetBlocoActive(0); $scope.blocoActive = 'blocoPaisNoiva';personalizarCtrl.styleHold = 'blocoPaisNoiva'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoiva'}" ng-bind-html="personalizarCtrl.conteudoPaisNoiva"></p>
 
-          <p class="blocoPaisNoivo bloco" ng-style="personalizarCtrl.blocoPaisNoivo" ng-click="personalizarCtrl.SetBlocoActive(1); $scope.blocoActive = 'blocoPaisNoivo';personalizarCtrl.styleHold = 'blocoPaisNoivo'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoivo'}" ng-bind-html="personalizarCtrl.conteudoPaisNoivo"></p>
+      <p class="blocoPaisNoivo bloco" ng-style="personalizarCtrl.blocoPaisNoivo" ng-click="personalizarCtrl.SetBlocoActive(1); $scope.blocoActive = 'blocoPaisNoivo';personalizarCtrl.styleHold = 'blocoPaisNoivo'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoivo'}" ng-bind-html="personalizarCtrl.conteudoPaisNoivo"></p>
 
-          <p class="blocoMsg1 bloco" ng-style="personalizarCtrl.blocoMsg1" ng-click="personalizarCtrl.SetBlocoActive(2); $scope.blocoActive = 'blocoMsg1';personalizarCtrl.styleHold = 'blocoMsg1'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg1'}" ng-bind-html="personalizarCtrl.conteudoMsg1"></p>
+      <p class="blocoMsg1 bloco" ng-style="personalizarCtrl.blocoMsg1" ng-click="personalizarCtrl.SetBlocoActive(2); $scope.blocoActive = 'blocoMsg1';personalizarCtrl.styleHold = 'blocoMsg1'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg1'}" ng-bind-html="personalizarCtrl.conteudoMsg1"></p>
 
-          <p class="blocoNomeNoivos bloco" ng-style="personalizarCtrl.blocoNomeNoivos" ng-click="personalizarCtrl.SetBlocoActive(3); $scope.blocoActive = 'blocoNomeNoivos';personalizarCtrl.styleHold = 'blocoNomeNoivos'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoNomeNoivos'}" ng-bind-html="personalizarCtrl.conteudoNomeCasal"></p>
+      <p class="blocoNomeNoivos bloco" ng-style="personalizarCtrl.blocoNomeNoivos" ng-click="personalizarCtrl.SetBlocoActive(3); $scope.blocoActive = 'blocoNomeNoivos';personalizarCtrl.styleHold = 'blocoNomeNoivos'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoNomeNoivos'}" ng-bind-html="personalizarCtrl.conteudoNomeCasal"></p>
 
-          <p class="blocoMsg2 bloco" ng-style="personalizarCtrl.blocoMsg2" ng-click="personalizarCtrl.SetBlocoActive(4); $scope.blocoActive = 'blocoMsg2';personalizarCtrl.styleHold = 'blocoMsg2'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg2'}" ng-bind-html="personalizarCtrl.conteudoMsg2"></p>
+      <p class="blocoMsg2 bloco" ng-style="personalizarCtrl.blocoMsg2" ng-click="personalizarCtrl.SetBlocoActive(4); $scope.blocoActive = 'blocoMsg2';personalizarCtrl.styleHold = 'blocoMsg2'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg2'}" ng-bind-html="personalizarCtrl.conteudoMsg2"></p>
 
-          <textarea class="blocoMsgPersonalizadaStyle bloco" ng-model="personalizarCtrl.blocoMsgPersonalizada" ng-style="personalizarCtrl.blocoMsgPersonalizadaStyle"
-            ng-click="personalizarCtrl.SetBlocoActive(5); $scope.blocoActive = 'blocoMsgPersonalizadaStyle';personalizarCtrl.styleHold = 'blocoMsgPersonalizadaStyle'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsgPersonalizadaStyle'}"></textarea>
+      <textarea class="blocoMsgPersonalizadaStyle bloco" ng-model="personalizarCtrl.blocoMsgPersonalizada" ng-style="personalizarCtrl.blocoMsgPersonalizadaStyle"
+        ng-click="personalizarCtrl.SetBlocoActive(5); $scope.blocoActive = 'blocoMsgPersonalizadaStyle';personalizarCtrl.styleHold = 'blocoMsgPersonalizadaStyle'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsgPersonalizadaStyle'}"></textarea>
 
-          <p class="blocoCerimonia bloco" ng-style="personalizarCtrl.blocoCerimonia" ng-click="personalizarCtrl.SetBlocoActive(6); $scope.blocoActive = 'blocoCerimonia';personalizarCtrl.styleHold = 'blocoCerimonia'"
-            ng-class="{'bloco--active' : $scope.blocoActive == 'blocoCerimonia'}" ng-bind-html="personalizarCtrl.conteudoMsg4"></p>
+      <p class="blocoCerimonia bloco" ng-style="personalizarCtrl.blocoCerimonia" ng-click="personalizarCtrl.SetBlocoActive(6); $scope.blocoActive = 'blocoCerimonia';personalizarCtrl.styleHold = 'blocoCerimonia'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoCerimonia'}" ng-bind-html="personalizarCtrl.conteudoMsg4"></p>
 
-          <!-- #ENDREGION BLOCOS -->
-        </div>
-        <!-- col-xs-12 -->
+      <!-- #ENDREGION BLOCOS -->
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row" ng-if="$scope.change">
+    <div class="col-sm-3">
+      <div class="btn btn--save" ng-click="$scope.change = false;personalizarCtrl.SetConfiguracaoConvite()">
+        Salvar
       </div>
-      <!-- row -->
-
-      <div class="row" ng-if="$scope.change">
-        <div class="col-sm-3">
-          <div class="btn btn--save" ng-click="$scope.change = false;personalizarCtrl.SetConfiguracaoConvite()">
-            Salvar
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="btn btn--cancel" ng-click="$scope.change = false">
-            Cancelar
-          </div>
-        </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="btn btn--cancel" ng-click="$scope.change = false">
+        Cancelar
       </div>
-      <!-- row -->
+    </div>
+  </div>
+  <!-- row -->
 
-      <div class="row" ng-if="!$scope.change" style="margin-top: 40px;">
-        <div class="col-sm-3">
-          <div class="btn btn--ok">
-            <a href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizarCtrl.senhaApp}}" target="_blank">Visualizar Convite Final</a>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="btn btn--ok">
-            <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
-          </div>
-        </div>
+  <div class="row" ng-if="!$scope.change" style="margin-top: 40px;">
+    <div class="col-sm-3">
+      <div class="btn btn--ok">
+        <a href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizarCtrl.senhaApp}}" target="_blank">Visualizar Convite Final</a>
       </div>
-      <!-- row -->
+    </div>
+    <div class="col-sm-3">
+      <div class="btn btn--ok">
+        <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
+      </div>
+    </div>
+  </div>
+  <!-- row -->
 
-      <div class="row controll ">
-        <div class="col-sm-12 ">
+  <div class="row controll ">
+    <div class="col-sm-12 ">
 
-          <!-- #REGION NAV TABS -->
+      <!-- #REGION NAV TABS -->
 
-          <ul class="nav nav-tabs " role="tablist " ng-init="$scope.tab='formato' ">
-            <li role="presentation " ng-class="{active : $scope.tab=='formato' } ">
-              <a aria-controls="formato " role="tab " data-toggle="tab " ng-click="$scope.tab='formato' ">Formato</a>
-            </li>
-            <li role="presentation " ng-class="{active : $scope.tab=='typefaces' } ">
-              <a aria-controls="typefaces " role="tab " data-toggle="tab " ng-click="$scope.tab='typefaces' ">Fonte</a>
+      <ul class="nav nav-tabs " role="tablist " ng-init="$scope.tab='formato' ">
+        <li role="presentation " ng-class="{active : $scope.tab=='formato' } ">
+          <a aria-controls="formato " role="tab " data-toggle="tab " ng-click="$scope.tab='formato' ">Formato</a>
+        </li>
+        <li role="presentation " ng-class="{active : $scope.tab=='typefaces' } ">
+          <a aria-controls="typefaces " role="tab " data-toggle="tab " ng-click="$scope.tab='typefaces' ">Fonte</a>
+        </li>
+      </ul>
+
+      <!-- #ENDREGION NAV TABS -->
+
+
+      <div class="tab-content ">
+        <!-- #REGION TAB PANEL 1 -->
+
+        <div role="tabpanel " class="tab-pane " id="formato " ng-class="{active : $scope.tab=='formato' } ">
+          <div ng-repeat="valor in personalizarCtrl.convites[personalizarCtrl.conviteIndividual] " ng-cloak>
+            <div ng-show="personalizarCtrl.showBlocos[$index][ 'ativo'] ">
+
+              <div class="controll_bloco_opcoes " ng-init="valor[ 'font-size']=valor[ 'font-size'] ">
+                <h4 class="controll__title ">Tamanho da Fonte: {{valor['font-size']}}</h4>
+                <rzslider rz-slider-model="valor[ 'font-size'] " rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change=true "></rzslider>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+              <div class="controll_bloco_opcoes ">
+                <h4 class="controll__title ">Alinhamento</h4>
+
+                <i class="fa fa-align-left " ng-class="{ 'fa--active ' : valor[ 'text-align']=='left' }
+            " ng-click="valor[ 'text-align']='left' ; $scope.change=true"></i>
+                <i class="fa fa-align-center " ng-class="{ 'fa--active' : valor[ 'text-align']=='center' }
+            " ng-click="valor[ 'text-align']='center' ; $scope.change=true"></i>
+                <i class="fa fa-align-right " ng-class="{ 'fa--active' : valor[ 'text-align']=='right' }
+            " ng-click="valor[ 'text-align']='right' ; $scope.change=true"></i>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+            </div>
+            <!--showBlocos-->
+          </div>
+          <!-- formato -->
+        </div>
+
+        <!-- #ENDREGION TAB PANEL 1 -->
+
+        <!-- #REGION TAB PANEL 2 -->
+
+        <div role="tabpanel " class="tab-pane " id="typefaces " ng-class="{active : $scope.tab=='typefaces' } ">
+          <div class="typeface__title ">
+            <span>Serif</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
             </li>
           </ul>
+          <!--serif-->
 
-          <!-- #ENDREGION NAV TABS -->
-
-
-          <div class="tab-content ">
-            <!-- #REGION TAB PANEL 1 -->
-
-            <div role="tabpanel " class="tab-pane " id="formato " ng-class="{active : $scope.tab=='formato' } ">
-              <div ng-repeat="valor in personalizarCtrl.convites[personalizarCtrl.conviteIndividual] " ng-cloak>
-                <div ng-show="personalizarCtrl.showBlocos[$index][ 'ativo'] ">
-
-                  <div class="controll_bloco_opcoes " ng-init="valor[ 'font-size']=valor[ 'font-size'] ">
-                    <h4 class="controll__title ">Tamanho da Fonte: {{valor['font-size']}}</h4>
-                    <rzslider rz-slider-model="valor[ 'font-size'] " rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change=true "></rzslider>
-                  </div>
-                  <!-- controll_bloco_opcoes -->
-
-                  <div class="controll_bloco_opcoes ">
-                    <h4 class="controll__title ">Alinhamento</h4>
-
-                    <i class="fa fa-align-left " ng-class="{ 'fa--active ' : valor[ 'text-align']=='left' }
-            " ng-click="valor[ 'text-align']='left' ; $scope.change=true"></i>
-                    <i class="fa fa-align-center " ng-class="{ 'fa--active' : valor[ 'text-align']=='center' }
-            " ng-click="valor[ 'text-align']='center' ; $scope.change=true"></i>
-                    <i class="fa fa-align-right " ng-class="{ 'fa--active' : valor[ 'text-align']=='right' }
-            " ng-click="valor[ 'text-align']='right' ; $scope.change=true"></i>
-                  </div>
-                  <!-- controll_bloco_opcoes -->
-
-                </div>
-                <!--showBlocos-->
-              </div>
-              <!-- formato -->
-            </div>
-
-            <!-- #ENDREGION TAB PANEL 1 -->
-
-            <!-- #REGION TAB PANEL 2 -->
-
-            <div role="tabpanel " class="tab-pane " id="typefaces " ng-class="{active : $scope.tab=='typefaces' } ">
-              <div class="typeface__title ">
-                <span>Serif</span>
-              </div>
-              <ul class="font__list ">
-                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SERIF " ng-style="{
-            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
-                  {{value['font-name']}}
-                </li>
-              </ul>
-              <!--serif-->
-
-              <div class="typeface__title ">
-                <span>Sans Serif</span>
-              </div>
-              <ul class="font__list ">
-                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF " ng-style="{
-            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
-                  {{value['font-name']}}
-                </li>
-              </ul>
-              <!--sans serif-->
-
-              <div class="typeface__title ">
-                <span>Display</span>
-              </div>
-              <ul class="font__list ">
-                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY " ng-style="{
-            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
-                  {{value['font-name']}}
-                </li>
-              </ul>
-              <!--display-->
-
-              <div class="typeface__title ">
-                <span>Handwritting</span>
-              </div>
-              <ul class="font__list ">
-                <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING " ng-style="{
-            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
-                  {{value['font-name']}}
-                </li>
-              </ul>
-              <!--handwritting-->
-
-            </div>
-            <!--tab-pane-->
-
-            <!-- #ENDREGION TAB PANEL 2 -->
-
+          <div class="typeface__title ">
+            <span>Sans Serif</span>
           </div>
-          <!-- tab-content -->
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.SANSSERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--sans serif-->
+
+          <div class="typeface__title ">
+            <span>Display</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.DISPLAY " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--display-->
+
+          <div class="typeface__title ">
+            <span>Handwritting</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizarCtrl.fonts.HANDWRITING " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizarCtrl.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--handwritting-->
+
         </div>
-        <!-- col-sm-12 -->
+        <!--tab-pane-->
+
+        <!-- #ENDREGION TAB PANEL 2 -->
+
       </div>
-      <!-- controll -->
+      <!-- tab-content -->
     </div>
-    <!-- container-fluid -->
+    <!-- col-sm-12 -->
+  </div>
+  <!-- controll -->
+</div>
+<!-- container-fluid -->
