@@ -124,7 +124,7 @@
       listaCardapio: '',
 
       //Convidados
-      convidado_lista: null,
+      convidadoLista: null,
 
       //Save the Date
       dateCheck: false,
