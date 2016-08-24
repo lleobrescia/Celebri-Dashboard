@@ -15,8 +15,8 @@
   */
   function httpPrefix() {
     var httpPrefix = {
-      link: link,
-      require: 'ngModel',
+      link    : link,
+      require : 'ngModel',
       restrict: 'A'
     };
 
@@ -25,8 +25,10 @@
     function link(scope, element, attrs, controller) {
       function ensureHttpPrefix(value) {
         // Need to add prefix if we don't have http:// prefix already AND we don't have part of it
-        if (value && !/^(https?):\/\//i.test(value) &&
-          'http://'.indexOf(value) !== 0 &&
+        if (
+          value                           &&
+          !/^(https?):\/\//i.test(value)  &&
+          'http://'.indexOf(value)  !== 0 &&
           'https://'.indexOf(value) !== 0) {
 
           controller.$setViewValue('http://' + value);

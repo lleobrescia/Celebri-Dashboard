@@ -1,3 +1,7 @@
+/**
+ * Estatistica Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
 
@@ -6,17 +10,32 @@
     .controller('EstatisticaCtrl', EstatisticaCtrl)
 
   EstatisticaCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento'];
+  /**
+   * @namespace ConfirmadosCtrl
+   * @desc Mostra quem confirmou para a festa
+   * @memberOf Controllers
+   */
   function EstatisticaCtrl(UserService, ipService, ServiceCasamento) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
-    init();
+    Init();
 
-    function init() {
+  /**
+   * @namespace Init
+   * @desc Setup docontrolador
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
+    function Init() {
       self.carregando = true;
       GetEstatistica();
     }
 
+  /**
+   * @namespace GetEstatistica
+   * @desc Pega os dados do servidor
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function GetEstatistica() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarEstatisticaCasamento';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -43,6 +62,9 @@
         self.convidadosGeralData   = [totalConvidados, totalAcompanhantes];
 
         self.carregando            = false;
+      }).catch(function (error) {
+        console.error('GetEstatistica -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
   }

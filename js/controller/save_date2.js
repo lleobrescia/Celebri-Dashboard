@@ -1,3 +1,7 @@
+/**
+ * Save The Date2 Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
 
@@ -6,6 +10,11 @@
     .controller('SaveTheDatePg2Ctrl', SaveTheDatePg2Ctrl);
 
   SaveTheDatePg2Ctrl.$inject = ['UserService', 'ServiceCasamento', 'ipService'];
+  /**
+   * @namespace SaveTheDatePg2Ctrl
+   * @desc Mostra a lista de convidados para selecionar quais receberao o save the date
+   * @memberOf Controllers
+   */
   function SaveTheDatePg2Ctrl(UserService, ServiceCasamento, ipService) {
     var self  = this;
     var ID    = UserService.dados.ID;
@@ -21,6 +30,11 @@
 
     GetConvidados();
 
+  /**
+   * @namespace CheckAll
+   * @desc Seleciona todos os convidados da lsita
+   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   */
     function CheckAll() {
       if (self.selectedAll) {
         self.selectedAll = true;
@@ -39,6 +53,11 @@
       });
     }
 
+  /**
+   * @namespace CheckConvidado
+   * @desc Seleciona um convidado da lsita
+   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   */
     function CheckConvidado(key, id, selected) {
       if (selected) {
         self.selecionados.push(id);
@@ -58,6 +77,11 @@
       }
     }
 
+  /**
+   * @namespace Enviar
+   * @desc Envia os dados para o servidor para enviar o email
+   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   */
     function Enviar() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/EnvioEmailSaveTheDate';
       var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + ID + '</Id_casal>  <Id_convidado>';
@@ -72,9 +96,17 @@
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
         GetConvidados();
+      }).catch(function (error) {
+        console.error('Enviar -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @namespace GetConvidados
+   * @desc Pega a lista de convidados do servidor
+   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   */
     function GetConvidados() {
       self.carregando = true;
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConvidados';
@@ -101,6 +133,9 @@
             }
           );
         });
+      }).catch(function (error) {
+        console.error('GetConvidados -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
   }

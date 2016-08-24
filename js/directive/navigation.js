@@ -15,12 +15,12 @@
   */
   function navigation() {
     var navigation = {
-      restrict: 'E',
-      replace: true,
-      scope: {
+      restrict    : 'E',
+      replace     : true,
+      scope       : {
         menu: '='
       },
-      templateUrl: '/dashboard/templates/parts/navigation.html'
+      templateUrl : '/dashboard/templates/parts/navigation.html'
     };
 
     return navigation;

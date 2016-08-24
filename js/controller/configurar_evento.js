@@ -1,3 +1,7 @@
+/**
+ * Configurar Evento Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
   angular
@@ -5,6 +9,11 @@
     .controller('configurarEventoCtrl', ConfigurarEventoCtrl);
 
   ConfigurarEventoCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService', 'consultCEP'];
+  /**
+   * @namespace ConfigurarEventoCtrl
+   * @desc Controla os dados referente ao evento (hoteis,listas de presentes,cardapio,local da cerimonia)
+   * @memberOf Controllers
+   */
   function ConfigurarEventoCtrl(ServiceCasamento, UserService, ipService, consultCEP) {
     var self = this;
     var ID = UserService.dados.ID;
@@ -52,6 +61,11 @@
 
     Init();
 
+  /**
+   * @name AdicionarHotel
+   * @desc Adiciona um hotel a lista e envia os dados para o servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function AdicionarHotel() {
       if (
         self.hotel.bairro &&
@@ -94,11 +108,19 @@
             self.hotel.uf       = '';
 
             self.showHotel = true;
+          }).catch(function (error) {
+            console.error('AdicionarHotel -> ', error);
+            console.warn('Dados enviados:', xmlVar);
           });
         }
       }
     }
 
+  /**
+   * @name AdicionarSalao
+   * @desc Adiciona um salao a lista e envia os dados para o servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function AdicionarSalao() {
       if (
         self.salao.bairro &&
@@ -137,11 +159,19 @@
             self.salao.uf       = '';
 
             self.showSalao = true;
+          }).catch(function (error) {
+            console.error('AdicionarSalao -> ', error);
+            console.warn('Dados enviados:', xmlVar);
           });
         }
       }
     }
 
+  /**
+   * @name AdicionarUrl
+   * @desc Adiciona uma url da lista de casamento e envia os dados para o servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function AdicionarUrl() {
       if (self.loja.nome && self.loja.url) {
         self.showPresente = false;
@@ -160,10 +190,18 @@
           self.loja.url     = '';
 
           self.showPresente = true;
+        }).catch(function (error) {
+          console.error('AdicionarUrl -> ', error);
+          console.warn('Dados enviados:', xmlVar);
         });
       }
     }
 
+  /**
+   * @name CerimoniaRemotoToLocal
+   * @desc Pega os dados da serimonia do servidor e armazena localmente
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function CerimoniaRemotoToLocal() {
       UserService.dados.festaIgualCerimonia = self.festaIgualCerimonia;
       UserService.dados.festaLocal          = self.festaLocal;
@@ -177,6 +215,11 @@
       UserService.SaveState();
     }
 
+  /**
+   * @name ConsultCEPFesta
+   * @desc Consulta o CEP da cerimonia e armazena os dados
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function ConsultCEPFesta(cepFesta) {
       try {
         consultCEP.consultar(cepFesta).then(function (data) {
@@ -185,9 +228,16 @@
           self.festaCidade = data.cidade;
           self.festaUf     = data.estado;
         });
-      } catch (error) { }
+      } catch (error) {
+        console.warn('Erro ao consultar CEP:' + error);
+      }
     }
 
+  /**
+   * @name ConsultCEPHotel
+   * @desc Consulta o CEP do hotel e armazena os dados
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function ConsultCEPHotel(cepHotel) {
       try {
         consultCEP.consultar(cepHotel).then(function (data) {
@@ -197,10 +247,15 @@
           self.hotel.uf     = data.estado;
         });
       } catch (error) {
-
+        console.warn('Erro ao consultar CEP:' + error);
       }
     }
 
+  /**
+   * @name ConsultCEPSalao
+   * @desc Consulta o CEP do salao e armazena os dados
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function ConsultCEPSalao(cepSalao) {
       try {
         consultCEP.consultar(cepSalao).then(function (data) {
@@ -209,9 +264,16 @@
           self.salao.cidade = data.cidade;
           self.salao.uf     = data.estado;
         });
-      } catch (error) { }
+      } catch (error) {
+        console.warn('Erro ao consultar CEP:' + error);
+      }
     }
 
+  /**
+   * @name Init
+   * @desc Setup do controlador
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function Init() {
       /**
        * Adiciona as funcoes ao scopo do controlador
@@ -248,6 +310,11 @@
       }
     }
 
+  /**
+   * @name GetDadosServico
+   * @desc Chama todas as funções que pegam dados do servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetDadosServico() {
       GetDadosEvento();
       GetHoteis();
@@ -256,6 +323,11 @@
       GetListaCardapio();
     }
 
+  /**
+   * @name GetDadosEvento
+   * @desc Pega os dados da festa do servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetDadosEvento() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoEvento';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -275,9 +347,17 @@
         //Salva informacao no local
         self.showCerimonia = true;
         CerimoniaRemotoToLocal();
+      }).catch(function (error) {
+        console.error('GetDadosEvento -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name GetDadosLocal
+   * @desc Pega os dados armazenados localmente
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetDadosLocal() {
       self.festaIgualCerimonia  = UserService.dados.festaIgualCerimonia;
       self.festaLocal           = UserService.dados.festaLocal;
@@ -295,6 +375,11 @@
       self.listaCardapio  = UserService.dados.listaCardapio;
     }
 
+  /**
+   * @name GetHoteis
+   * @desc Pega os hoteis no servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetHoteis() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoListaHoteis';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -311,13 +396,22 @@
             }
           );
         });
+
         //Armazena localmente
         self.showHotel                = true;
         UserService.dados.listaHotel  = self.hotelLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('GetHoteis -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name GetListaCardapio
+   * @desc Pega os dados do cardapio do servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetListaCardapio() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarCardapio';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -340,9 +434,17 @@
         self.showCardapio               = true;
         UserService.dados.listaCardapio = self.listaCardapio;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('GetListaCardapio -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name GetPresentes
+   * @desc Pega os urls das listas de presentes do servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetPresentes() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoLojaPresentes';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -364,9 +466,17 @@
         self.showPresente               = true;
         UserService.dados.listaPresente = self.lojaLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('GetPresentes -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name GetSaloes
+   * @desc Pega os saloes do servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function GetSaloes() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoListaSaloes';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
@@ -388,9 +498,17 @@
         self.showSalao                = true;
         UserService.dados.listaSalao  = self.salaoLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('GetSaloes -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name RemoverCardapio
+   * @desc Remove os dados do cardapio fornecido
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function RemoverCardapio(dataId, key) {
       self.listaCardapio.splice(key, 1);
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ExcluirCardapio';
@@ -400,9 +518,17 @@
 
         UserService.dados.listaCardapio = self.listaCardapio;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('RemoverCardapio -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name RemoverHotel
+   * @desc Remove o hotel fornecido
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function RemoverHotel(dataId, key) {
       self.hotelLista.splice(key, 1);
 
@@ -412,9 +538,17 @@
       ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
         UserService.dados.listaHotel = self.hotelLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('RemoverHotel -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name RemoverSalao
+   * @desc Remove o salao fornecido
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function RemoverSalao(dataId, key) {
       self.salaoLista.splice(key, 1);
 
@@ -425,9 +559,17 @@
         //atualiza localmente
         UserService.dados.listaSalao = self.salaoLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('RemoverSalao -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name RemoverUrl
+   * @desc Remove o url fornecido
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function RemoverUrl(dataId, key) {
       self.lojaLista.splice(key, 1);
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ExcluirLojasPresentes';
@@ -437,9 +579,17 @@
         //atualiza localmente
         UserService.dados.listaPresente = self.lojaLista;
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('RemoverUrl -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+  /**
+   * @name SetCardapio
+   * @desc Envia os dados do cardapio para o servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function SetCardapio() {
       if (self.cardapio.titulo && self.cardapio.descricao) {
         self.showCardapio = false;
@@ -457,10 +607,18 @@
           self.cardapio.titulo    = '';
           self.cardapio.descricao = '';
           self.showCardapio       = true;
+        }).catch(function (error) {
+          console.error('SetCardapio -> ', error);
+          console.warn('Dados enviados:', xmlVar);
         });
       }
     }
 
+  /**
+   * @name SetDadosEvento
+   * @desc Envia os dados da festa para o servidor
+   * @memberOf Controllers.ConfigurarEventoCtrl
+   */
     function SetDadosEvento() {
       var urlVar  = 'http://' + ipService.ip + '/ServiceCasamento.svc/ConfiguracaoEvento';
       var bairro  = '',
@@ -496,7 +654,10 @@
       var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + local + '</Local_festa><Mesmo_local_cerimonia>' + self.festaIgualCerimonia + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
       //envia para o servico
-      ServiceCasamento.SendData(urlVar, xmlVar);
+      ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
+        console.error('SetDadosEvento -> ', error);
+        console.warn('Dados enviados:', xmlVar);
+      });
 
       //add informacao local
       CerimoniaRemotoToLocal();

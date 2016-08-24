@@ -1,54 +1,53 @@
 /**
  * Personalizar Convite Controller
- * controllerAs: 'personalizarCtrl'
  * @namespace Controllers
  */
 (function () {
   'use strict';
   angular
     .module('dashboard')
-    .controller('personalizar_convite', PersonalizarConvite);
+    .controller('PersonalizarConviteCtrl', PersonalizarConviteCtrl);
 
-  PersonalizarConvite.$inject = ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService', '$window'];
+  PersonalizarConviteCtrl.$inject = ['$sce', '$filter', 'UserService', 'ServiceCasamento', 'ipService', '$window'];
 
   /**
-   * @namespace PersonalizarConvite
+   * @namespace PersonalizarConviteCtrl
    * @desc Personalização do convite
    * @memberOf Controllers
    */
-  function PersonalizarConvite($sce, $filter, UserService, ServiceCasamento, ipService, $window) {
+  function PersonalizarConviteCtrl($sce, $filter, UserService, ServiceCasamento, ipService, $window) {
 
-    var self = this;
-    var ID = UserService.dados.ID;
-    var conviteCriado = UserService.dados.conviteCriado;
-    var dataCasamento = UserService.dados.dataCasamento;
-    var cerimoniaHora = UserService.dados.cerimoniaHora;
-    var cerimoniaMin = UserService.dados.cerimoniaMin;
-    var cerimoniaLocal = UserService.dados.cerimoniaLocal;
-    var cerimoniaEnd = UserService.dados.cerimoniaEnd;
-    var cerimoniaNumero = UserService.dados.cerimoniaNumero;
-    var cerimoniaBairro = UserService.dados.cerimoniaBairro;
-    var cerimoniaCidade = UserService.dados.cerimoniaCidade;
-    var nomeNoiva = UserService.dados.nomeNoiva;
-    var nomeNoivo = UserService.dados.nomeNoivo;
-    var noivaPai = UserService.dados.noivaPai;
-    var noivaPaiMemorian = UserService.dados.noivaPaiMemorian;
-    var noivaMae = UserService.dados.noivaMae;
-    var noivaMaeMemorian = UserService.dados.noivaMaeMemorian;
-    var noivoPai = UserService.dados.noivoPai;
-    var noivoPaiMemorian = UserService.dados.noivoPaiMemorian;
-    var noivoMae = UserService.dados.noivoMae;
-    var noivoMaeMemorian = UserService.dados.noivoMaeMemorian;
+    var self              = this;
+    var ID                = UserService.dados.ID;
+    var conviteCriado     = UserService.dados.conviteCriado;
+    var dataCasamento     = UserService.dados.dataCasamento;
+    var cerimoniaHora     = UserService.dados.cerimoniaHora;
+    var cerimoniaMin      = UserService.dados.cerimoniaMin;
+    var cerimoniaLocal    = UserService.dados.cerimoniaLocal;
+    var cerimoniaEnd      = UserService.dados.cerimoniaEnd;
+    var cerimoniaNumero   = UserService.dados.cerimoniaNumero;
+    var cerimoniaBairro   = UserService.dados.cerimoniaBairro;
+    var cerimoniaCidade   = UserService.dados.cerimoniaCidade;
+    var nomeNoiva         = UserService.dados.nomeNoiva;
+    var nomeNoivo         = UserService.dados.nomeNoivo;
+    var noivaPai          = UserService.dados.noivaPai;
+    var noivaPaiMemorian  = UserService.dados.noivaPaiMemorian;
+    var noivaMae          = UserService.dados.noivaMae;
+    var noivaMaeMemorian  = UserService.dados.noivaMaeMemorian;
+    var noivoPai          = UserService.dados.noivoPai;
+    var noivoPaiMemorian  = UserService.dados.noivoPaiMemorian;
+    var noivoMae          = UserService.dados.noivoMae;
+    var noivoMaeMemorian  = UserService.dados.noivoMaeMemorian;
 
-    self.conviteIndividual = UserService.dados.modeloConvite;
-    self.layoutSelecionado = './image/convites/' + self.conviteIndividual + '.png';
-    self.blocoMsgPersonalizada = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
-    self.convites = UserService.dados.listaConvites;
-    self.fonts = UserService.dados.listaFonts;
-    self.styleHold = [];
-    self.senhaApp = UserService.dados.senhaApp;
-    self.cerregando = true;
-    self.showBlocos = [
+    self.conviteIndividual      = UserService.dados.modeloConvite;
+    self.layoutSelecionado      = './image/convites/' + self.conviteIndividual + '.png';
+    self.blocoMsgPersonalizada  = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
+    self.convites               = UserService.dados.listaConvites;
+    self.fonts                  = UserService.dados.listaFonts;
+    self.styleHold              = [];
+    self.senhaApp               = UserService.dados.senhaApp;
+    self.cerregando             = true;
+    self.showBlocos             = [
       { 'ativo': true },
       { 'ativo': true },
       { 'ativo': true },
@@ -58,8 +57,8 @@
       { 'ativo': true }
     ];
 
-    self.SetFontToBloco = SetFontToBloco;
-    self.SetBlocoActive = SetBlocoActive;
+    self.SetFontToBloco         = SetFontToBloco;
+    self.SetBlocoActive         = SetBlocoActive;
     self.SetConfiguracaoConvite = SetConfiguracaoConvite;
 
     GetConfiguracaoConvite();
@@ -69,7 +68,7 @@
      * @param {String} text conteudo do bloco
      * @desc O servidor nao reconhece <br>, portanto eh preciso alterar para #
      * @returns {String}
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function ChangeBr(text) {
       var res = text.replace(/<br>/g, '#');
@@ -79,10 +78,11 @@
     /**
      * @name GetConfiguracaoConvite
      * @desc Init
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function GetConfiguracaoConvite() {
       self.cerregando = true;
+
       SetMsg();
       SetConvite();
 
@@ -113,40 +113,40 @@
     /**
      * @name GetLocal
      * @desc Carrega as configuracoes do convite salvas locamente
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function GetLocal() {
       self.blocoMsg1['text-align'] = UserService.dados.blocoMsg1['text-align'];
       self.blocoMsg2['text-align'] = UserService.dados.blocoMsg2['text-align'];
       self.blocoMsgPersonalizadaStyle['text-align'] = UserService.dados.blocoMsgPersonalizadaStyle['text-align'];
-      self.blocoCerimonia['text-align'] = UserService.dados.blocoCerimonia['text-align'];
-      self.blocoNomeNoivos['text-align'] = UserService.dados.blocoNomeNoivos['text-align'];
-      self.blocoPaisNoiva['text-align'] = UserService.dados.blocoPaisNoiva['text-align'];
-      self.blocoPaisNoivo['text-align'] = UserService.dados.blocoPaisNoivo['text-align'];
+      self.blocoCerimonia['text-align']   = UserService.dados.blocoCerimonia['text-align'];
+      self.blocoNomeNoivos['text-align']  = UserService.dados.blocoNomeNoivos['text-align'];
+      self.blocoPaisNoiva['text-align']   = UserService.dados.blocoPaisNoiva['text-align'];
+      self.blocoPaisNoivo['text-align']   = UserService.dados.blocoPaisNoivo['text-align'];
 
-      self.blocoMsg1.color = UserService.dados.blocoMsg1.color;
-      self.blocoMsg2.color = UserService.dados.blocoMsg2.color;
+      self.blocoMsg1.color                  = UserService.dados.blocoMsg1.color;
+      self.blocoMsg2.color                  = UserService.dados.blocoMsg2.color;
       self.blocoMsgPersonalizadaStyle.color = UserService.dados.blocoMsgPersonalizadaStyle.color;
-      self.blocoCerimonia.color = UserService.dados.blocoCerimonia.color;
-      self.blocoNomeNoivos.color = UserService.dados.blocoNomeNoivos.color;
-      self.blocoPaisNoiva.color = UserService.dados.blocoPaisNoiva.color;
-      self.blocoPaisNoivo.color = UserService.dados.blocoPaisNoivo.color;
+      self.blocoCerimonia.color             = UserService.dados.blocoCerimonia.color;
+      self.blocoNomeNoivos.color            = UserService.dados.blocoNomeNoivos.color;
+      self.blocoPaisNoiva.color             = UserService.dados.blocoPaisNoiva.color;
+      self.blocoPaisNoivo.color             = UserService.dados.blocoPaisNoivo.color;
 
       self.blocoMsg1['font-family'] = UserService.dados.blocoMsg1['font-family'];
       self.blocoMsg2['font-family'] = UserService.dados.blocoMsg2['font-family'];
       self.blocoMsgPersonalizadaStyle['font-family'] = UserService.dados.blocoMsgPersonalizadaStyle['font-family'];
-      self.blocoCerimonia['font-family'] = UserService.dados.blocoCerimonia['font-family'];
+      self.blocoCerimonia['font-family']  = UserService.dados.blocoCerimonia['font-family'];
       self.blocoNomeNoivos['font-family'] = UserService.dados.blocoNomeNoivos['font-family'];
-      self.blocoPaisNoiva['font-family'] = UserService.dados.blocoPaisNoiva['font-family'];
-      self.blocoPaisNoivo['font-family'] = UserService.dados.blocoPaisNoivo['font-family'];
+      self.blocoPaisNoiva['font-family']  = UserService.dados.blocoPaisNoiva['font-family'];
+      self.blocoPaisNoivo['font-family']  = UserService.dados.blocoPaisNoivo['font-family'];
 
       self.blocoMsg1['font-size'] = RemovePx(UserService.dados.blocoMsg1['font-size']);
       self.blocoMsg2['font-size'] = RemovePx(UserService.dados.blocoMsg2['font-size']);
       self.blocoMsgPersonalizadaStyle['font-size'] = RemovePx(UserService.dados.blocoMsgPersonalizadaStyle['font-size']);
-      self.blocoCerimonia['font-size'] = RemovePx(UserService.dados.blocoCerimonia['font-size']);
+      self.blocoCerimonia['font-size']  = RemovePx(UserService.dados.blocoCerimonia['font-size']);
       self.blocoNomeNoivos['font-size'] = RemovePx(UserService.dados.blocoNomeNoivos['font-size']);
-      self.blocoPaisNoiva['font-size'] = RemovePx(UserService.dados.blocoPaisNoiva['font-size']);
-      self.blocoPaisNoivo['font-size'] = RemovePx(UserService.dados.blocoPaisNoivo['font-size']);
+      self.blocoPaisNoiva['font-size']  = RemovePx(UserService.dados.blocoPaisNoiva['font-size']);
+      self.blocoPaisNoivo['font-size']  = RemovePx(UserService.dados.blocoPaisNoivo['font-size']);
 
       self.blocoMsgPersonalizada = $sce.trustAsHtml(UserService.dados.blocoMsgPersonalizadaStyle.conteudo);
     }
@@ -156,16 +156,16 @@
      * @param {String} texto alinhamento do texto(right,left,center)
      * @desc Converte o alinhamento do texto do bloco em indice, para salvar no servidor
      * @returns {Int}
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function GetTextAlingIndice(texto) {
       var retorno = '';
 
       switch (texto) {
-        case 'right': retorno = 2; break;
-        case 'left': retorno = 0; break;
-        case 'center': retorno = 1; break;
-        default: retorno = 0; break;
+        case 'right'  : retorno = 2; break;
+        case 'left'   : retorno = 0; break;
+        case 'center' : retorno = 1; break;
+        default       : retorno = 0; break;
       }
       return retorno;
     }
@@ -173,7 +173,7 @@
     /**
       * @name SalvarConvite
       * @desc Salva o convite selecionado e direciona o usuario para a edição
-      * @memberOf Controllers.PersonalizarConvite
+      * @memberOf Controllers.PersonalizarConviteCtrl
       */
     function InMemorian(itIs) {
       if (itIs === 'true') {
@@ -188,7 +188,7 @@
      * @param {String} texto
      * @desc Remove o px do tamanho das fonts
      * @returns {String}
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function RemovePx(texto) {
       return texto.toString().split('px')[0];
@@ -198,25 +198,25 @@
      * @name SetBlocoActive
      * @param {int} index id do bloco
      * @desc Marca como ativo o bloco indicado pelo index
-     * @memberOf Controllers.PersonalizarConvite
+     * @memberOf Controllers.PersonalizarConviteCtrl
      */
     function SetBlocoActive(index) {
       for (var i = 0; i < self.showBlocos.length; i++) {
-        self.showBlocos[i].ativo = false;
+        self.showBlocos[i].ativo    = false;
       }
-      self.showBlocos[index].ativo = true;
+      self.showBlocos[index].ativo  = true;
     }
 
     /**
       * @name SetConfiguracaoConvite
       * @desc Salva a configuracao do convite no servidor e locamente
-      * @memberOf Controllers.PersonalizarConvite
+      * @memberOf Controllers.PersonalizarConviteCtrl
       */
     function SetConfiguracaoConvite() {
 
-      var aux = self.conviteIndividual.split('convite');
-      var modelo = aux[1];
-      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/FormatacaoConvite';
+      var aux     = self.conviteIndividual.split('convite');
+      var modelo  = aux[1];
+      var urlVar  = 'http://' + ipService.ip + '/ServiceCasamento.svc/FormatacaoConvite';
 
       var alinhamentoMsg1 =
         UserService.dados.blocoMsg1['text-align'] =
@@ -240,10 +240,10 @@
         UserService.dados.blocoPaisNoivo['text-align'] =
         GetTextAlingIndice(self.blocoPaisNoivo['text-align']);
 
-      var conteudoMsg1 = ChangeBr(self.conteudoMsg1.toString());
-      var conteudoMsg2 = ChangeBr(self.conteudoMsg2.toString());
-      var conteudoMsg3 = ChangeBr(self.blocoMsgPersonalizada.toString());
-      var conteudoMsg4 = ChangeBr(self.conteudoMsg4.toString());
+      var conteudoMsg1      = ChangeBr(self.conteudoMsg1.toString());
+      var conteudoMsg2      = ChangeBr(self.conteudoMsg2.toString());
+      var conteudoMsg3      = ChangeBr(self.blocoMsgPersonalizada.toString());
+      var conteudoMsg4      = ChangeBr(self.conteudoMsg4.toString());
       var conteudoNomeCasal = nomeNoiva + ' &#38; ' + nomeNoivo;
       var conteudoPaisNoiva = noivaPai + '#' + noivaMae;
       var conteudoPaisNoivo = noivoPai + '#' + noivoMae;
@@ -273,34 +273,34 @@
       var fonteMsg1 = UserService.dados.blocoMsg1['font-id'] = GetFontID(self.blocoMsg1['font-family']);
       var fonteMsg2 = UserService.dados.blocoMsg2['font-id'] = GetFontID(self.blocoMsg2['font-family']);
       var fonteMsg3 = UserService.dados.blocoMsgPersonalizadaStyle['font-id'] = GetFontID(self.blocoMsgPersonalizadaStyle['font-family']);
-      var fonteMsg4 = UserService.dados.blocoCerimonia['font-id'] = GetFontID(self.blocoCerimonia['font-family']);
-      var fonteNomeCasal = UserService.dados.blocoNomeNoivos['font-id'] = GetFontID(self.blocoNomeNoivos['font-family']);
-      var fontePaisNoiva = UserService.dados.blocoPaisNoiva['font-id'] = GetFontID(self.blocoPaisNoiva['font-family']);
-      var fontePaisNoivo = UserService.dados.blocoPaisNoivo['font-id'] = GetFontID(self.blocoPaisNoivo['font-family']);
+      var fonteMsg4       = UserService.dados.blocoCerimonia['font-id'] = GetFontID(self.blocoCerimonia['font-family']);
+      var fonteNomeCasal  = UserService.dados.blocoNomeNoivos['font-id'] = GetFontID(self.blocoNomeNoivos['font-family']);
+      var fontePaisNoiva  = UserService.dados.blocoPaisNoiva['font-id'] = GetFontID(self.blocoPaisNoiva['font-family']);
+      var fontePaisNoivo  = UserService.dados.blocoPaisNoivo['font-id'] = GetFontID(self.blocoPaisNoivo['font-family']);
 
-      UserService.dados.blocoMsg1['font-family'] = self.blocoMsg1['font-family'];
-      UserService.dados.blocoMsg2['font-family'] = self.blocoMsg2['font-family'];
+      UserService.dados.blocoMsg1['font-family']                  = self.blocoMsg1['font-family'];
+      UserService.dados.blocoMsg2['font-family']                  = self.blocoMsg2['font-family'];
       UserService.dados.blocoMsgPersonalizadaStyle['font-family'] = self.blocoMsgPersonalizadaStyle['font-family'];
-      UserService.dados.blocoCerimonia['font-family'] = self.blocoCerimonia['font-family'];
-      UserService.dados.blocoNomeNoivos['font-family'] = self.blocoNomeNoivos['font-family'];
-      UserService.dados.blocoPaisNoiva['font-family'] = self.blocoPaisNoiva['font-family'];
-      UserService.dados.blocoPaisNoivo['font-family'] = self.blocoPaisNoivo['font-family'];
+      UserService.dados.blocoCerimonia['font-family']   = self.blocoCerimonia['font-family'];
+      UserService.dados.blocoNomeNoivos['font-family']  = self.blocoNomeNoivos['font-family'];
+      UserService.dados.blocoPaisNoiva['font-family']   = self.blocoPaisNoiva['font-family'];
+      UserService.dados.blocoPaisNoivo['font-family']   = self.blocoPaisNoivo['font-family'];
 
-      var tamanhoFonteMsg1 = RemovePx(self.blocoMsg1['font-size']);
-      var tamanhoFonteMsg2 = RemovePx(self.blocoMsg2['font-size']);
-      var tamanhoFonteMsg3 = RemovePx(self.blocoMsgPersonalizadaStyle['font-size']);
-      var tamanhoFonteMsg4 = RemovePx(self.blocoCerimonia['font-size']);
+      var tamanhoFonteMsg1      = RemovePx(self.blocoMsg1['font-size']);
+      var tamanhoFonteMsg2      = RemovePx(self.blocoMsg2['font-size']);
+      var tamanhoFonteMsg3      = RemovePx(self.blocoMsgPersonalizadaStyle['font-size']);
+      var tamanhoFonteMsg4      = RemovePx(self.blocoCerimonia['font-size']);
       var tamanhoFontePaisNoiva = RemovePx(self.blocoPaisNoiva['font-size']);
       var tamanhoFontePaisNoivo = RemovePx(self.blocoPaisNoivo['font-size']);
-      var tamanhoNomeCasal = RemovePx(self.blocoNomeNoivos['font-size']);
+      var tamanhoNomeCasal      = RemovePx(self.blocoNomeNoivos['font-size']);
 
       UserService.dados.blocoMsg1['font-size'] = self.blocoMsg1['font-size'];
       UserService.dados.blocoMsg2['font-size'] = self.blocoMsg2['font-size'];
       UserService.dados.blocoMsgPersonalizadaStyle['font-size'] = self.blocoMsgPersonalizadaStyle['font-size'];
-      UserService.dados.blocoCerimonia['font-size'] = self.blocoCerimonia['font-size'];
-      UserService.dados.blocoNomeNoivos['font-size'] = self.blocoPaisNoiva['font-size'];
-      UserService.dados.blocoPaisNoiva['font-size'] = self.blocoPaisNoivo['font-size'];
-      UserService.dados.blocoPaisNoivo['font-size'] = self.blocoNomeNoivos['font-size'];
+      UserService.dados.blocoCerimonia['font-size']   = self.blocoCerimonia['font-size'];
+      UserService.dados.blocoNomeNoivos['font-size']  = self.blocoPaisNoiva['font-size'];
+      UserService.dados.blocoPaisNoiva['font-size']   = self.blocoPaisNoivo['font-size'];
+      UserService.dados.blocoPaisNoivo['font-size']   = self.blocoNomeNoivos['font-size'];
 
       UserService.SaveState();
 
@@ -316,25 +316,27 @@
 
       xmlVar += ' <tamanho_fonte_msg1>' + tamanhoFonteMsg1 + '</tamanho_fonte_msg1> <tamanho_fonte_msg2>' + tamanhoFonteMsg2 + '</tamanho_fonte_msg2> <tamanho_fonte_msg3>' + tamanhoFonteMsg3 + '</tamanho_fonte_msg3> <tamanho_fonte_msg4>' + tamanhoFonteMsg4 + '</tamanho_fonte_msg4> <tamanho_fonte_pais_noiva>' + tamanhoFontePaisNoiva + '</tamanho_fonte_pais_noiva> <tamanho_fonte_pais_noivo>' + tamanhoFontePaisNoivo + '</tamanho_fonte_pais_noivo> <tamanho_nomecasal>' + tamanhoNomeCasal + '</tamanho_nomecasal></DadosFormatacaoConvite > ';
 
-      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+      ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
+        console.error('SetConfiguracaoConvite -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
     /**
     * @name SetConvite
     * @desc Carrega o posicionamento dos blocos
-    * @memberOf Controllers.PersonalizarConvite
+    * @memberOf Controllers.PersonalizarConviteCtrl
     */
     function SetConvite() {
       var bloco = self.convites[self.conviteIndividual];
 
-      self.blocoPaisNoiva = bloco.blocoPaisNoiva;
-      self.blocoPaisNoivo = bloco.blocoPaisNoivo;
-      self.blocoMsg1 = bloco.blocoMsg1;
-      self.blocoNomeNoivos = bloco.blocoNomeNoivos;
-      self.blocoMsg2 = bloco.blocoMsg2;
+      self.blocoPaisNoiva             = bloco.blocoPaisNoiva;
+      self.blocoPaisNoivo             = bloco.blocoPaisNoivo;
+      self.blocoMsg1                  = bloco.blocoMsg1;
+      self.blocoNomeNoivos            = bloco.blocoNomeNoivos;
+      self.blocoMsg2                  = bloco.blocoMsg2;
       self.blocoMsgPersonalizadaStyle = bloco.blocoMsgPersonalizadaStyle;
-      self.blocoCerimonia = bloco.blocoCerimonia;
+      self.blocoCerimonia             = bloco.blocoCerimonia;
 
       /**
        * Quando o usuario apaga o convite e seleciona ele logo
@@ -351,7 +353,7 @@
     * @desc Pega a fonte da lista de fontes e aplica no bloco que esta ativado
     * @param {int} idFont id da fonte
     * @param {String} font nome da fonte
-    * @memberOf Controllers.PersonalizarConvite
+    * @memberOf Controllers.PersonalizarConviteCtrl
     */
     function SetFontToBloco(font, idFont) {
       //Formata o bloco atual
@@ -368,11 +370,11 @@
     /**
       * @name SetMsg
       * @desc Configura o conteudo de cada bloco.
-      * @memberOf Controllers.PersonalizarConvite
+      * @memberOf Controllers.PersonalizarConviteCtrl
       */
     function SetMsg() {
-      var casamento = dataCasamento.split('/');
-      var dataCasamentoAux = casamento[1] + '/' + casamento[0] + '/' + casamento[2];
+      var casamento         = dataCasamento.split('/');
+      var dataCasamentoAux  = casamento[1] + '/' + casamento[0] + '/' + casamento[2];
 
       self.conteudoMsg1 = $sce.trustAsHtml('convidam para a cerimônia de casamento dos seus filhos');
       self.conteudoMsg2 = $sce.trustAsHtml('a realizar-se às ' + $filter('twoDigits')(cerimoniaHora) + ':' + $filter('twoDigits')(cerimoniaMin) + ' horas, dia ' + dataCasamentoAux + ', ' + cerimoniaLocal);

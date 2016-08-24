@@ -1,13 +1,12 @@
 /**
  * Configurar Convite Controller2
- * controllerAs: 'configConvite2Ctrl'
  * @namespace Controllers
  */
 (function () {
   'use strict';
   angular
     .module('dashboard')
-    .controller('configurar_convite2', ConfigurarConvite2);
+    .controller('ConfigurarConvitePg2Ctrl', ConfigurarConvitePg2Ctrl);
 
   /**
    * $filter - Usado para filtrar a hora
@@ -17,104 +16,107 @@
    * UserService - Armazena os dados do usuario
    * ServiceCasamento - Servido para enviar e pegar dados do servidor
    */
-  ConfigurarConvite2.$inject = ['$filter', '$location', '$sce', 'ipService', 'UserService', 'ServiceCasamento'];
+  ConfigurarConvitePg2Ctrl.$inject = ['$filter', '$location', '$sce', 'ipService', 'UserService', 'ServiceCasamento'];
 
   /**
-   * @namespace ConfigurarConvite2
+   * @namespace ConfigurarConvitePg2Ctrl
    * @desc Lista os convites disponiveis. Se o usuario ja configurou o convite, mostra ele configurado com as opções de editar e refazer.
    * @memberOf Controllers
    */
-  function ConfigurarConvite2($filter, $location, $sce, ipService, UserService, ServiceCasamento) {
-    var cerimoniaBairro = UserService.dados.cerimoniaBairro;
-    var cerimoniaCidade = UserService.dados.cerimoniaCidade;
-    var cerimoniaEnd = UserService.dados.cerimoniaEnd;
-    var cerimoniaHora = UserService.dados.cerimoniaHora;
-    var cerimoniaLocal = UserService.dados.cerimoniaLocal;
-    var cerimoniaNumero = UserService.dados.cerimoniaNumero;
-    var cerimoniaMin = UserService.dados.cerimoniaMin;
-    var convites = UserService.dados.listaConvites;
-    var dataCasamento = UserService.dados.dataCasamento;
-    var fonts = UserService.dados.listaFonts;
-    var ID = UserService.dados.ID; //ID do usuario logado
-    var idConvite = UserService.dados.modeloConvite; //ID do convite(0 -> nenhum convite selecionado)
-    var noivaMae = UserService.dados.noivaMae;
-    var noivaMaeMemorian = UserService.dados.noivaMaeMemorian;
-    var noivaPai = UserService.dados.noivaPai;
-    var noivaPaiMemorian = UserService.dados.noivaPaiMemorian;
-    var noivoMae = UserService.dados.noivoMae;
-    var noivoMaeMemorian = UserService.dados.noivoMaeMemorian;
-    var noivoPai = UserService.dados.noivoPai;
-    var noivoPaiMemorian = UserService.dados.noivoPaiMemorian;
-    var nomeNoiva = UserService.dados.nomeNoiva;
-    var nomeNoivo = UserService.dados.nomeNoivo;
-    var self = this;
+  function ConfigurarConvitePg2Ctrl($filter, $location, $sce, ipService, UserService, ServiceCasamento) {
+    var cerimoniaBairro   = UserService.dados.cerimoniaBairro;
+    var cerimoniaCidade   = UserService.dados.cerimoniaCidade;
+    var cerimoniaEnd      = UserService.dados.cerimoniaEnd;
+    var cerimoniaHora     = UserService.dados.cerimoniaHora;
+    var cerimoniaLocal    = UserService.dados.cerimoniaLocal;
+    var cerimoniaNumero   = UserService.dados.cerimoniaNumero;
+    var cerimoniaMin      = UserService.dados.cerimoniaMin;
+    var convites          = UserService.dados.listaConvites;
+    var dataCasamento     = UserService.dados.dataCasamento;
+    var fonts             = UserService.dados.listaFonts;
+    var ID                = UserService.dados.ID;
+    var idConvite         = UserService.dados.modeloConvite; //ID do convite(0 -> nenhum convite selecionado)
+    var noivaMae          = UserService.dados.noivaMae;
+    var noivaMaeMemorian  = UserService.dados.noivaMaeMemorian;
+    var noivaPai          = UserService.dados.noivaPai;
+    var noivaPaiMemorian  = UserService.dados.noivaPaiMemorian;
+    var noivoMae          = UserService.dados.noivoMae;
+    var noivoMaeMemorian  = UserService.dados.noivoMaeMemorian;
+    var noivoPai          = UserService.dados.noivoPai;
+    var noivoPaiMemorian  = UserService.dados.noivoPaiMemorian;
+    var nomeNoiva         = UserService.dados.nomeNoiva;
+    var nomeNoivo         = UserService.dados.nomeNoivo;
+    var self              = this;
 
-    self.AlterarConvite = AlterarConvite;
-    self.cerregando = true; //Controlado o display do gif de carregar
-    self.ConviteToCanvas = ConviteToCanvas;
-    self.hasContent = UserService.dados.conviteCriado; //O convite ja foi criado?
+    self.cerregando     = true; //Controlado o display do gif de carregar
+    self.hasContent     = UserService.dados.conviteCriado; //O convite ja foi criado?
     self.thumbEscolhido = 'image/convites/thumb/thumb1.png'; //Inicializa um thumb
     //thumb disponiveis
-    self.thumbs = [
+    self.thumbs         = [
       {
-        ID: 1,
-        url: 'image/convites/thumb/thumb1.png',
+        ID  : 1,
+        url : 'image/convites/thumb/thumb1.png',
         nome: 'Laranja'
       },
       {
-        ID: 2,
-        url: 'image/convites/thumb/thumb2.png',
+        ID  : 2,
+        url : 'image/convites/thumb/thumb2.png',
         nome: 'Arabescos'
       },
       {
-        ID: 3,
-        url: 'image/convites/thumb/thumb3.png',
+        ID  : 3,
+        url : 'image/convites/thumb/thumb3.png',
         nome: 'Ramos'
       },
       {
-        ID: 4,
-        url: 'image/convites/thumb/thumb4.png',
+        ID  : 4,
+        url : 'image/convites/thumb/thumb4.png',
         nome: 'Plain'
       },
       {
-        ID: 5,
-        url: 'image/convites/thumb/thumb5.png',
+        ID  : 5,
+        url : 'image/convites/thumb/thumb5.png',
         nome: 'Orquidea'
       },
       {
-        ID: 6,
-        url: 'image/convites/thumb/thumb6.png',
+        ID  : 6,
+        url : 'image/convites/thumb/thumb6.png',
         nome: 'Gold'
       },
       {
-        ID: 7,
-        url: 'image/convites/thumb/thumb7.png',
+        ID  : 7,
+        url : 'image/convites/thumb/thumb7.png',
         nome: 'Floral'
       },
       {
-        ID: 9,
-        url: 'image/convites/thumb/thumb9.png',
+        ID  : 9,
+        url : 'image/convites/thumb/thumb9.png',
         nome: 'Árvore'
       }
     ];
-    self.thumbNome = 'Laranja'; //Inicializa o nome do convite
-    self.SalvarConvite = SalvarConvite;
-    self.SetConvite = SetConvite;
-    self.enableEditor = true;
+    self.thumbNome      = 'Laranja'; //Inicializa o nome do convite
+    self.enableEditor   = true;
+
+    //Adicona as funcoes ao escopo
+    self.AlterarConvite   = AlterarConvite;
+    self.ConviteToCanvas  = ConviteToCanvas;
+    self.SalvarConvite    = SalvarConvite;
+    self.SetConvite       = SetConvite;
 
     GetConfiguracaoConvite(); //Init
 
     /**
      * @name AlterarConvite
      * @desc Apaga o conteudo do convite salvo.
-     * @memberOf Controllers.ConfigurarConvite2
+     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
      */
     function AlterarConvite() {
       $('#confirmacao').modal('hide'); //Esconde o modal
-      self.cerregando = true; //mostra o gif de carregando
 
+      self.cerregando                 = true; //mostra o gif de carregando
       UserService.dados.modeloConvite = 0; //Informa que nao ha convite selecionado
       UserService.dados.conviteCriado = self.hasContent = false; //Informa que nao ha conteudo de convite
+
       UserService.SaveState(); //Salva localmente
 
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/FormatacaoConvite';
@@ -138,30 +140,29 @@
           doc.save('convite.pdf');
         }
       });
-
     }
 
     /**
       * @name FormatConvite
       * @desc Coloca os blocos de texto no lugar, de acordo com cada convite.
-      * @memberOf Controllers.ConfigurarConvite2
+      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
       */
     function FormatConvite() {
       var bloco = convites['convite' + idConvite]; //pega o convite selecionado
 
-      self.blocoPaisNoiva = bloco.blocoPaisNoiva;
-      self.blocoPaisNoivo = bloco.blocoPaisNoivo;
-      self.blocoMsg1 = bloco.blocoMsg1;
-      self.blocoNomeNoivos = bloco.blocoNomeNoivos;
-      self.blocoMsg2 = bloco.blocoMsg2;
+      self.blocoPaisNoiva             = bloco.blocoPaisNoiva;
+      self.blocoPaisNoivo             = bloco.blocoPaisNoivo;
+      self.blocoMsg1                  = bloco.blocoMsg1;
+      self.blocoNomeNoivos            = bloco.blocoNomeNoivos;
+      self.blocoMsg2                  = bloco.blocoMsg2;
       self.blocoMsgPersonalizadaStyle = bloco.blocoMsgPersonalizadaStyle;
-      self.blocoCerimonia = bloco.blocoCerimonia;
+      self.blocoCerimonia             = bloco.blocoCerimonia;
     }
 
     /**
       * @name GetConfiguracaoConvite
       * @desc Pega o estilo de cada bloco no servidor, se existir.
-      * @memberOf Controllers.ConfigurarConvite2
+      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
       */
     function GetConfiguracaoConvite() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarFormatacaoConvite';
@@ -297,13 +298,13 @@
           self.blocoMsgPersonalizada = $sce.trustAsHtml($(resp).find('conteudo_msg3').text());
           UserService.dados.blocoMsgPersonalizadaStyle.conteudo = $(resp).find('conteudo_msg3').text();
 
-          UserService.dados.blocoMsg1['font-id'] = $(resp).find('fonte_msg1').text();
-          UserService.dados.blocoMsg2['font-id'] = $(resp).find('fonte_msg2').text();
-          UserService.dados.blocoMsgPersonalizadaStyle['font-id'] = $(resp).find('fonte_msg3').text();
-          UserService.dados.blocoCerimonia['font-id'] = $(resp).find('fonte_msg4').text();
-          UserService.dados.blocoNomeNoivos['font-id'] = $(resp).find('fonte_nomecasal').text();
-          UserService.dados.blocoPaisNoiva['font-id'] = $(resp).find('fonte_pais_noiva').text();
-          UserService.dados.blocoPaisNoivo['font-id'] = $(resp).find('fonte_pais_noivo').text();
+          UserService.dados.blocoMsg1['font-id']               = $(resp).find('fonte_msg1').text();
+          UserService.dados.blocoMsg2['font-id']               = $(resp).find('fonte_msg2').text();
+          UserService.dados.blocoMsgPersonalizadaStyle['font-id']   = $(resp).find('fonte_msg3').text();
+          UserService.dados.blocoCerimonia['font-id']          = $(resp).find('fonte_msg4').text();
+          UserService.dados.blocoNomeNoivos['font-id']         = $(resp).find('fonte_nomecasal').text();
+          UserService.dados.blocoPaisNoiva['font-id']          = $(resp).find('fonte_pais_noiva').text();
+          UserService.dados.blocoPaisNoivo['font-id']          = $(resp).find('fonte_pais_noivo').text();
 
           UserService.dados.modeloConvite = 'convite' + idConvite;
         } else {
@@ -323,7 +324,7 @@
       * @param {Int} Id da font para buscar
       * @desc Busca a font na lista a partir do ID fornecido
       * @returns {String} nome da font
-      * @memberOf Controllers.ConfigurarConvite2
+      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
       */
     function GetFonte(id) {
       try {
@@ -354,15 +355,15 @@
      * @param {Int} valor entre 0 e 2
      * @desc Retorna o alinhamento de acordo com o numero
      * @returns {String} right, left, center ou left
-     * @memberOf Controllers.ConfigurarConvite2
+     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
      */
     function GetTextAling(index) {
       var retorno = '';
       switch (index) {
-        case '2': retorno = 'right'; break;
-        case '0': retorno = 'left'; break;
-        case '1': retorno = 'center'; break;
-        default: retorno = 'left'; break;
+        case '2': retorno   = 'right';  break;
+        case '0': retorno   = 'left';   break;
+        case '1': retorno   = 'center'; break;
+        default : retorno   = 'left';   break;
       }
       return retorno;
     }
@@ -370,7 +371,7 @@
     /**
      * @name HasSend
      * @desc Verifica se um dos noivos ja enviou os convites.
-     * @memberOf Controllers.ConfigurarConvite2
+     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
      */
     function HasSend() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarEstatisticaCasamento';
@@ -394,7 +395,7 @@
      * @param {String} itIs true ou false
      * @desc Force uma cruz em html
      * @returns {String} retorna o codigo html para a cruz
-     * @memberOf Controllers.ConfigurarConvite2
+     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
      */
     function InMemorian(itIs) {
       if (itIs === 'true') {
@@ -407,7 +408,7 @@
     /**
     * @name SalvarConvite
     * @desc Salva o convite selecionado e direciona o usuario para a edição
-    * @memberOf Controllers.ConfigurarConvite2
+    * @memberOf Controllers.ConfigurarConvitePg2Ctrl
     */
     function SalvarConvite() {
       $('#myModal').modal('hide');
@@ -422,18 +423,18 @@
     * @param {String} nome nome do convite
     * @param {String} url caminho da imagem do convite
     * @desc Armazena os dados do convite quando o usuario clica do thumb, para ser mostrado no modal
-    * @memberOf Controllers.ConfigurarConvite2
+    * @memberOf Controllers.ConfigurarConvitePg2Ctrl
     */
     function SetConvite(id, nome, url) {
-      self.thumbNome = nome;
+      self.thumbNome      = nome;
       self.thumbEscolhido = url;
-      idConvite = id;
+      idConvite           = id;
     }
 
     /**
       * @name SetMsg
       * @desc Configura o conteudo de cada bloco.
-      * @memberOf Controllers.ConfigurarConvite2
+      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
       */
     function SetMsg() {
       var casamento = dataCasamento.split('/');

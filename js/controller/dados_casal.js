@@ -7,7 +7,7 @@
   'use strict';
   angular
     .module('dashboard')
-    .controller('dados_casal', DadosCasal);
+    .controller('DadosCasalCtrl', DadosCasalCtrl);
 
   /**
    * Upload - Responsavel pelo o upload da imagem
@@ -19,19 +19,19 @@
    * $scope - scopo para input file
    * $rootScope - Usado para a imagem do casal
    */
-  DadosCasal.$inject = ['$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', 'EnviarFoto'];
+  DadosCasalCtrl.$inject = ['$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', 'EnviarFoto'];
 
   /**
-   * @namespace DadosCasal
+   * @namespace DadosCasalCtrl
    * @desc Controla todos os itens Referente aos dados do casal.(Nome, data e foto)
    * @memberOf Controllers
    */
-  function DadosCasal($filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope, EnviarFoto) {
+  function DadosCasalCtrl($filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope, EnviarFoto) {
 
     var self = this;
-    var ID = UserService.dados.ID;
-    var fotoNoivos = UserService.dados.fotoUrl;
-    var dataNoivos = UserService.dados.dataCasamento;
+    var ID          = UserService.dados.ID;
+    var fotoNoivos  = UserService.dados.fotoUrl;
+    var dataNoivos  = UserService.dados.dataCasamento;
 
     // O nome dos noivos e a imagem ja foi pega no login.
     self.nomeNoiva = UserService.dados.nomeNoiva;
@@ -42,15 +42,15 @@
      * Nao eh aceito valor null
      */
     self.fotoEditor = './image/user_login.png';
-    self.selected = { width: 50, height: 50, top: 0, left: 0 };
+    self.selected   = { width: 50, height: 50, top: 0, left: 0 };
 
-    self.editar = false;//Esconde o popup da edicao da imagem
+    self.editar     = false;//Esconde o popup da edicao da imagem
     self.carregando = false;//Esconde gif de loding
 
-    self.UploadFoto = UploadFoto;
-    self.CasalGetDados = CasalGetDados;
-    self.SetDadosCasal = SetDadosCasal;
-    $scope.OpenFile = OpenFile;
+    self.UploadFoto     = UploadFoto;
+    self.CasalGetDados  = CasalGetDados;
+    self.SetDadosCasal  = SetDadosCasal;
+    $scope.OpenFile     = OpenFile;
 
     if (fotoNoivos === 'image/user_login.png') {
       self.foto = null;
@@ -58,22 +58,11 @@
       self.foto = fotoNoivos;
     }
 
-    /**
-     * Se a data do casamento estiver null, significa que eh a primeira vez que entra
-     * pois os nomes dos noivos sao armazenados no login.
-     * Nesse caso eh feita uma requisiçao ao servidor.
-     * Caso contrario, apenas insere a data no html
-     */
-    // if (dataNoivos == null) {
-    //   self.CasalGetDados();
-    // } else {
-    //   self.dataCasamento = new Date(dataNoivos);
-    // }
     self.CasalGetDados();
     /**
      * @name UploadFoto
      * @desc Envia o foto do casal recortada para o servidor na base64
-     * @memberOf Controllers.DadosCasal
+     * @memberOf Controllers.DadosCasalCtrl
      */
     function UploadFoto() {
       self.carregando = true;  //Esconde foto atual e mostra gif de loding
@@ -95,19 +84,16 @@
          */
 
         var novaImg = fotoNoivos.split('?'); //Retira a hora antiga
-        var time = new Date(); //Pega a data e hora atual
+        var time    = new Date(); //Pega a data e hora atual
 
         /**
          * Armazena o nome da imagem com a hora atual
          * O filtro [$filter('date')] mostra so a hora
          */
-        fotoNoivos = novaImg[0] + '?' + $filter('date')(time, 'H:mm', '-0300');
-        self.foto = $rootScope.fotoCasal = fotoNoivos; //Salva a foto no scopo global e na pagina atual
-        UserService.dados.fotoUrl = fotoNoivos; //Salva a foto local
-        self.carregando = false; //seconde o gif de loding e mostra a nova imagem
-
-        //refresh a pagina para atualizar a imagem no site
-        // $route.reload();
+        fotoNoivos                        = novaImg[0] + '?' + $filter('date')(time, 'H:mm', '-0300');
+        self.foto = $rootScope.fotoCasal  = fotoNoivos; //Salva a foto no scopo global e na pagina atual
+        UserService.dados.fotoUrl         = fotoNoivos; //Salva a foto local
+        self.carregando                   = false; //seconde o gif de loding e mostra a nova imagem
       });
     }
 
@@ -115,21 +101,21 @@
      * @name OpenFile
      * @param {File} elem File do input[type=file]
      * @desc Renderiza a imagem vinda do input para ser recortada
-     * @memberOf Controllers.DadosCasal
+     * @memberOf Controllers.DadosCasalCtrl
      */
     function OpenFile(elem) {
       var reader = new FileReader();
 
       reader.onload = function () {
-        var dataURL = reader.result;
+        var dataURL     = reader.result;
         self.fotoEditor = dataURL;
-        self.editar = true;
+        self.editar     = true;
 
         // configura os valores para a area de corte inicial
-        self.selected.width = 200;
-        self.selected.height = 200;
-        self.selected.left = 0;
-        self.selected.top = 0;
+        self.selected.width   = 200;
+        self.selected.height  = 200;
+        self.selected.left    = 0;
+        self.selected.top     = 0;
       };
       reader.readAsDataURL(elem.files[0]);
     }
@@ -137,7 +123,7 @@
     /**
      * @name CasalGetDados
      * @desc Pega os dados do servidor
-     * @memberOf Controllers.DadosCasal
+     * @memberOf Controllers.DadosCasalCtrl
      */
     function CasalGetDados() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarDadosCadastroNoivos';
@@ -145,7 +131,7 @@
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        var status = $(respXml).find('Result').text();
+        var status  = $(respXml).find('Result').text();
 
         if (status === 'false') {
           console.error('Erro ao enviar os dados. Erro:', $(respXml).find('ErrorMessage').text());
@@ -169,19 +155,19 @@
     /**
      * @name SetDadosCasal
      * @desc Envia os dados para o servidor
-     * @memberOf Controllers.DadosCasal
+     * @memberOf Controllers.DadosCasalCtrl
      */
     function SetDadosCasal() {
       //Formata a data para o padrao americano.
       var casamento = (self.dataCasamento.getMonth() + 1) + '/' + self.dataCasamento.getDate() + '/' + self.dataCasamento.getFullYear();
 
-      var xmlVar = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + self.nomeNoiva + '</NomeNoiva><NomeNoivo>' + self.nomeNoivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
+      var xmlVar = '<DadosCasalCtrl xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + self.nomeNoiva + '</NomeNoiva><NomeNoivo>' + self.nomeNoivo + '</NomeNoivo><Senha></Senha></DadosCasalCtrl>';
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/AtualizarDadosCadastroNoivos';
 
       //Enviar para o serviço na nuvem
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        var status = $(respXml).find('Result').text();
+        var status  = $(respXml).find('Result').text();
 
         if (status === 'False') {
           console.error('Erro ao enviar os dados.Erro:', $(respXml).find('ErrorMessage').text());
@@ -194,8 +180,8 @@
 
       //Armazena localmente e salva
       UserService.dados.dataCasamento = self.dataCasamento;
-      UserService.dados.nomeNoiva = self.nomeNoiva;
-      UserService.dados.nomeNoivo = self.nomeNoivo;
+      UserService.dados.nomeNoiva     = self.nomeNoiva;
+      UserService.dados.nomeNoivo     = self.nomeNoivo;
       UserService.SaveState();
     }
   }

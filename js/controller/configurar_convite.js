@@ -1,28 +1,27 @@
 /**
  * Configurar Convite Controller
- * controllerAs: 'configConviteCtrl'
  * @namespace Controllers
  */
 (function () {
   'use strict';
   angular
     .module('dashboard')
-    .controller('configurar_convite', ConfigurarConvite);
+    .controller('ConfigurarConviteCtrl', ConfigurarConviteCtrl);
 
-  ConfigurarConvite.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP'];
+  ConfigurarConviteCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP'];
 
   /**
-   * @namespace ConfigurarConvite
+   * @namespace ConfigurarConviteCtrl
    * @desc Configura os dados dos pais dos noivos
    * @memberOf Controllers
    */
-  function ConfigurarConvite(UserService, ServiceCasamento, ipService, consultCEP) {
-    var self = this;
-    var ID = UserService.dados.ID;//ID do usuario logado
+  function ConfigurarConviteCtrl(UserService, ServiceCasamento, ipService, consultCEP) {
+    var self  = this;
+    var ID    = UserService.dados.ID;//ID do usuario logado
 
-    self.ConsultarCep = ConsultarCep;
-    self.GetLocal = GetLocal;
-    self.SetDadosConvite = SetDadosConvite;
+    self.ConsultarCep     = ConsultarCep;
+    self.GetLocal         = GetLocal;
+    self.SetDadosConvite  = SetDadosConvite;
 
     //Verifica se ja existe dados, para nao solicitar ao servidor
     if (UserService.dados.conviteCheck) {
@@ -35,15 +34,15 @@
     /**
      * @name ConsultarCep
      * @desc Consulta o cep fornecido pelo usuario e preenche os dados no formulario
-     * @memberOf Controllers.ConfigurarConvite
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function ConsultarCep(cep) {
       try {
         consultCEP.consultar(cep).then(function (data) {
-          self.cerimoniaEnd = data.logradouro;
-          self.cerimoniaBairro = data.bairro;
-          self.cerimoniaCidade = data.cidade;
-          self.cerimoniaUf = data.estado;
+          self.cerimoniaEnd     = data.logradouro;
+          self.cerimoniaBairro  = data.bairro;
+          self.cerimoniaCidade  = data.cidade;
+          self.cerimoniaUf      = data.estado;
         });
       } catch (error) { }
     }
@@ -51,7 +50,7 @@
     /**
      * @name GetDadosConvite
      * @desc Carrega os dados no formulario do servirdor
-     * @memberOf Controllers.ConfigurarConvite
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function GetDadosConvite() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoConvite';
@@ -61,15 +60,15 @@
         var respXml = $.parseXML(resp);
         var hora = $(respXml).find('Horario_cerimonia').text().split(':');
 
-        self.cerimoniaLocal = $(respXml).find('Local_cerimonia').text();
-        self.cerimoniaEnd = $(respXml).find('Endereco').text();
-        self.cerimoniaNumero = $(respXml).find('Numero').text();
-        self.cerimoniaBairro = $(respXml).find('Bairro').text();
-        self.cerimoniaCidade = $(respXml).find('Cidade').text();
-        self.cerimoniaUf = $(respXml).find('Estado').text();
-        self.cerimoniaRota = $(respXml).find('Tracar_rota_local').text();
-        self.cerimoniaCep = $(respXml).find('Cep').text();
-        self.cerimoniaHora = hora[0];
+        self.cerimoniaLocal   = $(respXml).find('Local_cerimonia').text();
+        self.cerimoniaEnd     = $(respXml).find('Endereco').text();
+        self.cerimoniaNumero  = $(respXml).find('Numero').text();
+        self.cerimoniaBairro  = $(respXml).find('Bairro').text();
+        self.cerimoniaCidade  = $(respXml).find('Cidade').text();
+        self.cerimoniaUf      = $(respXml).find('Estado').text();
+        self.cerimoniaRota    = $(respXml).find('Tracar_rota_local').text();
+        self.cerimoniaCep     = $(respXml).find('Cep').text();
+        self.cerimoniaHora    = hora[0];
 
         if (hora[1] === '00') {
           self.cerimoniaMin = '0';
@@ -77,14 +76,14 @@
           self.cerimoniaMin = hora[1];
         }
 
-        self.noivaMae = $(respXml).find('Mae_noiva').text();
-        self.noivaPai = $(respXml).find('Pai_noiva').text();
-        self.noivoMae = $(respXml).find('Mae_noivo').text();
-        self.noivoPai = $(respXml).find('Pai_noivo').text();
-        self.noivaMaeMmemorian = $(respXml).find('Mae_noiva_in_memoriam').text();
-        self.noivaPaiMemorian = $(respXml).find('Pai_noiva_in_memoriam').text();
-        self.noivoMaeMemorian = $(respXml).find('Mae_noivo_in_memoriam').text();
-        self.noivoPaiMemorian = $(respXml).find('Pai_noivo_in_memoriam').text();
+        self.noivaMae           = $(respXml).find('Mae_noiva').text();
+        self.noivaPai           = $(respXml).find('Pai_noiva').text();
+        self.noivoMae           = $(respXml).find('Mae_noivo').text();
+        self.noivoPai           = $(respXml).find('Pai_noivo').text();
+        self.noivaMaeMmemorian  = $(respXml).find('Mae_noiva_in_memoriam').text();
+        self.noivaPaiMemorian   = $(respXml).find('Pai_noiva_in_memoriam').text();
+        self.noivoMaeMemorian   = $(respXml).find('Mae_noivo_in_memoriam').text();
+        self.noivoPaiMemorian   = $(respXml).find('Pai_noivo_in_memoriam').text();
 
         SalvarLocal();
       }).catch(function (error) {
@@ -96,61 +95,61 @@
     /**
      * @name GetLocal
      * @desc Carrega os dados no formulario do session
-     * @memberOf Controllers.ConfigurarConvite
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function GetLocal() {
-      self.cerimoniaLocal = UserService.dados.cerimoniaLocal;
-      self.cerimoniaEnd = UserService.dados.cerimoniaEnd;
-      self.cerimoniaNumero = UserService.dados.cerimoniaNumero;
-      self.cerimoniaBairro = UserService.dados.cerimoniaBairro;
-      self.cerimoniaCidade = UserService.dados.cerimoniaCidade;
-      self.cerimoniaUf = UserService.dados.cerimoniaUf;
-      self.cerimoniaRota = UserService.dados.cerimoniaRota;
-      self.cerimoniaCep = UserService.dados.cerimoniaCep;
-      self.cerimoniaHora = UserService.dados.cerimoniaHora;
-      self.cerimoniaMin = UserService.dados.cerimoniaMin;
+      self.cerimoniaLocal   = UserService.dados.cerimoniaLocal;
+      self.cerimoniaEnd     = UserService.dados.cerimoniaEnd;
+      self.cerimoniaNumero  = UserService.dados.cerimoniaNumero;
+      self.cerimoniaBairro  = UserService.dados.cerimoniaBairro;
+      self.cerimoniaCidade  = UserService.dados.cerimoniaCidade;
+      self.cerimoniaUf      = UserService.dados.cerimoniaUf;
+      self.cerimoniaRota    = UserService.dados.cerimoniaRota;
+      self.cerimoniaCep     = UserService.dados.cerimoniaCep;
+      self.cerimoniaHora    = UserService.dados.cerimoniaHora;
+      self.cerimoniaMin     = UserService.dados.cerimoniaMin;
 
-      self.noivaMae = UserService.dados.noivaMae;
-      self.noivaPai = UserService.dados.noivaPai;
-      self.noivoMae = UserService.dados.noivoMae;
-      self.noivoPai = UserService.dados.noivoPai;
-      self.noivaMaeMmemorian = UserService.dados.noivaMaeMmemorian;
-      self.noivaPaiMemorian = UserService.dados.noivaPaiMemorian;
-      self.noivoMaeMemorian = UserService.dados.noivoMaeMemorian;
-      self.noivoPaiMemorian = UserService.dados.noivoPaiMemorian;
+      self.noivaMae           = UserService.dados.noivaMae;
+      self.noivaPai           = UserService.dados.noivaPai;
+      self.noivoMae           = UserService.dados.noivoMae;
+      self.noivoPai           = UserService.dados.noivoPai;
+      self.noivaMaeMmemorian  = UserService.dados.noivaMaeMmemorian;
+      self.noivaPaiMemorian   = UserService.dados.noivaPaiMemorian;
+      self.noivoMaeMemorian   = UserService.dados.noivoMaeMemorian;
+      self.noivoPaiMemorian   = UserService.dados.noivoPaiMemorian;
     }
 
     /**
      * @name SalvarLocal
      * @desc Salva os dados do formulario no session
-     * @memberOf Controllers.ConfigurarConvite
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function SalvarLocal() {
-      UserService.dados.cerimoniaLocal = self.cerimoniaLocal;
-      UserService.dados.cerimoniaEnd = self.cerimoniaEnd;
+      UserService.dados.cerimoniaLocal  = self.cerimoniaLocal;
+      UserService.dados.cerimoniaEnd    = self.cerimoniaEnd;
       UserService.dados.cerimoniaNumero = self.cerimoniaNumero;
       UserService.dados.cerimoniaBairro = self.cerimoniaBairro;
       UserService.dados.cerimoniaCidade = self.cerimoniaCidade;
-      UserService.dados.cerimoniaUf = self.cerimoniaUf;
-      UserService.dados.cerimoniaRota = self.cerimoniaRota;
-      UserService.dados.cerimoniaCep = self.cerimoniaCep;
-      UserService.dados.cerimoniaHora = self.cerimoniaHora;
-      UserService.dados.cerimoniaMin = self.cerimoniaMin;
+      UserService.dados.cerimoniaUf     = self.cerimoniaUf;
+      UserService.dados.cerimoniaRota   = self.cerimoniaRota;
+      UserService.dados.cerimoniaCep    = self.cerimoniaCep;
+      UserService.dados.cerimoniaHora   = self.cerimoniaHora;
+      UserService.dados.cerimoniaMin    = self.cerimoniaMin;
 
-      UserService.dados.noivaMae = self.noivaMae;
-      UserService.dados.noivaPai = self.noivaPai;
-      UserService.dados.noivoMae = self.noivoMae;
-      UserService.dados.noivoPai = self.noivoPai;
+      UserService.dados.noivaMae          = self.noivaMae;
+      UserService.dados.noivaPai          = self.noivaPai;
+      UserService.dados.noivoMae          = self.noivoMae;
+      UserService.dados.noivoPai          = self.noivoPai;
       UserService.dados.noivaMaeMmemorian = self.noivaMaeMmemorian;
-      UserService.dados.noivaPaiMemorian = self.noivaPaiMemorian;
-      UserService.dados.noivoMaeMemorian = self.noivoMaeMemorian;
-      UserService.dados.noivoPaiMemorian = self.noivoPaiMemorian;
+      UserService.dados.noivaPaiMemorian  = self.noivaPaiMemorian;
+      UserService.dados.noivoMaeMemorian  = self.noivoMaeMemorian;
+      UserService.dados.noivoPaiMemorian  = self.noivoPaiMemorian;
     }
 
     /**
      * @name SetDadosConvite
      * @desc Salva os dados do formulario no servirdor
-     * @memberOf Controllers.ConfigurarConvite
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function SetDadosConvite() {
       var hora = self.cerimoniaHora + ':' + self.cerimoniaMin;

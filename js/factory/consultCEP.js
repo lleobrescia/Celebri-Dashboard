@@ -31,11 +31,11 @@
     */
     function Consultar(cepToConsult) {
       var cep = cepToConsult.replace(/\./g, '');
-      cep = cep.replace(/\-/g, '');
+      cep     = cep.replace(/\-/g, '');
 
       if (cep.length > 7) {
-        var call = $.ajax({ url: 'https://api.postmon.com.br/v1/cep/' + cep });
-        var deferred = $q.defer();
+        var call      = $.ajax({ url: 'https://api.postmon.com.br/v1/cep/' + cep });
+        var deferred  = $q.defer();
 
         call.success(function (data) {
           deferred.resolve(data);

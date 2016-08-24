@@ -1,13 +1,12 @@
-// Modules
 angular
   .module('dashboard', [
-    'ngRoute',//Controlar URL
-    'ngMask',//Mascara dos inputs
-    'rzModule',//Usado no slider para alterar o tamanho da fonte
-    'ngAnimate',//Usado nas trancições de telas
-    'chart.js',//Usado nas estastisticas
+    'ngRoute',      //Controlar URL
+    'ngMask',       //Mascara dos inputs
+    'rzModule',     //Usado no slider para alterar o tamanho da fonte
+    'ngAnimate',    //Usado nas trancições de telas
+    'chart.js',     //Usado nas estastisticas
     'ngImageEditor',//Usado para recortar a foto do casal
-    'ngMaterial'//Usado na data do casamento
+    'ngMaterial'    //Usado na data do casamento
   ]);
 
 (function () {
@@ -23,7 +22,7 @@ angular
     //Load os dados do usuario
     UserService.RestoreState();
 
-    $rootScope.$on('$routeChangeStart', ChangeStart);
+    $rootScope.$on('$routeChangeStart',   ChangeStart);
     $rootScope.$on('$routeChangeSuccess', ChangeSuccess);
 
     //let everthing know that we need to save state now.
@@ -47,7 +46,7 @@ angular
         sessionStorage.restorestate = false;
       }
 
-      var id = UserService.dados.ID;
+      var id                = UserService.dados.ID;
       var userAuthenticated = false;
 
       if (id != null) {
@@ -81,10 +80,10 @@ angular
   //Configura aliguagem do calendario
   function Config($mdDateLocaleProvider) {
     $mdDateLocaleProvider.months = [
-      'Janeiro', 'Fevereiro', 'Março',
-      'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro',
-      'Outubro', 'Novembro', 'Dezembro'
+      'Janeiro' , 'Fevereiro' , 'Março',
+      'Abril'   , 'Maio'      , 'Junho',
+      'Julho'   , 'Agosto'    , 'Setembro',
+      'Outubro' , 'Novembro'  , 'Dezembro'
     ];
 
     $mdDateLocaleProvider.shortMonths = [
@@ -94,8 +93,8 @@ angular
       'Out', 'Nov', 'Dez'
     ];
     $mdDateLocaleProvider.days = [
-      'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta',
-      'Sábado', 'Domingo'
+      'Segunda' , 'Terça', 'Quarta', 'Quinta', 'Sexta',
+      'Sábado'  , 'Domingo'
     ];
     $mdDateLocaleProvider.shortDays = [
       'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'
@@ -107,7 +106,7 @@ angular
       var m = moment(dateString, 'DD/MM/YYYY', true);
       return m.isValid() ? m.toDate() : new Date(NaN);
     };
-    $mdDateLocaleProvider.msgCalendar = 'Calendario';
+    $mdDateLocaleProvider.msgCalendar     = 'Calendario';
     $mdDateLocaleProvider.msgOpenCalendar = 'Abrir calendario';
   }
 })();

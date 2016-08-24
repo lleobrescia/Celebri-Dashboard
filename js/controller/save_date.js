@@ -1,3 +1,7 @@
+/**
+ * Save The Date Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
 
@@ -6,6 +10,11 @@
     .controller('SaveTheDateCtrl', SaveTheDateCtrl);
 
   SaveTheDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService'];
+  /**
+   * @namespace SaveTheDateCtrl
+   * @desc Gerencia o template do save the date e a mensagem
+   * @memberOf Controllers
+   */
   function SaveTheDateCtrl(UserService, ServiceCasamento, ipService) {
     var self  = this;
     var ID    = UserService.dados.ID;
@@ -15,6 +24,11 @@
 
     Init();
 
+  /**
+   * @namespace GetData
+   * @desc Pega os dados do servidor
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function GetData() {
       self.showDate = false;
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarFormatacaoSaveTheDate';
@@ -51,6 +65,11 @@
       });
     }
 
+  /**
+   * @namespace Init
+   * @desc Setup do controlador
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function Init() {
       self.showDate = false;
 
@@ -63,17 +82,24 @@
       }
     }
 
+  /**
+   * @namespace Salvar
+   * @desc Envia os dados para o servidor
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function Salvar() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/FormatacaoSaveTheDate';
       var xmlVar = '<DadosFormatacaoSaveTheDate xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <ErrorMessage></ErrorMessage>  <Result>true</Result>  <id_casal>' + ID + '</id_casal>  <id_modelo>' + self.modelo + '</id_modelo>  <msg>' + self.mensagem + '</msg>  <nomecasal>' + UserService.dados.nomeNoiva + ' e ' + UserService.dados.nomeNoivo + '</nomecasal></DadosFormatacaoSaveTheDate>';
-
 
       UserService.dados.modeloDate  = self.modelo;
       UserService.dados.msgDate     = self.mensagem;
 
       UserService.SaveState();
 
-      ServiceCasamento.SendData(urlVar, xmlVar);
+      ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
+        console.error('Salvar -> ', error);
+        console.warn('Dados enviados:', xmlVar);
+      });
     }
   }
 } ());

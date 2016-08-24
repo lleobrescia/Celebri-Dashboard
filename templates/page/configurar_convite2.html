@@ -1,6 +1,6 @@
 <div class="container-fluid convite__modelos" ng-init="Main.CheckTemplate()">
   <div class="row">
-    <div class="col-xs-12" ng-if="!configConvite2Ctrl.hasContent">
+    <div class="col-xs-12" ng-if="!configConvitePg2.hasContent">
       <h1 class="titulo titulo--passo2">Escolha o layout do seu convite de casamento</h1>
       <p>Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar.</p>
       <p>A tipologia usada, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.</p>
@@ -8,7 +8,7 @@
     </div>
     <!--col-xs-12 -->
 
-    <div class="col-xs-12" ng-if="configConvite2Ctrl.hasContent">
+    <div class="col-xs-12" ng-if="configConvitePg2.hasContent">
       <h1 class="titulo titulo--passo2">Convite configurado</h1>
       <p>Clique em <strong>Editar</strong> para alterar a tipologia.</p>
       <p>Ou clique em <strong>Alterar Convite</strong> para alterar o layout e a tipologia.</p>
@@ -20,7 +20,7 @@
 
   <hr>
 
-  <img src="image/loging.gif" alt="Carregando" ng-show="configConvite2Ctrl.cerregando" style="width: 64px;margin: 70px auto;display: block;">
+  <img src="image/loging.gif" alt="Carregando" ng-show="configConvitePg2.cerregando" style="width: 64px;margin: 70px auto;display: block;">
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -28,17 +28,17 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{configConvite2Ctrl.thumbNome}}</h4>
+          <h4 class="modal-title" id="myModalLabel">{{configConvitePg2.thumbNome}}</h4>
         </div>
         <!--modal-header-->
         <div class="modal-body">
-          <img ng-src="{{configConvite2Ctrl.thumbEscolhido}}" alt="" class="img-responsive">
+          <img ng-src="{{configConvitePg2.thumbEscolhido}}" alt="" class="img-responsive">
           <hr>
         </div>
         <!--modal-body-->
         <div class="modal-footer">
           <button type="button" class="btn btn--save">
-            <a ng-click="configConvite2Ctrl.SalvarConvite()" >Customizar</a>
+            <a ng-click="configConvitePg2.SalvarConvite()" >Customizar</a>
             </button>
         </div>
         <!--modal-footer-->
@@ -49,26 +49,26 @@
   </div>
   <!--modal-->
 
-  <div class="row" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
+  <div class="row" ng-show="configConvitePg2.hasContent && !configConvitePg2.cerregando">
     <div id="Convite" class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;">
 
-      <img ng-src="{{configConvite2Ctrl.layoutSelecionado}}" alt="">
+      <img ng-src="{{configConvitePg2.layoutSelecionado}}" alt="">
 
       <!-- #REGION BLOCOS -->
 
-      <p class="blocoPaisNoiva bloco" ng-style="configConvite2Ctrl.blocoPaisNoiva" ng-bind-html="configConvite2Ctrl.conteudoPaisNoiva"></p>
+      <p class="blocoPaisNoiva bloco" ng-style="configConvitePg2.blocoPaisNoiva" ng-bind-html="configConvitePg2.conteudoPaisNoiva"></p>
 
-      <p class="blocoPaisNoivo bloco" ng-style="configConvite2Ctrl.blocoPaisNoivo" ng-bind-html="configConvite2Ctrl.conteudoPaisNoivo"></p>
+      <p class="blocoPaisNoivo bloco" ng-style="configConvitePg2.blocoPaisNoivo" ng-bind-html="configConvitePg2.conteudoPaisNoivo"></p>
 
-      <p class="blocoMsg1 bloco" ng-style="configConvite2Ctrl.blocoMsg1" ng-bind-html="configConvite2Ctrl.conteudoMsg1"></p>
+      <p class="blocoMsg1 bloco" ng-style="configConvitePg2.blocoMsg1" ng-bind-html="configConvitePg2.conteudoMsg1"></p>
 
-      <p class="blocoNomeNoivos bloco" ng-style="configConvite2Ctrl.blocoNomeNoivos" ng-bind-html="configConvite2Ctrl.conteudoNomecasal"></p>
+      <p class="blocoNomeNoivos bloco" ng-style="configConvitePg2.blocoNomeNoivos" ng-bind-html="configConvitePg2.conteudoNomecasal"></p>
 
-      <p class="blocoMsg2 bloco" ng-style="configConvite2Ctrl.blocoMsg2" ng-bind-html="configConvite2Ctrl.conteudoMsg2"></p>
+      <p class="blocoMsg2 bloco" ng-style="configConvitePg2.blocoMsg2" ng-bind-html="configConvitePg2.conteudoMsg2"></p>
 
-      <p class="blocoMsgPersonalizadaStyle bloco" ng-style="configConvite2Ctrl.blocoMsgPersonalizadaStyle" ng-bind-html="configConvite2Ctrl.blocoMsgPersonalizada"></p>
+      <p class="blocoMsgPersonalizadaStyle bloco" ng-style="configConvitePg2.blocoMsgPersonalizadaStyle" ng-bind-html="configConvitePg2.blocoMsgPersonalizada"></p>
 
-      <p class="blocoCerimonia bloco" ng-style="configConvite2Ctrl.blocoCerimonia" ng-bind-html="configConvite2Ctrl.conteudoMsg4"></p>
+      <p class="blocoCerimonia bloco" ng-style="configConvitePg2.blocoCerimonia" ng-bind-html="configConvitePg2.conteudoMsg4"></p>
 
       <!-- #ENDREGION BLOCOS -->
     </div>
@@ -76,11 +76,11 @@
   </div>
   <!-- row -->
 
-  <div class="row" ng-hide="configConvite2Ctrl.hasContent || configConvite2Ctrl.cerregando">
+  <div class="row" ng-hide="configConvitePg2.hasContent || configConvitePg2.cerregando">
     <div class="col-md-12">
       <ul class="lista__convites">
-        <li ng-repeat="imagem in configConvite2Ctrl.thumbs">
-          <a ng-click="configConvite2Ctrl.SetConvite(imagem.ID,imagem.nome,imagem.url)" data-toggle="modal" data-target="#myModal">
+        <li ng-repeat="imagem in configConvitePg2.thumbs">
+          <a ng-click="configConvitePg2.SetConvite(imagem.ID,imagem.nome,imagem.url)" data-toggle="modal" data-target="#myModal">
             <img ng-src="{{imagem.url}}" alt="" class="convite__thumb img-responsive">
           </a>
         </li>
@@ -111,7 +111,7 @@
           </div>
           <!--col-md-6-->
           <div class="col-md-6">
-            <button type="button" class="btn btn--save" ng-click="configConvite2Ctrl.AlterarConvite()">Sim</button>
+            <button type="button" class="btn btn--save" ng-click="configConvitePg2.AlterarConvite()">Sim</button>
           </div>
           <!--col-md-6-->
         </div>
@@ -123,8 +123,8 @@
   </div>
   <!--modal-->
 
-  <div class="row" style="margin-top: 50px;" ng-show="configConvite2Ctrl.hasContent && !configConvite2Ctrl.cerregando">
-    <div class="col-sm-3" ng-if="configConvite2Ctrl.enableEditor">
+  <div class="row" style="margin-top: 50px;" ng-show="configConvitePg2.hasContent && !configConvitePg2.cerregando">
+    <div class="col-sm-3" ng-if="configConvitePg2.enableEditor">
       <div class="btn btn--ok" data-toggle="modal" data-target="#confirmacao">
         Alterar convite
       </div>
@@ -137,7 +137,7 @@
     </div>
     <!-- col-sm-3 -->
     <div class="col-sm-3">
-      <div class="btn btn--ok" ng-click="configConvite2Ctrl.ConviteToCanvas()">
+      <div class="btn btn--ok" ng-click="configConvitePg2.ConviteToCanvas()">
         BAIXAR CONVITE
       </div>
     </div>

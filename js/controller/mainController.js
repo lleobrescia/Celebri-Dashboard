@@ -1,3 +1,7 @@
+/**
+ * Main Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
 
@@ -5,8 +9,14 @@
     .module('dashboard')
     .controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$scope', '$location', 'UserService', '$http', '$window'];
-  function MainCtrl($scope, $location, UserService, $http, $window) {
+  MainCtrl.$inject = ['$location', 'UserService', '$http', '$window'];
+
+  /**
+   * @namespace MainCtrl
+   * @desc Principal controlador.Esta acima de todos
+   * @memberOf Controllers
+   */
+  function MainCtrl($location, UserService, $http, $window) {
     var self = this;
 
     self.CheckTemplate  = CheckTemplate;
@@ -14,6 +24,11 @@
 
     init();
 
+  /**
+   * @namespace Init
+   * @desc Setup docontrolador
+   * @memberOf Controllers.MainCtrl
+   */
     function init() {
       if (UserService.listaFonts == null) {
         //carrega as informações dos blocos(altura,largura, posicao) de cada convite
@@ -35,10 +50,20 @@
       }
     }
 
+  /**
+   * @namespace GetTimes
+   * @desc Roda o ng-repeat n vezes
+   * @memberOf Controllers.MainCtrl
+   */
     function GetTimes(n) {
       return new Array(n);
     }
 
+  /**
+   * @namespace CheckTemplate
+   * @desc Verifica se esta na pagina de login para retirar a barra lateral
+   * @memberOf Controllers.MainCtrl
+   */
     function CheckTemplate() {
       if ('/login' === $location.path()) {
         self.login      = 'login';

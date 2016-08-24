@@ -1,11 +1,19 @@
+/**
+ * Configurar Confirmados Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
-
   angular
     .module('dashboard')
     .controller('ConfirmadosCtrl', ConfirmadosCtrl);
 
   ConfirmadosCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento', '$http', 'EnviarEmail'];
+  /**
+   * @namespace ConfirmadosCtrl
+   * @desc Mostra quem confirmou para a festa
+   * @memberOf Controllers
+   */
   function ConfirmadosCtrl(UserService, ipService, ServiceCasamento, $http, EnviarEmail) {
     var self          = this;
     var dataCasamento = UserService.dados.dataCasamento;
@@ -21,6 +29,11 @@
 
     Init();
 
+  /**
+   * @namespace Download
+   * @desc Fez o dowload em pdf da lista de confirmados
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function Download() {
       var columns = ['Nome do convidado', 'Acompanhantes', 'Total de Confirmados'];
       var rows    = [];
@@ -41,6 +54,11 @@
       doc.save('lista_convidados.pdf');
     }
 
+  /**
+   * @namespace Enviar
+   * @desc Envia para o e-mail fornecido a lista de confirmados
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function Enviar() {
       if (self.email && self.nome) {
         self.enviando = true;
@@ -49,7 +67,7 @@
 
         var destinatario  = self.email;
         var assunto       = 'Lista de Casamento [Celebri]';
-        var conteudo      = '<span>Olá ' + self.nome + ', <br>essa é a lista dos convidados confirmados para o casamento de ' + nomeNoiva + ' e ' + nomeNoivo + ', no dia ' + data + '</span><br><br><table width="500" cellspacing="0" cellpadding="0" border="1">  <thead>    <tr>      <td style="padding: 10px;">        <b>Nome do convidado</b>      </td>      <td style="padding: 10px;">        <b>Acompanhantes</b>      </td>      <td style="padding: 10px;">        <b>Nº de Confirmados <br> (Convidado + Acompanhantes)</b>      </td>    </tr>  </thead>';
+        var conteudo      = '<span>Olá ' + self.nome + ', <br>essa é a lista dos convidados confirmados para o casamento de ' + nomeNoiva + ' e ' + nomeNoivo + ', no dia ' + data + '</span><br><br><table width="500" cellspacing="0" cellpadding="0" border="1"><thead><tr><td style="padding: 10px;"><b>Nome do convidado</b></td><td style="padding: 10px;"><b>Acompanhantes</b></td><td style="padding: 10px;"><b>Nº de Confirmados <br> (Convidado + Acompanhantes)</b></td></tr></thead>';
 
         angular.forEach(self.listaConfirmados, function (item) {
           conteudo += '<tr><td style="padding: 10px;">' + item.Nome + '</td><td style="padding: 10px;">';
@@ -70,10 +88,17 @@
           self.msg        = true;
           self.nome       = '';
           self.email      = '';
+        }).catch(function (error) {
+          console.error('Enviar -> ', error);
         });
       }
     }
 
+  /**
+   * @namespace GetConfirmados
+   * @desc Pega a lista de confirmados do servidor
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function GetConfirmados() {
 
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConvidadosConfirmados';
@@ -108,10 +133,17 @@
           self.total    += count;
         });
         self.carregando = false;
+      }).catch(function (error) {
+        console.error('GetConfirmados -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
-
     }
 
+  /**
+   * @namespace Init
+   * @desc Setup do controlador
+   * @memberOf Controllers.ConfirmadosCtrl
+   */
     function Init() {
       /**
        * Adiciona as funcoes ao scope do controlador

@@ -1,11 +1,19 @@
+/**
+ * Configurar Cadastrar Convidados Controller
+ * @namespace Controllers
+ */
 (function () {
   'use strict';
-
   angular
     .module('dashboard')
     .controller('CadastrarConvidadosCtrl', CadastrarConvidadosCtrl);
 
   CadastrarConvidadosCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService'];
+    /**
+   * @namespace CadastrarConvidadosCtrl
+   * @desc Controla o cadastramento de convidados
+   * @memberOf Controllers
+   */
   function CadastrarConvidadosCtrl(ServiceCasamento, UserService, ipService) {
     var self  = this;
     var ID    = UserService.dados.ID;
@@ -13,11 +21,17 @@
     self.showConvidados         = false;
     self.convidadoAcompanhantes = '0';
 
+    //Adiciona as funcoes ao escopo
     self.RemoverConvidado   = RemoverConvidado;
     self.AdicionarConvidado = AdicionarConvidado;
 
-    init();
+    Init();
 
+    /**
+     * @name AdicionarConvidado
+     * @desc Adiciona o convidados a lista de convidados e envia os dados ao servidor
+     * @memberOf Controllers.CadastrarConvidadosCtrl
+     */
     function AdicionarConvidado() {
       if (self.convidadoNome && self.convidadoEmail) {
         self.showConvidados = false;
@@ -31,10 +45,18 @@
           self.convidadoNome          = '';
           self.convidadoAcompanhantes = '0';
           self.convidadoEmail         = '';
+        }).catch(function (error) {
+          console.error('AdicionarConvidado -> ', error);
+          console.warn('Dados enviados:', xmlVar);
         });
       }
     }
 
+    /**
+     * @name HandleFile
+     * @desc Lida com planilhas de excel. Pega os dados dos convidados e armazena no servidor
+     * @memberOf Controllers.CadastrarConvidadosCtrl
+     */
     function HandleFile(e) {
       var files = e.target.files;
       var i, f;
@@ -80,9 +102,15 @@
       }
     }
 
-    function init() {
+    /**
+     * @name Init
+     * @desc Setup do controlador
+     * @memberOf Controllers.CadastrarConvidadosCtrl
+     */
+    function Init() {
       document.getElementById('xlf').addEventListener('change', HandleFile, false);
 
+      //Verifica se ja existe a lista armazenada localmente
       if (!UserService.dados.convidadoLista) {
         GetConvidados();
       } else {
@@ -91,6 +119,11 @@
       }
     }
 
+    /**
+     * @name GetConvidados
+     * @desc Pega os convidados do servidor
+     * @memberOf Controllers.CadastrarConvidadosCtrl
+     */
     function GetConvidados() {
       self.showConvidados = false;
 
@@ -114,12 +147,20 @@
         });
 
         self.showConvidados               = true;
-        UserService.dados.convidadoLista  = self.convidadoLista;
+        UserService.dados.convidadoLista  = self.convidadoLista; //Armazena a lista localmente
 
         UserService.SaveState();
+      }).catch(function (error) {
+        console.error('GetConvidados -> ', error);
+        console.warn('Dados enviados:', xmlVar);
       });
     }
 
+    /**
+     * @name RemoverConvidado
+     * @desc Remove o convidado da lista e apaga os dados do servidor
+     * @memberOf Controllers.CadastrarConvidadosCtrl
+     */
     function RemoverConvidado(dataId, key) {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ExcluirConvidados';
       var xmlVar = '<ListaRegistrosExcluir xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><Id_registro><int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + dataId + '</int></Id_registro></ListaRegistrosExcluir>';
@@ -129,7 +170,10 @@
       UserService.dados.convidadoLista = self.convidadoLista;
       UserService.SaveState();
 
-      ServiceCasamento.SendData(urlVar, xmlVar);
+      ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
+        console.error('RemoverConvidado -> ', error);
+        console.warn('Dados enviados:', xmlVar);
+      });
     }
   }
 } ());

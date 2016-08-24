@@ -1,5 +1,7 @@
 /**
  * User Service Factory
+ * A maior parte dos dados do dashboard sao armezenados no session storage
+ * utilizando esse factory
  * @namespace Factories
  */
 (function () {
@@ -20,116 +22,116 @@
     var padrao = {
       //Login
       ID: null,
-      nomeUsuario: '',
+      nomeUsuario : '',
       emailUsuario: '',
-      fotoUrl: '',
-      senhaApp: '',
+      fotoUrl     : '',
+      senhaApp    : '',
 
       //Dados do Casal
-      nomeNoiva: '',
-      nomeNoivo: '',
-      dataCasamento: null,
+      nomeNoiva     : '',
+      nomeNoivo     : '',
+      dataCasamento : null,
 
       //Dados Convite
-      conviteCheck: false,
-      noivaMae: '',
-      noivaMaeMmemorian: '',
-      noivaPai: '',
-      noivaPaiMemorian: '',
-      noivoMae: '',
-      noivoMaeMemorian: '',
-      noivoPai: '',
-      noivoPaiMemorian: '',
-      cerimoniaCep: '',
-      cerimoniaEnd: '',
-      cerimoniaNumero: '',
-      cerimoniaBairro: '',
-      cerimoniaUf: '',
-      cerimoniaCidade: '',
-      cerimoniaLocal: '',
-      cerimoniaRota: '',
-      cerimoniaHora: '',
-      cerimoniaMin: '',
+      conviteCheck      : false,
+      noivaMae          : '',
+      noivaMaeMmemorian : '',
+      noivaPai          : '',
+      noivaPaiMemorian  : '',
+      noivoMae          : '',
+      noivoMaeMemorian  : '',
+      noivoPai          : '',
+      noivoPaiMemorian  : '',
+      cerimoniaCep      : '',
+      cerimoniaEnd      : '',
+      cerimoniaNumero   : '',
+      cerimoniaBairro   : '',
+      cerimoniaUf       : '',
+      cerimoniaCidade   : '',
+      cerimoniaLocal    : '',
+      cerimoniaRota     : '',
+      cerimoniaHora     : '',
+      cerimoniaMin      : '',
 
       //Formatacao do Convite
-      modeloConvite: 0,
-      listaFonts: null,
-      listaConvites: null,
-      conviteCriado: true,
-      blocoMsg1: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+      modeloConvite : 0,
+      listaFonts    : null,
+      listaConvites : null,
+      conviteCriado : true,
+      blocoMsg1     : {
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
-      blocoMsg2: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+      blocoMsg2     : {
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
       blocoMsgPersonalizadaStyle: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px',
-        'conteudo': null
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px',
+        'conteudo'    : null
       },
       blocoCerimonia: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
       blocoNomeNoivos: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
       blocoPaisNoiva: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
       blocoPaisNoivo: {
-        'font-family': null,
-        'text-align': 'right',
-        'color': 'black',
-        'font-id': '29',
-        'font-size': '16px'
+        'font-family' : null,
+        'text-align'  : 'right',
+        'color'       : 'black',
+        'font-id'     : '29',
+        'font-size'   : '16px'
       },
 
       //Recepcao
-      festaCheck: false,
-      festaIgualCerimonia: '',
-      festaLocal: '',
-      festaEnd: '',
-      festaNumero: '',
-      festaBairro: '',
-      festaUf: '',
-      festaCidade: '',
-      festaRota: '',
-      festaCep: '',
-      listaHotel: '',
-      listaSalao: '',
-      listaPresente: '',
-      listaCardapio: '',
+      festaCheck          : false,
+      festaIgualCerimonia : '',
+      festaLocal          : '',
+      festaEnd            : '',
+      festaNumero         : '',
+      festaBairro         : '',
+      festaUf             : '',
+      festaCidade         : '',
+      festaRota           : '',
+      festaCep            : '',
+      listaHotel          : '',
+      listaSalao          : '',
+      listaPresente       : '',
+      listaCardapio       : '',
 
       //Convidados
       convidadoLista: null,
 
       //Save the Date
-      dateCheck: false,
+      dateCheck : false,
       modeloDate: '',
-      msgDate: ''
+      msgDate   : ''
     };
 
     /**
@@ -162,8 +164,8 @@
     };
 
     //Eh usando para quando o usuario muda de pagina para salvar e restaurar os dados
-    $rootScope.$on('savestate', service.SaveState);
-    $rootScope.$on('restorestate', service.RestoreState);
+    $rootScope.$on('savestate'    , service.SaveState);
+    $rootScope.$on('restorestate' , service.RestoreState);
 
     return service;
   }

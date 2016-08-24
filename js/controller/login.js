@@ -1,5 +1,5 @@
 /**
- * Login Controller
+ * LoginCtrl Controller
  * controllerAs: 'loginCtrl'
  * @namespace Controllers
  */
@@ -7,7 +7,7 @@
   'use strict';
   angular
     .module('dashboard')
-    .controller('login', Login);
+    .controller('LoginCtrl', LoginCtrl);
 
   /**
    * $location - Serve para redirecionar o usuario depois de logar.
@@ -16,27 +16,26 @@
    * UserService - Factory para armazenar os dados do casal. Utiliza session storage.
    * $rootScope - Armazena a foto do casal globalmente, pois eh usado em dois controllers
    */
-  Login.$inject = ['$location', 'ipService', 'ServiceCasamento', 'UserService', '$rootScope'];
+  LoginCtrl.$inject = ['$location', 'ipService', 'ServiceCasamento', 'UserService', '$rootScope'];
 
   /**
-   * @namespace Login
+   * @namespace LoginCtrl
    * @desc Sistema de login do dashboard
    * @memberOf Controllers
    */
-  function Login($location, ipService, ServiceCasamento, UserService, $rootScope) {
+  function LoginCtrl($location, ipService, ServiceCasamento, UserService, $rootScope) {
 
     var self = this;
-    //ID do usuario. Para verificar se ele ja entrou
-    var ID = UserService.ID;
+    var ID   = UserService.ID;
 
     self.recuperarSenha = false;//Controla o display da tela de recuperar a senha
-    self.carregando = false;//Controla o display do gif de loading
-    self.confirmacao = false;//Controla o display da tela de confirmação do email enviado
-    self.nomeUsuario = '';//Input nome do usuario(email)
-    self.senhaUsuario = '';//Input senha do usuario
+    self.carregando     = false;//Controla o display do gif de loading
+    self.confirmacao    = false;//Controla o display da tela de confirmação do email enviado
+    self.nomeUsuario    = '';//Input nome do usuario(email)
+    self.senhaUsuario   = '';//Input senha do usuario
 
-    self.Autenticar = Autenticar;
-    self.EnviarEmail = EnviarEmail;
+    self.Autenticar   = Autenticar;
+    self.EnviarEmail  = EnviarEmail;
 
     // Se existir ID nao ha necessidade de logar
     if (ID != null) {
@@ -47,23 +46,23 @@
      * @name Autenticar
      * @desc Autenticar os noivos.Envia os dados para o servidor.
      * Armazena os nomes dos noivos, a foto e a senha para o app de teste
-     * @memberOf Controllers.Login
+     * @memberOf Controllers.LoginCtrl
      */
     function Autenticar() {
       self.carregando = true;
-      self.result = 'true';
+      self.result     = 'true';
 
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/AutenticacaoNoivos';
       var xmlVar = '<Autenticacao xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.nomeUsuario + '</Email><Senha>' + self.senhaUsuario + '</Senha></Autenticacao>';
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        var check = $(respXml).find('Result').text();
+        var check   = $(respXml).find('Result').text();
 
         //Autenticado
         if (check === 'true') {
           //limpa o box de erro, caso houve erro de login anteriormente
-          self.result = 'true';
+          self.result       = 'true';
           self.errorMessage = '';
 
           //armazena o ID
@@ -74,10 +73,10 @@
 
           if (self.nomeUsuario === emailNoivo) {
             UserService.dados.nomeUsuario = $(respXml).find('NomeNoivo').text();
-            UserService.dados.senhaApp = $(respXml).find('SenhaNoivoConvidado').text();
+            UserService.dados.senhaApp    = $(respXml).find('SenhaNoivoConvidado').text();
           } else {
             UserService.dados.nomeUsuario = $(respXml).find('NomeNoiva').text();
-            UserService.dados.senhaApp = $(respXml).find('SenhaNoivaConvidado').text();
+            UserService.dados.senhaApp    = $(respXml).find('SenhaNoivaConvidado').text();
           }
 
           //Armazena os nomes dos noivos localmente
@@ -111,7 +110,7 @@
         else {
           self.carregando = false;
           //Mostra a mensagem de erro
-          self.result = check;
+          self.result       = check;
           self.errorMessage = $(respXml).find('ErrorMessage').text();
         }
       }).catch(function (error) {
@@ -123,18 +122,18 @@
     /**
      * @name EnviarEmail
      * @desc Envia um email, para os noivos, para recuepracao de senha.
-     * @memberOf Controllers.Login
+     * @memberOf Controllers.LoginCtrl
      */
     function EnviarEmail() {
       self.carregando = true;
-      self.result = 'true';
+      self.result     = 'true';
 
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/EnviarEmailRecuperacaoSenha';
       var xmlVar = '<EmailCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Email>' + self.recEmail + '</Email></EmailCasal>';
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
-        var check = $(respXml).find('Result').text();
+        var check   = $(respXml).find('Result').text();
 
         if (check === 'false') {
           self.errorMessage = 'E-mail não encontrado na nossa base de dados.';

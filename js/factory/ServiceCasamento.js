@@ -34,11 +34,11 @@
 
       $http({
         method: 'GET',
-        url: 'php/dados.php'
+        url   : 'php/dados.php'
       }).then(function (dados) {
         var autorizacao = JSON.parse(dados.data);
-        var appid = autorizacao.appid;
-        var token = autorizacao.token;
+        var appid       = autorizacao.appid;
+        var token       = autorizacao.token;
 
         call = CallAjax.resposta(urlVar, xmlVar, appid, token);
 

@@ -22,41 +22,41 @@
         </div>
         <!--login__content-->
         <div class="login__box">
-          <p class="text-center" ng-show="!loginCtrl.recuperarSenha">Acesse sua conta Celebri.</p><br>
-          <div class="erro__box" ng-show="loginCtrl.result == 'false'">
+          <p class="text-center" ng-show="!login.recuperarSenha">Acesse sua conta Celebri.</p><br>
+          <div class="erro__box" ng-show="login.result == 'false'">
             <p>
-              <strong>ERRO:</strong> {{loginCtrl.errorMessage}}
+              <strong>ERRO:</strong> {{login.errorMessage}}
             </p>
           </div>
-          <form class="login__form" method="POST" ng-init="loginCtrl.recuperarSenha = false">
+          <form class="login__form" method="POST" ng-init="login.recuperarSenha = false">
 
-            <img src="image/loging.gif" alt="Carregando" style="width: 32px;margin: auto;display: block;" ng-show="loginCtrl.carregando">
+            <img src="image/loging.gif" alt="Carregando" style="width: 32px;margin: auto;display: block;" ng-show="login.carregando">
 
-            <div class="login_input_group" ng-show="!loginCtrl.recuperarSenha && !loginCtrl.carregando">
+            <div class="login_input_group" ng-show="!login.recuperarSenha && !login.carregando">
               <p>E-mail:</p>
-              <input type="text" ng-model="loginCtrl.nomeUsuario" name="login" ng-required="required"> <br>
+              <input type="text" ng-model="login.nomeUsuario" name="login" ng-required="required"> <br>
               <p>Senha:</p>
-              <input type="password" ng-model="loginCtrl.senhaUsuario" name="senha" ng-required="required"><br>
-              <input ng-if="!loginCtrl.recuperarSenha && !loginCtrl.carregando" type="submit" value="Entrar" ng-click="loginCtrl.Autenticar()">
+              <input type="password" ng-model="login.senhaUsuario" name="senha" ng-required="required" ng-change="login.senhaUsuario = login.senhaUsuario.split(' ').join('')"><br>
+              <input ng-if="!login.recuperarSenha && !login.carregando" type="submit" value="Entrar" ng-click="login.Autenticar()">
             </div>
 
-            <div class="login_input_group" ng-show="loginCtrl.recuperarSenha && !loginCtrl.carregando">
-              <p ng-show="loginCtrl.confirmacao">Em breve você receberá um email com um link para alterar a senha.</p>
+            <div class="login_input_group" ng-show="login.recuperarSenha && !login.carregando">
+              <p ng-show="login.confirmacao">Em breve você receberá um email com um link para alterar a senha.</p>
 
-              <div ng-show="!loginCtrl.confirmacao">
+              <div ng-show="!login.confirmacao">
                 <p class="text-center">Digite o e-mail cadastrado.</p><br><br>
                 <p>E-mail:</p>
-                <input type="email" ng-model="loginCtrl.recEmail" name="email" ng-required="required"><br>
-                <input ng-if="loginCtrl.recuperarSenha && !loginCtrl.carregando" type="submit" value="Enviar" ng-click="loginCtrl.EnviarEmail()">
+                <input type="email" ng-model="login.recEmail" name="email" ng-required="required"><br>
+                <input ng-if="login.recuperarSenha && !login.carregando" type="submit" value="Enviar" ng-click="login.EnviarEmail()">
               </div>
             </div>
 
             <div class="clearfix"></div>
           </form>
           <div class="login__text">
-            <a title="Recuperar Senha" ng-click="loginCtrl.recuperarSenha = !loginCtrl.recuperarSenha;loginCtrl.result = 'true'" ng-show="!loginCtrl.recuperarSenha">Recuperar Senha</a>
-            <a title="Recuperar Senha" ng-click="loginCtrl.recuperarSenha = !loginCtrl.recuperarSenha;loginCtrl.confirmacao = false"
-              ng-show="loginCtrl.recuperarSenha">
+            <a title="Recuperar Senha" ng-click="login.recuperarSenha = !login.recuperarSenha;login.result = 'true'" ng-show="!login.recuperarSenha">Recuperar Senha</a>
+            <a title="Recuperar Senha" ng-click="login.recuperarSenha = !login.recuperarSenha;login.confirmacao = false"
+              ng-show="login.recuperarSenha">
               Voltar
             </a><br><br>
             <a href="https://celebri.com.br/" title="Voltar ao Site">
