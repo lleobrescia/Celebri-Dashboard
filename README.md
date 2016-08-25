@@ -1,5 +1,6 @@
 # Guia do Dashboar #
-[Link Text](#descricao)
+****
+
 O site foi desenvolvido em:
 
 * HTML 5
@@ -9,6 +10,7 @@ O site foi desenvolvido em:
 * Bootstrap (v. 3.3.6)
 
 ## Plugins ##
+****
 
 Os seguintes plugins estão sendo utilizados no site:
 
@@ -23,11 +25,13 @@ Os seguintes plugins estão sendo utilizados no site:
 * [xlsx js](https://github.com/SheetJS/js-xlsx)
 
 ## Ambiente de desenvolvimento ##
+****
 
 Os arquivos estão distribuídos em pastas de acordo com suas funções:
 
 > Todas as pastas possuem um index.php para evitar listagem no browser.
 
+### Pastas ###
 ```
 #!plaintext
 
@@ -48,8 +52,16 @@ Os arquivos estão distribuídos em pastas de acordo com suas funções:
   -- parts/
 ```
 
-### Descrição [descricao]
+### Arquivos
 
-* data/convites.json
-****
-   Possui a configuração padrão de todos os convites. A posição de cada bloco de cada convite.
+| Arquivo | Descrição |
+|---------|-----------|
+|`data/convites.json`|  Possui a configuração padrão de todos os convites. A posição de cada bloco de cada convite.|
+|`data/fonts.json`| Possui o nome e o ID de cada fonte para ser carregado na personalização do convite. Pode ser inserido fora da ordem mas deve respeitar a numeração do ID|
+|`image/savethedate`|Local aonde ficam todos os templates dos Save the Date|
+|`image/convite`|Local aonde ficam todos os backgrounds dos convites|
+|`image/convite/thumb`|Local aonde ficam todos as miniaturas dos convites. Eles são usados para dar uma prévia de como será o convite|
+|`js/config.js`|Setup do site. Inicialização do Angular|
+|`js/dashboard.min.js`| Arquivo copilado utilizando o Gulp. Informações de como foi gerado podem ser encontradas aqui|
+|`php/dados.php`|Ficam armazenas o APPID e o Token. Para serem usados nas requisições ao servidor|
+
