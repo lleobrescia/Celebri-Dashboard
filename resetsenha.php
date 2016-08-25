@@ -15,7 +15,7 @@ if (isset($_POST['enviar'])) {
     $result = "Senha não confere.";
   }
   else{
-    $url = 'http://celebri.com.br/celebri/web/service_request.aspx';
+    $url = 'http://127.0.0.1/celebri/web/service_request.aspx';
     $uri = 'http://celebri.com.br/celebri/ServiceCasamento.svc/AlteracaoSenhaCasal';
     $xml = '<DadosCasalAlteracaoSenha xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Chave>'.$key.'</Chave>  <NovaSenha>'.$senha.'</NovaSenha></DadosCasalAlteracaoSenha>';
 
