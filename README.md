@@ -162,7 +162,7 @@ Ou pode utilizar o comando `gulp scripts-watch`. Mantenha o prompt aberto ao uti
 
 > Respeite a hierarquia de pastas para que o Gulp funcione
 
-## Boas Práticas ## 
+## Boas Práticas
 ****
 
 As práticas de desenvolvimento do site estão seguindo o guia: [Angular 1 Style Guide](https://github.com/johnpapa/angular-styleguide/tree/master/a1). A tradução pode ser encontrada [aqui](https://github.com/johnpapa/angular-styleguide/blob/master/a1/i18n/pt-BR.md)
