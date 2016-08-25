@@ -62,7 +62,7 @@ Os arquivos estão distribuídos em pastas de acordo com suas funções:
 |`image/convite`|Local aonde ficam todos os backgrounds dos convites|
 |`image/convite/thumb`|Local aonde ficam todos as miniaturas dos convites. Eles são usados para dar uma prévia de como será o convite|
 |`js/config.js`|Setup do site. Inicialização do Angular|
-|`js/dashboard.min.js`| Arquivo copilado utilizando o Gulp. Informações de como foi gerado podem ser encontradas aqui|
+|`js/dashboard.min.js`| Arquivo copilado utilizando o Gulp.|
 |`php/dados.php`|Ficam armazenas o APPID e o Token. Para serem usados nas requisições ao servidor|
 
 ## Compilação  ##
