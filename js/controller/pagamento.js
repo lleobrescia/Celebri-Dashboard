@@ -8,14 +8,14 @@
     .module('dashboard')
     .controller('PagamentoCtrl', PagamentoCtrl);
 
-  PagamentoCtrl.$inject = ['$http', 'ipService', 'UserService', 'ServiceCasamento', 'Cielo'];
+  PagamentoCtrl.$inject = ['$http', 'ipService', 'UserService', 'ServiceCasamento', 'Cielo', 'EnviarEmail'];
   /**
    * @namespace PagamentoCtrl
    * @desc Controla o pagamento do sistema. Passa os dados do cartao do usuario para o sistema da Cielo.
    * Depois que estiver pago, mostra a lista de usuarios para enviar o convite
    * @memberOf Controllers
    */
-  function PagamentoCtrl($http, ipService, UserService, ServiceCasamento, Cielo) {
+  function PagamentoCtrl($http, ipService, UserService, ServiceCasamento, Cielo, EnviarEmail) {
     var emailUsuario  = UserService.dados.emailUsuario; //Serve para verificar se ha algum desconto
     var ID            = UserService.dados.ID;
     var self          = this;
@@ -191,6 +191,21 @@
     }
 
   /**
+   * @namespace EnviarEmailAdmin
+   * @desc Envia um e-mail para o Gustavo com o status da transação
+   * @memberOf Controllers.PagamentoCtrl
+   */
+    function EnviarEmailAdmin(status){
+      var destinatario   = 'gustavo@pixla.com.br';
+      var assunto       = 'Status Pagamento [Celebri]';
+      var conteudo      = 'ID Casal: ' + ID + '<br>' +'Status:' + status ;
+
+      EnviarEmail.Mail(destinatario, assunto, conteudo).catch(function (error) {
+        console.error('EnviarEmailAdmin ->', error);
+      });
+    }
+
+  /**
    * @namespace EnviarPagamento
    * @desc Envia os dados do cartao do usuario para o sistema da Cielo
    * @memberOf Controllers.PagamentoCtrl
@@ -246,6 +261,8 @@
         }
 
         self.carregandoPagina = false;
+
+        EnviarEmailAdmin(status);
         AtualizarStatus(aprovado, status, tid);
       }).catch(function (error) {
         console.error('EnviarPagamento ->', error);
