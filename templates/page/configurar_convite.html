@@ -138,8 +138,13 @@
     <div class="row">
       <div class="col-sm-5">
         <p class="form__title">
-          Pai da Noiva:
-          <span>
+          <span ng-if="Main.generoNoiva == 'M'">
+            Pai do Noivo:
+          </span>
+          <span ng-if="Main.generoNoiva == 'F'">
+            Pai da Noiva:
+          </span>
+          <span class="pull-right">
             <input type="checkbox" value="sim" ng-model="configConvite.noivaPaiMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
@@ -148,8 +153,13 @@
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
-          Mãe da Noiva:
-          <span>
+          <span ng-if="Main.generoNoiva == 'M'">
+            Mãe do Noivo:
+          </span>
+          <span ng-if="Main.generoNoiva == 'F'">
+            Mãe da Noiva:
+          </span>
+          <span class="pull-right">
             <input type="checkbox" value="sim" ng-model="configConvite.noivaMaeMmemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
@@ -162,8 +172,13 @@
     <div class="row">
       <div class="col-sm-5">
         <p class="form__title">
-          Pai do Noivo:
-          <span>
+          <span ng-if="Main.generoNoivo == 'M'">
+            Pai do Noivo:
+          </span>
+          <span ng-if="Main.generoNoivo == 'F'">
+            Pai da Noiva:
+          </span>
+          <span class="pull-right">
             <input type="checkbox" value="true" ng-model="configConvite.noivoPaiMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>
@@ -172,8 +187,13 @@
       <!-- col-sm-5 -->
       <div class="col-sm-5 col-sm-offset-1">
         <p class="form__title">
-          Mãe do Noivo:
-          <span>
+          <span ng-if="Main.generoNoivo == 'M'">
+            Mãe do Noivo:
+          </span>
+          <span ng-if="Main.generoNoivo == 'F'">
+            Mãe da Noiva:
+          </span>
+          <span class="pull-right">
             <input type="checkbox" value="sim" ng-model="configConvite.noivoMaeMemorian"  ng-change="$scope.change = true" ng-true-value="'true'" ng-false-value="'false'"> In Memorian
           </span>
         </p>

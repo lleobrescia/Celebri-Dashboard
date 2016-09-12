@@ -30,6 +30,8 @@
       //Dados do Casal
       nomeNoiva     : '',
       nomeNoivo     : '',
+      generoNoiva   : 'F',
+      generoNoivo   : 'M', 
       dataCasamento : null,
 
       //Dados Convite

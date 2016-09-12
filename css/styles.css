@@ -656,10 +656,6 @@ select {
   margin-top: -42px;
 }
 
-.form p span {
-  float: right;
-}
-
 .form p span input[type="checkbox"] {
   width: 16px !important;
   height: 16px !important;

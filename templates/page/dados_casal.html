@@ -46,7 +46,10 @@
 
         <div class="row">
           <div class="col-sm-5">
-            <p class="form__title">
+            <p class="form__title" ng-if="Main.generoNoiva == 'M'">
+              Nome da Noivo
+            </p>
+            <p class="form__title" ng-if="Main.generoNoiva == 'F'">
               Nome da Noiva
             </p>
             <input type="text" ng-model="casal.nomeNoiva" ng-change="$scope.change = true">
@@ -54,8 +57,11 @@
           <!-- col-xs-5 -->
 
           <div class="col-sm-5">
-            <p class="form__title">
-              Nome do Noivo
+            <p class="form__title" ng-if="Main.generoNoivo == 'M'">
+              Nome da Noivo
+            </p>
+            <p class="form__title" ng-if="Main.generoNoivo == 'F'">
+              Nome da Noiva
             </p>
             <input type="text" ng-model="casal.nomeNoivo" ng-change="$scope.change = true">
           </div>
