@@ -24,10 +24,10 @@
    * @memberOf Controllers
    */
   function LoginCtrl($location, ipService, ServiceCasamento, UserService, $rootScope) {
-
+    
     var self = this;
-    var ID   = UserService.ID;
-
+    var ID   = UserService.dados.ID;
+    
     self.recuperarSenha = false;//Controla o display da tela de recuperar a senha
     self.carregando     = false;//Controla o display do gif de loading
     self.confirmacao    = false;//Controla o display da tela de confirmação do email enviado
@@ -67,6 +67,11 @@
 
           //armazena o ID
           UserService.dados.ID = $(respXml).find('Id_usuario_logado').text();
+          console.log(respXml); 
+
+          //Genero
+          UserService.dados.generoNoiva = $(respXml).find('GeneroNoiva').text();
+          UserService.dados.generoNoivo = $(respXml).find('GeneroNoivo').text();
 
           // Verifica qual email esta logando e armazena o nome de acordo.
           var emailNoivo = $(respXml).find('EmailNoivo').text();

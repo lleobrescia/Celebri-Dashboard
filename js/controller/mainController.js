@@ -18,18 +18,28 @@
    */
   function MainCtrl($location, UserService, $http, $window) {
     var self = this;
+    UserService.RestoreState();
 
     self.CheckTemplate  = CheckTemplate;
     self.GetTimes       = GetTimes;
 
-    init();
+    Init();
 
   /**
    * @namespace Init
    * @desc Setup docontrolador
    * @memberOf Controllers.MainCtrl
    */
-    function init() {
+    function Init() {
+
+      try {
+        self.generoNoiva = UserService.dados.generoNoiva;
+        self.generoNoivo = UserService.dados.generoNoivo;
+      } catch (error) {
+         $window.location.reload();
+      }
+
+      console.log(UserService.dados.generoNoiva);
       if (UserService.listaFonts == null) {
         //carrega as informações dos blocos(altura,largura, posicao) de cada convite
         $http.get('data/convites.json')
