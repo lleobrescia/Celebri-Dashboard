@@ -4,7 +4,9 @@
     .module('dashboard')
     .config(RouteConfig);
 
-  function RouteConfig($routeProvider) {
+  RouteConfig.$inject = ['$routeProvider','$locationProvider'];
+  function RouteConfig($routeProvider,$locationProvider) {
+
     $routeProvider
       .when('/', {
         redirectTo: '/login'
