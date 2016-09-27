@@ -9,19 +9,20 @@
     .module('dashboard')
     .controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$location', 'UserService', '$http', '$window'];
+  MainCtrl.$inject = ['$location', 'UserService', '$http', '$window', 'PageService'];
 
   /**
    * @namespace MainCtrl
    * @desc Principal controlador.Esta acima de todos
    * @memberOf Controllers
    */
-  function MainCtrl($location, UserService, $http, $window) {
+  function MainCtrl($location, UserService, $http, $window, PageService) {
     var self = this;
     UserService.RestoreState();
 
     self.CheckTemplate  = CheckTemplate;
     self.GetTimes       = GetTimes;
+    self.page          = PageService;
 
     Init();
 
@@ -39,7 +40,6 @@
          $window.location.reload();
       }
 
-      console.log(UserService.dados.generoNoiva);
       if (UserService.listaFonts == null) {
         //carrega as informações dos blocos(altura,largura, posicao) de cada convite
         $http.get('data/convites.json')
