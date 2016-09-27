@@ -8,14 +8,14 @@
     .module('dashboard')
     .controller('PagamentoCtrl', PagamentoCtrl);
 
-  PagamentoCtrl.$inject = ['$http', 'ipService', 'UserService', 'ServiceCasamento', 'Cielo', 'EnviarEmail'];
+  PagamentoCtrl.$inject = ['$http', 'ipService', 'UserService', 'ServiceCasamento', 'Cielo', 'EnviarEmail', 'PageService'];
   /**
    * @namespace PagamentoCtrl
    * @desc Controla o pagamento do sistema. Passa os dados do cartao do usuario para o sistema da Cielo.
    * Depois que estiver pago, mostra a lista de usuarios para enviar o convite
    * @memberOf Controllers
    */
-  function PagamentoCtrl($http, ipService, UserService, ServiceCasamento, Cielo, EnviarEmail) {
+  function PagamentoCtrl($http, ipService, UserService, ServiceCasamento, Cielo, EnviarEmail, PageService) {
     var emailUsuario  = UserService.dados.emailUsuario; //Serve para verificar se ha algum desconto
     var ID            = UserService.dados.ID;
     var self          = this;
@@ -101,7 +101,7 @@
    */
     function AtualizarStatus(aprovado, status, cod) {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RegistrarPagamentoCelebri';
-      var xmlVar = '<DadosPagamentoCelebri xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <IdCasal>' + ID + '</IdCasal>  <PagtoAprovado>' + aprovado + '</PagtoAprovado> <Valor>185.00</Valor></DadosPagamentoCelebri>';
+      var xmlVar = '<DadosPagamentoCelebri xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <IdCasal>' + ID + '</IdCasal><Origem>Celebri</Origem>  <PagtoAprovado>' + aprovado + '</PagtoAprovado> <Valor>185.00</Valor></DadosPagamentoCelebri>';
 
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
@@ -258,6 +258,9 @@
           aprovado                = 'true';
           self.isPg               = true;
           self.mensagemPagamento  = 'autorizada';
+          
+          //Google Analytics
+          ga('send', 'event', 'pagamento', 'clique');
         }
 
         self.carregandoPagina = false;
@@ -344,6 +347,7 @@
         if (result === 'true') {
           self.isPg = true;
           AtualizarStatus(true, 'Pagou', 0);
+          RemoverEmailIsento(emailUsuario);
         }
       }).catch(function (error) {
         console.error('VerificarPagamento -> ', error);
@@ -357,11 +361,21 @@
    * @memberOf Controllers.PagamentoCtrl
    */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Enviar Convite');
+
       VerificarPagamento();
       GetConvidados();
       GetStatusPagamento();
 
       self.isPg = true;
+    }
+
+    function RemoverEmailIsento(email) {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RemoverEmailIsentoPagtoCelebri';
+      var xmlVar = '<EmailCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Email>' + email + '</Email></EmailCasal>';
+
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) { });
     }
   }
 } ());
