@@ -2,7 +2,8 @@
   'use strict';
   angular
     .module('dashboard')
-    .config(RouteConfig);
+    .config(RouteConfig)
+    .run(RouteRun);
 
   RouteConfig.$inject = ['$routeProvider','$locationProvider'];
   function RouteConfig($routeProvider,$locationProvider) {
@@ -73,5 +74,16 @@
         isLogin     : true
       })
       .otherwise({ redirectTo: '/login' });
+  }
+
+  RouteRun.$inject = ['$rootScope', 'PageService', '$document'];
+  function RouteRun($rootScope, PageService, $document) {
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+
+      if (next.templateUrl) {
+        // interagindo com o Analytics através do objeto global ga
+        ga('send', 'pageview', { page: '/dashboard/#' + next.$$route.originalPath });
+      }
+    }); 
   }
 } ());
