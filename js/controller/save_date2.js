@@ -23,6 +23,7 @@
     self.allowToSend    = false;
     self.carregando     = true;
     self.convidadoLista = [];
+    self.selecionados   = [];
 
     self.CheckAll       = CheckAll;
     self.CheckConvidado = CheckConvidado;
