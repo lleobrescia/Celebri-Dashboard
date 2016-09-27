@@ -9,13 +9,13 @@
     .module('dashboard')
     .controller('SaveTheDateCtrl', SaveTheDateCtrl);
 
-  SaveTheDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService'];
+  SaveTheDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'PageService'];
   /**
    * @namespace SaveTheDateCtrl
    * @desc Gerencia o template do save the date e a mensagem
    * @memberOf Controllers
    */
-  function SaveTheDateCtrl(UserService, ServiceCasamento, ipService) {
+  function SaveTheDateCtrl(UserService, ServiceCasamento, ipService, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
@@ -71,6 +71,9 @@
    * @memberOf Controllers.ConfirmadosCtrl
    */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Save the Date');
+
       self.showDate = false;
 
       if (!UserService.dados.dateCheck) {

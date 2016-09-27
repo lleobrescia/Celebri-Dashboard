@@ -16,14 +16,14 @@
    * UserService - Factory para armazenar os dados do casal. Utiliza session storage.
    * $rootScope - Armazena a foto do casal globalmente, pois eh usado em dois controllers
    */
-  LoginCtrl.$inject = ['$location', 'ipService', 'ServiceCasamento', 'UserService', '$rootScope'];
+  LoginCtrl.$inject = ['$location', 'ipService', 'ServiceCasamento', 'UserService', '$rootScope', 'PageService'];
 
   /**
    * @namespace LoginCtrl
    * @desc Sistema de login do dashboard
    * @memberOf Controllers
    */
-  function LoginCtrl($location, ipService, ServiceCasamento, UserService, $rootScope) {
+  function LoginCtrl($location, ipService, ServiceCasamento, UserService, $rootScope, PageService) {
     
     var self = this;
     var ID   = UserService.dados.ID;
@@ -41,6 +41,9 @@
     if (ID != null) {
       $location.path('/dados-do-casal');
     }
+
+    //Set Title 
+    PageService.SetTitle('Login');
 
     /**
      * @name Autenticar
@@ -67,7 +70,6 @@
 
           //armazena o ID
           UserService.dados.ID = $(respXml).find('Id_usuario_logado').text();
-          console.log(respXml); 
 
           //Genero
           UserService.dados.generoNoiva = $(respXml).find('GeneroNoiva').text();

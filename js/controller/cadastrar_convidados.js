@@ -8,13 +8,13 @@
     .module('dashboard')
     .controller('CadastrarConvidadosCtrl', CadastrarConvidadosCtrl);
 
-  CadastrarConvidadosCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService'];
+  CadastrarConvidadosCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService', 'PageService'];
     /**
    * @namespace CadastrarConvidadosCtrl
    * @desc Controla o cadastramento de convidados
    * @memberOf Controllers
    */
-  function CadastrarConvidadosCtrl(ServiceCasamento, UserService, ipService) {
+  function CadastrarConvidadosCtrl(ServiceCasamento, UserService, ipService, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
@@ -108,6 +108,9 @@
      * @memberOf Controllers.CadastrarConvidadosCtrl
      */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Cadastrar Convidados');
+      
       document.getElementById('xlf').addEventListener('change', HandleFile, false);
 
       //Verifica se ja existe a lista armazenada localmente

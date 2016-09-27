@@ -8,14 +8,14 @@
     .module('dashboard')
     .controller('ConfigurarConviteCtrl', ConfigurarConviteCtrl);
 
-  ConfigurarConviteCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP'];
+  ConfigurarConviteCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP', 'PageService'];
 
   /**
    * @namespace ConfigurarConviteCtrl
    * @desc Configura os dados dos pais dos noivos
    * @memberOf Controllers
    */
-  function ConfigurarConviteCtrl(UserService, ServiceCasamento, ipService, consultCEP) {
+  function ConfigurarConviteCtrl(UserService, ServiceCasamento, ipService, consultCEP, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;//ID do usuario logado
 
@@ -30,6 +30,9 @@
       GetDadosConvite();
       UserService.dados.conviteCheck = true;
     }
+
+    //Set Title 
+    PageService.SetTitle('Configurar Convite');
 
     /**
      * @name ConsultarCep

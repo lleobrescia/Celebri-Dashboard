@@ -8,13 +8,13 @@
     .module('dashboard')
     .controller('ConfirmadosCtrl', ConfirmadosCtrl);
 
-  ConfirmadosCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento', '$http', 'EnviarEmail'];
+  ConfirmadosCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento', '$http', 'EnviarEmail', 'PageService'];
   /**
    * @namespace ConfirmadosCtrl
    * @desc Mostra quem confirmou para a festa
    * @memberOf Controllers
    */
-  function ConfirmadosCtrl(UserService, ipService, ServiceCasamento, $http, EnviarEmail) {
+  function ConfirmadosCtrl(UserService, ipService, ServiceCasamento, $http, EnviarEmail, PageService) {
     var self          = this;
     var dataCasamento = UserService.dados.dataCasamento;
     var ID            = UserService.dados.ID;
@@ -145,6 +145,9 @@
    * @memberOf Controllers.ConfirmadosCtrl
    */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Lista de Confirmados');
+
       /**
        * Adiciona as funcoes ao scope do controlador
        */

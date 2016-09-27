@@ -19,14 +19,14 @@
    * $scope - scopo para input file
    * $rootScope - Usado para a imagem do casal
    */
-  DadosCasalCtrl.$inject = ['$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', 'EnviarFoto'];
+  DadosCasalCtrl.$inject = ['$filter', '$route', 'ServiceCasamento', 'ipService', 'UserService', '$scope', '$rootScope', 'EnviarFoto', 'PageService'];
 
   /**
    * @namespace DadosCasalCtrl
    * @desc Controla todos os itens Referente aos dados do casal.(Nome, data e foto)
    * @memberOf Controllers
    */
-  function DadosCasalCtrl($filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope, EnviarFoto) {
+  function DadosCasalCtrl($filter, $route, ServiceCasamento, ipService, UserService, $scope, $rootScope, EnviarFoto, PageService) {
 
     var self = this;
     var ID          = UserService.dados.ID;
@@ -58,6 +58,9 @@
       self.foto = fotoNoivos;
     }
 
+    //Set Title 
+    PageService.SetTitle('Dados do Casal');
+
     self.CasalGetDados();
     /**
      * @name UploadFoto
@@ -76,7 +79,6 @@
 
 
       EnviarFoto.Request(ID, imagemCortada).then(function (resp) {
-        console.log(resp);
         /**
          * O nome da imagem nunca muda,portanto
          * ela fica no cache. Para evitar o cache

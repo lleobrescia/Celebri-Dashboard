@@ -9,13 +9,13 @@
     .module('dashboard')
     .controller('EstatisticaCtrl', EstatisticaCtrl)
 
-  EstatisticaCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento'];
+  EstatisticaCtrl.$inject = ['UserService', 'ipService', 'ServiceCasamento', 'PageService'];
   /**
    * @namespace ConfirmadosCtrl
    * @desc Mostra quem confirmou para a festa
    * @memberOf Controllers
    */
-  function EstatisticaCtrl(UserService, ipService, ServiceCasamento) {
+  function EstatisticaCtrl(UserService, ipService, ServiceCasamento, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
@@ -27,6 +27,9 @@
    * @memberOf Controllers.ConfirmadosCtrl
    */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Estatística');
+
       self.carregando = true;
       GetEstatistica();
     }

@@ -8,13 +8,13 @@
     .module('dashboard')
     .controller('configurarEventoCtrl', ConfigurarEventoCtrl);
 
-  ConfigurarEventoCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService', 'consultCEP'];
+  ConfigurarEventoCtrl.$inject = ['ServiceCasamento', 'UserService', 'ipService', 'consultCEP', 'PageService'];
   /**
    * @namespace ConfigurarEventoCtrl
    * @desc Controla os dados referente ao evento (hoteis,listas de presentes,cardapio,local da cerimonia)
    * @memberOf Controllers
    */
-  function ConfigurarEventoCtrl(ServiceCasamento, UserService, ipService, consultCEP) {
+  function ConfigurarEventoCtrl(ServiceCasamento, UserService, ipService, consultCEP, PageService) {
     var self = this;
     var ID = UserService.dados.ID;
 
@@ -275,6 +275,9 @@
    * @memberOf Controllers.ConfigurarEventoCtrl
    */
     function Init() {
+      //Set Title 
+      PageService.SetTitle('Configurar Evento');
+
       /**
        * Adiciona as funcoes ao scopo do controlador
        */
