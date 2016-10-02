@@ -1,102 +1,105 @@
 <div class="container-fluid" ng-init="Main.CheckTemplate()">
-  <div class="row">
-    <div class="col-xs-12">
 
-      <h1 class="titulo titulo--passo1">Configure seu convite de casamento</h1>
-      <p style="margin-bottom:46px">
-        Essas são as informações que aparecerão no convite que seus convidados irão receber pelo email. Este é o seu convite de casamento,
-        preencha com atenção e cuidado.
-      </p>
-
-      <h3><strong>Cerimônia</strong></h3>
-      <p>
-        Preencha as informações da cerimônia
-      </p>
+  <md-toolbar md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h1 class="md-flex">Configure seu convite de casamento</h1>
     </div>
-    <!-- col-xs-12 -->
-  </div>
-  <!-- row -->
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>
+      Essas são as informações que aparecerão no convite que seus convidados irão receber pelo email. Este é o seu convite de casamento,
+      preencha com atenção e cuidado.
+    </p>
+  </md-content>
+
+  <md-toolbar style="margin-top:50px" md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Cerimônia</h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>
+      Preencha as informações da cerimônia
+    </p>
+
+    <form class="form">
+      <section class="row">
+        <div class="col-sm-7">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Nome do local da cerimônia</label>
+            <input aria-label="Local da Cerimônia" type="text" ng-model="configConvite.cerimoniaLocal" ng-change="$scope.change = true"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">CEP</label>
+            <input aria-label="CEP" type="text" ng-model="configConvite.cerimoniaCep" ng-change="$scope.change = true" mask="99.999-999"
+              ng-keyup="configConvite.ConsultarCep(configConvite.cerimoniaCep)">
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+
+        <div class="col-sm-7">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Endereço da cerimônia</label>
+            <input aria-label="Endereço da cerimônia" type="text" ng-model="configConvite.cerimoniaEnd" ng-change="$scope.change = true"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Número</label>
+            <input aria-label="Número" type="text" ng-model="configConvite.cerimoniaNumero" ng-change="$scope.change = true" maxlength="20"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Bairro</label>
+            <input aria-label="Bairro" type="text" ng-model="configConvite.cerimoniaBairro" ng-change="$scope.change = true" required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-5">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Cidade</label>
+            <input aria-label="Cidade" type="text" ng-model="configConvite.cerimoniaCidade" ng-change="$scope.change = true" required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-5 -->
+        <div class="col-sm-2">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Estado</label>
+            <input aria-label="Estado" type="text" ng-model="configConvite.cerimoniaUf" ng-change="$scope.change = true" maxlength="2"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-2 -->
+        <div class="col-sm-4 col-md-3">
+          <md-input-container class="md-block" style="margin-top:0">
+            <label class="md-subhead">Traçar rotas para o local</label>
+            <md-switch ng-model="configConvite.cerimoniaRota" aria-label="Traçar rotas para o local" ng-true-value="'true'" ng-false-value="'false'"
+              ng-change="$scope.change = true">
+            </md-switch>
+          </md-input-container>
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-4  col-sm-offset-3 col-md-3  col-md-offset-5">
+         
+        </div>
+      </section>
+    </form>
+  </md-content>
+
+
 
   <form class="form" enctype="multipart/form-data" style="margin-top:42px;">
-    <div class="row">
-
-      <div class="col-sm-7">
-        <p class="form__title">
-          Nome do local da cerimônia
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaLocal" ng-change="$scope.change = true">
-      </div>
-      <!-- col-sm-7 -->
-
-      <div class="col-sm-4">
-        <p class="form__title">
-          CEP
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaCep" ng-change="$scope.change = true" mask="99.999-999" ng-keyup="configConvite.ConsultarCep(configConvite.cerimoniaCep)">
-      </div>
-      <!-- col-sm-4 -->
-
-    </div>
-    <!-- row -->
 
     <div class="row">
-      <div class="col-sm-7">
-        <p class="form__title">
-          Endereço da cerimônia
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaEnd" ng-change="$scope.change = true">
-      </div>
-      <!-- col-sm-7 -->
-
-      <div class="col-sm-4">
-        <p class="form__title">
-          Número
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaNumero" ng-change="$scope.change = true">
-      </div>
-      <!-- col-sm-4 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4">
-        <p class="form__title">
-          Bairro
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaBairro" ng-change="$scope.change = true">
-      </div>
-      <!-- col-sm-4 -->
-      <div class="col-sm-5">
-        <p class="form__title">
-          Cidade
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaCidade" ng-change="$scope.change = true">
-      </div>
-      <!-- col-sm-5 -->
-
-      <div class="col-sm-2">
-        <p class="form__title">
-          Estado
-        </p>
-        <input type="text" ng-model="configConvite.cerimoniaUf" ng-change="$scope.change = true" maxlength="2">
-      </div>
-      <!-- col-sm-2 -->
-    </div>
-    <!-- row -->
-
-    <div class="row">
-      <div class="col-sm-4 col-md-3">
-        <p class="form__title">
-          Traçar rotas para o local:
-        </p>
-        <div class="input__radio">
-          <span><input type="radio" ng-model="configConvite.cerimoniaRota" value="true" ng-change="$scope.change = true"> Sim</span>
-          <span><input type="radio" ng-model="configConvite.cerimoniaRota" value="false" ng-change="$scope.change = true"> Não</span>
-        </div>
-        <!-- input__radio -->
-      </div>
-      <!-- col-sm-3 -->
-
       <div class="col-sm-4  col-sm-offset-3 col-md-3  col-md-offset-5">
         <p class="form__title">
           Horário da cerimônia

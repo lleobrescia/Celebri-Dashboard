@@ -1322,6 +1322,10 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
   .dados__content, .configurar__convite {
     padding-left: 90px;
   }
+  .dados__header {
+    background-size: cover;
+    background-color: #6fb0ff;
+  }
   .produto_desc {
     width: 35%;
     padding-left: 14px;

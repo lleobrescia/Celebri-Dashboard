@@ -42,28 +42,25 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <form class="form" enctype="multipart/form-data" ng-init="$scope.change = false">
+      <form class="form " enctype="multipart/form-data" ng-init="$scope.change = false" ng-submit="casal.SetDadosCasal(); $scope.change = false;casal.fotoAlterada = false"
+        name="form">
 
         <div class="row">
           <div class="col-sm-5">
-            <p class="form__title" ng-if="Main.generoNoiva == 'M'">
-              Nome da Noivo
-            </p>
-            <p class="form__title" ng-if="Main.generoNoiva == 'F'">
-              Nome da Noiva
-            </p>
-            <input type="text" ng-model="casal.nomeNoiva" ng-change="$scope.change = true">
+            <md-input-container class="md-block">
+              <label ng-if="Main.generoNoiva == 'M'" class="md-subhead">Nome do Noivo</label>
+              <label ng-if="Main.generoNoiva == 'F'" class="md-subhead">Nome da Noiva</label>
+              <input aria-label="Nome" type="text" ng-model="casal.nomeNoiva" ng-change="$scope.change = true" required>
+            </md-input-container>
           </div>
           <!-- col-xs-5 -->
 
           <div class="col-sm-5">
-            <p class="form__title" ng-if="Main.generoNoivo == 'M'">
-              Nome da Noivo
-            </p>
-            <p class="form__title" ng-if="Main.generoNoivo == 'F'">
-              Nome da Noiva
-            </p>
-            <input type="text" ng-model="casal.nomeNoivo" ng-change="$scope.change = true">
+            <md-input-container class="md-block">
+              <label ng-if="Main.generoNoivo == 'M'" class="md-subhead">Nome do Noivo</label>
+              <label ng-if="Main.generoNoivo == 'F'" class="md-subhead">Nome da Noiva</label>
+              <input aria-label="Nome" type="text" ng-model="casal.nomeNoivo" ng-change="$scope.change = true" required>
+            </md-input-container>
           </div>
           <!-- col-xs-5 -->
         </div>
@@ -93,31 +90,26 @@
               Data do Casamento
             </p>
 
-            <md-datepicker ng-model="casal.dataCasamento" md-placeholder="Data do casamento" md-open-on-focus ng-change="$scope.change = true"></md-datepicker>
+            <md-datepicker ng-model="casal.dataCasamento" md-placeholder="Data do casamento" md-open-on-focus ng-change="$scope.change = true"
+              required></md-datepicker>
           </div>
           <!-- col-xs-3 -->
         </div>
         <!-- row -->
 
-        <div class="row">
-          <div class="col-sm-3" ng-if="$scope.change && !casal.errorFile">
-            <div class="btn btn--save" style="margin-bottom:24px;" ng-click="casal.SetDadosCasal(); $scope.change = false;casal.fotoAlterada = false">
-              Salvar
-            </div>
-          </div>
-          <div class="col-sm-3" ng-if="$scope.change">
-            <div class="btn btn--cancel" ng-click="casal.CasalGetDados(); $scope.change = false;casal.fotoAlterada = false">
-              Cancelar
-            </div>
-          </div>
-          <div class="col-sm-3" ng-if="!$scope.change">
-            <div class="btn btn--ok">
-              <a ng-href="/dashboard/#/configurar-convite">OK</a>
-            </div>
-          </div>
-          <!-- col-xs-12 -->
+        <div layout="row" layout-xs="column" layout-sm="column" layout-wrap>
+          <md-button class="md-raised md-primary" type="submit" md-colors="{background: 'green'}" ng-if="$scope.change && !casal.errorFile">
+            Salvar
+          </md-button>
+          <md-button class="md-raised md-warn" type="button" ng-click="casal.CasalGetDados(); $scope.change = false;casal.fotoAlterada = false"
+            ng-if="$scope.change">
+            Cancelar
+          </md-button>
+          <md-button class="md-raised md-primary md-block" ng-if="!$scope.change" ng-href="/dashboard/#/configurar-convite">
+            ok
+          </md-button>
         </div>
-        <!-- row -->
+
       </form>
     </div>
     <!-- col-xs-12 -->
