@@ -162,8 +162,8 @@
     function SetDadosCasal() {
       //Formata a data para o padrao americano.
       var casamento = (self.dataCasamento.getMonth() + 1) + '/' + self.dataCasamento.getDate() + '/' + self.dataCasamento.getFullYear();
-
-      var xmlVar = '<DadosCasalCtrl xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + self.nomeNoiva + '</NomeNoiva><NomeNoivo>' + self.nomeNoivo + '</NomeNoivo><Senha></Senha></DadosCasalCtrl>';
+      
+      var xmlVar = '<DadosCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal><AtualizarSenha>false</AtualizarSenha><DataCasamento>' + casamento + '</DataCasamento><NomeNoiva>' + self.nomeNoiva + '</NomeNoiva><NomeNoivo>' + self.nomeNoivo + '</NomeNoivo><Senha></Senha></DadosCasal>';
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/AtualizarDadosCadastroNoivos';
 
       //Enviar para o serviço na nuvem

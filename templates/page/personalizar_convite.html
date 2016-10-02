@@ -33,7 +33,7 @@
 
       <textarea class="blocoMsgPersonalizadaStyle bloco" ng-model="personalizar.blocoMsgPersonalizada" ng-style="personalizar.blocoMsgPersonalizadaStyle"
         ng-click="personalizar.SetBlocoActive(5); $scope.blocoActive = 'blocoMsgPersonalizadaStyle';personalizar.styleHold = 'blocoMsgPersonalizadaStyle'"
-        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsgPersonalizadaStyle'}"></textarea>
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsgPersonalizadaStyle'}" ng-change="$scope.change=true"></textarea>
 
       <p class="blocoCerimonia bloco" ng-style="personalizar.blocoCerimonia" ng-click="personalizar.SetBlocoActive(6); $scope.blocoActive = 'blocoCerimonia';personalizar.styleHold = 'blocoCerimonia'"
         ng-class="{'bloco--active' : $scope.blocoActive == 'blocoCerimonia'}" ng-bind-html="personalizar.conteudoMsg4"></p>
