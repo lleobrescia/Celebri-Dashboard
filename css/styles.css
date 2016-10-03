@@ -85,6 +85,7 @@ body {
   font-size: 62.5%;
   overflow-x: hidden;
   background: white;
+  top: 0 !important;
 }
 
 .wrapper {
@@ -1347,7 +1348,6 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     right: 2px;
     height: 400px;
     width: 260px;
-    top: 25%;
     border: none;
   }
   .controll_bloco_opcoes {
