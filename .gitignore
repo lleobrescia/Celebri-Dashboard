@@ -11,3 +11,4 @@ node_modules/
 >>>>>>> develop
 js/dashboard.min.js
 js/service/ipService.js
+.htaccess
