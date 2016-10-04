@@ -22,8 +22,106 @@
   </header>
 
   <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}" ng-show="hideSideBar">
-    <navigation menu="sidebar.menu"></navigation>
-  </nav>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="pagamento">
+          Pagamento
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="dados-do-casal">
+          Casal
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Convite
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Configurar
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Save the Date
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Enviar
+          </md-button>
+        </md-menu-item>
 
+      </md-menu-content>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Evento
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Recepção
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Dicas de Hotel
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Dicas de Salão de Beleza
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Lista de Presentes
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Cardápio
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Convidados
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Cadastrar
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="configurar-convite/2">
+            Confirmados
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="dados-do-casal">
+          Estatísticas
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+  </nav>
 </div>
 <!-- sidebar -->

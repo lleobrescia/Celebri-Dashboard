@@ -94,7 +94,8 @@ body {
 
 a, a:hover, a:focus {
   text-decoration: none;
-  outline: 0
+  outline: 0;
+  color: inherit
 }
 
 input[type=checkbox], input[type=radio] {
@@ -374,11 +375,16 @@ select {
 .header {
   width: 100%;
   height: 110px;
-  background: #6f91ff;
+  background-color: #6f91ff;
+  background: linear-gradient(#6f91ff, #3b57b3);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #6f91ff), color-stop(1, #3b57b3));
+  background: -webkit-linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
+  background: -moz-linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
+  background: linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
+  border-bottom: 1px solid #267ED5;
   padding-top: 38px;
   padding-bottom: 16px;
   max-height: 213px;
-  border-bottom: thin solid #707070;
   box-sizing: content-box;
 }
 
@@ -436,7 +442,7 @@ select {
 
 .user__options {
   height: 37px;
-  background: #6f91ff;
+  background: #4663c3;
   position: relative;
   padding-top: 35px;
   z-index: 1;
@@ -464,36 +470,12 @@ select {
   display: none;
 }
 
-.menu.menu--expandido {
-  display: block;
-}
-
-.menu-item, .menu-item__hover, .menu-item a {
-  height: 50px;
-}
-
-.menu-item {
-  border-bottom: thin solid #707070;
-  position: relative;
-}
-
-.menu-item a {
-  font-family: 'Playfair Display';
+/*.menu__item {
   color: white;
-  font-size: 1.6em;
-  margin-left: 20px;
-  line-height: 50px;
-  display: block;
-}
+  background: #3c58b4;
+}*/
 
-.menu-item__hover {
-  position: absolute;
-  width: 10px;
-  background: #ff7c7c;
-  display: none;
-}
-
-.menu-item:hover > .menu-item__hover, .active > .menu-item__hover {
+.menu.menu--expandido {
   display: block;
 }
 
@@ -1176,15 +1158,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-@media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {
-  /*SIDEBAR*/
-  .menu-item, .menu-item__hover, .menu-item a {
-    height: 70px;
-  }
-  .menu-item a {
-    line-height: 70px
-  }
-}
+@media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {}
 
 
 /**
@@ -1192,16 +1166,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-@media screen and ( min-height:800px), ( min-height:800px) and (-webkit-min-device-pixel-ratio:0) {
-  /*SIDEBAR*/
-  .menu-item, .menu-item__hover, .menu-item a {
-    height: 75px;
-  }
-  /*DADOS CASAL*/
-  .menu-item a {
-    line-height: 90px
-  }
-}
+@media screen and ( min-height:800px), ( min-height:800px) and (-webkit-min-device-pixel-ratio:0) {}
 
 
 /**
@@ -1260,9 +1225,6 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     background: transparent;
     text-align: left;
     display: block;
-  }
-  .menu-item a {
-    color: #707070;
   }
   .user__options {
     display: block;
