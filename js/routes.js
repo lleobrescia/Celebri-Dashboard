@@ -7,10 +7,17 @@
 
   RouteConfig.$inject = ['$routeProvider','$locationProvider'];
   function RouteConfig($routeProvider,$locationProvider) {
-
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+    
     $routeProvider
       .when('/', {
         redirectTo: '/login'
+      })
+      .when('/pagamento', {
+        templateUrl : 'templates/page/pagamento.html',
+        controller  : 'PagamentoCtrl',
+        controllerAs: 'Pagamento'
       })
       .when('/dados-do-casal', {
         templateUrl : '/dashboard/templates/page/dados_casal.html',
@@ -54,8 +61,6 @@
       })
       .when('/enviar-convite', {
         templateUrl : '/dashboard/templates/page/enviar_convite.html',
-        controller  : 'PagamentoCtrl',
-        controllerAs: 'Pagamento'
       })
       .when('/confirmados', {
         templateUrl : '/dashboard/templates/page/confirmados.html',
@@ -82,7 +87,7 @@
 
       if (next.templateUrl) {
         // interagindo com o Analytics através do objeto global ga
-        ga('send', 'pageview', { page: '/dashboard/#' + next.$$route.originalPath });
+        // ga('send', 'pageview', { page: '/dashboard/#' + next.$$route.originalPath });
       }
     }); 
   }
