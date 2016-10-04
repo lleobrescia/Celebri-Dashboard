@@ -1,10 +1,12 @@
 <img src="image/loging.gif" alt="Carregando" ng-show="personalizar.cerregando" style="width: 64px;display: block;margin-left: auto;margin-right: auto;margin-top: 15%;">
 
-
-<a ng-href="/dashboard/#/configurar-convite/2" style="font-size: 2em;color: black;padding: 10px;margin-top: -35px;margin-bottom: -10px;display: block;">
-  	&lArr; Voltar </a>
-
-<hr style="border-color: black">
+<md-toolbar style="margin-top: -42px;margin-bottom: 40px;" md-colors="{background: 'blue-700'}">
+  <h2>
+    <md-button class="md-block" ng-href="/dashboard/#/configurar-convite/2">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+    </md-button>
+  </h2>
+</md-toolbar>
 
 <div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;Main.CheckTemplate()" ng-show="!personalizar.cerregando">
 
@@ -45,30 +47,23 @@
   <!-- row -->
 
   <div class="row" ng-if="$scope.change">
-    <div class="col-sm-3">
-      <div class="btn btn--save" ng-click="$scope.change = false;personalizar.SetConfiguracaoConvite()">
-        Salvar
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="btn btn--cancel" ng-click="$scope.change = false">
-        Cancelar
-      </div>
-    </div>
+    <md-button class="md-raised md-primary md-block" type="button" md-colors="{background: 'green'}" ng-click="$scope.change = false;personalizar.SetConfiguracaoConvite()">
+      Salvar
+    </md-button>
+    <md-button class="md-raised md-warn md-block" type="button" ng-click="$scope.change = false">
+      Cancelar
+    </md-button>
   </div>
   <!-- row -->
 
   <div class="row" ng-if="!$scope.change" style="margin-top: 40px;">
-    <div class="col-sm-3">
-      <div class="btn btn--ok">
-        <a href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizar.senhaApp}}" target="_blank">Visualizar Convite Final</a>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="btn btn--ok">
-        <a ng-href="/dashboard/#/configurar-evento">Concluir</a>
-      </div>
-    </div>
+    <md-button class="md-raised md-primary md-block" ng-href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizar.senhaApp}}"
+      target="_blank">
+      Visualizar Convite Final
+    </md-button>
+    <md-button class="md-raised md-primary md-block" ng-href="/dashboard/#/configurar-evento">
+      Concluir
+    </md-button>
   </div>
   <!-- row -->
 
