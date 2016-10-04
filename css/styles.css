@@ -376,10 +376,10 @@ select {
   width: 100%;
   height: 110px;
   background-color: #6f91ff;
+  background: -webkit-linear-gradient(#6f91ff, #3b57b3);
   background: linear-gradient(#6f91ff, #3b57b3);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #6f91ff), color-stop(1, #3b57b3));
   background: -webkit-linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
-  background: -moz-linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
   background: linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
   border-bottom: 1px solid #267ED5;
   padding-top: 38px;
@@ -469,11 +469,6 @@ select {
   text-align: center;
   display: none;
 }
-
-/*.menu__item {
-  color: white;
-  background: #3c58b4;
-}*/
 
 .menu.menu--expandido {
   display: block;
@@ -1052,32 +1047,28 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-.pagamento .pagamento__bandeiras span {
-  display: inline-block;
-  margin-right: 36px;
-  outline: none;
+.pagamento label, .pagamento input {
+  font-size: 1.4em;
 }
 
-.pagamento .pagamento__bandeiras input[type="radio"] {
-  margin-right: 5px;
+.pagamento input {
+  color: black
 }
 
-.pagamento .pagamento__bandeiras span:last-child {
-  margin-right: 0;
+.cartao .md-input {
+  background-image: url(../image/images.png);
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  background-size: 40px !important;
+  padding-left: 50px !important;
 }
 
-.form input[type="radio"] {
-  display: inline-block;
-  width: 23px;
-  height: 23px;
-  vertical-align: middle;
-  margin: 0;
+.cartao label {
+  padding-left: 50px !important;
 }
 
-.pagamento__codigo input {
-  width: 80%;
-  margin-right: 10px;
-  vertical-align: sub;
+.cartao.md-input-has-value label, .cartao.md-input-focused label {
+  padding-left: 0 !important;
 }
 
 
