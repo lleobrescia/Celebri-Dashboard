@@ -1,0 +1,246 @@
+<div class="container-fluid" ng-init="Main.CheckTemplate()">
+
+  <md-toolbar md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h1 class="md-flex">Configure seu convite de casamento</h1>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>
+      Essas são as informações que aparecerão no convite que seus convidados irão receber pelo email. Este é o seu convite de casamento,
+      preencha com atenção e cuidado.
+    </p>
+  </md-content>
+
+  <md-toolbar style="margin-top:50px" md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Cerimônia</h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p class="md-subhead">
+      Preencha as informações da cerimônia
+    </p>
+
+    <form class="form">
+      <section class="row">
+        <div class="col-sm-7">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Nome do local da cerimônia</label>
+            <input aria-label="Local da Cerimônia" type="text" ng-model="configConvite.cerimoniaLocal" ng-change="$scope.change = true"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">CEP</label>
+            <input aria-label="CEP" type="text" ng-model="configConvite.cerimoniaCep" ng-change="$scope.change = true" mask="99.999-999"
+              ng-keyup="configConvite.ConsultarCep(configConvite.cerimoniaCep)">
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+
+        <div class="col-sm-7">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Endereço da cerimônia</label>
+            <input aria-label="Endereço da cerimônia" type="text" ng-model="configConvite.cerimoniaEnd" ng-change="$scope.change = true"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-7 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Número</label>
+            <input aria-label="Número" type="text" ng-model="configConvite.cerimoniaNumero" ng-change="$scope.change = true" maxlength="20"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-4">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Bairro</label>
+            <input aria-label="Bairro" type="text" ng-model="configConvite.cerimoniaBairro" ng-change="$scope.change = true" required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-4 -->
+        <div class="col-sm-5">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Cidade</label>
+            <input aria-label="Cidade" type="text" ng-model="configConvite.cerimoniaCidade" ng-change="$scope.change = true" required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-5 -->
+        <div class="col-sm-2">
+          <md-input-container class="md-block">
+            <label class="md-subhead">Estado</label>
+            <input aria-label="Estado" type="text" ng-model="configConvite.cerimoniaUf" ng-change="$scope.change = true" maxlength="2"
+              required>
+          </md-input-container>
+        </div>
+        <!-- col-sm-2 -->
+        <div class="col-sm-4 col-md-3">
+          <md-input-container class="md-block" style="margin-top:0">
+            <span class="md-subhead">Traçar rotas para o local</span>
+            <md-switch class="md-primary" ng-model="configConvite.cerimoniaRota" aria-label="Traçar rotas para o local" ng-true-value="'true'"
+              ng-false-value="'false'" ng-change="$scope.change = true">
+            </md-switch>
+          </md-input-container>
+        </div>
+        <!-- col-sm-3 -->
+        <div class="col-sm-4  col-sm-offset-3 col-md-3  col-md-offset-5">
+          <span class="md-subhead" style="display: block;margin-bottom: 10px;">Horário da Cerimônia</span>
+          <md-input-container style="width:40%">
+            <label>Hora</label>
+            <md-select ng-model="configConvite.cerimoniaHora" ng-change="$scope.change = true">
+              <md-option ng-repeat="t in Main.GetTimes(24) track by $index" ng-value="$index">
+                {{$index | twoDigits}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <span> : </span>
+          <md-input-container style="width:40%">
+            <label>Min.</label>
+            <md-select ng-model="configConvite.cerimoniaMin" ng-change="$scope.change = true">
+              <md-option ng-repeat="t in Main.GetTimes(4) track by $index" ng-value="$index * 15">
+                {{$index | twoDigits}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </section>
+    </form>
+  </md-content>
+
+  <md-toolbar style="margin-top:50px" md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Nome dos Pais</h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <form class="form">
+      <section class="row">
+        <div class="col-sm-5">
+          <div class="row">
+            <div class="col-sm-9">
+              <md-input-container class="md-block">
+                <label class="md-subhead" ng-if="Main.generoNoiva == 'M'">Pai do Noivo:</label>
+                <label class="md-subhead" ng-if="Main.generoNoiva == 'F'">Pai da Noiva:</label>
+                <input aria-label="Pai" type="text" ng-model="configConvite.noivaPai" ng-change="$scope.change = true">
+              </md-input-container>
+            </div>
+            <!--col-sm-9-->
+            <div class="col-sm-3">
+              <md-input-container class="md-block">
+                <md-switch class="md-primary" ng-model="configConvite.noivaPaiMemorian" aria-label="Traçar rotas para o local" ng-true-value="'true'"
+                  ng-false-value="'false'" ng-change="$scope.change = true">
+                  In Memorian
+                </md-switch>
+              </md-input-container>
+            </div>
+            <!--col-sm-3-->
+          </div>
+          <!--row-->
+        </div>
+        <!--col-sm-5-->
+
+        <div class="col-sm-5 col-sm-offset-1">
+          <div class="row">
+            <div class="col-sm-9">
+              <md-input-container class="md-block">
+                <label class="md-subhead" ng-if="Main.generoNoiva == 'M'">Pai do Noivo:</label>
+                <label class="md-subhead" ng-if="Main.generoNoiva == 'F'">Pai da Noiva:</label>
+                <input aria-label="Pai" type="text" ng-model="configConvite.noivaMae" ng-change="$scope.change = true">
+              </md-input-container>
+            </div>
+            <!--col-sm-9-->
+            <div class="col-sm-3">
+              <md-input-container class="md-block">
+                <md-switch class="md-primary" ng-model="configConvite.noivaMaeMmemorian" aria-label="Traçar rotas para o local" ng-true-value="'true'"
+                  ng-false-value="'false'" ng-change="$scope.change = true">
+                  In Memorian
+                </md-switch>
+              </md-input-container>
+            </div>
+            <!--col-sm-3-->
+          </div>
+          <!--row-->
+        </div>
+        <!--col-sm-5-->
+
+        <div class="col-sm-5">
+          <div class="row">
+            <div class="col-sm-9">
+              <md-input-container class="md-block">
+                <label class="md-subhead" ng-if="Main.generoNoivo == 'M'">Pai do Noivo:</label>
+                <label class="md-subhead" ng-if="Main.generoNoivo == 'F'">Pai da Noiva:</label>
+                <input aria-label="Pai" type="text" ng-model="configConvite.noivoPai" ng-change="$scope.change = true">
+              </md-input-container>
+            </div>
+            <!--col-sm-9-->
+            <div class="col-sm-3">
+              <md-input-container class="md-block">
+                <md-switch class="md-primary" ng-model="configConvite.noivoPaiMemorian" aria-label="Traçar rotas para o local" ng-true-value="'true'"
+                  ng-false-value="'false'" ng-change="$scope.change = true">
+                  In Memorian
+                </md-switch>
+              </md-input-container>
+            </div>
+            <!--col-sm-3-->
+          </div>
+          <!--row-->
+        </div>
+        <!--col-sm-5-->
+
+        <div class="col-sm-5 col-sm-offset-1">
+          <div class="row">
+            <div class="col-sm-9">
+              <md-input-container class="md-block">
+                <label class="md-subhead" ng-if="Main.generoNoivo == 'M'">Pai do Noivo:</label>
+                <label class="md-subhead" ng-if="Main.generoNoivo == 'F'">Pai da Noiva:</label>
+                <input aria-label="Pai" type="text" ng-model="configConvite.noivoMae" ng-change="$scope.change = true">
+              </md-input-container>
+            </div>
+            <!--col-sm-9-->
+            <div class="col-sm-3">
+              <md-input-container class="md-block">
+                <md-switch class="md-primary" ng-model="configConvite.noivoMaeMemorian" aria-label="Traçar rotas para o local" ng-true-value="'true'"
+                  ng-false-value="'false'" ng-change="$scope.change = true">
+                  In Memorian
+                </md-switch>
+              </md-input-container>
+            </div>
+            <!--col-sm-3-->
+          </div>
+          <!--row-->
+        </div>
+        <!--col-sm-5-->
+      </section>
+
+      <div class="row">
+        <div class="col-xs-12" ng-show="!$scope.change">
+          <p class="md-subhead">
+            Na sequencia você irá escolher o layout do seu convite. O mesmo poderá ser alterado a qualquer momento até o envio do primeiro
+            convite, após este envio ele não poderá mais ser alterado.
+          </p>
+          <md-button class="md-raised md-primary md-block" ng-href="/dashboard/#/configurar-convite/2">
+            Avançar
+          </md-button>
+        </div>
+        <!--col-xs-12-->
+
+        <div class="col-xs-12" ng-if="$scope.change">
+          <md-button class="md-raised md-primary" type="button" md-colors="{background: 'green'}" ng-click="configConvite.SetDadosConvite(); $scope.change = false">
+            Salvar
+          </md-button>
+          <md-button class="md-raised md-warn" type="button" ng-click="configConvite.GetLocal(); $scope.change = false">
+            Cancelar
+          </md-button>
+        </div>
+        <!--col-xs-12-->
+      </div>
+      <!--row-->
+    </form>
+  </md-content>
+</div>
+<!-- container-fluid -->
