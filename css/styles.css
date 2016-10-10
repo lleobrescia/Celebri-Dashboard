@@ -123,6 +123,9 @@ input[type=checkbox], input[type=radio] {
   opacity: 0;
 }
 
+md-toast{
+  position: fixed
+}
 
 /**
 * 3.0 - CONTENT
