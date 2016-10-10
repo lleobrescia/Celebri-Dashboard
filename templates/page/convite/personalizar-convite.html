@@ -1,0 +1,179 @@
+<img src="image/loging.gif" alt="Carregando" ng-show="personalizar.cerregando" style="width: 64px;display: block;margin-left: auto;margin-right: auto;margin-top: 15%;">
+
+<md-toolbar style="margin-top: -42px;margin-bottom: 40px;" md-colors="{background: 'blue-700'}">
+  <h2>
+    <md-button class="md-block" ng-href="/dashboard/#/configurar-convite/2">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+    </md-button>
+  </h2>
+</md-toolbar>
+
+<div class="container-fluid configurar_convite_2" ng-init="$scope.change = false;Main.CheckTemplate()" ng-show="!personalizar.cerregando">
+
+  <div class="row">
+    <div class="col-xs-9" style="position: relative;width: 1000px;padding: 0;margin-left: 10px;" ng-init="$scope.blocoActive = 'blocoPaisNoiva'">
+
+      <img ng-src="{{personalizar.layoutSelecionado}}" alt="">
+
+      <!-- #REGION BLOCOS -->
+
+      <p class="blocoPaisNoiva bloco" ng-init="personalizar.styleHold = 'blocoPaisNoiva'" ng-style="personalizar.blocoPaisNoiva"
+        ng-click="personalizar.SetBlocoActive(0); $scope.blocoActive = 'blocoPaisNoiva';personalizar.styleHold = 'blocoPaisNoiva'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoiva'}" ng-bind-html="personalizar.conteudoPaisNoiva"></p>
+
+      <p class="blocoPaisNoivo bloco" ng-style="personalizar.blocoPaisNoivo" ng-click="personalizar.SetBlocoActive(1); $scope.blocoActive = 'blocoPaisNoivo';personalizar.styleHold = 'blocoPaisNoivo'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoPaisNoivo'}" ng-bind-html="personalizar.conteudoPaisNoivo"></p>
+
+      <p class="blocoMsg1 bloco" ng-style="personalizar.blocoMsg1" ng-click="personalizar.SetBlocoActive(2); $scope.blocoActive = 'blocoMsg1';personalizar.styleHold = 'blocoMsg1'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg1'}" ng-bind-html="personalizar.conteudoMsg1"></p>
+
+      <p class="blocoNomeNoivos bloco" ng-style="personalizar.blocoNomeNoivos" ng-click="personalizar.SetBlocoActive(3); $scope.blocoActive = 'blocoNomeNoivos';personalizar.styleHold = 'blocoNomeNoivos'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoNomeNoivos'}" ng-bind-html="personalizar.conteudoNomeCasal"></p>
+
+      <p class="blocoMsg2 bloco" ng-style="personalizar.blocoMsg2" ng-click="personalizar.SetBlocoActive(4); $scope.blocoActive = 'blocoMsg2';personalizar.styleHold = 'blocoMsg2'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsg2'}" ng-bind-html="personalizar.conteudoMsg2"></p>
+
+      <textarea class="blocoMsgPersonalizadaStyle bloco" ng-model="personalizar.blocoMsgPersonalizada" ng-style="personalizar.blocoMsgPersonalizadaStyle"
+        ng-click="personalizar.SetBlocoActive(5); $scope.blocoActive = 'blocoMsgPersonalizadaStyle';personalizar.styleHold = 'blocoMsgPersonalizadaStyle'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoMsgPersonalizadaStyle'}" ng-change="$scope.change=true"></textarea>
+
+      <p class="blocoCerimonia bloco" ng-style="personalizar.blocoCerimonia" ng-click="personalizar.SetBlocoActive(6); $scope.blocoActive = 'blocoCerimonia';personalizar.styleHold = 'blocoCerimonia'"
+        ng-class="{'bloco--active' : $scope.blocoActive == 'blocoCerimonia'}" ng-bind-html="personalizar.conteudoMsg4"></p>
+
+      <!-- #ENDREGION BLOCOS -->
+    </div>
+    <!-- col-xs-12 -->
+  </div>
+  <!-- row -->
+
+  <div class="row" ng-if="$scope.change">
+    <md-button class="md-raised md-primary md-block" type="button" md-colors="{background: 'green'}" ng-click="$scope.change = false;personalizar.SetConfiguracaoConvite()">
+      Salvar
+    </md-button>
+    <md-button class="md-raised md-warn md-block" type="button" ng-click="$scope.change = false">
+      Cancelar
+    </md-button>
+  </div>
+  <!-- row -->
+
+  <div class="row" ng-if="!$scope.change" style="margin-top: 40px;">
+    <md-button class="md-raised md-primary md-block" ng-href="http://celebri.com.br/celebri/web/convite.aspx?senha={{personalizar.senhaApp}}"
+      target="_blank">
+      Visualizar Convite Final
+    </md-button>
+    <md-button class="md-raised md-primary md-block" ng-href="/dashboard/#/configurar-evento">
+      Concluir
+    </md-button>
+  </div>
+  <!-- row -->
+
+  <div class="row controll ">
+    <div class="col-sm-12 ">
+
+      <!-- #REGION NAV TABS -->
+
+      <ul class="nav nav-tabs " role="tablist " ng-init="$scope.tab='formato' ">
+        <li role="presentation " ng-class="{active : $scope.tab=='formato' } ">
+          <a aria-controls="formato " role="tab " data-toggle="tab " ng-click="$scope.tab='formato' ">Formato</a>
+        </li>
+        <li role="presentation " ng-class="{active : $scope.tab=='typefaces' } ">
+          <a aria-controls="typefaces " role="tab " data-toggle="tab " ng-click="$scope.tab='typefaces' ">Fonte</a>
+        </li>
+      </ul>
+
+      <!-- #ENDREGION NAV TABS -->
+
+
+      <div class="tab-content ">
+        <!-- #REGION TAB PANEL 1 -->
+
+        <div role="tabpanel " class="tab-pane " id="formato " ng-class="{active : $scope.tab=='formato' } ">
+          <div ng-repeat="valor in personalizar.convites[personalizar.conviteIndividual] " ng-cloak>
+            <div ng-show="personalizar.showBlocos[$index][ 'ativo'] ">
+
+              <div class="controll_bloco_opcoes " ng-init="valor[ 'font-size']=valor[ 'font-size'] ">
+                <h4 class="controll__title ">Tamanho da Fonte: {{valor['font-size']}}</h4>
+                <rzslider rz-slider-model="valor[ 'font-size'] " rz-slider-options="{floor: 10, ceil: 100}" ng-click="$scope.change=true "></rzslider>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+              <div class="controll_bloco_opcoes ">
+                <h4 class="controll__title ">Alinhamento</h4>
+
+                <i class="fa fa-align-left " ng-class="{ 'fa--active ' : valor[ 'text-align']=='left' }
+            " ng-click="valor[ 'text-align']='left' ; $scope.change=true"></i>
+                <i class="fa fa-align-center " ng-class="{ 'fa--active' : valor[ 'text-align']=='center' }
+            " ng-click="valor[ 'text-align']='center' ; $scope.change=true"></i>
+                <i class="fa fa-align-right " ng-class="{ 'fa--active' : valor[ 'text-align']=='right' }
+            " ng-click="valor[ 'text-align']='right' ; $scope.change=true"></i>
+              </div>
+              <!-- controll_bloco_opcoes -->
+
+            </div>
+            <!--showBlocos-->
+          </div>
+          <!-- formato -->
+        </div>
+
+        <!-- #ENDREGION TAB PANEL 1 -->
+
+        <!-- #REGION TAB PANEL 2 -->
+
+        <div role="tabpanel " class="tab-pane " id="typefaces " ng-class="{active : $scope.tab=='typefaces' } ">
+          <div class="typeface__title ">
+            <span>Serif</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizar.fonts.SERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizar.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--serif-->
+
+          <div class="typeface__title ">
+            <span>Sans Serif</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizar.fonts.SANSSERIF " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizar.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--sans serif-->
+
+          <div class="typeface__title ">
+            <span>Display</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizar.fonts.DISPLAY " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizar.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--display-->
+
+          <div class="typeface__title ">
+            <span>Handwritting</span>
+          </div>
+          <ul class="font__list ">
+            <li class="font__item " ng-repeat="(key,value) in personalizar.fonts.HANDWRITING " ng-style="{
+            'font-family':value[ 'font-name']} " ng-click="personalizar.SetFontToBloco(value[ 'font-name'],key); $scope.change=true">
+              {{value['font-name']}}
+            </li>
+          </ul>
+          <!--handwritting-->
+
+        </div>
+        <!--tab-pane-->
+
+        <!-- #ENDREGION TAB PANEL 2 -->
+
+      </div>
+      <!-- tab-content -->
+    </div>
+    <!-- col-sm-12 -->
+  </div>
+  <!-- controll -->
+</div>
+<!-- container-fluid -->
