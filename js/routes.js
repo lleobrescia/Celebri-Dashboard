@@ -24,25 +24,46 @@
         controller  : 'DadosCasalCtrl',
         controllerAs: 'casal'
       })
+      .when('/evento', { redirectTo: '/evento/recepcao' })
+      .when('/evento/recepcao', {
+        templateUrl : '/dashboard/templates/page/evento/recepcao.html',
+        controller  : 'RecepcaoCtrl',
+        controllerAs: 'recepcao'
+      })
+      .when('/evento/dicas-hoteis', {
+        templateUrl : '/dashboard/templates/page/evento/dicas-hotel.html',
+        controller  : 'DicasHotelCtrl',
+        controllerAs: 'hotel'
+      })
+      .when('/evento/dicas-salao-beleza', {
+        templateUrl : '/dashboard/templates/page/evento/dicas-salao.html',
+        controller  : 'DicasSalaoCtrl',
+        controllerAs: 'salao'
+      })
+      .when('/evento/lista-presentes', {
+        templateUrl : '/dashboard/templates/page/evento/lista-presentes.html',
+        controller  : 'ListaPresentesCtrl',
+        controllerAs: 'presentes'
+      })
+      .when('/evento/cardapio', {
+        templateUrl : '/dashboard/templates/page/evento/cardapio.html',
+        controller  : 'CardapioCtrl',
+        controllerAs: 'cardapio'
+      })
       .when('/configurar-convite', {
-        templateUrl : '/dashboard/templates/page/configurar_convite.html',
+        templateUrl : '/dashboard/templates/page/convite/cerimonia.html',
         controller  : 'ConfigurarConviteCtrl',
         controllerAs: 'configConvite'
       })
       .when('/configurar-convite/2', {
-        templateUrl : '/dashboard/templates/page/configurar_convite2.html',
+        templateUrl : '/dashboard/templates/page/convite/config-convite.html',
         controller  : 'ConfigurarConvitePg2Ctrl',
         controllerAs: 'configConvitePg2'
       })
       .when('/personalizar-convite', {
-        templateUrl : '/dashboard/templates/page/personalizar_convite.html',
+        templateUrl : '/dashboard/templates/page/convite/personalizar-convite.html',
         controller  : 'PersonalizarConviteCtrl',
         controllerAs: 'personalizar'
-      })
-      .when('/configurar-evento', {
-        templateUrl : '/dashboard/templates/page/configurar_evento.html',
-        controller  : 'configurarEventoCtrl',
-        controllerAs: 'evento'
       })
       .when('/cadastrar-convidados', {
         templateUrl : '/dashboard/templates/page/cadastrar_convidados.html',
