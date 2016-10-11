@@ -22,7 +22,9 @@
     self.uf     = ' ';
     self.rota   = ' ';
 
-    self.ConsultCEP = ConsultCEP;
+    self.Cancelar       = GetDadosLocal;
+    self.ConsultCEP     = ConsultCEP;
+    self.SetDadosEvento = SetDadosEvento;
 
     Init();
 
@@ -59,6 +61,10 @@
       self.uf                     = UserService.dados.festaCidade;
       self.rota                   = UserService.dados.festaRota;
       self.cep                    = UserService.dados.festaCep;
+
+      if(self.local !== null && self.local !== ''){
+        self.confirRecepcao = true;
+      }
     }
 
   /**
@@ -133,16 +139,16 @@
    */
     function SetDadosEvento() {
       var urlVar  = 'http://' + ipService.ip + '/ServiceCasamento.svc/ConfiguracaoEvento';
-      var bairro  = ' ',
-        cep       = ' ',
-        cidade    = ' ',
-        end       = ' ',
-        uf        = ' ',
-        local     = ' ',
-        numero    = ' ',
-        rota      = ' ';
+      var bairro  = '',
+        cep       = '',
+        cidade    = '',
+        end       = '',
+        uf        = '',
+        local     = '',
+        numero    = 0,
+        rota      = 'true';
 
-      if (self.confirRecepcao === true && self.recepcaoIgualCerimonia === true) {
+      if (self.confirRecepcao === true && self.recepcaoIgualCerimonia === 'true') {
         bairro  = UserService.dados.cerimoniaBairro;
         cep     = UserService.dados.cerimoniaCep;
         cidade  = UserService.dados.cerimoniaCidade;
@@ -152,21 +158,36 @@
         rota    = UserService.dados.cerimoniaRota;
         uf      = UserService.dados.cerimoniaUf;
 
-      } else if(self.confirRecepcao === true && self.recepcaoIgualCerimonia === false) {
-        bairro  = self.local;
-        cep     = self.end;
-        cidade  = self.numero;
-        end     = self.bairro;
-        local   = self.cidade;
-        numero  = self.uf;
+      } else if(self.confirRecepcao === true && self.recepcaoIgualCerimonia === 'false') {
+        bairro  = self.bairro;
+        cep     = self.cep;
+        cidade  = self.cidade;
+        end     = self.end;
+        local   = self.local;
+        numero  = self.numero;
         rota    = self.rota;
-        uf      = self.cep;
+        uf      = self.uf;
+      }else{
+        self.bairro  = bairro;
+        self.cep     = cep;
+        self.cidade  = cidade;
+        self.end     = end;
+        self.local   = local;
+        self.numero  = numero;
+        self.rota    = rota;
+        self.uf      = uf;
+
+        RecepcaoRemotoToLocal()
       }
 
-      var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + local + '</Local_festa><Mesmo_local_cerimonia>' + self.festaIgualCerimonia + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
+      var xmlVar = '<ConfiguracaoEvento xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + bairro + '</Bairro><Cep>' + cep + '</Cep><Cidade>' + cidade + '</Cidade><Endereco>' + end + '</Endereco><Estado>' + uf + '</Estado><Horario_festa></Horario_festa><Id_usuario_logado>' + ID + '</Id_usuario_logado><Local_festa>' + local + '</Local_festa><Mesmo_local_cerimonia>' + self.recepcaoIgualCerimonia + '</Mesmo_local_cerimonia><Numero>' + numero + '</Numero><Obs></Obs><Pais></Pais><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoEvento>';
 
+      console.log(xmlVar);
+ 
       //envia para o servico
-      ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function(resp){
+        console.log(resp);
+      }).catch(function (error) {
         console.error('SetDadosEvento -> ', error);
       });
 
