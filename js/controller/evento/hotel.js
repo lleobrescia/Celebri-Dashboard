@@ -10,18 +10,19 @@
     var self = this;
     var ID = UserService.dados.ID;
 
-    self.bairro   = '';
-    self.cep      = '';
-    self.cidade   = '';
-    self.email    = '';
-    self.end      = '';
+    self.bairro     = '';
+    self.carregando = true;
+    self.cep        = '';
+    self.cidade     = '';
+    self.email      = '';
+    self.end        = '';
     self.hotelLista = [];
-    self.local    = '';
-    self.numero   = '';
-    self.rota     = 'false';
-    self.site     = '';
-    self.telefone = '';
-    self.uf       = '';
+    self.local      = '';
+    self.numero     = '';
+    self.rota       = 'false';
+    self.site       = '';
+    self.telefone   = '';
+    self.uf         = '';
 
     self.Adicionar  = Adicionar;
     self.ConsultCEP = ConsultCEP;
@@ -36,31 +37,29 @@
    * @memberOf Controllers.DicasHotelCtrl
    */
     function Adicionar() {
-      if (self.local !== '' || self.local != null) {
-        var rota = true;
+      var rota = true;
 
-        if (self.rota === 'false') {
-          rota = false;
-        }
-
-        var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ConfigAdicionalEvento_ListaHoteis';
-
-        var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + self.bairro + '</Bairro><Cidade>' + self.cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + self.email + '</Email><Endereco>' + self.end + '</Endereco><Estado>' + self.uf + '</Estado><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.local + '</Nome><Numero>' + self.numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + self.site + '</Site><Telefone>' + self.telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
-
-        ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
-          
-          /**
-           * Eh necessario puxar o conteudo do servico novamente
-           * pq o ID do novo hotel eh gerado no servico.
-           */
-          GetHoteis();
-
-          Toast('Hotel Adicionado','Visualizar');
-
-        }).catch(function (error) {
-          console.error('AdicionarHotel -> ', error);
-        });
+      if (self.rota === 'false') {
+        rota = false;
       }
+
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/ConfigAdicionalEvento_ListaHoteis';
+
+      var xmlVar = '<ConfiguracaoGenericaEndereco xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Bairro>' + self.bairro + '</Bairro><Cidade>' + self.cidade + '</Cidade><CodigoArea></CodigoArea><Email>' + self.email + '</Email><Endereco>' + self.end + '</Endereco><Estado>' + self.uf + '</Estado><Id>0</Id><Id_usuario_logado>' + ID + '</Id_usuario_logado><Nome>' + self.local + '</Nome><Numero>' + self.numero + '</Numero><Obs></Obs><Pais></Pais><Site>' + self.site + '</Site><Telefone>' + self.telefone + '</Telefone><TipoLogradouro></TipoLogradouro><Tracar_rota_local>' + rota + '</Tracar_rota_local></ConfiguracaoGenericaEndereco>';
+
+      ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
+
+        /**
+         * Eh necessario puxar o conteudo do servico novamente
+         * pq o ID do novo hotel eh gerado no servico.
+         */
+        GetHoteis();
+
+        Toast('Hotel Adicionado', 'Visualizar');
+
+      }).catch(function (error) {
+        console.error('AdicionarHotel -> ', error);
+      });
     }
 
   /**
@@ -90,6 +89,8 @@
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoListaHoteis';
       var xmlVar = '<IdentificaocaoCasal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento"><Id_casal>' + ID + '</Id_casal></IdentificaocaoCasal>';
 
+      self.carregando = true;
+
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
         var respXml = $.parseXML(resp);
         self.hotelLista = [];
@@ -111,6 +112,8 @@
           );
         });
 
+        self.carregando = false;
+
         UserService.dados.listaHotel  = self.hotelLista;
         UserService.SaveState();
       }).catch(function (error) {
@@ -121,7 +124,13 @@
     function Init() {
       //Set Title 
       PageService.SetTitle('Dicas de Hotél');
-      GetHoteis();
+
+      if (UserService.dados.listaHotel !== null) {
+        self.hotelLista = UserService.dados.listaHotel;
+        self.carregando = false;
+      } else {
+        GetHoteis();
+      }
     }
 
   /**
