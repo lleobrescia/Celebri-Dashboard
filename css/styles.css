@@ -298,6 +298,46 @@ md-toast {
   float: left;
 }
 
+.toolbar__search {
+  margin-right: 10px;
+}
+
+.toolbar__search i:focus, .toolbar__search input:focus {
+  outline: none;
+}
+
+.toolbar__search input {
+  margin: 0px 15px;
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-image: initial;
+  color: white;
+  border-bottom: thin solid white;
+  max-width: 230px;
+}
+
+.toolbar__search input.ng-animate {
+  transition: 0.5s linear all;
+}
+
+.toolbar__search input.ng-enter {
+  width: 0;
+}
+
+.toolbar__search input.ng-enter.ng-enter-active {
+  width: 90%;
+}
+
+.toolbar__search input.ng-leave {
+  width: 90%;
+}
+
+.toolbar__search input.ng-leave.ng-leave-active {
+  width: 0;
+}
+
 select {
   line-height: 43px;
   height: 43px;
