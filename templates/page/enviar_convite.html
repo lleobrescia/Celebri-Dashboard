@@ -35,8 +35,8 @@
         voltar nesta página e selecionar o convidado escolhido.
       </p>
       <p ng-if="Pagamento.mensagemPagamento">
-        Lembramos que os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser
-        feito por meio de cartão de crédito.
+        Os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser
+        feito por meio de cartão de crédito, preenchendo o formulário abaixo.
       </p>
     </div>
     <!--col-sm-12-->
@@ -186,7 +186,7 @@
         <div style="height: 100px;line-height: 89px;text-align: center;" ng-if="Pagamento.carregando || Pagamento.convidadoLista.length == 0">
           <img src="image/loging.gif" alt="Carregando" ng-if="Pagamento.carregando" width="32" height="32">
           <p ng-if="Pagamento.convidadoLista.length == 0 && !Pagamento.carregando">
-            <a ng-href="/dashboard/#/cadastrar-convidados">Cadastre convidados</a> para poder Enviar o convite.
+            <a href="cadastrar-convidados">Cadastre convidados</a> para poder Enviar o convite.
           </p>
         </div>
 

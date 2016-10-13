@@ -50,15 +50,15 @@
         controller  : 'CardapioCtrl',
         controllerAs: 'cardapio'
       })
-      .when('/configurar-convite', {
+      .when('/cerimonia', {
         templateUrl : '/dashboard/templates/page/convite/cerimonia.html',
-        controller  : 'ConfigurarConviteCtrl',
-        controllerAs: 'configConvite'
+        controller  : 'CerimoniaCtrl',
+        controllerAs: 'cerimonia'
       })
-      .when('/configurar-convite/2', {
+      .when('/configurar-convite', {
         templateUrl : '/dashboard/templates/page/convite/config-convite.html',
-        controller  : 'ConfigurarConvitePg2Ctrl',
-        controllerAs: 'configConvitePg2'
+        controller  : 'ConfigurarConviteCtrl',
+        controllerAs: 'config'
       })
       .when('/personalizar-convite', {
         templateUrl : '/dashboard/templates/page/convite/personalizar-convite.html',
@@ -70,15 +70,16 @@
         controller  : 'CadastrarConvidadosCtrl',
         controllerAs: 'convidados'
       })
-      .when('/save-the-date', {
-        templateUrl : '/dashboard/templates/page/save_the_date.html',
-        controller  : 'SaveTheDateCtrl',
+      .when('/save-the-date', { redirectTo: '/save-the-date/configurar' })
+      .when('/save-the-date/configurar', {
+        templateUrl : '/dashboard/templates/page/save-the-date/configurar.html',
+        controller  : 'ConfigurarSaveDateCtrl',
         controllerAs: 'saveDate'
       })
-      .when('/save-the-date/2', {
-        templateUrl : '/dashboard/templates/page/save_the_date2.html',
-        controller  : 'SaveTheDatePg2Ctrl',
-        controllerAs: 'saveDatePg2'
+      .when('/save-the-date/enviar', {
+        templateUrl : '/dashboard/templates/page/save-the-date/enviar.html',
+        controller  : 'EnviarSaveDateCtrl',
+        controllerAs: 'saveDate'
       })
       .when('/enviar-convite', {
         templateUrl : '/dashboard/templates/page/enviar_convite.html',
