@@ -84,7 +84,6 @@ html {
 body {
   /*config para usar em no lugar de px*/
   font-size: 62.5%;
-  overflow-x: hidden;
   background: white;
   top: 0 !important;
 }
@@ -128,13 +127,45 @@ md-toast {
   position: fixed
 }
 
+.loading {
+  margin-top: 25%;
+  width: 100px;
+  height: 100px;
+}
+
 
 /**
 * 3.0 - CONTENT
 *
 */
 
-.content {
+.content.ng-animate {
+  transition: 0.7s linear all;
+}
+
+.loading.ng-animate {
+  transition: 0.3s linear all;
+}
+
+.content.ng-enter, .loading.ng-enter {
+  opacity: 0;
+}
+
+.content.ng-enter.ng-enter-active, .loading.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.content.ng-leave, .loading.ng-leave {
+  opacity: 1;
+}
+
+.content.ng-leave.ng-leave-active, .loading.ng-leave.ng-leave-active {
+  opacity: 0;
+  position: absolute;
+  top: -100000px;
+}
+
+.content__box {
   position: relative;
   width: 100%;
   padding-bottom: 70px;
@@ -144,12 +175,12 @@ md-toast {
   overflow-wrap: break-word;
 }
 
-.content p {
+.content__box p {
   font-family: 'Playfair Display';
   font-size: 1.6em;
 }
 
-.content h3 {
+.content__box h3 {
   font-family: 'Playfair Display';
   margin-bottom: 30px;
   font-weight: 400;
@@ -240,16 +271,11 @@ md-toast {
   font-size: 1.6em !important;
 }
 
-.form input {
-  line-height: 43px;
-  height: 43px;
+.form input
+,.form md-select-value {
   font-family: 'Roboto Condensed';
   font-size: 1.6em;
-  padding-right: 5px;
-  padding-left: 12px;
   margin-bottom: 10px;
-  outline-color: #ff7c7c;
-  width: 100%;
 }
 
 .form textarea {
@@ -1261,14 +1287,6 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-.pagamento label, .pagamento input {
-  font-size: 1.4em;
-}
-
-.pagamento input {
-  color: black
-}
-
 .cartao .md-input {
   background-image: url(../image/images.png);
   background-repeat: no-repeat;
@@ -1439,7 +1457,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     right: 8px;
   }
   /*CONTENT*/
-  .content {
+  .content__box {
     top: 0;
   }
   /*DADOS CASAL*/

@@ -33,8 +33,8 @@
 
     GetConvidados();
 
-      //Set Title 
-      PageService.SetTitle('Enviar Save the Date');
+    //Set Title 
+    PageService.SetTitle('Enviar Save the Date');
 
 
   /**
@@ -121,8 +121,6 @@
 
     function Toggle(item, list) {
       var idx = list.indexOf(item);
-console.log(list);
-console.log(item);
 
       if (idx > -1) {
         list.splice(idx, 1);

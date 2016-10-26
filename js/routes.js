@@ -65,11 +65,6 @@
         controller  : 'PersonalizarConviteCtrl',
         controllerAs: 'personalizar'
       })
-      .when('/cadastrar-convidados', {
-        templateUrl : '/dashboard/templates/page/cadastrar_convidados.html',
-        controller  : 'CadastrarConvidadosCtrl',
-        controllerAs: 'convidados'
-      })
       .when('/save-the-date', { redirectTo: '/save-the-date/configurar' })
       .when('/save-the-date/configurar', {
         templateUrl : '/dashboard/templates/page/save-the-date/configurar.html',
@@ -82,10 +77,18 @@
         controllerAs: 'saveDate'
       })
       .when('/enviar-convite', {
-        templateUrl : '/dashboard/templates/page/enviar_convite.html',
+        templateUrl : '/dashboard/templates/page/convite/enviar-convite.html',
+        controller  : 'EnviarConviteCtrl',
+        controllerAs: 'enviar'
       })
-      .when('/confirmados', {
-        templateUrl : '/dashboard/templates/page/confirmados.html',
+      .when('/convidados', { redirectTo: '/convidados/cadastrar' })
+      .when('/convidados/cadastrar', {
+        templateUrl : '/dashboard/templates/page/convidados/cadastrar.html',
+        controller  : 'CadastrarConvidadosCtrl',
+        controllerAs: 'convidados'
+      })
+      .when('/convidados/confirmados', {
+        templateUrl : '/dashboard/templates/page/convidados/confirmados.html',
         controller  : 'ConfirmadosCtrl',
         controllerAs: 'confirmados'
       })

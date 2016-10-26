@@ -91,10 +91,10 @@
 </head>
 
 <body>
-	<div class="wrapper" ng-class="Main.login">
+	<div class="wrapper" ng-class="Main.login" ng-init="loading = false">
 		<div ng-include="Main.cabecalho" class="cabecalho"></div>
 
-		<div class="sk-circle" ng-if="loading" style="margin-top: 25%;width: 100px;height: 100px;">
+		<div class="sk-circle loading" ng-if="loading">
 			<div class="sk-circle1 sk-child"></div>
 			<div class="sk-circle2 sk-child"></div>
 			<div class="sk-circle3 sk-child"></div>
@@ -109,8 +109,8 @@
 			<div class="sk-circle12 sk-child"></div>
 		</div>
 
-		<section class="content">
-			<div ng-view autoscroll="true" ng-show="!loading"></div>
+		<section class="content__box">
+			<div ng-view autoscroll="true" class="content" ng-show="!loading"></div>
 		</section>
 		<!-- content -->
 	</div>

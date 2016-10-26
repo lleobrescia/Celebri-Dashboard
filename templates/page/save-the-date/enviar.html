@@ -63,7 +63,7 @@
 				</div>
 				<md-checkbox aria-label="Selecionar" class="md-secondary" ng-checked="saveDate.Exists(convidado, saveDate.selecionados)"
 					ng-click="saveDate.Toggle(convidado, saveDate.selecionados)"></md-checkbox>
-				<md-divider inset></md-divider>
+				<md-divider ng-if="!$last"></md-divider>
 			</md-list-item>
 		</md-list>
 	</md-content>
