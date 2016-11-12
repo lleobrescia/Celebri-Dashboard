@@ -7,106 +7,69 @@
 
   angular
     .module('dashboard')
-    .controller('SaveTheDatePg2Ctrl', SaveTheDatePg2Ctrl);
+    .controller('EnviarSaveDateCtrl', EnviarSaveDateCtrl);
 
-  SaveTheDatePg2Ctrl.$inject = ['UserService', 'ServiceCasamento', 'ipService'];
+  EnviarSaveDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'PageService'];
   /**
-   * @namespace SaveTheDatePg2Ctrl
+   * @namespace EnviarSaveDateCtrl
    * @desc Mostra a lista de convidados para selecionar quais receberao o save the date
    * @memberOf Controllers
    */
-  function SaveTheDatePg2Ctrl(UserService, ServiceCasamento, ipService) {
+  function EnviarSaveDateCtrl(UserService, ServiceCasamento, ipService, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
-    self.selectedAll    = false;
-    self.allowToSend    = false;
     self.carregando     = true;
     self.convidadoLista = [];
+    self.selectedAll    = false;
     self.selecionados   = [];
 
-    self.CheckAll       = CheckAll;
-    self.CheckConvidado = CheckConvidado;
-    self.Enviar         = Enviar;
+    self.Enviar           = Enviar;
+    self.Exists           = Exists;
+    self.IsChecked        = IsChecked;
+    self.IsIndeterminate  = IsIndeterminate;
+    self.ToggleAll        = ToggleAll;
+    self.Toggle           = Toggle;
 
     GetConvidados();
 
-  /**
-   * @namespace CheckAll
-   * @desc Seleciona todos os convidados da lsita
-   * @memberOf Controllers.SaveTheDatePg2Ctrl
-   */
-    function CheckAll() {
-      if (self.selectedAll) {
-        self.selectedAll = true;
-        self.allowToSend = true;
-      } else {
-        self.selectedAll  = false;
-        self.allowToSend  = false;
-        self.selecionados = [];
-      }
-      angular.forEach(self.convidadoLista, function (item) {
-        item.Selected = self.selectedAll;
+    //Set Title 
+    PageService.SetTitle('Enviar Save the Date');
 
-        if (self.selectedAll) {
-          self.selecionados.push(item.Id);
-        }
-      });
-    }
-
-  /**
-   * @namespace CheckConvidado
-   * @desc Seleciona um convidado da lsita
-   * @memberOf Controllers.SaveTheDatePg2Ctrl
-   */
-    function CheckConvidado(key, id, selected) {
-      if (selected) {
-        self.selecionados.push(id);
-      } else {
-        var count = 0;
-        angular.forEach(self.selecionados, function (item) {
-          if (item === id) {
-            self.selecionados.splice(count, 1);
-          }
-          count++;
-        });
-      }
-      if (self.selecionados.length > 0) {
-        self.allowToSend = true;
-      } else {
-        self.allowToSend = false;
-      }
-    }
 
   /**
    * @namespace Enviar
    * @desc Envia os dados para o servidor para enviar o email
-   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   * @memberOf Controllers.EnviarSaveDateCtrl
    */
     function Enviar() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/EnvioEmailSaveTheDate';
       var xmlVar = '<ListaEmailConvidados xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Id_casal>' + ID + '</Id_casal>  <Id_convidado>';
 
       angular.forEach(self.selecionados, function (item) {
-        xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item + '</int>';
+        xmlVar += '<int xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' + item.Id + '</int>';
       });
 
       xmlVar += '</Id_convidado></ListaEmailConvidados>';
 
-      self.carregando = true;
+      self.carregando   = true;
+      self.selecionados = [];
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function () {
         GetConvidados();
       }).catch(function (error) {
         console.error('Enviar -> ', error);
-        console.warn('Dados enviados:', xmlVar);
       });
+    }
+
+    function Exists(item, list) {
+      return list.indexOf(item) > -1;
     }
 
   /**
    * @namespace GetConvidados
    * @desc Pega a lista de convidados do servidor
-   * @memberOf Controllers.SaveTheDatePg2Ctrl
+   * @memberOf Controllers.EnviarSaveDateCtrl
    */
     function GetConvidados() {
       self.carregando = true;
@@ -126,11 +89,10 @@
           }
           self.convidadoLista.push(
             {
-              'Id'      : $(this).find('Id').text(),
-              'nome'    : $(this).find('Nome').text(),
-              'email'   : $(this).find('Email').text(),
-              'status'  : status,
-              'Selected': false,
+              'Id'     : $(this).find('Id').text(),
+              'nome'   : $(this).find('Nome').text(),
+              'email'  : $(this).find('Email').text(),
+              'status' : status
             }
           );
         });
@@ -138,6 +100,33 @@
         console.error('GetConvidados -> ', error);
         console.warn('Dados enviados:', xmlVar);
       });
+    }
+
+    function IsChecked() {
+      return (self.selecionados.length === self.convidadoLista.length);
+    }
+
+    function IsIndeterminate(){
+      return (self.selecionados.length !== 0 &&
+              self.selecionados.length !== self.convidadoLista.length);
+    }
+
+    function ToggleAll() {
+      if (self.selecionados.length === self.convidadoLista.length) {
+        self.selecionados = [];
+      } else if (self.selecionados.length === 0 || self.selecionados.length > 0) {
+        self.selecionados = self.convidadoLista.slice(0);
+      }
+    }
+
+    function Toggle(item, list) {
+      var idx = list.indexOf(item);
+
+      if (idx > -1) {
+        list.splice(idx, 1);
+      } else {
+        list.push(item);
+      }
     }
   }
 } ());

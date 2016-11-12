@@ -1,0 +1,142 @@
+<div class="container-fluid" ng-init="Main.CheckTemplate()">
+
+	<md-toolbar md-colors="{background: 'blue-700'}">
+		<div class="md-toolbar-tools">
+			<h1 class="md-flex">Cadastrar Hotel</h1>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding>
+		<p>Indique aqui alguns hotéis da cidade para os seus convidados se hospedarem:</p>
+
+		<form class="form" name="formHotel">
+			<section class="row">
+				<div class="col-sm-7">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Nome do hotel</label>
+						<input aria-label="Local da Cerimônia" type="text" ng-model="hotel.local" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-7 -->
+				<div class="col-sm-4">
+					<md-input-container class="md-block">
+						<label class="md-subhead">CEP</label>
+						<input aria-label="CEP" type="text" ng-model="hotel.cep" mask="99.999-999" ng-keyup="hotel.ConsultCEP(hotel.cep)">
+					</md-input-container>
+				</div>
+				<!-- col-sm-4 -->
+
+				<div class="col-sm-7">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Endereço</label>
+						<input aria-label="Endereço da cerimônia" type="text" ng-model="hotel.end" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-7 -->
+				<div class="col-sm-4">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Número</label>
+						<input aria-label="Número" type="text" ng-model="hotel.numero" maxlength="20" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-4 -->
+				<div class="col-sm-4">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Bairro</label>
+						<input aria-label="Bairro" type="text" ng-model="hotel.bairro" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-4 -->
+				<div class="col-sm-5">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Cidade</label>
+						<input aria-label="Cidade" type="text" ng-model="hotel.cidade" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-5 -->
+				<div class="col-sm-2">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Estado</label>
+						<input aria-label="Estado" type="text" ng-model="hotel.uf" maxlength="2" required>
+					</md-input-container>
+				</div>
+
+				<div class="col-sm-2">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Telefone</label>
+						<input aria-label="Telefone" type="text" ng-model="hotel.telefone" mask="(99) 9? 9999-9999" required>
+					</md-input-container>
+				</div>
+				<!-- col-sm-4 -->
+				<div class="col-sm-4">
+					<md-input-container class="md-block">
+						<label class="md-subhead">E-mail</label>
+						<input aria-label="E-mail" type="email" ng-model="hotel.email">
+					</md-input-container>
+				</div>
+				<!-- col-sm-5 -->
+				<div class="col-sm-5">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Site</label>
+						<input aria-label="Site" type="url" ng-model="hotel.site" http-prefix>
+					</md-input-container>
+				</div>
+				<!-- col-sm-2 -->
+				<div class="col-sm-4 col-md-3">
+					<md-input-container class="md-block" style="margin-top:0">
+						<span class="md-subhead">Traçar rotas para o local</span>
+						<md-switch class="md-primary" ng-model="hotel.rota" aria-label="Traçar rotas para o local" ng-true-value="'true'" ng-false-value="'false'">
+						</md-switch>
+					</md-input-container>
+				</div>
+				<!-- col-sm-3 -->
+				<div class="col-xs-12">
+					<md-button aria-label="Adicionar Hotel" class="md-raised md-primary" md-colors="{background: 'green'}" ng-click="hotel.Adicionar();hotel.ResetForm(formHotel)"
+						ng-disabled="formHotel.$invalid">
+						Adicionar
+					</md-button>
+				</div>
+				<!--col-xs-12-->
+			</section>
+		</form>
+	</md-content>
+
+	<div class="sk-circle" ng-if="hotel.carregando">
+		<div class="sk-circle1 sk-child"></div>
+		<div class="sk-circle2 sk-child"></div>
+		<div class="sk-circle3 sk-child"></div>
+		<div class="sk-circle4 sk-child"></div>
+		<div class="sk-circle5 sk-child"></div>
+		<div class="sk-circle6 sk-child"></div>
+		<div class="sk-circle7 sk-child"></div>
+		<div class="sk-circle8 sk-child"></div>
+		<div class="sk-circle9 sk-child"></div>
+		<div class="sk-circle10 sk-child"></div>
+		<div class="sk-circle11 sk-child"></div>
+		<div class="sk-circle12 sk-child"></div>
+	</div>
+
+	<md-toolbar md-colors="{background: 'blue-700'}" ng-show="hotel.hotelLista.length > 0 && !hotel.carregando">
+		<div class="md-toolbar-tools">
+			<h1 class="md-flex">Hotéis Cadastrados</h1>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding style="height: 450px;" ng-show="hotel.hotelLista.length > 0 && !hotel.carregando" id="Lista_Hotel">
+		<md-list flex>
+			<md-list-item class="md-3-line" ng-repeat="(key,value) in hotel.hotelLista" style="margin-bottom:20px">
+				<div class="md-list-item-text" layout="column">
+					<h3>{{value.Local}}</h3>
+					<p>
+						{{value.Endereco}}, {{value.Numero}} - {{value.Bairro}} <br> {{value.Cidade}}/{{value.Estado}} <br> {{value.Telefone}}
+						| {{value.Email}} | {{value.Site}}
+					</p>
+					<md-button aria-label="Remover Hotel" class="md-secondary" type="button" ng-click="hotel.Remover(value.Id,key)">
+						<i class="fa fa-trash-o" aria-hidden="true" style="font-size: 1.4em;"></i>
+					</md-button>
+				</div>
+				<md-divider ng-if="!$last"></md-divider>
+				<!--md-3-line-->
+			</md-list-item>
+		</md-list>
+	</md-content>
+</div>
+<!--container-fluid-->

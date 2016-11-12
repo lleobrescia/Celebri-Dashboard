@@ -7,15 +7,15 @@
 
   angular
     .module('dashboard')
-    .controller('SaveTheDateCtrl', SaveTheDateCtrl);
+    .controller('ConfigurarSaveDateCtrl', ConfigurarSaveDateCtrl);
 
-  SaveTheDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'PageService'];
+  ConfigurarSaveDateCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'PageService'];
   /**
-   * @namespace SaveTheDateCtrl
+   * @namespace ConfigurarSaveDateCtrl
    * @desc Gerencia o template do save the date e a mensagem
    * @memberOf Controllers
    */
-  function SaveTheDateCtrl(UserService, ServiceCasamento, ipService, PageService) {
+  function ConfigurarSaveDateCtrl(UserService, ServiceCasamento, ipService, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;
 
@@ -72,7 +72,7 @@
    */
     function Init() {
       //Set Title 
-      PageService.SetTitle('Save the Date');
+      PageService.SetTitle('Configurar Save the Date');
 
       self.showDate = false;
 
@@ -101,7 +101,6 @@
 
       ServiceCasamento.SendData(urlVar, xmlVar).catch(function (error) {
         console.error('Salvar -> ', error);
-        console.warn('Dados enviados:', xmlVar);
       });
     }
   }

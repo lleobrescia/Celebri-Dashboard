@@ -9,17 +9,18 @@
     .module('dashboard')
     .controller('SidebarCtrl', SidebarCtrl);
 
-  SidebarCtrl.$inject = ['$location', 'UserService', '$scope'];
+  SidebarCtrl.$inject = ['$location', 'UserService', '$scope', '$mdDialog'];
 
   /**
    * @namespace SidebarCtrl
    * @desc Responsavel pela barra lateral do dashboard
    * @memberOf Controllers
    */
-  function SidebarCtrl($location, UserService, $scope) {
+  function SidebarCtrl($location, UserService, $scope, $mdDialog) {
 
     var self  = this;
     var id    = UserService.dados.ID;
+    var originatorEv;
 
     self.usuarioLogado = UserService.dados.nomeUsuario;
     self.menu          = [ //Lista do menu
@@ -67,6 +68,7 @@
 
     $scope.IsActive = IsActive;
     self.Sair       = Sair;
+    self.OpenMenu   = OpenMenu;
 
   /**
    * @name IsActive
@@ -93,6 +95,11 @@
 
       //direciona para a pagina de login
       $location.path('/login');
+    }
+
+    function OpenMenu($mdOpenMenu, ev){
+      originatorEv = ev;
+      $mdOpenMenu(ev);
     }
   }
 } ());

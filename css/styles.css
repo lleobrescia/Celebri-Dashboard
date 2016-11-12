@@ -25,6 +25,7 @@
  *  3.1 - BOTOES
  *  3.2 - FORM GERAL
  *  3.3 - TABELA
+ *  3.4 - LOADING
  * 4.0 - SIDEBAR
  *  4.1 - LOGO
  *  4.2 - MENU
@@ -83,8 +84,8 @@ html {
 body {
   /*config para usar em no lugar de px*/
   font-size: 62.5%;
-  overflow-x: hidden;
   background: white;
+  top: 0 !important;
 }
 
 .wrapper {
@@ -93,7 +94,8 @@ body {
 
 a, a:hover, a:focus {
   text-decoration: none;
-  outline: 0
+  outline: 0;
+  color: inherit
 }
 
 input[type=checkbox], input[type=radio] {
@@ -121,13 +123,49 @@ input[type=checkbox], input[type=radio] {
   opacity: 0;
 }
 
+md-toast {
+  position: fixed
+}
+
+.loading {
+  margin-top: 25%;
+  width: 100px;
+  height: 100px;
+}
+
 
 /**
 * 3.0 - CONTENT
 *
 */
 
-.content {
+.content.ng-animate {
+  transition: 0.7s linear all;
+}
+
+.loading.ng-animate {
+  transition: 0.3s linear all;
+}
+
+.content.ng-enter, .loading.ng-enter {
+  opacity: 0;
+}
+
+.content.ng-enter.ng-enter-active, .loading.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.content.ng-leave, .loading.ng-leave {
+  opacity: 1;
+}
+
+.content.ng-leave.ng-leave-active, .loading.ng-leave.ng-leave-active {
+  opacity: 0;
+  position: absolute;
+  top: -100000px;
+}
+
+.content__box {
   position: relative;
   width: 100%;
   padding-bottom: 70px;
@@ -137,12 +175,12 @@ input[type=checkbox], input[type=radio] {
   overflow-wrap: break-word;
 }
 
-.content p {
+.content__box p {
   font-family: 'Playfair Display';
   font-size: 1.6em;
 }
 
-.content h3 {
+.content__box h3 {
   font-family: 'Playfair Display';
   margin-bottom: 30px;
   font-weight: 400;
@@ -233,16 +271,11 @@ input[type=checkbox], input[type=radio] {
   font-size: 1.6em !important;
 }
 
-.form input {
-  line-height: 43px;
-  height: 43px;
+.form input
+,.form md-select-value {
   font-family: 'Roboto Condensed';
   font-size: 1.6em;
-  padding-right: 5px;
-  padding-left: 12px;
   margin-bottom: 10px;
-  outline-color: #ff7c7c;
-  width: 100%;
 }
 
 .form textarea {
@@ -289,6 +322,46 @@ input[type=checkbox], input[type=radio] {
 
 .form__right {
   float: left;
+}
+
+.toolbar__search {
+  margin-right: 10px;
+}
+
+.toolbar__search i:focus, .toolbar__search input:focus {
+  outline: none;
+}
+
+.toolbar__search input {
+  margin: 0px 15px;
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-image: initial;
+  color: white;
+  border-bottom: thin solid white;
+  max-width: 230px;
+}
+
+.toolbar__search input.ng-animate {
+  transition: 0.5s linear all;
+}
+
+.toolbar__search input.ng-enter {
+  width: 0;
+}
+
+.toolbar__search input.ng-enter.ng-enter-active {
+  width: 90%;
+}
+
+.toolbar__search input.ng-leave {
+  width: 90%;
+}
+
+.toolbar__search input.ng-leave.ng-leave-active {
+  width: 0;
 }
 
 select {
@@ -358,6 +431,175 @@ select {
 
 
 /**
+* 3.4 - LOADING
+*
+*/
+
+.sk-circle {
+  margin: 100px auto;
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.sk-circle .sk-child {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.sk-circle .sk-child:before {
+  content: '';
+  display: block;
+  margin: 0 auto;
+  width: 15%;
+  height: 15%;
+  background-color: rgba(59, 87, 179, 1);
+  border-radius: 100%;
+  -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+  animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(59, 87, 179, 1)), color-stop(50%, rgba(111, 145, 255, 1)), color-stop(100%, rgba(59, 87, 179, 1)));
+  background: -webkit-linear-gradient(left, rgba(59, 87, 179, 1) 0%, rgba(111, 145, 255, 1) 50%, rgba(59, 87, 179, 1) 100%);
+  background: linear-gradient(to right, rgba(59, 87, 179, 1) 0%, rgba(111, 145, 255, 1) 50%, rgba(59, 87, 179, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#3b57b3', endColorstr='#3b57b3', GradientType=1);
+}
+
+.sk-circle .sk-circle2 {
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+.sk-circle .sk-circle3 {
+  -webkit-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+
+.sk-circle .sk-circle4 {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.sk-circle .sk-circle5 {
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+
+.sk-circle .sk-circle6 {
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+}
+
+.sk-circle .sk-circle7 {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.sk-circle .sk-circle8 {
+  -webkit-transform: rotate(210deg);
+  transform: rotate(210deg);
+}
+
+.sk-circle .sk-circle9 {
+  -webkit-transform: rotate(240deg);
+  transform: rotate(240deg);
+}
+
+.sk-circle .sk-circle10 {
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+.sk-circle .sk-circle11 {
+  -webkit-transform: rotate(300deg);
+  transform: rotate(300deg);
+}
+
+.sk-circle .sk-circle12 {
+  -webkit-transform: rotate(330deg);
+  transform: rotate(330deg);
+}
+
+.sk-circle .sk-circle2:before {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.sk-circle .sk-circle3:before {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+.sk-circle .sk-circle4:before {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.sk-circle .sk-circle5:before {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+.sk-circle .sk-circle6:before {
+  -webkit-animation-delay: -0.7s;
+  animation-delay: -0.7s;
+}
+
+.sk-circle .sk-circle7:before {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+
+.sk-circle .sk-circle8:before {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+.sk-circle .sk-circle9:before {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+
+.sk-circle .sk-circle10:before {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+
+.sk-circle .sk-circle11:before {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+
+.sk-circle .sk-circle12:before {
+  -webkit-animation-delay: -0.1s;
+  animation-delay: -0.1s;
+}
+
+@-webkit-keyframes sk-circleBounceDelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes sk-circleBounceDelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+
+/**
 * 4.0 - SIDEBAR
 *
 */
@@ -373,11 +615,16 @@ select {
 .header {
   width: 100%;
   height: 110px;
-  background: #6f91ff;
+  background-color: #6f91ff;
+  background: -webkit-linear-gradient(#6f91ff, #3b57b3);
+  background: linear-gradient(#6f91ff, #3b57b3);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #6f91ff), color-stop(1, #3b57b3));
+  background: -webkit-linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
+  background: linear-gradient(top, #6f91ff 0%, #3b57b3 100%);
+  border-bottom: 1px solid #267ED5;
   padding-top: 38px;
   padding-bottom: 16px;
   max-height: 213px;
-  border-bottom: thin solid #707070;
   box-sizing: content-box;
 }
 
@@ -435,7 +682,7 @@ select {
 
 .user__options {
   height: 37px;
-  background: #6f91ff;
+  background: #4663c3;
   position: relative;
   padding-top: 35px;
   z-index: 1;
@@ -464,35 +711,6 @@ select {
 }
 
 .menu.menu--expandido {
-  display: block;
-}
-
-.menu-item, .menu-item__hover, .menu-item a {
-  height: 50px;
-}
-
-.menu-item {
-  border-bottom: thin solid #707070;
-  position: relative;
-}
-
-.menu-item a {
-  font-family: 'Playfair Display';
-  color: white;
-  font-size: 1.6em;
-  margin-left: 20px;
-  line-height: 50px;
-  display: block;
-}
-
-.menu-item__hover {
-  position: absolute;
-  width: 10px;
-  background: #ff7c7c;
-  display: none;
-}
-
-.menu-item:hover > .menu-item__hover, .active > .menu-item__hover {
   display: block;
 }
 
@@ -1069,32 +1287,20 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-.pagamento .pagamento__bandeiras span {
-  display: inline-block;
-  margin-right: 36px;
-  outline: none;
+.cartao .md-input {
+  background-image: url(../image/images.png);
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  background-size: 40px !important;
+  padding-left: 50px !important;
 }
 
-.pagamento .pagamento__bandeiras input[type="radio"] {
-  margin-right: 5px;
+.cartao label {
+  padding-left: 50px !important;
 }
 
-.pagamento .pagamento__bandeiras span:last-child {
-  margin-right: 0;
-}
-
-.form input[type="radio"] {
-  display: inline-block;
-  width: 23px;
-  height: 23px;
-  vertical-align: middle;
-  margin: 0;
-}
-
-.pagamento__codigo input {
-  width: 80%;
-  margin-right: 10px;
-  vertical-align: sub;
+.cartao.md-input-has-value label, .cartao.md-input-focused label {
+  padding-left: 0 !important;
 }
 
 
@@ -1175,15 +1381,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-@media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {
-  /*SIDEBAR*/
-  .menu-item, .menu-item__hover, .menu-item a {
-    height: 70px;
-  }
-  .menu-item a {
-    line-height: 70px
-  }
-}
+@media screen and ( min-height:670px), ( min-height:670px) and (-webkit-min-device-pixel-ratio:0) {}
 
 
 /**
@@ -1191,16 +1389,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
 *
 */
 
-@media screen and ( min-height:800px), ( min-height:800px) and (-webkit-min-device-pixel-ratio:0) {
-  /*SIDEBAR*/
-  .menu-item, .menu-item__hover, .menu-item a {
-    height: 75px;
-  }
-  /*DADOS CASAL*/
-  .menu-item a {
-    line-height: 90px
-  }
-}
+@media screen and ( min-height:800px), ( min-height:800px) and (-webkit-min-device-pixel-ratio:0) {}
 
 
 /**
@@ -1260,9 +1449,6 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     text-align: left;
     display: block;
   }
-  .menu-item a {
-    color: #707070;
-  }
   .user__options {
     display: block;
     box-sizing: content-box;
@@ -1271,7 +1457,7 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     right: 8px;
   }
   /*CONTENT*/
-  .content {
+  .content__box {
     top: 0;
   }
   /*DADOS CASAL*/
@@ -1347,7 +1533,6 @@ rzslider .rz-pointer:after, rzslider .rz-bubble {
     right: 2px;
     height: 400px;
     width: 260px;
-    top: 25%;
     border: none;
   }
   .controll_bloco_opcoes {

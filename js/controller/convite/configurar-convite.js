@@ -6,7 +6,7 @@
   'use strict';
   angular
     .module('dashboard')
-    .controller('ConfigurarConvitePg2Ctrl', ConfigurarConvitePg2Ctrl);
+    .controller('ConfigurarConviteCtrl', ConfigurarConviteCtrl);
 
   /**
    * $filter - Usado para filtrar a hora
@@ -16,14 +16,14 @@
    * UserService - Armazena os dados do usuario
    * ServiceCasamento - Servido para enviar e pegar dados do servidor
    */
-  ConfigurarConvitePg2Ctrl.$inject = ['$filter', '$location', '$sce', 'ipService', 'UserService', 'ServiceCasamento'];
+  ConfigurarConviteCtrl.$inject = ['$filter', '$location', '$sce', 'ipService', 'UserService', 'ServiceCasamento'];
 
   /**
-   * @namespace ConfigurarConvitePg2Ctrl
+   * @namespace ConfigurarConviteCtrl
    * @desc Lista os convites disponiveis. Se o usuario ja configurou o convite, mostra ele configurado com as opções de editar e refazer.
    * @memberOf Controllers
    */
-  function ConfigurarConvitePg2Ctrl($filter, $location, $sce, ipService, UserService, ServiceCasamento) {
+  function ConfigurarConviteCtrl($filter, $location, $sce, ipService, UserService, ServiceCasamento) {
     var cerimoniaBairro   = UserService.dados.cerimoniaBairro;
     var cerimoniaCidade   = UserService.dados.cerimoniaCidade;
     var cerimoniaEnd      = UserService.dados.cerimoniaEnd;
@@ -108,7 +108,7 @@
     /**
      * @name AlterarConvite
      * @desc Apaga o conteudo do convite salvo.
-     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function AlterarConvite() {
       $('#confirmacao').modal('hide'); //Esconde o modal
@@ -145,7 +145,7 @@
     /**
       * @name FormatConvite
       * @desc Coloca os blocos de texto no lugar, de acordo com cada convite.
-      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+      * @memberOf Controllers.ConfigurarConviteCtrl
       */
     function FormatConvite() {
       var bloco = convites['convite' + idConvite]; //pega o convite selecionado
@@ -162,7 +162,7 @@
     /**
       * @name GetConfiguracaoConvite
       * @desc Pega o estilo de cada bloco no servidor, se existir.
-      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+      * @memberOf Controllers.ConfigurarConviteCtrl
       */
     function GetConfiguracaoConvite() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarFormatacaoConvite';
@@ -324,7 +324,7 @@
       * @param {Int} Id da font para buscar
       * @desc Busca a font na lista a partir do ID fornecido
       * @returns {String} nome da font
-      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+      * @memberOf Controllers.ConfigurarConviteCtrl
       */
     function GetFonte(id) {
       try {
@@ -355,7 +355,7 @@
      * @param {Int} valor entre 0 e 2
      * @desc Retorna o alinhamento de acordo com o numero
      * @returns {String} right, left, center ou left
-     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function GetTextAling(index) {
       var retorno = '';
@@ -371,7 +371,7 @@
     /**
      * @name HasSend
      * @desc Verifica se um dos noivos ja enviou os convites.
-     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function HasSend() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarEstatisticaCasamento';
@@ -395,7 +395,7 @@
      * @param {String} itIs true ou false
      * @desc Force uma cruz em html
      * @returns {String} retorna o codigo html para a cruz
-     * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+     * @memberOf Controllers.ConfigurarConviteCtrl
      */
     function InMemorian(itIs) {
       if (itIs === 'true') {
@@ -408,7 +408,7 @@
     /**
     * @name SalvarConvite
     * @desc Salva o convite selecionado e direciona o usuario para a edição
-    * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+    * @memberOf Controllers.ConfigurarConviteCtrl
     */
     function SalvarConvite() {
       $('#myModal').modal('hide');
@@ -423,7 +423,7 @@
     * @param {String} nome nome do convite
     * @param {String} url caminho da imagem do convite
     * @desc Armazena os dados do convite quando o usuario clica do thumb, para ser mostrado no modal
-    * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+    * @memberOf Controllers.ConfigurarConviteCtrl
     */
     function SetConvite(id, nome, url) {
       self.thumbNome      = nome;
@@ -434,7 +434,7 @@
     /**
       * @name SetMsg
       * @desc Configura o conteudo de cada bloco.
-      * @memberOf Controllers.ConfigurarConvitePg2Ctrl
+      * @memberOf Controllers.ConfigurarConviteCtrl
       */
     function SetMsg() {
       var casamento = dataCasamento.split('/');

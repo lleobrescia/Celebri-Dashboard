@@ -22,8 +22,106 @@
   </header>
 
   <nav class="menu" ng-class="{'menu--expandido': $scope.clicou}" ng-show="hideSideBar">
-    <navigation menu="sidebar.menu"></navigation>
-  </nav>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="pagamento">
+          Pagamento
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="dados-do-casal">
+          Casal
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Convite
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" href="cerimonia">
+            Configurar
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="save-the-date">
+            Save the Date
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="enviar-convite">
+            Enviar
+          </md-button>
+        </md-menu-item>
 
+      </md-menu-content>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Evento
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" ng-href="evento/recepcao">
+            Recepção
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="evento/dicas-hoteis">
+            Dicas de Hotel
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="evento/dicas-salao-beleza">
+            Dicas de Salão de Beleza
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="evento/lista-presentes">
+            Lista de Presentes
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="evento/cardapio">
+            Cardápio
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-click="sidebar.OpenMenu($mdOpenMenu, $event)">
+          Convidados
+        </md-button>
+      </md-menu-item>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button class="md-block" ng-href="convidados/cadastrar">
+            Cadastrar
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button class="md-block" ng-href="convidados/confirmados">
+            Confirmados
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
+    <md-menu>
+      <md-menu-item class="menu__item">
+        <md-button class="md-block" ng-href="dados-do-casal">
+          Estatísticas
+        </md-button>
+      </md-menu-item>
+    </md-menu>
+  </nav>
 </div>
 <!-- sidebar -->

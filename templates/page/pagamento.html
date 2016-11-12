@@ -1,0 +1,80 @@
+<div class="container-fluid" ng-init="Main.CheckTemplate()">
+  <md-toolbar md-colors="{background: 'blue-700'}">
+    <div class="md-toolbar-tools">
+      <h1 class="md-flex">Realizar Pagamento</h1>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>
+      Os convites digitais somente serão enviados após o Pagamento da taxa no valor de R$ 185,00, que deverá ser feito por meio
+      de cartão de crédito, preenchendo o formulário abaixo.
+    </p>
+  </md-content>
+
+  <md-content layout-padding>
+    <form class="pagamento" name="pagamento" ng-submit="Pagamento.EnviarPagamento()">
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Nome Completo*</label>
+          <input type="text" ng-model="Pagamento.nome" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>CPF</label>
+          <input type="text" ng-model="Pagamento.cpf" mask="999.999.999-99" required>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>CEP</label>
+          <input type="text" ng-model="Pagamento.cep" mask="99.999-999" ng-keyup="Pagamento.ConsultarCep(Pagamento.cep)" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Endereço</label>
+          <input type="text" ng-model="Pagamento.end" required>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Estado</label>
+          <input type="text" ng-model="Pagamento.estado" maxlength="2" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Cidade</label>
+          <input type="text" ng-model="Pagamento.cidade" required>
+        </md-input-container>
+      </div>
+
+      <md-input-container class="md-block cartao" flex-gt-sm>
+        <label>Número do Cartão*</label>
+        <input ng-model="Pagamento.numeroCartao" required>
+      </md-input-container>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Validade</label>
+          <input type="text" ng-model="Pagamento.validade" mask="19/99" placeholder="MM/AA" required>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Código de Segurança</label>
+          <input type="text" ng-model="Pagamento.numeroSeg" required>
+        </md-input-container>
+      </div>
+      <md-input-container class="md-block" flex-gt-xs>
+        <label>Valor</label>
+        <input value="R$185,00" disabled>
+      </md-input-container>
+      <md-button class="md-raised md-primary" ng-disabled="pagamento.$invalid" type="submit">Enviar</md-button>
+    </form>
+    <div class="alert" role="alert" ng-class="{'alert-danger':Pagamento.mensagemErro, 'alert-success':!Pagamento.mensagemErro}"
+      ng-show="Pagamento.mensagemPagamento">
+      <p>{{Pagamento.mensagemPagamento}}</p>
+    </div>
+  </md-content>
+</div>
+<!--container-fluid-->

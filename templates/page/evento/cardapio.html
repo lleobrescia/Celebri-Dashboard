@@ -1,0 +1,75 @@
+<div class="container-fluid" ng-init="Main.CheckTemplate()">
+	<md-toolbar md-colors="{background: 'blue-700'}">
+		<div class="md-toolbar-tools">
+			<h1 class="md-flex">Cardápio</h1>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding>
+		<p>Descreva aqui o cardápio que será usado na sua festa de casamento, para manter os seus convidados ainda mais informados.
+			Basta escrever o texto corrido. </p>
+
+		<form class="form" name="formCardapio">
+			<section class="row">
+
+				<div class="col-xs-12">
+					<md-input-container class="md-block">
+						<label class="md-subhead">Título da etapa</label>
+						<input aria-label="Título da etapa" type="text" ng-model="cardapio.titulo" placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc"
+							required>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label class="md-subhead">Descrição do cardápio</label>
+						<textarea aria-label="Descrição do cardápio" ng-model="cardapio.descricao" rows="5" md-select-on-focus required placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
+					</md-input-container>
+
+					<md-button aria-label="Adicionar Cardápio" class="md-raised md-primary" md-colors="{background: 'green'}" ng-click="cardapio.Adicionar();cardapio.ResetForm(formCardapio)"
+						ng-disabled="formCardapio.$invalid">
+						Adicionar
+					</md-button>
+				</div>
+				<!--col-xs-12-->
+			</section>
+		</form>
+	</md-content>
+
+	<div class="sk-circle" ng-if="cardapio.carregando">
+		<div class="sk-circle1 sk-child"></div>
+		<div class="sk-circle2 sk-child"></div>
+		<div class="sk-circle3 sk-child"></div>
+		<div class="sk-circle4 sk-child"></div>
+		<div class="sk-circle5 sk-child"></div>
+		<div class="sk-circle6 sk-child"></div>
+		<div class="sk-circle7 sk-child"></div>
+		<div class="sk-circle8 sk-child"></div>
+		<div class="sk-circle9 sk-child"></div>
+		<div class="sk-circle10 sk-child"></div>
+		<div class="sk-circle11 sk-child"></div>
+		<div class="sk-circle12 sk-child"></div>
+	</div>
+
+	<md-toolbar md-colors="{background: 'blue-700'}" ng-show="cardapio.cardapioLista.length > 0 && !cardapio.carregando">
+		<div class="md-toolbar-tools">
+			<h1 class="md-flex">Cardápio cadastrado</h1>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding style="height: 600px;" ng-show="cardapio.cardapioLista.length > 0 && !cardapio.carregando"
+		id="Lista_Cardapio">
+		<md-list flex>
+			<md-list-item class="md-3-line" ng-repeat="(key,value) in cardapio.cardapioLista" style="margin-bottom:20px">
+				<div class="md-list-item-text" layout="column">
+					<h3>{{value.Nome}}</h3>
+					<p>
+						{{value.Descricao}}
+					</p>
+					<md-button aria-label="Remover Cardápio" class="md-secondary" type="button" ng-click="cardapio.Remover(value.Id,key)">
+						<i class="fa fa-trash-o" aria-hidden="true" style="font-size: 1.4em;"></i>
+					</md-button>
+				</div>
+				<md-divider ng-if="!$last"></md-divider>
+				<!--md-3-line-->
+			</md-list-item>
+		</md-list>
+	</md-content>
+</div>
+<!--container-fluid-->

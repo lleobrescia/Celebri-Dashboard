@@ -6,16 +6,16 @@
   'use strict';
   angular
     .module('dashboard')
-    .controller('ConfigurarConviteCtrl', ConfigurarConviteCtrl);
+    .controller('CerimoniaCtrl', CerimoniaCtrl);
 
-  ConfigurarConviteCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP', 'PageService'];
+  CerimoniaCtrl.$inject = ['UserService', 'ServiceCasamento', 'ipService', 'consultCEP', 'PageService'];
 
   /**
-   * @namespace ConfigurarConviteCtrl
+   * @namespace CerimoniaCtrl
    * @desc Configura os dados dos pais dos noivos
    * @memberOf Controllers
    */
-  function ConfigurarConviteCtrl(UserService, ServiceCasamento, ipService, consultCEP, PageService) {
+  function CerimoniaCtrl(UserService, ServiceCasamento, ipService, consultCEP, PageService) {
     var self  = this;
     var ID    = UserService.dados.ID;//ID do usuario logado
 
@@ -37,7 +37,7 @@
     /**
      * @name ConsultarCep
      * @desc Consulta o cep fornecido pelo usuario e preenche os dados no formulario
-     * @memberOf Controllers.ConfigurarConviteCtrl
+     * @memberOf Controllers.CerimoniaCtrl
      */
     function ConsultarCep(cep) {
       try {
@@ -53,7 +53,7 @@
     /**
      * @name GetDadosConvite
      * @desc Carrega os dados no formulario do servirdor
-     * @memberOf Controllers.ConfigurarConviteCtrl
+     * @memberOf Controllers.CerimoniaCtrl
      */
     function GetDadosConvite() {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RetornarConfiguracaoConvite';
@@ -98,7 +98,7 @@
     /**
      * @name GetLocal
      * @desc Carrega os dados no formulario do session
-     * @memberOf Controllers.ConfigurarConviteCtrl
+     * @memberOf Controllers.CerimoniaCtrl
      */
     function GetLocal() {
       self.cerimoniaLocal   = UserService.dados.cerimoniaLocal;
@@ -125,7 +125,7 @@
     /**
      * @name SalvarLocal
      * @desc Salva os dados do formulario no session
-     * @memberOf Controllers.ConfigurarConviteCtrl
+     * @memberOf Controllers.CerimoniaCtrl
      */
     function SalvarLocal() {
       UserService.dados.cerimoniaLocal  = self.cerimoniaLocal;
@@ -152,7 +152,7 @@
     /**
      * @name SetDadosConvite
      * @desc Salva os dados do formulario no servirdor
-     * @memberOf Controllers.ConfigurarConviteCtrl
+     * @memberOf Controllers.CerimoniaCtrl
      */
     function SetDadosConvite() {
       var hora = self.cerimoniaHora + ':' + self.cerimoniaMin;

@@ -1,0 +1,75 @@
+<div class="container-fluid" ng-init="Main.CheckTemplate()">
+	<md-toolbar md-colors="{background: 'blue-700'}">
+		<div class="md-toolbar-tools">
+			<h1 class="md-flex">Configurar Save the date</h1>
+		</div>
+	</md-toolbar>
+	<md-content flex layout-padding>
+		<p>
+			O Save The Date, é um termo em inglês utilizado para guardar uma data especial em sua agenda. Você pode enviar um email com
+			o Save The Date para os seus convidados, avisando-os do seu casamento, antes de enviar os convites.
+		</p>
+		<p>
+			Na mensagem encaminhada você pode comunicar que em breve enviará o convite do casamento pelo email, para que seus convidados
+			saibam que irão receber um convite digital.
+		</p>
+		<p>
+			Escolha abaixo o layout que preferir.
+		</p>
+	</md-content>
+
+	<div class="sk-circle" ng-if="!saveDate.showDate">
+		<div class="sk-circle1 sk-child"></div>
+		<div class="sk-circle2 sk-child"></div>
+		<div class="sk-circle3 sk-child"></div>
+		<div class="sk-circle4 sk-child"></div>
+		<div class="sk-circle5 sk-child"></div>
+		<div class="sk-circle6 sk-child"></div>
+		<div class="sk-circle7 sk-child"></div>
+		<div class="sk-circle8 sk-child"></div>
+		<div class="sk-circle9 sk-child"></div>
+		<div class="sk-circle10 sk-child"></div>
+		<div class="sk-circle11 sk-child"></div>
+		<div class="sk-circle12 sk-child"></div>
+	</div>
+
+	<md-content flex layout-padding ng-show="saveDate.showDate">
+		<div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
+			<md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center">
+				<img src="./image/savethedate/Modelo1.png" alt="" class="img-responsive" ng-class="{'layout__borda' : saveDate.modelo == '1'}"
+					ng-click=" saveDate.modelo='1'; $scope.change = true">
+			</md-whiteframe>
+			<md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center">
+				<img src="./image/savethedate/Modelo3.png" alt="" class="img-responsive" ng-class="{'layout__borda' : saveDate.modelo == '3'}"
+					ng-click=" saveDate.modelo='3'; $scope.change = true">
+			</md-whiteframe>
+			<md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center">
+				<img src="./image/savethedate/Modelo8.png" alt="" class="img-responsive" ng-class="{'layout__borda' : saveDate.modelo == '8'}"
+					ng-click=" saveDate.modelo='8'; $scope.change = true">
+			</md-whiteframe>
+		</div>
+	</md-content>
+
+	<md-content flex layout-padding>
+		<form class="form " name="saveDateForm">
+			<md-input-container class="md-block">
+				<label class="md-subhead">Mensagem</label>
+				<textarea aria-label="Mensagem Save the Date" ng-model="saveDate.mensagem" rows="5" md-select-on-focus required ng-change="$scope.change = true"></textarea>
+			</md-input-container>
+
+			<md-input-container class="md-block" ng-if="$scope.change">
+				<md-button aria-label="Salvar Save the Date" class="md-raised md-primary" md-colors="{background: 'green'}" ng-click="saveDate.Salvar(); $scope.change = false"
+					ng-disabled="saveDateForm.$invalid">
+					Salvar
+				</md-button>
+				<md-button class="md-raised md-warn" ng-click="saveDate.GetData(); $scope.change = false">
+					Cancelar
+				</md-button>
+			</md-input-container>
+		</form>
+		<md-button class="md-raised md-primary md-block" ng-href="save-the-date/enviar" ng-disabled="saveDateForm.$invalid">
+			Avançar
+		</md-button>
+	</md-content>
+</div>
+<!-- container-fluid  -->

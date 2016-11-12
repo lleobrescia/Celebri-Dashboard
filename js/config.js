@@ -6,7 +6,8 @@ angular
     'ngAnimate',    //Usado nas trancições de telas
     'chart.js',     //Usado nas estastisticas
     'ngImageEditor',//Usado para recortar a foto do casal
-    'ngMaterial'    //Usado na data do casamento
+    'ngMaterial',    //Usado na data do casamento
+    'duScroll'      //Scroll com animacao
   ]);
 
 (function () {

@@ -122,10 +122,10 @@
       festaCidade         : '',
       festaRota           : '',
       festaCep            : '',
-      listaHotel          : '',
-      listaSalao          : '',
-      listaPresente       : '',
-      listaCardapio       : '',
+      listaHotel          : null,
+      listaSalao          : null,
+      listaPresente       : null,
+      listaCardapio       : null,
 
       //Convidados
       convidadoLista: null,
