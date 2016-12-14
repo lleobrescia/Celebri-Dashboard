@@ -16,92 +16,94 @@
    * @memberOf Controllers
    */
   function PagamentoCtrl($http, ipService, UserService, ServiceCasamento, Cielo, EnviarEmail) {
-    var emailUsuario  = UserService.dados.emailUsuario; //Serve para verificar se ha algum desconto
-    var ID            = UserService.dados.ID;
-    var self          = this;
+    var emailUsuario = UserService.dados.emailUsuario; //Serve para verificar se ha algum desconto
+    var ID = UserService.dados.ID;
+    var self = this;
 
-    self.allowToSend        = false;
-    self.carregando         = true;
-    self.carregandoPagina   = true;
-    self.cartao             = null;
-    self.isPg               = false;
-    self.convidadoLista     = [];
-    self.mensagem           = false;
-    self.mensagemPagamento  = null;
+    self.allowToSend = false;
+    self.carregando = true;
+    self.carregandoPagina = true;
+    self.cartao = null;
+    self.cpf = null;
+    self.end = null;
+    self.isPg = false;
+    self.convidadoLista = [];
+    self.mensagem = false;
+    self.mensagemPagamento = null;
     self.messes = [
       {
-        'mes'   : 'Janeiro',
-        'value' : '01'
+        'mes': 'Janeiro',
+        'value': '01'
       },
       {
-        'mes'   : 'Fevereiro',
-        'value' : '02'
+        'mes': 'Fevereiro',
+        'value': '02'
       },
       {
-        'mes'   : 'Março',
-        'value' : '03'
+        'mes': 'Março',
+        'value': '03'
       },
       {
-        'mes'   : 'Abril',
-        'value' : '04'
+        'mes': 'Abril',
+        'value': '04'
       },
       {
-        'mes'   : 'Maio',
-        'value' : '05'
+        'mes': 'Maio',
+        'value': '05'
       },
       {
-        'mes'   : 'Junho',
-        'value' : '06'
+        'mes': 'Junho',
+        'value': '06'
       },
       {
-        'mes'   : 'Julho',
-        'value' : '07'
+        'mes': 'Julho',
+        'value': '07'
       },
       {
-        'mes'   : 'Agosto',
-        'value' : '08'
+        'mes': 'Agosto',
+        'value': '08'
       },
       {
-        'mes'   : 'Setembro',
-        'value' : '09'
+        'mes': 'Setembro',
+        'value': '09'
       },
       {
-        'mes'   : 'Outubro',
-        'value' : '10'
+        'mes': 'Outubro',
+        'value': '10'
       },
       {
-        'mes'   : 'Novembro',
-        'value' : '11'
+        'mes': 'Novembro',
+        'value': '11'
       },
       {
-        'mes'   : 'Dezembro',
-        'value' : '12'
+        'mes': 'Dezembro',
+        'value': '12'
       }
     ];
-    self.nome         = null;
+    self.nome = null;
     self.numeroCartao = null;
-    self.numeroSeg    = null;
+    self.numeroSeg = null;
     self.selecionados = [];
-    self.selectedAll  = false;
-    self.senhaApp     = UserService.dados.senhaApp;
-    self.validadeAno  = null;
-    self.validadeMes  = null;
+    self.selectedAll = false;
+    self.senhaApp = UserService.dados.senhaApp;
+    self.validadeAno = null;
+    self.validadeMes = null;
 
-    self.CheckAll         = CheckAll;
-    self.CheckConvidado   = CheckConvidado;
-    self.Enviar           = Enviar;
-    self.EnviarPagamento  = EnviarPagamento;
+    self.CheckAll = CheckAll;
+    self.CheckConvidado = CheckConvidado;
+    self.Enviar = Enviar;
+    self.EnviarPagamento = EnviarPagamento;
 
     Init();
 
-  /**
+    /**
    * @namespace AtualizarStatus
    * @desc Atualiza o status do usuario. ( Se pagou ou nao )
    * @memberOf Controllers.PagamentoCtrl
    */
-    function AtualizarStatus(aprovado, status, cod) {
+    function AtualizarStatus(aprovado) {
       var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/RegistrarPagamentoCelebri';
-      var xmlVar = '<DadosPagamentoCelebri xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <IdCasal>' + ID + '</IdCasal>  <PagtoAprovado>' + aprovado + '</PagtoAprovado> <Valor>185.00</Valor></DadosPagamentoCelebri>';
+      var xmlVar = '<DadosPagamentoCelebri xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <IdCasal>' + ID + '</IdCasal>  <Origem>Dashboard</Origem>  <PagtoAprovado>' + aprovado + '</PagtoAprovado>  <Valor>185.00</Valor></DadosPagamentoCelebri>'
 
 
       ServiceCasamento.SendData(urlVar, xmlVar).then(function (resp) {
@@ -112,7 +114,7 @@
       });
     }
 
-  /**
+    /**
    * @namespace CheckConvidado
    * @desc Seleciona um ou mais convidados da lista
    * @memberOf Controllers.PagamentoCtrl
@@ -136,7 +138,7 @@
       }
     }
 
-  /**
+    /**
    * @namespace CheckAll
    * @desc Seleciona todos os convidados da lista
    * @memberOf Controllers.PagamentoCtrl
@@ -146,8 +148,8 @@
         self.selectedAll = true;
         self.allowToSend = true;
       } else {
-        self.selectedAll  = false;
-        self.allowToSend  = false;
+        self.selectedAll = false;
+        self.allowToSend = false;
         self.selecionados = [];
       }
       angular.forEach(self.convidadoLista, function (item) {
@@ -159,7 +161,7 @@
       });
     }
 
-  /**
+    /**
    * @namespace Enviar
    * @desc Envia os convidados selecionados para o servidor, para receberem o convite
    * @memberOf Controllers.PagamentoCtrl
@@ -190,87 +192,126 @@
       self.carregando = false;
     }
 
-  /**
+    /**
    * @namespace EnviarEmailAdmin
    * @desc Envia um e-mail para o Gustavo com o status da transação
    * @memberOf Controllers.PagamentoCtrl
    */
-    function EnviarEmailAdmin(status){
-      var destinatario   = 'gustavo@pixla.com.br';
-      var assunto       = 'Status Pagamento [Celebri]';
-      var conteudo      = 'ID Casal: ' + ID + '<br>' +'Status:' + status ;
+    function EnviarEmailAdmin(content) {
+      var destinatario = 'gustavo@pixla.com.br';
+      var assunto = 'Pagamento [Celebri]';
+      var conteudo = content;
 
       EnviarEmail.Mail(destinatario, assunto, conteudo).catch(function (error) {
         console.error('EnviarEmailAdmin ->', error);
       });
     }
 
-  /**
+    /**
    * @namespace EnviarPagamento
    * @desc Envia os dados do cartao do usuario para o sistema da Cielo
    * @memberOf Controllers.PagamentoCtrl
    */
     function EnviarPagamento() {
-      if (!self.cartao      &&
-        !self.numeroCartao  &&
-        !self.nome          &&
-        !self.validadeMes   &&
-        !self.validadeAno   &&
+      if (!self.cartao &&
+        !self.numeroCartao &&
+        !self.nome &&
+        !self.validadeMes &&
+        !self.validadeAno &&
         !self.numeroSeg) {
         return null;
       }
 
       var dataVar = {
-        'cartao'      : self.cartao,
+        'cartao': self.cartao,
         'numeroCartao': self.numeroCartao,
-        'nome'        : self.nome,
-        'validadeMes' : self.validadeMes,
-        'validadeAno' : self.validadeAno,
-        'numeroSeg'   : self.numeroSeg
+        'nome': self.nome,
+        'validadeMes': self.validadeMes,
+        'validadeAno': self.validadeAno,
+        'numeroSeg': self.numeroSeg
       };
 
       self.carregandoPagina = true;
       Cielo.Request(self.numeroCartao, self.validadeAno, self.validadeMes, self.numeroSeg, self.cartao).then(function (resp) {
-        var respXml   = $.parseXML(resp);
-        var aprovado  = 'false';
-        var status    = null;
-        var codigo    = 0;
-        var tid       = null;
+        var respXml = $.parseXML(resp);
+        var aprovado = 'false';
+        var status = null;
+        var codigo = 0;
+        var tid = null;
 
         try {
           status = self.mensagemPagamento = $(respXml).find('autorizacao').find('mensagem').text();
           codigo = $(respXml).find('autorizacao').find('codigo').text();
         } catch (error) {
-          status                 = 'Erro ao enviar os dados. Por favor, tente novamente.';
+          status = 'Erro ao enviar os dados. Por favor, tente novamente.';
           self.mensagemPagamento = status;
         }
 
         tid = resp.tid;
 
-        self.cartao       = null;
-        self.numeroCartao = null;
-        self.nome         = null;
-        self.validadeMes  = null;
-        self.validadeAno  = null;
-        self.numeroSeg    = null;
-
         if (codigo === '4' || codigo === '6') {
-          aprovado                = 'true';
-          self.isPg               = true;
-          self.mensagemPagamento  = 'autorizada';
+          aprovado = 'true';
+          self.isPg = true;
+          self.mensagemPagamento = 'autorizada';
+
+          // NOTA FISCAL,
+          NotaFiscal(self.cpf, emailUsuario, self.end, self.nome);
+
+          //RD STATION
+
+          //Registra o token e o formulario para o qual vai a informacao
+          RdIntegration.integrate('19182991894ae673fc83ae31d1c0134a', 'pagamento-dashboard');
+
+          //Armazena os dados em um array para ser enviado ao RD Station
+          var dataArray = [
+            { name: 'email', value: emailUsuario },
+            { name: 'identificador', value: 'pagamento-dashboard' },
+            { name: 'nome', value: UserService.dados.nomeUsuario },
+            { name: 'token_rdstation', value: '19182991894ae673fc83ae31d1c0134a' }
+          ];
+
+          //Envia os dados para o RD
+          RdIntegration.post(dataArray);
         }
+
+        // LIMPA FORMULARIO
+        self.cartao = null;
+        self.numeroCartao = null;
+        self.nome = null;
+        self.cpf = null;
+        self.end = null;
+        self.validadeMes = null;
+        self.validadeAno = null;
+        self.numeroSeg = null;
 
         self.carregandoPagina = false;
 
-        EnviarEmailAdmin(status);
-        AtualizarStatus(aprovado, status, tid);
+        AtualizarStatus(aprovado);
       }).catch(function (error) {
+        self.carregandoPagina = false;
+        self.mensagemPagamento = 'Erro ao enviar os dados. Por favor, tente novamente.';
         console.error('EnviarPagamento ->', error);
         console.warn('Dados enviados:', dataVar);
       });
     }
 
-  /**
+    /**
+   * @namespace NotaFiscal
+   * @desc Salva dados para a nota fiscal
+   * @memberOf Controllers.PagamentoCtrl
+   */
+    function NotaFiscal(cpf, email, end, nome) {
+      var urlVar = 'http://' + ipService.ip + '/ServiceCasamento.svc/CadastrarDadosNotaFiscal';
+      var xml = '<DadosNotaFiscal xmlns="http://schemas.datacontract.org/2004/07/WcfServiceCasamento">  <Cpf>' + cpf + '</Cpf>  <Email>' + email + '</Email>  <Endereco>' + end + '</Endereco>  <Id_Casal>' + ID + '</Id_Casal>  <Nome>' + nome + '</Nome></DadosNotaFiscal>';
+
+      var content = '<table> <tr> <th>Nome</th> <th>' + nome + '</th> </tr><tr> <td>CPF</td><td>' + cpf + '</td></tr><tr> <td>E-Mail</td><td>' + email + '</td></tr><tr> <td>Endereço</td><td>' + end + '</td></tr></table>';
+
+      ServiceCasamento.SendData(urlVar, xml).then(function (resp) {
+        EnviarEmailAdmin(content);
+      });
+    }
+
+    /**
    * @namespace GetConvidados
    * @desc Pega a lista de convidados do servidor
    * @memberOf Controllers.PagamentoCtrl
@@ -289,22 +330,22 @@
 
           self.convidadoLista.push(
             {
-              'Id'            : $(this).find('Id').text(),
-              'Nome'          : $(this).find('Nome').text(),
-              'Email'         : $(this).find('Email').text(),
+              'Id': $(this).find('Id').text(),
+              'Nome': $(this).find('Nome').text(),
+              'Email': $(this).find('Email').text(),
               'ConviteEnviado': status
             }
           );
         });
         self.carregando = false;
-        self.mensagem   = false;
+        self.mensagem = false;
       }).catch(function (error) {
         console.error('GetConvidados ->', error);
         console.warn('Dados enviados:', xmlVar);
       });
     }
 
-  /**
+    /**
    * @namespace GetStatusPagamento
    * @desc Pega o status do pagamento. Se o usuario ja pagou ou nao
    * @memberOf Controllers.PagamentoCtrl
@@ -328,7 +369,7 @@
       });
     }
 
-  /**
+    /**
    * @namespace VerificarPagamento
    * @desc Verifica se ha desconto ou se o usuario pagou de alguma forma, fora do sistema
    * @memberOf Controllers.PagamentoCtrl
@@ -351,7 +392,7 @@
       });
     }
 
-  /**
+    /**
    * @namespace Init
    * @desc Setup do sistema
    * @memberOf Controllers.PagamentoCtrl

@@ -103,12 +103,6 @@
           Número do Cartão
         </p>
         <input type="text" ng-model="Pagamento.numeroCartao">
-
-        <p class="form__title">
-          Nome igual ao impresso no cartão
-        </p>
-        <input type="text" ng-model="Pagamento.nome">
-
         <p class="form__title">
           Data de validade
         </p>
@@ -139,13 +133,26 @@
         <!--pagamento__codigo-->
 
         <p class="form__title">
+          Nome Completo
+        </p>
+        <input type="text" ng-model="Pagamento.nome">
+        <p class="form__title">
+          CPF
+        </p>
+        <input type="text" ng-model="Pagamento.cpf" mask="999.999.999-99">
+        <p class="form__title">
+          Endereço Completo
+        </p>
+        <input type="text" ng-model="Pagamento.end">
+
+        <p class="form__title">
           Valor
         </p>
         <input type="text" value="R$185,00" disabled>
       </form>
       <div class="row">
         <div class="col-sm-3 col-sm-offset-9">
-          <div class="btn" ng-click="Pagamento.EnviarPagamento()" ng-class="(Pagamento.cartao &&Pagamento.numeroCartao && Pagamento.nome && Pagamento.validadeMes && Pagamento.validadeAno) ? 'btn--save ': 'btn--disable'">
+          <div class="btn" ng-click="Pagamento.EnviarPagamento()" ng-class="(Pagamento.cartao && Pagamento.numeroCartao && Pagamento.nome && Pagamento.validadeMes && Pagamento.validadeAno) ? 'btn--save ': 'btn--disable'">
             Concluir Pagamento
           </div>
         </div>
