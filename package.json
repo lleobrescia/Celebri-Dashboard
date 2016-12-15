@@ -1,5 +1,5 @@
 {
-  "name": "celebri dashboard",
+  "name": "celebri_dashboard",
   "version": "2.0.0",
   "description": "Gerenciador para o Celebri",
   "main": "index.js",

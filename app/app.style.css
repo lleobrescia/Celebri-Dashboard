@@ -1,8 +1,8 @@
 /*IMPORT*/
 
-@import url('https://cdn.jsdelivr.net/fontawesome/4.6.3/css/font-awesome.min.css');
-@import url('https://cdn.jsdelivr.net/normalize/3.0.3/normalize.min.css');
-@import url('https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.css');
 
 /**
 * GERAL
@@ -22,7 +22,6 @@ html {
 body {
   /*config para usar em no lugar de px*/
   font-size: 62.5%;
-  font-family: Open Sans, sans-serif;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
