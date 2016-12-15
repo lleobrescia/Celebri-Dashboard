@@ -1,14 +1,5 @@
 .vscode/
-
-<<<<<<< HEAD
-jsconfig.json
-=======
-jsconfig.json
-<<<<<<< HEAD
->>>>>>> develop
-=======
 node_modules/
->>>>>>> develop
-js/dashboard.min.js
-js/service/ipService.js
-.htaccess
+css/
+js/
+jsconfig.json

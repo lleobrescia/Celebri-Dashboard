@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-app="dashboard" class="no-js" ng-controller="MainCtrl as Main">
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="pt-BR" ng-app="dashboard" ng-controller="MainController as Main">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="pt-BR" ng-app="dashboard" ng-controller="MainController as Main">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="pt-br" ng-app="dashboard" class="no-js" ng-controller="MainController as Main">
+<!--<![endif]-->
 
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex,nofallow">
-
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="content-language" content="pt-br">
+	<meta name="fragment" content="!">
 
 	<base href="/dashboard/">
-	<title>Dashboard | {{Main.page.title}}</title>
+	<title>Dashboard</title>
 
-	<!--JQUERY-->
-	<script src="https://cdn.jsdelivr.net/jquery/2.2.1/jquery.min.js"></script>
+
 	<!--MODERNIZR-->
 	<script src="https://cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js"></script>
 	<!--ANGULAR-->
@@ -26,63 +31,11 @@
 	<!--ANGULAR MATERIAL-->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc.5/angular-material.min.js"></script>
-	<!--MOMENT-->
-	<script src="https://cdn.jsdelivr.net/momentjs/2.13.0/moment-with-locales.min.js"></script>
-	<!--BOOTSTRAP-->
-	<script src="https://cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.js"></script>
-
-	<!--NG MASK-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
-
-	<!--SLIDE-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.10.3/rzslider.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-
-	<!--GRAPHIC-->
-	<script src="https://cdn.jsdelivr.net/chart.js/1.1.1/Chart.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.js"></script>
-
-	<!--EXCEL-->
-	<script lang="javascript" src="js/vendor/xlsx.core.min.js"></script>
-	<script type="text/javascript" src="js/vendor/shim.js"></script>
-	<!-- ODS support -->
-	<script src="js/vendor/ods.js"></script>
-
-	<!--PDF-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.26/jspdf.plugin.autotable.js"></script>
-
-	<!--IMAGE EDITOR-->
-	<script src="js/vendor/ngImageEditor.min.js"></script>
-
-	<!--HTML 2 CANVAS-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 
 	<link rel="shortcut icon" type="image/png" href="image/favicon.png">
 
-	<!--NORMALIZE-->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/normalize/3.0.3/normalize.min.css">
-	<!--FONT-->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css">
-	<!--BOOTSTRAP-->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
-	<!--SLIDE-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/2.10.3/rzslider.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.css">
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 	<!--CSS SITE-->
-	<link rel="stylesheet" href="css/styles.css">
-
-	<!-- Universal Analytics (Google Analytics) -->
-	<script>
-    // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    //   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    //   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    //   ga('create', 'UA-74690254-1', 'auto');
-	</script>
+	<link rel="stylesheet" href="css/styles.min.css">
 
 	<!--[if lt IE 9]>
   <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -91,33 +44,6 @@
 </head>
 
 <body>
-	<div class="wrapper" ng-class="Main.login" ng-init="loading = false">
-		<div ng-include="Main.cabecalho" class="cabecalho"></div>
-
-		<div class="sk-circle loading" ng-if="loading">
-			<div class="sk-circle1 sk-child"></div>
-			<div class="sk-circle2 sk-child"></div>
-			<div class="sk-circle3 sk-child"></div>
-			<div class="sk-circle4 sk-child"></div>
-			<div class="sk-circle5 sk-child"></div>
-			<div class="sk-circle6 sk-child"></div>
-			<div class="sk-circle7 sk-child"></div>
-			<div class="sk-circle8 sk-child"></div>
-			<div class="sk-circle9 sk-child"></div>
-			<div class="sk-circle10 sk-child"></div>
-			<div class="sk-circle11 sk-child"></div>
-			<div class="sk-circle12 sk-child"></div>
-		</div>
-
-		<section class="content__box">
-			<div ng-view autoscroll="true" class="content" ng-show="!loading"></div>
-		</section>
-		<!-- content -->
-	</div>
-	<!-- wrapper -->
-
-	<script src="js/vendor/jquery.creditCardValidator.js"></script>
-	<script src="js/vendor/angular-scroll.min.js"></script>
 	<script src="js/dashboard.min.js"></script>
 </body>
 

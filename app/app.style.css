@@ -1,0 +1,45 @@
+/*IMPORT*/
+
+@import url('https://cdn.jsdelivr.net/fontawesome/4.6.3/css/font-awesome.min.css');
+@import url('https://cdn.jsdelivr.net/normalize/3.0.3/normalize.min.css');
+@import url('https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css');
+
+/**
+* GERAL
+*
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /*config para usar em no lugar de px*/
+  font-size: 100.01%;
+}
+
+body {
+  /*config para usar em no lugar de px*/
+  font-size: 62.5%;
+  font-family: Open Sans, sans-serif;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+/* The starting CSS styles for the enter animation */
+
+.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+
+
+/* The finishing CSS styles for the enter animation */
+
+.ng-enter.ng-enter-active {
+  opacity: 1;
+}
