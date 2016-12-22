@@ -5,7 +5,7 @@
     .module('dashboard')
     .controller('MainController', MainController);
 
-  MainController.inject = [];
+  MainController.$inject = [];
   function MainController() {
     var vm = this;
 
@@ -13,6 +13,7 @@
 
     ////////////////
 
-    function Activate() { }
+    function Activate() {
+    }
   }
 })();
