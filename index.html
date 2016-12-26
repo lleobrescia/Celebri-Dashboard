@@ -37,10 +37,10 @@
 	<!--ANGULAR MATERIAL-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.js"></script>
 
-	<link rel="shortcut icon" type="image/png" href="image/favicon.png">
+	<!--<link rel="shortcut icon" type="image/png" href="image/favicon.png">-->
 
 	<!--CSS SITE-->
-	<link rel="stylesheet" href="css/styles.min.css">
+	<link rel="stylesheet" href="css/style.min.css">
 
 	<!--[if lt IE 9]>
   <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -49,7 +49,21 @@
 </head>
 
 <body>
-	<script src="js/dashboard.min.js"></script>
+<section layout="row" flex style="height:100%">
+
+	<sidebar></sidebar>
+
+	<md-content flex layout-padding>
+
+		<div layout="column" layout-align="top center">
+			<div ui-view></div>
+		</div>
+	</md-content>
+</section>
+
+<script src="js/dashboard.min.js"></script>
 </body>
 
 </html>
+
+<!--Para utilizar essa função é necessário pagar R$185,00-->

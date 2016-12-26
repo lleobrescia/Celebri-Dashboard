@@ -1,0 +1,30 @@
+<div ng-controller="SidebarController as sidebar" style="height:100%" >
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" style="height:100%" >
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Sidenav Left</h1>
+    </md-toolbar>
+    <md-content layout-padding role="navigation">
+
+      <ul class="side-menu">
+        <li ng-repeat="section in sidebar.menu" class="parent-list-item" ng-class="">
+          <md-button ui-sref-active="active" ui-sref="{{section.state}}" ng-click="" ng-if="section.type === 'link'">
+            {{section.name}}
+          </md-button>
+          <div ng-if="section.type === 'toggle'">
+            <md-button class="md-button-toggle" ng-click="" aria-controls="" flex layout="row" aria-expanded="">
+              {{section.name}}
+              <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class=""></span>
+            </md-button>
+            <ul id="" class="menu-toggle-list">
+              <li ng-repeat="page in section.pages">
+                <md-button ui-sref-active="active" ui-sref="{{page.state}}" ng-click="" ng-if="page.type === 'link'">
+                  {{page.name}}
+                </md-button>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </md-content>
+  </md-sidenav>
+</div>
