@@ -17,8 +17,8 @@
    */
   function serverService($q, $http, RequestAsFormPost) {
     const origin = 'celebri_dev';
-    var appid = 'ea7021f308d7d4e691093dc16f6a8c8d';
-    var token = '60e74b56ffa91185c5fc8732e94cbb1e';
+    var appid = '60e74b56ffa91185c5fc8732e94cbb1e';
+    var token = 'ea7021f308d7d4e691093dc16f6a8c8d';
 
     var service = {
       Get: Get,
