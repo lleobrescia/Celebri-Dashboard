@@ -5,7 +5,7 @@
 	Author:  Stefan Goessner/2006
 	Web:     http://goessner.net/ 
 */
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -13,6 +13,7 @@
     .service('conversorService', conversorService);
 
   conversorService.$inject = [];
+
   function conversorService() {
     this.Json2Xml = Json2Xml;
     this.Xml2Json = Xml2Json;
@@ -21,39 +22,38 @@
 
     function Json2Xml(o, tab) {
       o = angular.fromJson(o);
-      var toXml = function (v, name, ind) {
-        var xml = "";
-        if (v instanceof Array) {
-          for (var i = 0, n = v.length; i < n; i++)
-            xml += ind + toXml(v[i], name, ind + "\t") + "\n";
-        }
-        else if (typeof (v) == "object") {
-          var hasChild = false;
-          xml += ind + "<" + name;
-          for (var m in v) {
-            if (m.charAt(0) == "@")
-              xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
-            else
-              hasChild = true;
-          }
-          xml += hasChild ? ">" : "/>";
-          if (hasChild) {
+      var toXml = function(v, name, ind) {
+          var xml = "";
+          if (v instanceof Array) {
+            for (var i = 0, n = v.length; i < n; i++)
+              xml += ind + toXml(v[i], name, ind + "\t") + "\n";
+          } else if (typeof(v) == "object") {
+            var hasChild = false;
+            xml += ind + "<" + name;
             for (var m in v) {
-              if (m == "#text")
-                xml += v[m];
-              else if (m == "#cdata")
-                xml += "<![CDATA[" + v[m] + "]]>";
-              else if (m.charAt(0) != "@")
-                xml += toXml(v[m], m, ind + "\t");
+              if (m.charAt(0) == "@")
+                xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
+              else
+                hasChild = true;
             }
-            xml += (xml.charAt(xml.length - 1) == "\n" ? ind : "") + "</" + name + ">";
+            xml += hasChild ? ">" : "/>";
+            if (hasChild) {
+              for (var m in v) {
+                if (m == "#text")
+                  xml += v[m];
+                else if (m == "#cdata")
+                  xml += "<![CDATA[" + v[m] + "]]>";
+                else if (m.charAt(0) != "@")
+                  xml += toXml(v[m], m, ind + "\t");
+              }
+              xml += (xml.charAt(xml.length - 1) == "\n" ? ind : "") + "</" + name + ">";
+            }
+          } else {
+            xml += ind + "<" + name + ">" + v.toString() + "</" + name + ">";
           }
-        }
-        else {
-          xml += ind + "<" + name + ">" + v.toString() + "</" + name + ">";
-        }
-        return xml;
-      }, xml = "";
+          return xml;
+        },
+        xml = "";
       for (var m in o)
         xml += toXml(o[m], m, "");
       return tab ? xml.replace(/\t/g, tab) : xml.replace(/\t|\n/g, "");
@@ -63,18 +63,18 @@
       var parseXml;
 
       if (window.DOMParser) {
-        parseXml = function (xmlStr) {
+        parseXml = function(xmlStr) {
           return (new window.DOMParser()).parseFromString(xmlStr, 'text/xml');
         };
       } else if (typeof window.ActiveXObject != 'undefined' && new window.ActiveXObject('Microsoft.XMLDOM')) {
-        parseXml = function (xmlStr) {
+        parseXml = function(xmlStr) {
           var xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
           xmlDoc.async = 'false';
           xmlDoc.loadXML(xmlStr);
           return xmlDoc;
         };
       } else {
-        parseXml = function () { return null; }
+        parseXml = function() { return null; }
       }
 
       return parseXml(xml);
@@ -83,14 +83,16 @@
     function Xml2Json(xml, tab) {
       xml = String2Object(xml); //converte de string para objeto
       var X = {
-        toObj: function (xml) {
+        toObj: function(xml) {
           var o = {};
-          if (xml.nodeType == 1) {   // element node ..
-            if (xml.attributes.length)   // element with attributes  ..
+          if (xml.nodeType == 1) { // element node ..
+            if (xml.attributes.length) // element with attributes  ..
               for (var i = 0; i < xml.attributes.length; i++)
-                o["@" + xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue || "").toString();
+              o["@" + xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue || "").toString();
             if (xml.firstChild) { // element has child nodes ..
-              var textChild = 0, cdataChild = 0, hasElementChild = false;
+              var textChild = 0,
+                cdataChild = 0,
+                hasElementChild = false;
               for (var n = xml.firstChild; n; n = n.nextSibling) {
                 if (n.nodeType == 1) hasElementChild = true;
                 else if (n.nodeType == 3 && n.nodeValue.match(/[^ \f\n\r\t\v]/)) textChild++; // non-whitespace text
@@ -100,34 +102,30 @@
                 if (textChild < 2 && cdataChild < 2) { // structured element with evtl. a single text or/and cdata node ..
                   X.removeWhite(xml);
                   for (var n = xml.firstChild; n; n = n.nextSibling) {
-                    if (n.nodeType == 3)  // text node
+                    if (n.nodeType == 3) // text node
                       o["#text"] = X.escape(n.nodeValue);
-                    else if (n.nodeType == 4)  // cdata node
+                    else if (n.nodeType == 4) // cdata node
                       o["#cdata"] = X.escape(n.nodeValue);
-                    else if (o[n.nodeName]) {  // multiple occurence of element ..
+                    else if (o[n.nodeName]) { // multiple occurence of element ..
                       if (o[n.nodeName] instanceof Array)
                         o[n.nodeName][o[n.nodeName].length] = X.toObj(n);
                       else
                         o[n.nodeName] = [o[n.nodeName], X.toObj(n)];
-                    }
-                    else  // first occurence of element..
+                    } else // first occurence of element..
                       o[n.nodeName] = X.toObj(n);
                   }
-                }
-                else { // mixed content
+                } else { // mixed content
                   if (!xml.attributes.length)
                     o = X.escape(X.innerXml(xml));
                   else
                     o["#text"] = X.escape(X.innerXml(xml));
                 }
-              }
-              else if (textChild) { // pure text
+              } else if (textChild) { // pure text
                 if (!xml.attributes.length)
                   o = X.escape(X.innerXml(xml));
                 else
                   o["#text"] = X.escape(X.innerXml(xml));
-              }
-              else if (cdataChild) { // cdata
+              } else if (cdataChild) { // cdata
                 if (cdataChild > 1)
                   o = X.escape(X.innerXml(xml));
                 else
@@ -136,41 +134,37 @@
               }
             }
             if (!xml.attributes.length && !xml.firstChild) o = null;
-          }
-          else if (xml.nodeType == 9) { // document.node
+          } else if (xml.nodeType == 9) { // document.node
             o = X.toObj(xml.documentElement);
-          }
-          else
+          } else
             alert("unhandled node type: " + xml.nodeType);
           return o;
         },
-        toJson: function (o, name, ind) {
+        toJson: function(o, name, ind) {
           var json = name ? ("\"" + name + "\"") : "";
           if (o instanceof Array) {
             for (var i = 0, n = o.length; i < n; i++)
               o[i] = X.toJson(o[i], "", ind + "\t");
             json += (name ? ":[" : "[") + (o.length > 1 ? ("\n" + ind + "\t" + o.join(",\n" + ind + "\t") + "\n" + ind) : o.join("")) + "]";
-          }
-          else if (o == null)
+          } else if (o == null)
             json += (name && ":") + "null";
-          else if (typeof (o) == "object") {
+          else if (typeof(o) == "object") {
             var arr = [];
             for (var m in o)
               arr[arr.length] = X.toJson(o[m], m, ind + "\t");
             json += (name ? ":{" : "{") + (arr.length > 1 ? ("\n" + ind + "\t" + arr.join(",\n" + ind + "\t") + "\n" + ind) : arr.join("")) + "}";
-          }
-          else if (typeof (o) == "string")
+          } else if (typeof(o) == "string")
             json += (name && ":") + "\"" + o.toString() + "\"";
           else
             json += (name && ":") + o.toString();
           return json;
         },
-        innerXml: function (node) {
+        innerXml: function(node) {
           var s = ""
           if ("innerHTML" in node)
             s = node.innerHTML;
           else {
-            var asXml = function (n) {
+            var asXml = function(n) {
               var s = "";
               if (n.nodeType == 1) {
                 s += "<" + n.nodeName;
@@ -181,11 +175,9 @@
                   for (var c = n.firstChild; c; c = c.nextSibling)
                     s += asXml(c);
                   s += "</" + n.nodeName + ">";
-                }
-                else
+                } else
                   s += "/>";
-              }
-              else if (n.nodeType == 3)
+              } else if (n.nodeType == 3)
                 s += n.nodeValue;
               else if (n.nodeType == 4)
                 s += "<![CDATA[" + n.nodeValue + "]]>";
@@ -196,29 +188,26 @@
           }
           return s;
         },
-        escape: function (txt) {
+        escape: function(txt) {
           return txt.replace(/[\\]/g, "\\\\")
             .replace(/[\"]/g, '\\"')
             .replace(/[\n]/g, '\\n')
             .replace(/[\r]/g, '\\r');
         },
-        removeWhite: function (e) {
+        removeWhite: function(e) {
           e.normalize();
           for (var n = e.firstChild; n;) {
-            if (n.nodeType == 3) {  // text node
+            if (n.nodeType == 3) { // text node
               if (!n.nodeValue.match(/[^ \f\n\r\t\v]/)) { // pure whitespace text node
                 var nxt = n.nextSibling;
                 e.removeChild(n);
                 n = nxt;
-              }
-              else
+              } else
                 n = n.nextSibling;
-            }
-            else if (n.nodeType == 1) {  // element node
+            } else if (n.nodeType == 1) { // element node
               X.removeWhite(n);
               n = n.nextSibling;
-            }
-            else                      // any other node
+            } else // any other node
               n = n.nextSibling;
           }
           return e;

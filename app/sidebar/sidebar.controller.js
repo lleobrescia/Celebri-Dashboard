@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -6,23 +6,23 @@
     .controller('SidebarController', SidebarController);
 
   SidebarController.$inject = [];
+
   function SidebarController() {
     var vm = this;
-    vm.menu =[
-        {
-          name: 'Pagamento',
-          state: 'pagamento',
-          type: 'link'
-        },
-        {
-          name: 'Casal',
-          state: 'casal',
-          type: 'link'
-        },
-        {
-          name: 'Convite',
-          type: 'toggle',
-          pages: [{
+    vm.menu = [{
+        name: 'Pagamento',
+        state: 'pagamento',
+        type: 'link'
+      },
+      {
+        name: 'Casal',
+        state: 'casal',
+        type: 'link'
+      },
+      {
+        name: 'Convite',
+        type: 'toggle',
+        pages: [{
             name: 'Configurar',
             state: 'pagamento',
             type: 'link'
@@ -35,12 +35,13 @@
             name: 'Enviar',
             state: 'pagamento',
             type: 'link'
-          }]
-        },
-        {
-          name: 'Evento',
-          type: 'toggle',
-          pages: [{
+          }
+        ]
+      },
+      {
+        name: 'Evento',
+        type: 'toggle',
+        pages: [{
             name: 'Recepção',
             state: 'pagamento',
             type: 'link'
@@ -63,27 +64,28 @@
             name: 'Cardápio',
             state: 'pagamento',
             type: 'link'
-          }]
-        },
-        {
-          name: 'Convidados',
-          type: 'toggle',
-          pages: [{
-            name: 'Cadastrar',
-            state: 'pagamento',
-            type: 'link'
-          }, {
-            name: 'Confirmados',
-            state: 'pagamento',
-            type: 'link'
-          }]
-        },
-        {
-          name: 'Estatisticas',
+          }
+        ]
+      },
+      {
+        name: 'Convidados',
+        type: 'toggle',
+        pages: [{
+          name: 'Cadastrar',
           state: 'pagamento',
           type: 'link'
-        }
-      ];
+        }, {
+          name: 'Confirmados',
+          state: 'pagamento',
+          type: 'link'
+        }]
+      },
+      {
+        name: 'Estatisticas',
+        state: 'pagamento',
+        type: 'link'
+      }
+    ];
 
     Activate();
 

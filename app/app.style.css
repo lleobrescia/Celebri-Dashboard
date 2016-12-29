@@ -15,16 +15,15 @@
 }
 
 html {
-  /*config para usar em no lugar de px*/
-  font-size: 100.01%;
+  font-size: 16px;
 }
 
-body {
-  /*config para usar em no lugar de px*/
-  font-size: 62.5%;
-}
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
   display: none !important;
 }
 

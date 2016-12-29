@@ -1,8 +1,8 @@
 /**
-* Server Service
-* @namespace Services
-*/
-(function () {
+ * Server Service
+ * @namespace Services
+ */
+(function() {
   'use strict';
 
   angular
@@ -11,10 +11,10 @@
 
   serverService.$inject = ['$q', '$http', 'RequestAsFormPost'];
   /**
-  * @namespace serverService
-  * @desc Faz a coneccao com o API Service
-  * @memberOf Services
-  */
+   * @namespace serverService
+   * @desc Faz a coneccao com o API Service
+   * @memberOf Services
+   */
   function serverService($q, $http, RequestAsFormPost) {
     const origin = 'celebri_dev';
     var appid = 'ea7021f308d7d4e691093dc16f6a8c8d';
@@ -36,13 +36,13 @@
     }
 
     /**
-    * @namespace Request
-    * @desc Envia o endpoint e o json da requisicao para a funcao SendData
-    * @param {String} endpoint - endpoint do servico que deseja acessar
-    * @param {xml} xml - request Json body
-    * @return {Promise}
-    * @memberOf Services.serverService
-    */
+     * @namespace Request
+     * @desc Envia o endpoint e o json da requisicao para a funcao SendData
+     * @param {String} endpoint - endpoint do servico que deseja acessar
+     * @param {xml} xml - request Json body
+     * @return {Promise}
+     * @memberOf Services.serverService
+     */
     function Request(endpoint, xml) {
       var call;
       var deferred = $q.defer();
@@ -65,12 +65,12 @@
     }
 
     /**
-    * @namespace SendData
-    * @desc Envia (ajax) um post ao API Service
-    * @param {Object} Data - data para ser enviado pelo ajax
-    * @return {String|JSON} Retorna um string em formato json
-    * @memberOf Services.serverService
-    */
+     * @namespace SendData
+     * @desc Envia (ajax) um post ao API Service
+     * @param {Object} Data - data para ser enviado pelo ajax
+     * @return {String|JSON} Retorna um string em formato json
+     * @memberOf Services.serverService
+     */
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',

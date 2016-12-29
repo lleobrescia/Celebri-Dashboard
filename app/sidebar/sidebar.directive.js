@@ -1,7 +1,7 @@
 /**
-* @namespace Directives
-*/
-(function () {
+ * @namespace Directives
+ */
+(function() {
   'use strict';
 
   angular
@@ -9,10 +9,10 @@
     .directive('sidebar', SideBar);
 
   /**
-  * @namespace Cabecalho
-  * @desc Retorna o template do cabecalho
-  * @memberOf Directives
-  */
+   * @namespace Cabecalho
+   * @desc Retorna o template do cabecalho
+   * @memberOf Directives
+   */
   function SideBar() {
     return {
       templateUrl: 'app/sidebar/sidebar.html',

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -6,6 +6,7 @@
     .controller('MainController', MainController);
 
   MainController.$inject = [];
+
   function MainController() {
     var vm = this;
 
@@ -13,7 +14,6 @@
 
     ////////////////
 
-    function Activate() {
-    }
+    function Activate() {}
   }
 })();
