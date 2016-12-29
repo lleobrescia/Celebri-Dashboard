@@ -43,3 +43,34 @@ html {
 .ng-enter.ng-enter-active {
   opacity: 1;
 }
+
+p {
+  margin-bottom: 16px;
+}
+
+.dashboard__content {
+  border-radius: 4px;
+  margin-bottom: 16px;
+  -webkit-transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
+  transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
+  position: relative;
+  padding-bottom: 0;
+}
+
+.carregando {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.71);
+  top: 0;
+  left: 0;
+  color: white;
+  z-index: 9;
+  text-align: center;
+  font-size: 2em;
+}
+
+.carregando .fa {
+  position: relative;
+  top: 25%;
+}
