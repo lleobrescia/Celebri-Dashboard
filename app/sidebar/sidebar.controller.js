@@ -25,16 +25,16 @@
         type: 'toggle',
         pages: [{
             name: 'Configurar',
-            state: 'pagamento',
+            state: 'configurarConvite',
             type: 'link'
           }, {
             name: 'Save the Date',
-            state: 'pagamento',
+            state: 'savethedate',
             type: 'link'
           },
           {
             name: 'Enviar',
-            state: 'pagamento',
+            state: 'enviarConvite',
             type: 'link'
           }
         ]
@@ -44,26 +44,31 @@
         type: 'toggle',
         pages: [{
             name: 'Recepção',
-            state: 'pagamento',
+            state: 'recepcao',
             type: 'link'
           }, {
             name: 'Dicas de Hotel',
-            state: 'pagamento',
+            state: 'hotel',
             type: 'link'
           },
           {
             name: 'Dicas de Salão de Beleza',
-            state: 'pagamento',
+            state: 'salao',
             type: 'link'
           },
           {
             name: 'Lista de Presentes',
-            state: 'pagamento',
+            state: 'presentes',
             type: 'link'
           },
           {
             name: 'Cardápio',
-            state: 'pagamento',
+            state: 'cardapio',
+            type: 'link'
+          },
+          {
+            name: 'Cotas de Lua de Mel',
+            state: 'cotas',
             type: 'link'
           }
         ]
@@ -73,17 +78,17 @@
         type: 'toggle',
         pages: [{
           name: 'Cadastrar',
-          state: 'pagamento',
+          state: 'cadastrarConvidados',
           type: 'link'
         }, {
           name: 'Confirmados',
-          state: 'pagamento',
+          state: 'convidadosConfirmados',
           type: 'link'
         }]
       },
       {
         name: 'Estatisticas',
-        state: 'pagamento',
+        state: 'estatisticas',
         type: 'link'
       }
     ];
