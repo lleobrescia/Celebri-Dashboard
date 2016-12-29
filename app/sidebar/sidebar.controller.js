@@ -9,6 +9,7 @@
 
   function SidebarController() {
     var vm = this;
+
     vm.menu = [{
         name: 'Pagamento',
         state: 'pagamento',
@@ -86,14 +87,29 @@
         type: 'link'
       }
     ];
+    vm.openedSection = null;
+
+    vm.IsSectionSelected = IsSectionSelected;
+    vm.Sair = Sair;
+    vm.ToggleSection = ToggleSection;
 
     Activate();
 
     ////////////////
 
-    function Activate() {
+    function Activate() {}
 
-      console.log(vm.menu);
+    function IsSectionSelected(section) {
+      return vm.openedSection === section;
     }
+
+    function Sair() {
+      // TODO:Sair
+    }
+
+    function ToggleSection(section) {
+      vm.openedSection = (vm.openedSection === section ? null : section);
+    }
+
   }
 })();

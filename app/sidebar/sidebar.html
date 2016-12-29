@@ -1,23 +1,30 @@
-<div ng-controller="SidebarController as sidebar" style="height:100%">
-  <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" style="height:100%">
-    <md-toolbar class="md-theme-indigo">
-      <h1 class="md-toolbar-tools">Sidenav Left</h1>
-    </md-toolbar>
-    <md-content layout-padding role="navigation">
-
+<div class="sidebar" ng-controller="SidebarController as sidebar" style="height:100%">
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" md-whiteframe="4" style="height:100%">
+    <div class="nav-header">
+      <img src="image/celebri.png" alt="Celebri">
+      <span ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu">Olá, Leo 
+        <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':$scope.userMenu}"></span>
+      </span>
+      <ul class="user__menu" ng-show="$scope.userMenu">
+        <li>
+          <a rel="nofollow" title="Sair">Sair</a>
+        </li>
+      </ul>
+    </div>
+    <md-content role="navigation">
       <ul class="side-menu">
-        <li ng-repeat="section in sidebar.menu" class="parent-list-item" ng-class="">
-          <md-button ui-sref-active="active" ui-sref="{{section.state}}" ng-click="" ng-if="section.type === 'link'">
+        <li ng-repeat="section in sidebar.menu" class="parent-list-item">
+          <md-button ui-sref-active="active" ui-sref="{{section.state}}" ng-if="section.type === 'link'">
             {{section.name}}
           </md-button>
           <div ng-if="section.type === 'toggle'">
-            <md-button class="md-button-toggle" ng-click="" aria-controls="" flex layout="row" aria-expanded="">
+            <md-button class="md-button-toggle" ng-click="sidebar.ToggleSection(section)" aria-controls="docs-menu-{{section.name | nospace}}" flex layout="row" aria-expanded="sidebar.IsSectionSelected(section)">
               {{section.name}}
-              <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class=""></span>
+              <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':sidebar.IsSectionSelected(section)}"></span>
             </md-button>
-            <ul id="" class="menu-toggle-list">
+            <ul id="docs-menu-{{section.name | nospace}}" class="menu-toggle-list" ng-show="sidebar.IsSectionSelected(section)">
               <li ng-repeat="page in section.pages">
-                <md-button ui-sref-active="active" ui-sref="{{page.state}}" ng-click="" ng-if="page.type === 'link'">
+                <md-button ui-sref-active="active" ui-sref="{{page.state}}" ng-if="page.type === 'link'">
                   {{page.name}}
                 </md-button>
               </li>
