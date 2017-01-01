@@ -50,7 +50,7 @@
         cache: false,
         templateUrl: 'app/convite/date/save-date.html',
         controller: 'SaveDateController',
-        controllerAs: 'Save',
+        controllerAs: 'save',
         title: '- Save the Date'
       })
       .state('enviarConvite', {

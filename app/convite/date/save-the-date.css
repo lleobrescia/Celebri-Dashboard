@@ -1,0 +1,7 @@
+.save .md-whiteframe-1dp {
+  cursor: pointer;
+}
+
+.save .selected {
+  border: solid red;
+} 
