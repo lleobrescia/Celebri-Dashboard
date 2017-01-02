@@ -96,9 +96,9 @@
       .state('cardapio', {
         url: '/evento/cardapio',
         cache: false,
-        templateUrl: 'app/evento/cardapio/evento.html',
-        controller: 'EventoController',
-        controllerAs: 'evento',
+        templateUrl: 'app/evento/cardapio/cardapio.html',
+        controller: 'CardapioController',
+        controllerAs: 'cardapio',
         title: '- Cardápio'
       })
       .state('cotas', {
