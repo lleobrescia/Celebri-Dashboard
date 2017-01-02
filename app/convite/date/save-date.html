@@ -46,9 +46,6 @@
     <md-button class="md-raised md-primary" ng-click="save.Enviar()">Enviar</md-button>
   </div>
   <md-list ng-cloak style="max-height: 500px; overflow: auto">
-    <div flex-xs flex="50">
-
-    </div>
     <md-list-item ng-repeat="convidado in save.convidados">
       <md-checkbox aria-label="Selecionar" ng-checked="save.ListManager.Exists(convidado,save.selecionados)" ng-click="save.ListManager.Toggle(convidado,save.selecionados)"></md-checkbox>
       <div class="md-list-item-text">
