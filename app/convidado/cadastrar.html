@@ -1,0 +1,74 @@
+<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Cadastrar Convidados
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <p>Para enviarmos os convites virtuais, você deve cadastrar seus convidados, informando o nome de cada um, o respectivo e-mail e o número de acompanhantes.</p>
+    <p>Lembre-se que o convidado pode ter um ou mais acompanhantes. Por exemplo, ao convidar o João e sua esposa, basta inserir um acompanhante. Se convidar o João, sua esposa e o filho, deve inserir dois acompanhantes. Assim, o aplicativo convite contemplará
+      o nome do João mais dois campos para colocar o nome dos acompanhantes, que será da escolha do João.</p>
+    <form name="formCardapio">
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="70" required>
+            <label>Convidado(a)</label>
+            <input aria-label="Convidado(a)" type="text" name="local" ng-model="convidados.dados.Convidado.Nome" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex="100" flex-gt-sm="30" required>
+            <label>Núm. de acompanhantes</label>
+            <md-select ng-model="convidados.dados.Convidado.Qtde_Acompanhantes">
+              <md-option value="0">
+                0
+              </md-option>
+              <md-option value="1">
+                1
+              </md-option>
+              <md-option value="2">
+                2
+              </md-option>
+              <md-option value="3">
+                3
+              </md-option>
+              <md-option value="4">
+                4
+              </md-option>
+              <md-option value="5">
+                5
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex="100" required>
+            <label>E-mail</label>
+            <input aria-label="E-mail" type="email" name="email" ng-model="convidados.dados.Convidado.Email" required>
+          </md-input-container>
+        </div>
+
+      <div layout="row" layout-wrap>
+        <md-button class="md-raised md-primary" flex ng-click="convidados.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
+      </div>
+    </form>
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Convidados Cadastrados
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-list ng-cloak style="max-height: 500px; overflow: auto">
+    <md-list-item ng-repeat="pessoa in convidados.pessoas">
+      <div class="md-list-item-text">
+        <h3>{{pessoa.Nome}}</h3>
+        <p>{{pessoa.Email}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</section>
