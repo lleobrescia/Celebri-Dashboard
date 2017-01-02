@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -114,7 +114,7 @@
         cache: false,
         templateUrl: 'app/convidado/cadastrar.html',
         controller: 'CadastrarConvidadoController',
-        controllerAs: 'convidados', 
+        controllerAs: 'convidados',
         title: '- Cadastrar Convidados'
       })
       .state('convidadosConfirmados', {
