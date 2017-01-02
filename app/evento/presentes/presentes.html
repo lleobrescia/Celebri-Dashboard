@@ -1,0 +1,52 @@
+<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Lista de Presentes
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <p>Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento.</p>
+    <form name="formCardapio">
+      <div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="50" required>
+            <label>Nome da loja</label>
+            <input aria-label="Nome da loja" type="text" name="local" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Nome" required>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="50" required>
+            <label>URL da loja</label>
+            <input type="url" aria-label="URL da loja" name="site" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Url" style="text-transform: uppercase;" required http-prefix>
+          </md-input-container>
+        </div>
+
+      </div>
+
+      <div layout="row" layout-wrap>
+        <md-button class="md-raised md-primary" flex ng-click="presentes.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
+      </div>
+    </form>
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Lojas Cadastradas
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-list ng-cloak style="max-height: 500px; overflow: auto">
+    <md-list-item ng-repeat="loja in presentes.presentes">
+      <div class="md-list-item-text">
+        <h3>{{loja.Nome}}</h3>
+        <p>{{loja.Url}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</section>
