@@ -103,7 +103,7 @@
         if (resp.ArrayOfConvidado.Convidado.length > 1) {
           vm.convidados = resp.ArrayOfConvidado.Convidado;
         } else {
-          vm.convidados = resp.ArrayOfConvidado;
+          vm.convidados.push(resp.ArrayOfConvidado.Convidado);
         }
 
         delete vm.convidados['@xmlns'];
