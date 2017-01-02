@@ -1,0 +1,104 @@
+<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Cadastrar Salão de Beleza
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <p>Você pode indicar alguns salões de beleza para o conforto de suas convidadas:</p>
+    <form name="formSalao">
+      <div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="80" required>
+            <label>Nome do Salão de Beleza</label>
+            <input aria-label="Nome do Salão" type="text" name="local" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Nome" required>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20">
+            <label>CEP</label>
+            <input aria-label="CEP" type="text" name="cep" mask="99.999-999" ng-model="$scope.cep">
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="80" required>
+            <label>Endereço</label>
+            <input aria-label="Endereço" type="text" name="end" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Endereco" required>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Número</label>
+            <input type="text" name="numero" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Numero" required>
+
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Bairro</label>
+            <input type="text" name="bairro" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Bairro" required>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Cidade</label>
+            <input type="text" name="cidade" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Cidade" required>
+
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Estado</label>
+            <input type="text" name="estado" maxlength="2" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Estado" style="text-transform: uppercase;" required>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Telefone</label>
+            <input type="text" name="tel" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Telefone" required mask="(99) 9? 9999-9999">
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>E-mail</label>
+            <input type="email" name="email" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Email" required>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Site</label>
+            <input type="url" name="site" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Site" style="text-transform: uppercase;" required http-prefix>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Tracar_rota_local" ng-false-value="'false'" ng-true-value="'true'">
+            Traçar rota até o local
+          </md-switch>
+        </div>
+      </div>
+
+      <div layout="row" layout-wrap>
+        <md-button class="md-raised md-primary" flex ng-click="salao.Adicionar()" ng-disabled="formSalao.$invalid">Adicionar</md-button>
+      </div>
+    </form>
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Salões de Beleza Cadastrados
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-list ng-cloak style="max-height: 500px; overflow: auto">
+    <md-list-item ng-repeat="salao in salao.saloes">
+      <div class="md-list-item-text">
+        <h3>{{salao.Nome}}</h3>
+      </div>
+    </md-list-item>
+  </md-list>
+</section>
