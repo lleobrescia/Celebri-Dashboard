@@ -66,11 +66,11 @@
             state: 'cardapio',
             type: 'link'
           },
-          {
-            name: 'Cotas de Lua de Mel',
-            state: 'cotas',
-            type: 'link'
-          }
+          // {
+          //   name: 'Cotas de Lua de Mel',
+          //   state: 'cotas',
+          //   type: 'link'
+          // }
         ]
       },
       {

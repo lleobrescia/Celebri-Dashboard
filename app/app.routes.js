@@ -114,14 +114,14 @@
         cache: false,
         templateUrl: 'app/convidado/cadastrar.html',
         controller: 'CadastrarConvidadoController',
-        controllerAs: 'convidado',
+        controllerAs: 'convidados', 
         title: '- Cadastrar Convidados'
       })
       .state('convidadosConfirmados', {
-        url: '/convidados/confirmados',
+        url: '/convidado/confirmados',
         cache: false,
-        templateUrl: 'app/convidados/confirmados.html',
-        controller: 'ConvidadosConfirmadosontroller',
+        templateUrl: 'app/convidado/confirmados.html',
+        controller: 'ConvidadosConfirmadosController',
         controllerAs: 'convidados',
         title: '- Convidados Confirmados'
       })

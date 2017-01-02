@@ -13,6 +13,7 @@
 
     vm.dados = {
       'ConfiguracaoLojaPresentes ': {
+        '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         'Id': 0,
         'Id_usuario_logado': ID,
         'Nome': '',
