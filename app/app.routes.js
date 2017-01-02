@@ -25,8 +25,8 @@
         url: '/pagamento',
         cache: false,
         templateUrl: 'app/pagamento/pagamento.html',
-        controller: 'Pagamentoontroller',
-        controllerAs: 'pagamento',
+        controller: 'PagamentoController',
+        controllerAs: 'pgto',
         title: '- Pagamento'
       })
       .state('casal', {
