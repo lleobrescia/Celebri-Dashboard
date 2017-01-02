@@ -1,6 +1,7 @@
 .vscode/
 node_modules/
 css/
-js/
+js/dashboard.js
+js/dashboard.min.js
 jsconfig.json
 debug.log
