@@ -51,13 +51,11 @@
       serverService.Request('ConfigAdicionalEvento_ListaHoteis', dados).then(function(resp) {
         GetDados();
       });
-
-      console.log(dados);
     }
 
     function Excluir() {
       var lista = {
-        'ListaRegistrosExcluir ': {
+        'ListaRegistrosExcluir': {
           '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
           'Id_casal': ID,
           'Id_registro': {
@@ -74,10 +72,7 @@
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        vm.hoteis = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco ;
-        console.log(resp);
-        console.log( vm.hoteis);
-
+        vm.hoteis = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
       });
     }
   }

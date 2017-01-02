@@ -7,31 +7,31 @@
     </div>
   </md-toolbar>
 
-  <md-content flex layout-padding ng-init="$scope.hasChange = false">
+  <md-content flex layout-padding>
+    <p>Indique aqui alguns hotéis da cidade para os seus convidados se hospedarem:</p>
     <form name="formHotel">
-
       <div>
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="80" required>
             <label>Nome do Hotel</label>
-            <input aria-label="Nome do Hotel" type="text" name="local" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Nome" required ng-change="$scope.hasChange = true">
+            <input aria-label="Nome do Hotel" type="text" name="local" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Nome" required>
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20">
             <label>CEP</label>
-            <input aria-label="CEP" type="text" name="cep" ng-model="hotel.dados.Cep" mask="99.999-999" ng-change="$scope.hasChange = true">
+            <input aria-label="CEP" type="text" name="cep" ng-model="$scope.cep" mask="99.999-999">
           </md-input-container>
         </div>
 
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="80" required>
             <label>Endereço</label>
-            <input aria-label="Endereço" type="text" name="end" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Endereco" required ng-change="$scope.hasChange = true">
+            <input aria-label="Endereço" type="text" name="end" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Endereco" required>
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Número</label>
-            <input type="text" name="numero" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Numero" required ng-change="$scope.hasChange = true">
+            <input type="text" name="numero" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Numero" required>
 
           </md-input-container>
         </div>
@@ -39,53 +39,53 @@
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="40" required>
             <label>Bairro</label>
-            <input type="text" name="bairro" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Bairro" required ng-change="$scope.hasChange = true">
+            <input type="text" name="bairro" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Bairro" required>
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="40" required>
             <label>Cidade</label>
-            <input type="text" name="cidade" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Cidade" required ng-change="$scope.hasChange = true">
+            <input type="text" name="cidade" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Cidade" required>
 
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Estado</label>
-            <input type="text" name="estado" maxlength="2" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Estado" style="text-transform: uppercase;" required ng-change="$scope.hasChange = true">
+            <input type="text" name="estado" maxlength="2" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Estado" style="text-transform: uppercase;" required>
           </md-input-container>
         </div>
 
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="40" required>
             <label>Telefone</label>
-            <input type="text" name="tel" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Telefone" required ng-change="$scope.hasChange = true" mask="(99) 9? 9999-9999">
+            <input type="text" name="tel" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Telefone" required mask="(99) 9? 9999-9999">
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="40" required>
             <label>E-mail</label>
-            <input type="email" name="email" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Email" required ng-change="$scope.hasChange = true">
+            <input type="email" name="email" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Email" required>
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Site</label>
-            <input type="url" name="site" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Site" style="text-transform: uppercase;" required ng-change="$scope.hasChange = true" http-prefix>
+            <input type="url" name="site" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Site" style="text-transform: uppercase;" required http-prefix>
           </md-input-container>
         </div>
 
         <div layout="row" layout-wrap>
-          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Tracar_rota_local" ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Tracar_rota_local" ng-false-value="'false'" ng-true-value="'true'">
             Traçar rota até o local
           </md-switch>
         </div>
       </div>
 
-      <div layout="row" layout-wrap ng-show="$scope.hasChange">
+      <div layout="row" layout-wrap>
         <md-button class="md-raised md-primary" flex ng-click="hotel.Adicionar()" ng-disabled="formHotel.$invalid">Adicionar</md-button>
       </div>
     </form>
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1" ng-init="$scope.hasChange = false">
+<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
