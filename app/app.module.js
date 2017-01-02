@@ -6,6 +6,7 @@
     'ngAria', //angular aria
     'ngMessages', //angular messages
     'ui.router', //ui router
-    'ngMask' //Mascara dos inputs
+    'ngMask', //Mascara dos inputs
+    'ngMdIcons' //material icons
   ]);
 })();
