@@ -73,3 +73,18 @@ a {
   position: relative;
   top: 25%;
 }
+
+.md-toolbar-tools md-checkbox {
+  margin-bottom: 0
+}
+
+md-checkbox.white:not(.md-checked) .md-icon {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.md-toolbar-tools input {
+  border-color: white;
+  color: white;
+  top: 15px;
+  position: relative;
+}
