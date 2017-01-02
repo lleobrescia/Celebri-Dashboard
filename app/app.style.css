@@ -20,12 +20,7 @@ html {
   font-family: 'Roboto';
 }
 
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
@@ -46,6 +41,10 @@ html {
 
 p {
   margin-bottom: 16px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .dashboard__content {
