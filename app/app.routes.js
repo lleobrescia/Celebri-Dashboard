@@ -38,12 +38,12 @@
         title: '- Dados do Casal'
       })
       .state('configurarConvite', {
-        url: '/convite/configurar',
+        url: '/convite/cerimonia',
         cache: false,
-        templateUrl: 'app/convite/configurar/configurar.html',
-        controller: 'ConfigurarConviteController',
-        controllerAs: 'convite',
-        title: '- Configurar Convite'
+        templateUrl: 'app/convite/cerimonia/cerimonia.html',
+        controller: 'CerimoniaController',
+        controllerAs: 'cerimonia',
+        title: '- Cerimônia'
       })
       .state('savethedate', {
         url: '/save-the-date',
