@@ -20,10 +20,10 @@
     .module('dashboard')
     .controller('SaveDateController', SaveDateController);
 
-  SaveDateController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  SaveDateController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function SaveDateController(serverService, conversorService, ListManagerService) {
-    const ID = 34;
+  function SaveDateController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.carregando = true;

@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('ConvidadosConfirmadosController', ConvidadosConfirmadosController);
 
-  ConvidadosConfirmadosController.inject = ['serverService', 'conversorService'];
+  ConvidadosConfirmadosController.inject = ['serverService', 'conversorService', 'session'];
 
-  function ConvidadosConfirmadosController(serverService, conversorService) {
-    const ID = 1;
+  function ConvidadosConfirmadosController(serverService, conversorService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     Activate();

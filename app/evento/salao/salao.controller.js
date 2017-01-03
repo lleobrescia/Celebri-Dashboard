@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('SalaoController', SalaoController);
 
-  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function SalaoController(serverService, conversorService, ListManagerService) {
-    const ID = 1;
+  function SalaoController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.dados = {

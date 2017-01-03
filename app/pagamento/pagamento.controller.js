@@ -1,14 +1,14 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('PagamentoController', PagamentoController);
 
-  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo'];
+  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo', 'session'];
 
-  function PagamentoController(serverService, conversorService, Cielo) {
-    const ID = 1;
+  function PagamentoController(serverService, conversorService, Cielo, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.cartao = {
@@ -45,8 +45,8 @@
     ////////////////
 
     function Activate() {
-      $(document).ready(function () {
-        $('.cartao').validateCreditCard(function (result) {
+      $(document).ready(function() {
+        $('.cartao').validateCreditCard(function(result) {
           var cardName = null;
 
           try {
@@ -90,7 +90,7 @@
       };
 
       var xml = conversorService.Json2Xml(dado, '');
-      serverService.Request('AtualizarStatusPagamentoCelebri', xml).then(function (resp) {
+      serverService.Request('AtualizarStatusPagamentoCelebri', xml).then(function(resp) {
 
       });
     }
@@ -99,7 +99,7 @@
       var vencimento = vm.cartao.validade.split('/');
       vencimento = '20' + vencimento[1] + vencimento[0];
 
-      Cielo.Send(vm.cartao.numero, vencimento, vm.cartao.codigo, vm.cartao.bandeira).then(function (resp) {
+      Cielo.Send(vm.cartao.numero, vencimento, vm.cartao.codigo, vm.cartao.bandeira).then(function(resp) {
         var aprovado = 'false';
         var status = '';
         var codigo = 0;
@@ -145,7 +145,7 @@
 
     function RegistrarNotaFiscal() {
       var xml = conversorService.Json2Xml(vm.fiscal, '');
-      serverService.Request('CadastrarDadosNotaFiscal', xml).then(function (resp) {
+      serverService.Request('CadastrarDadosNotaFiscal', xml).then(function(resp) {
 
       });
     }
@@ -162,7 +162,7 @@
       };
 
       var xml = conversorService.Json2Xml(dado, '');
-      serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {
+      serverService.Request('RegistrarPagamentoCelebri', xml).then(function(resp) {
 
       });
     }

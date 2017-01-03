@@ -1,13 +1,14 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('EnviarConviteController', EnviarConviteController);
 
-  EnviarConviteController.inject = ['serverService', 'conversorService', 'ListManagerService'];
-  function EnviarConviteController(serverService, conversorService, ListManagerService) {
-    const ID = 34;
+  EnviarConviteController.inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
+
+  function EnviarConviteController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.convidados = [];
@@ -36,7 +37,7 @@
       };
       var xml = null;
 
-      angular.forEach(vm.selecionados, function (selecionado) {
+      angular.forEach(vm.selecionados, function(selecionado) {
         lista.ListaEmailConvidados.Id_convidado.int.push({
           '@xmlns': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays',
           '#text': selecionado.Id
@@ -44,13 +45,13 @@
       });
       xml = conversorService.Json2Xml(lista, '');
 
-      serverService.Request('EnvioEmailConvite', xml).then(function (resp) {
+      serverService.Request('EnvioEmailConvite', xml).then(function(resp) {
         GetDados();
       });
     }
 
     function GetDados() {
-      serverService.Get('RetornarConvidados', ID).then(function (resp) {
+      serverService.Get('RetornarConvidados', ID).then(function(resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
         if (resp.ArrayOfConvidado.Convidado.length > 1) {

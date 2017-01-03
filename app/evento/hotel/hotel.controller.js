@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('HotelController', HotelController);
 
-  HotelController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  HotelController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function HotelController(serverService, conversorService, ListManagerService) {
-    const ID = 1;
+  function HotelController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.dados = {

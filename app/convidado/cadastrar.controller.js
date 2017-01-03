@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('CadastrarConvidadoController', CadastrarConvidadoController);
 
-  CadastrarConvidadoController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  CadastrarConvidadoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function CadastrarConvidadoController(serverService, conversorService, ListManagerService) {
-    const ID = 1;
+  function CadastrarConvidadoController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.pessoas = [];

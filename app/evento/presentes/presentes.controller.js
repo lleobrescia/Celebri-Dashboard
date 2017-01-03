@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('PresentesController', PresentesController);
 
-  PresentesController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  PresentesController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function PresentesController(serverService, conversorService, ListManagerService) {
-    const ID = 1;
+  function PresentesController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.dados = {

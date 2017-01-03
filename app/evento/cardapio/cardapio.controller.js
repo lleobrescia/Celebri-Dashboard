@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('CardapioController', CardapioController);
 
-  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService'];
+  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
 
-  function CardapioController(serverService, conversorService, ListManagerService) {
-    const ID = 1;
+  function CardapioController(serverService, conversorService, ListManagerService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.dados = {

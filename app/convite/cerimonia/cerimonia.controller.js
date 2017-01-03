@@ -5,10 +5,10 @@
     .module('dashboard')
     .controller('CerimoniaController', CerimoniaController);
 
-  CerimoniaController.$inject = ['serverService', 'conversorService'];
+  CerimoniaController.$inject = ['serverService', 'conversorService', 'session'];
 
-  function CerimoniaController(serverService, conversorService) {
-    const ID = 34;
+  function CerimoniaController(serverService, conversorService, session) {
+    const ID = session.user.id;
     var vm = this;
 
     vm.carregando = true;

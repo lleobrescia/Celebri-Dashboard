@@ -16,10 +16,10 @@
     .module('dashboard')
     .controller('RecepcaoController', RecepcaoController);
 
-  RecepcaoController.$inject = ['serverService', 'conversorService'];
+  RecepcaoController.$inject = ['serverService', 'conversorService', 'session'];
 
-  function RecepcaoController(serverService, conversorService) {
-    const ID = 1;
+  function RecepcaoController(serverService, conversorService, session) {
+    const ID = session.user.id;
     var dadosAux = {
       'ConfiguracaoEvento': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
