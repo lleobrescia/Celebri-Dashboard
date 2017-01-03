@@ -66,6 +66,9 @@
         vm.dados = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
         var horario = vm.dados.ConfiguracaoConvite.Horario_cerimonia.split(":");
 
+        session.user.cerimonia = vm.dados;
+        session.SaveState();
+
         vm.hora = horario[0];
         vm.min = horario[1];
 
@@ -76,6 +79,10 @@
     function SetDados() {
       vm.dados.ConfiguracaoConvite.Horario_cerimonia = vm.hora + ':' + vm.min;
       var dados = conversorService.Json2Xml(vm.dados, '');
+
+      session.user.cerimonia = vm.dados;
+      session.SaveState();
+
       serverService.Request('ConfiguracaoConvite', dados).then(function(resp) {});
     }
   }

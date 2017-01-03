@@ -6,7 +6,7 @@
 
   Run.$inject = ['$rootScope', '$state', 'session'];
 
-  function Run($rootScope, $state) {
+  function Run($rootScope, $state,session) {
     $rootScope.$on('$stateChangeSuccess', ChangeSuccess);
     $rootScope.$on('$stateChangeStart', ChangeStart);
 

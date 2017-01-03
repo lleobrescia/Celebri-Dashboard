@@ -9,7 +9,8 @@
 
   function session($rootScope) {
     var padrao = {
-      id: 34, // escola de exemplo.
+      id: 34,
+      cerimonia : []
     };
 
     var service = {
