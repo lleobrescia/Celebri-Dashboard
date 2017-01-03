@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -37,13 +37,21 @@
         controllerAs: 'casal',
         title: '- Dados do Casal'
       })
-      .state('configurarConvite', {
+      .state('cerimonia', {
         url: '/convite/cerimonia',
         cache: false,
         templateUrl: 'app/convite/cerimonia/cerimonia.html',
         controller: 'CerimoniaController',
         controllerAs: 'cerimonia',
         title: '- Cerimônia'
+      })
+      .state('convite', {
+        url: '/convite/escolher-convite',
+        cache: false,
+        templateUrl: 'app/convite/convite.html',
+        controller: 'ConviteController',
+        controllerAs: 'convite',
+        title: '- Escolha de Convite'
       })
       .state('savethedate', {
         url: '/save-the-date',

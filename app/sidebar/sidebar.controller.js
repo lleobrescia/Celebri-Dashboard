@@ -25,7 +25,7 @@
         type: 'toggle',
         pages: [{
             name: 'Configurar',
-            state: 'configurarConvite',
+            state: 'cerimonia',
             type: 'link'
           }, {
             name: 'Save the Date',
