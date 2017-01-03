@@ -48,7 +48,7 @@
       .state('convite', {
         url: '/convite/escolher-convite',
         cache: false,
-        templateUrl: 'app/convite/convite.html',
+        templateUrl: 'app/convite/selecao/convite.html',
         controller: 'ConviteController',
         controllerAs: 'convite',
         title: '- Escolha de Convite'
