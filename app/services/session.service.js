@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -10,7 +10,18 @@
   function session($rootScope) {
     var padrao = {
       id: 34,
-      cerimonia : []
+      casal: {
+        'nomeNoivo': '',
+        'nomeNoiva': '',
+        'generoNoiva': 'F',
+        'generoNoivo': 'M',
+        'urlFoto': '',
+        'emailUsuario': '',
+        'senhaApp': '',
+        'dataCasamento': ''
+      },
+      cerimonia: [],
+      convite: []
     };
 
     var service = {
