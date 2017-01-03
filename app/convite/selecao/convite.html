@@ -35,10 +35,11 @@
       </h2>
       <span flex></span>
       <md-button ng-click="convite.hasConfig = false">Alterar Modelo</md-button>
-      <md-button ui-sref="cerimonia">Editar</md-button>
+      <md-button ui-sref="cerimonia" ng-disabled="!convite.editionEnable">Editar</md-button>
     </div>
   </md-toolbar>
   <md-content style="padding:30px 0;">
+    <p layout-padding ng-hide="convite.editionEnable">Não é possível editar o convite depois de enviado.</p>
     <div id="Convite" class="convite_wrapper mostrar_convite">
 
       <img ng-src="{{convite.imageSelected}}" alt="">

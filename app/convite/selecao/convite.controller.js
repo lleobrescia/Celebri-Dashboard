@@ -58,6 +58,7 @@
       }
     };
     vm.dialogUp = false;
+    vm.editionEnable = true;
     vm.fonts = [];
     vm.hasConfig = false;
     vm.idConvite = 0;
@@ -112,11 +113,23 @@
     ////////////////
 
     function Activate() {
+      CheckSend();
       GetDados();
     }
 
+    function CheckSend() {
+      serverService.Get('RetornarConvidadosConfirmados', ID).then(function (resp) {
+        resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+        var pessoas = resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados;
+
+        if (pessoas !== undefined) {
+          vm.editionEnable = false;
+        }
+      });
+    }
+
     function GetDados() {
-      serverService.Get('RetornarFormatacaoConvite', 1).then(function (resp) {
+      serverService.Get('RetornarFormatacaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
         //salva os dados localmente
