@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('dashboard', [
@@ -7,6 +7,7 @@
     'ngMessages', //angular messages
     'ui.router', //ui router
     'ngMask', //Mascara dos inputs
-    'ngMdIcons' //material icons
+    'ngMdIcons', //material icons
+    'ngSanitize'
   ]);
 })();
