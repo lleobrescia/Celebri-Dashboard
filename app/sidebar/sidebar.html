@@ -1,4 +1,4 @@
-<div class="sidebar" ng-controller="SidebarController as sidebar" style="height:100%">
+<div class="sidebar" ng-controller="SidebarController as sidebar" style="height:100%" ng-hide="$root.isLogin">
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" md-whiteframe="4" style="height:100%">
     <div class="nav-header">
       <img src="image/celebri.png" alt="Celebri">
@@ -7,7 +7,7 @@
       </span>
       <ul class="user__menu" ng-show="$scope.userMenu">
         <li>
-          <a rel="nofollow" title="Sair">Sair</a>
+          <a rel="nofollow" title="Sair" ng-click="sidebar.Sair()">Sair</a>
         </li>
       </ul>
     </div>

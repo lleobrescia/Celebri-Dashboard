@@ -11,7 +11,29 @@
     $rootScope.$on('$stateChangeStart', ChangeStart);
 
     function ChangeStart(event, toState, toParams, fromState, fromParams) {
+      var userAuthenticated = false;
       session.RestoreState();
+
+      if (session.user.id) {
+        userAuthenticated = true;
+      }
+
+      if (!userAuthenticated && !toState.isLogin) {
+        event.preventDefault();
+        $state.go('login');
+      }
+
+      if (toState.name === 'login') {
+
+        $rootScope.isLogin = true;
+
+        if (userAuthenticated) {
+          event.preventDefault();
+          $state.go('casal');
+        }
+      } else {
+        $rootScope.isLogin = false;
+      }
     }
 
     function ChangeSuccess() {

@@ -8,7 +8,7 @@
   RouteConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
 
   function RouteConfig($stateProvider, $locationProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/login');
     $locationProvider.html5Mode(true);
 
     $stateProvider

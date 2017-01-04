@@ -1,97 +1,86 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('SidebarController', SidebarController);
 
-  SidebarController.$inject = [];
+  SidebarController.$inject = ['session', '$state'];
 
-  function SidebarController() {
+  function SidebarController(session, $state) {
     var vm = this;
 
     vm.menu = [{
-        name: 'Pagamento',
-        state: 'pagamento',
+      name: 'Pagamento',
+      state: 'pagamento',
+      type: 'link'
+    }, {
+      name: 'Casal',
+      state: 'casal',
+      type: 'link'
+    }, {
+      name: 'Convite',
+      type: 'toggle',
+      pages: [{
+        name: 'Configurar',
+        state: 'cerimonia',
         type: 'link'
-      },
-      {
-        name: 'Casal',
-        state: 'casal',
+      }, {
+        name: 'Save the Date',
+        state: 'savethedate',
         type: 'link'
-      },
-      {
-        name: 'Convite',
-        type: 'toggle',
-        pages: [{
-            name: 'Configurar',
-            state: 'cerimonia',
-            type: 'link'
-          }, {
-            name: 'Save the Date',
-            state: 'savethedate',
-            type: 'link'
-          },
-          {
-            name: 'Enviar',
-            state: 'enviarConvite',
-            type: 'link'
-          }
-        ]
-      },
-      {
-        name: 'Evento',
-        type: 'toggle',
-        pages: [{
-            name: 'Recepção',
-            state: 'recepcao',
-            type: 'link'
-          }, {
-            name: 'Dicas de Hotel',
-            state: 'hotel',
-            type: 'link'
-          },
-          {
-            name: 'Dicas de Salão de Beleza',
-            state: 'salao',
-            type: 'link'
-          },
-          {
-            name: 'Lista de Presentes',
-            state: 'presentes',
-            type: 'link'
-          },
-          {
-            name: 'Cardápio',
-            state: 'cardapio',
-            type: 'link'
-          },
-          // {
-          //   name: 'Cotas de Lua de Mel',
-          //   state: 'cotas',
-          //   type: 'link'
-          // }
-        ]
-      },
-      {
-        name: 'Convidados',
-        type: 'toggle',
-        pages: [{
-          name: 'Cadastrar',
-          state: 'cadastrarConvidados',
+      }, {
+        name: 'Enviar',
+        state: 'enviarConvite',
+        type: 'link'
+      }]
+    }, {
+      name: 'Evento',
+      type: 'toggle',
+      pages: [{
+          name: 'Recepção',
+          state: 'recepcao',
           type: 'link'
         }, {
-          name: 'Confirmados',
-          state: 'convidadosConfirmados',
+          name: 'Dicas de Hotel',
+          state: 'hotel',
           type: 'link'
-        }]
-      },
-      {
-        name: 'Estatisticas',
-        state: 'estatisticas',
+        }, {
+          name: 'Dicas de Salão de Beleza',
+          state: 'salao',
+          type: 'link'
+        }, {
+          name: 'Lista de Presentes',
+          state: 'presentes',
+          type: 'link'
+        }, {
+          name: 'Cardápio',
+          state: 'cardapio',
+          type: 'link'
+        },
+        // {
+        //   name: 'Cotas de Lua de Mel',
+        //   state: 'cotas',
+        //   type: 'link'
+        // }
+      ]
+    }, {
+      name: 'Convidados',
+      type: 'toggle',
+      pages: [{
+        name: 'Cadastrar',
+        state: 'cadastrarConvidados',
         type: 'link'
-      }
-    ];
+      }, {
+        name: 'Confirmados',
+        state: 'convidadosConfirmados',
+        type: 'link'
+      }]
+    }, {
+      name: 'Estatisticas',
+      state: 'estatisticas',
+      type: 'link'
+    }];
     vm.openedSection = null;
 
     vm.IsSectionSelected = IsSectionSelected;
@@ -109,7 +98,8 @@
     }
 
     function Sair() {
-      // TODO:Sair
+      session.Remove();
+      $state.go('login');
     }
 
     function ToggleSection(section) {

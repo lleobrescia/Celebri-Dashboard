@@ -88,3 +88,12 @@ md-checkbox.white:not(.md-checked) .md-icon {
   top: 15px;
   position: relative;
 }
+
+.aviso {
+  background: #f15f57;
+}
+
+.aviso p {
+  margin: 0;
+  color: white;
+}

@@ -9,7 +9,6 @@
 
   function session($rootScope) {
     var padrao = {
-      id: 34,
       casal: {
         'nomeNoivo': '',
         'nomeNoiva': '',
@@ -21,7 +20,11 @@
         'dataCasamento': ''
       },
       cerimonia: [],
-      convite: []
+      convite: [],
+      diasCadastros: 0,
+      id: null,
+      pagante: false,
+      usuarioLiberado: false
     };
 
     var service = {
