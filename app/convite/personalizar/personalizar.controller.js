@@ -3,11 +3,11 @@
 
   angular
     .module('dashboard')
-    .controller('ConviteController', ConviteController);
+    .controller('PersonalizarController', PersonalizarController);
 
-  ConviteController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state'];
+  PersonalizarController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state', 'Controlador'];
 
-  function ConviteController(serverService, conversorService, session, $http, $filter, $state) {
+  function PersonalizarController(serverService, conversorService, session, $http, $filter, $state, Controlador) {
     const ID = session.user.id;
     var vm = this;
 
@@ -56,45 +56,10 @@
         'tamanho_nomecasal': '1'
       }
     };
-    vm.dialogUp = false;
     vm.editionEnable = true;
     vm.fonts = [];
-    vm.hasConfig = false;
     vm.idConvite = 0;
     vm.imageSelected = '';
-    vm.thumbs = [{
-      ID: 1,
-      url: 'image/convites/thumb/thumb1.png',
-      nome: 'Laranja'
-    }, {
-      ID: 2,
-      url: 'image/convites/thumb/thumb2.png',
-      nome: 'Arabescos'
-    }, {
-      ID: 3,
-      url: 'image/convites/thumb/thumb3.png',
-      nome: 'Ramos'
-    }, {
-      ID: 4,
-      url: 'image/convites/thumb/thumb4.png',
-      nome: 'Plain'
-    }, {
-      ID: 5,
-      url: 'image/convites/thumb/thumb5.png',
-      nome: 'Orquidea'
-    }, {
-      ID: 6,
-      url: 'image/convites/thumb/thumb6.png',
-      nome: 'Gold'
-    }, {
-      ID: 7,
-      url: 'image/convites/thumb/thumb7.png',
-      nome: 'Floral'
-    }, {
-      ID: 9,
-      url: 'image/convites/thumb/thumb9.png',
-      nome: 'Árvore'
-    }];
     vm.styles = {
       'bloco1': {},
       'bloco2': {},
@@ -104,8 +69,10 @@
       'paisNoivo': {},
       'paisNoiva': {}
     };
+    vm.styleSelected = [];
 
-    vm.SelectConvite = SelectConvite;
+    vm.Controlador = Controlador; //service
+    vm.Salvar = Salvar;
 
     Activate();
 
@@ -127,6 +94,25 @@
       });
     }
 
+    function GetAlignId(align) {
+      var retorno = '';
+      switch (align) {
+        case 'right':
+          retorno = '2';
+          break;
+        case 'left':
+          retorno = '0';
+          break;
+        case 'center':
+          retorno = '1';
+          break;
+        default:
+          retorno = '0';
+          break;
+      }
+      return retorno;
+    }
+
     function GetDados() {
       serverService.Get('RetornarFormatacaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
@@ -136,32 +122,35 @@
         session.SaveState();
 
         //pega o id do modelo do convite
-        vm.idConvite = resp.DadosFormatacaoConvite.id_modelo;
+        if ($state.params.idModelo) {
+          vm.idConvite = $state.params.idModelo;
+        } else {
+          vm.idConvite = resp.DadosFormatacaoConvite.id_modelo;
+        }
 
-        if (vm.idConvite !== '0') {
-          //Pega as configuracoes padrao dos convites
+        //Pega as configuracoes padrao dos convites
+        $http({
+          method: 'GET',
+          url: 'app/convite/convites.json'
+        }).then(function (resp) {
+          vm.convites = resp.data;
+
+          //Pega todas as fonts
           $http({
             method: 'GET',
-            url: 'app/convite/convites.json'
-          }).then(function (resp) {
-            vm.convites = resp.data;
+            url: 'app/convite/fonts.json'
+          }).then(function (data) {
+            vm.fonts = data.data;
 
-            //Pega todas as fonts
-            $http({
-              method: 'GET',
-              url: 'app/convite/fonts.json'
-            }).then(function (data) {
-              vm.fonts = data.data;
+            vm.imageSelected = 'image/convites/convite' + vm.idConvite + '.png';
 
-              vm.imageSelected = 'image/convites/convite' + vm.idConvite + '.png';
-
-              //Personaliza o padrao com as informações do usuario
+            if ($state.params.idModelo) {
+              SetMsg();
+            } else {
               SetStyles();
-            });
+            }
           });
-        } else {
-          vm.carregando = false; //escode o load
-        }
+        });
       });
     }
 
@@ -189,13 +178,59 @@
       }
     }
 
-    function SelectConvite(id, url) {
-      vm.imageSelected = url;
-      vm.idConvite = id;
-      vm.dialogUp = true;
-      $state.go('alunosDetails', {
-        idModelo: id
+    function GetFontID(fontName) {
+      var retorno = null;
+      angular.forEach(vm.fonts, function (value, key) {
+        angular.forEach(vm.fonts[key], function (value, key) {
+          var font = value['font-name'];
+          if (font === fontName) {
+            retorno = key;
+          }
+        });
       });
+      return retorno;
+    }
+
+    function Salvar() {
+      vm.carregando = true;
+
+      vm.dados.DadosFormatacaoConvite.alinhamento_msg1 = GetAlignId(vm.styles.bloco1['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_msg2 = GetAlignId(vm.styles.bloco2['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_msg3 = GetAlignId(vm.styles.bloco3['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_msg4 = GetAlignId(vm.styles.bloco4['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_nomecasal = GetAlignId(vm.styles.nomeCasal['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_pais_noiva = GetAlignId(vm.styles.paisNoivo['text-align']);
+      vm.dados.DadosFormatacaoConvite.alinhamento_pais_noivo = GetAlignId(vm.styles.paisNoiva['text-align']);
+
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_msg1 = $filter('removePx')(vm.styles.bloco1['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_msg2 = $filter('removePx')(vm.styles.bloco2['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_msg3 = $filter('removePx')(vm.styles.bloco3['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_msg4 = $filter('removePx')(vm.styles.bloco4['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_nomecasal = $filter('removePx')(vm.styles.nomeCasal['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_pais_noivo = $filter('removePx')(vm.styles.paisNoivo['font-size']);
+      vm.dados.DadosFormatacaoConvite.tamanho_fonte_pais_noiva = $filter('removePx')(vm.styles.paisNoiva['font-size']);
+
+      vm.dados.DadosFormatacaoConvite.fonte_msg1 = GetFontID(vm.styles.bloco1['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_msg2 = GetFontID(vm.styles.bloco2['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_msg3 = GetFontID(vm.styles.bloco3['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_msg4 = GetFontID(vm.styles.bloco4['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_nomecasal = GetFontID(vm.styles.nomeCasal['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_pais_noivo = GetFontID(vm.styles.paisNoivo['font-family']);
+      vm.dados.DadosFormatacaoConvite.fonte_pais_noiva = GetFontID(vm.styles.paisNoiva['font-family']);
+
+      var dados = conversorService.Json2Xml(vm.dados, '');
+      serverService.Request('FormatacaoConvite', dados).then(function (resp) {
+        vm.carregando = false;
+      });
+    }
+
+    function SetMsg() {
+      vm.dados.DadosFormatacaoConvite.conteudo_pais_noiva = session.user.cerimonia.Pai_noiva + '#' + session.user.cerimonia.Mae_noiva;
+      vm.dados.DadosFormatacaoConvite.conteudo_pais_noiva = session.user.cerimonia.Pai_noivo + '#' + session.user.cerimonia.Mae_noivo;
+      vm.dados.DadosFormatacaoConvite.conteudo_msg1 = 'convidam para a cerimônia de casamento dos seus filhos';
+      vm.dados.DadosFormatacaoConvite.conteudo_msg2 = 'a realizar-se às ' + session.user.cerimonia.Horario_cerimonia + ' horas, dia ' + session.user.casal.dataCasamento + ', ' + session.user.cerimonia.Local_cerimonia;
+      vm.dados.DadosFormatacaoConvite.conteudo_msg3 = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
+      vm.dados.DadosFormatacaoConvite.conteudo_nomecasal = session.user.casal.nomeNoiva + ' &amp; ' + session.user.casal.nomeNoivo;
     }
 
     function SetStyles() {
@@ -238,8 +273,9 @@
       vm.styles.paisNoivo['font-family'] = GetFont(vm.dados.DadosFormatacaoConvite.fonte_pais_noivo);
       vm.styles.paisNoiva['font-family'] = GetFont(vm.dados.DadosFormatacaoConvite.fonte_pais_noiva);
 
+      Controlador.SelectStyle(vm.styles.bloco3); //seleciona o bloco para edicao
+
       vm.carregando = false; //escode o load
-      vm.hasConfig = true; //Mostra o convite configurado
     }
   }
 })();

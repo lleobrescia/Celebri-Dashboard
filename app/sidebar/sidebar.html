@@ -11,14 +11,15 @@
         </li>
       </ul>
     </div>
-    <md-content role="navigation">
+    <md-content role="navigation" ng-hide="$root.personalizar">
       <ul class="side-menu">
         <li ng-repeat="section in sidebar.menu" class="parent-list-item">
           <md-button ui-sref-active="active" ui-sref="{{section.state}}" ng-if="section.type === 'link'">
             {{section.name}}
           </md-button>
           <div ng-if="section.type === 'toggle'">
-            <md-button class="md-button-toggle" ng-click="sidebar.ToggleSection(section)" aria-controls="docs-menu-{{section.name | nospace}}" flex layout="row" aria-expanded="sidebar.IsSectionSelected(section)">
+            <md-button class="md-button-toggle" ng-click="sidebar.ToggleSection(section)" aria-controls="docs-menu-{{section.name | nospace}}"
+              flex layout="row" aria-expanded="sidebar.IsSectionSelected(section)">
               {{section.name}}
               <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':sidebar.IsSectionSelected(section)}"></span>
             </md-button>
@@ -33,5 +34,6 @@
         </li>
       </ul>
     </md-content>
+    <div ng-include="'app/convite/personalizar/sidebar.html'" ng-show="$root.personalizar"></div>
   </md-sidenav>
 </div>

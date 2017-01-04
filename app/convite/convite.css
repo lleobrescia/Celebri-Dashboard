@@ -40,6 +40,11 @@
   line-height: 1;
 }
 
+.bloco.selected {
+  border: solid thin red;
+  outline: none
+}
+
 .mostrar_convite .bloco {
   cursor: default;
 }
@@ -48,6 +53,15 @@ textarea.bloco {
   background: transparent;
   border: none;
 }
+
+.side__convite .selected {
+  background: rgba(63, 81, 181, 0.54);
+}
+
+.side__convite .selected p {
+  color: white !important
+}
+
 
 @media (min-width:1300px) {
   .convite_wrapper {

@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -52,6 +52,14 @@
         controller: 'ConviteController',
         controllerAs: 'convite',
         title: '- Escolha de Convite'
+      })
+      .state('personalizar', {
+        url: '/convite/personalizar-convite',
+        cache: false,
+        templateUrl: 'app/convite/personalizar/personalizar.html',
+        controller: 'PersonalizarController',
+        controllerAs: 'convite',
+        title: '- Personalizar de Convite'
       })
       .state('savethedate', {
         url: '/save-the-date',
