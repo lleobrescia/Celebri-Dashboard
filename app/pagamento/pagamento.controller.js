@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -45,41 +45,36 @@
     ////////////////
 
     function Activate() {
-      try {
-        $(document).ready(function () {
-          $('.cartao').validateCreditCard(function (result) {
-            var cardName = null;
+      $('.cartao').validateCreditCard(function(result) {
+        var cardName = null;
 
-            try {
-              cardName = result.card_type.name;
-            } catch (error) {
-              $('.cartao').css('background-position', '99% 4px');
-            }
+        try {
+          cardName = result.card_type.name;
+        } catch (error) {
+          $('.cartao').css('background-position', '99% 4px');
+        }
 
-            switch (cardName) {
-              case null:
-                $('.cartao').css('background-position', '99% 4px');
-                break;
-              case 'mastercard':
-                $('.cartao').css('background-position', '99% -106px');
-                break;
-              case 'visa':
-                $('.cartao').css('background-position', '99% -31px');
-                break;
-              case 'visa_electron':
-                $('.cartao').css('background-position', '99% -69px');
-                break;
+        switch (cardName) {
+          case null:
+            $('.cartao').css('background-position', '99% 4px');
+            break;
+          case 'mastercard':
+            $('.cartao').css('background-position', '99% -106px');
+            break;
+          case 'visa':
+            $('.cartao').css('background-position', '99% -31px');
+            break;
+          case 'visa_electron':
+            $('.cartao').css('background-position', '99% -69px');
+            break;
 
-              default:
-                $('.cartao').css('background-position', '99% -143px');
-                break;
-            }
-            vm.cartao.bandeira = cardName;
-          });
-        });
-      } catch (error) {
-        $state.reload();
-      }
+          default:
+            $('.cartao').css('background-position', '99% -143px');
+            break;
+        }
+        vm.cartao.bandeira = cardName;
+
+      });
 
     }
 
@@ -95,7 +90,7 @@
       };
 
       var xml = conversorService.Json2Xml(dado, '');
-      serverService.Request('AtualizarStatusPagamentoCelebri', xml).then(function (resp) {
+      serverService.Request('AtualizarStatusPagamentoCelebri', xml).then(function(resp) {
 
       });
     }
@@ -104,7 +99,7 @@
       var vencimento = vm.cartao.validade.split('/');
       vencimento = '20' + vencimento[1] + vencimento[0];
 
-      Cielo.Send(vm.cartao.numero, vencimento, vm.cartao.codigo, vm.cartao.bandeira).then(function (resp) {
+      Cielo.Send(vm.cartao.numero, vencimento, vm.cartao.codigo, vm.cartao.bandeira).then(function(resp) {
         var aprovado = 'false';
         var status = '';
         var codigo = 0;
@@ -150,7 +145,7 @@
 
     function RegistrarNotaFiscal() {
       var xml = conversorService.Json2Xml(vm.fiscal, '');
-      serverService.Request('CadastrarDadosNotaFiscal', xml).then(function (resp) {
+      serverService.Request('CadastrarDadosNotaFiscal', xml).then(function(resp) {
 
       });
     }
@@ -167,7 +162,7 @@
       };
 
       var xml = conversorService.Json2Xml(dado, '');
-      serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {
+      serverService.Request('RegistrarPagamentoCelebri', xml).then(function(resp) {
 
       });
     }

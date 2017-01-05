@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular
@@ -27,15 +27,15 @@
     ////////////////
 
     function Activate() {
+      $rootScope.pagante = true;
       session.Remove();
     }
 
     function Autenticar() {
       vm.carregando = true;
       var xml = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
+      serverService.Request('AutenticacaoNoivos', xml).then(function(resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        console.log(resp);
 
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
           session.user.id = resp.ResultadoAutenticacaoNoivos.Id_usuario_logado;
@@ -65,10 +65,15 @@
           if (!resp.ResultadoAutenticacaoNoivos.Pagamento_realizado) {
             var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro);
 
+            console.log(dias);
+            console.log(resp.ResultadoAutenticacaoNoivos.DataCadastro);
+
             if (dias < 16) {
               session.user.usuarioLiberado = $rootScope.liberado = true;
               session.user.diasCadastros = $rootScope.dias = dias;
               $rootScope.pagante = false;
+              session.SaveState();
+
               GetDataCasamento();
             } else {
               vm.errorMessage = 'Seu período de degustação acabou';
@@ -96,7 +101,7 @@
     }
 
     function GetDataCasamento() {
-      serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function (resp) {
+      serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function(resp) {
         var dados = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
         session.user.casal.dataCasamento = dados.Casal.DataCasamento;
 
@@ -104,7 +109,6 @@
 
         vm.carregando = false;
         $state.go('casal');
-        console.log(session.user);
       });
     }
   }

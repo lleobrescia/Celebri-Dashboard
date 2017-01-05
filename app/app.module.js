@@ -9,5 +9,5 @@
     'ngMask', //Mascara dos inputs
     'ngMdIcons', //material icons
     'ngSanitize'
-  ]);
+  ]); 
 })();

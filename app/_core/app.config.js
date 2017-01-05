@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('dashboard')
@@ -13,6 +13,10 @@
     function ChangeStart(event, toState, toParams, fromState, fromParams) {
       var userAuthenticated = false;
       session.RestoreState();
+
+      $rootScope.pagante = session.user.pagante;
+      $rootScope.dias = session.user.diasCadastros;
+      $rootScope.liberado = session.user.usuarioLiberado;
 
       if (session.user.id) {
         userAuthenticated = true;

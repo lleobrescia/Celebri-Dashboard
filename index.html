@@ -56,14 +56,14 @@
   <![endif]-->
 </head>
 
-<body>
+<body ng-init="$scope.degustacao = true;">
   <section layout="row" flex style="height:100%">
 
     <sidebar></sidebar>
 
-    <md-content flex layout-padding>
-      <div layout="row" layout-align="top center" class="aviso">
-        <p>Seu período de degustação acaba em 15 dias</p>
+    <md-content flex layout-padding >
+      <div layout="row" layout-align="top center" class="aviso" ng-if="!$root.pagante" ng-cloak>
+        <p>Seu período de degustação acaba em {{15 - $root.dias}} dias</p>
       </div>
       <div layout="column" layout-align="top center">
         <div ui-view style="width: 100%"></div>
@@ -71,6 +71,26 @@
     </md-content>
   </section>
 
+  <div class="dialog__bg" ng-cloak ng-if="!$root.pagante && $scope.degustacao">
+    <div role="dialog" class="dialog__content" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Degustação</h2>
+        </div>
+      </md-toolbar>
+
+      <div class="demo-dialog-content">
+        <div layout="row">
+          <p layout-padding>Você tem {{15 - $root.dias}} dias de degustação</p>
+        </div>
+      </div>
+
+      <div layout="row" class="demo-dialog-button">
+        <md-button class="md-raised md-primary" flex="50" md-autofocus ng-click="$scope.degustacao = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
+        <md-button class="md-raised md-primary" flex="50" ng-click="$scope.degustacao = false" ui-sref="casal">Continuar navegação</md-button>
+      </div>
+    </div>
+  </div>
   <script src="js/vendor/jquery.creditCardValidator.js"></script>
   <script src="js/dashboard.min.js"></script>
 </body>

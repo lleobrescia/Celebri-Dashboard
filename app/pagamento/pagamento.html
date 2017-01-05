@@ -2,20 +2,17 @@
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
-        Pagamento
+        Pagamento <span ng-show="$root.pagante">Realizado!</span>
       </h2>
     </div>
   </md-toolbar>
-  <md-content flex layout-padding>
+  <md-content flex layout-padding ng-hide="$root.pagante">
     <p>
-      Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência,
-      para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações do seu casamento/evento
-      para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer momento, bastando voltar
-      nesta página e selecionar o convidado escolhido.
+      Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com antecedência, para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações do seu casamento/evento
+      para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer momento, bastando voltar nesta página e selecionar o convidado escolhido.
     </p>
     <p>
-      Lembramos que os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser
-      feito por meio de cartão de crédito.
+      Lembramos que os convites digitais somente serão enviados após o pagamento da taxa no valor de R$ 185,00, que deverá ser feito por meio de cartão de crédito.
     </p>
     <form name="pagamentoForm">
       <md-input-container class="md-block">
@@ -76,7 +73,14 @@
           <input ng-model="pgto.cartao.codigo" aria-label="Código de Segurança*" type="text" name="codigo" required>
         </md-input-container>
       </div>
-      <md-button class="md-raised md-primary" ng-click="pgto.Pagar()" >Pagar</md-button>
+      <md-button class="md-raised md-primary" ng-click="pgto.Pagar()">Pagar</md-button>
     </form>
+  </md-content>
+  <md-content flex layout-padding ng-show="$root.pagante">
+    <h2>Parabéns!</h2>
+    <p>
+      Você já adquiriu o Celebri.
+    </p>
+
   </md-content>
 </section>
