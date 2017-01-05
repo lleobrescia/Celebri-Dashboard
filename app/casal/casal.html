@@ -51,8 +51,8 @@
         </md-card-title>
         <md-card-content layout="row" layout-align="space-between">
           <div class="md-media-xl card-media upload_foto">
-            <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%">
-
+            <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%" ng-hide="$root.foto === 'NULL'">
+            <ng-md-icon icon="camera_alt" style="fill:#f15f57;" size="100" ng-show="$root.foto === 'NULL'"></ng-md-icon>
             <input type="file" accept="image/*" onchange="angular.element(this).scope().OpenFile(this)">
           </div>
         </md-card-content>

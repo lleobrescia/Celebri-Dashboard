@@ -2,7 +2,8 @@
   <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" md-whiteframe="4" style="height:100%">
     <div class="nav-header">
       <img src="image/celebri.png" alt="Celebri">
-      <span ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu">Olá, Leo 
+      <span ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu">
+        <img ng-src="{{$root.foto}}" alt="Casal" class="user_foto" ng-hide="$root.foto === 'NULL'"> Olá, Leo 
         <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':$scope.userMenu}"></span>
       </span>
       <ul class="user__menu" ng-show="$scope.userMenu">
@@ -18,8 +19,7 @@
             {{section.name}}
           </md-button>
           <div ng-if="section.type === 'toggle'">
-            <md-button class="md-button-toggle" ng-click="sidebar.ToggleSection(section)" aria-controls="docs-menu-{{section.name | nospace}}"
-              flex layout="row" aria-expanded="sidebar.IsSectionSelected(section)">
+            <md-button class="md-button-toggle" ng-click="sidebar.ToggleSection(section)" aria-controls="docs-menu-{{section.name | nospace}}" flex layout="row" aria-expanded="sidebar.IsSectionSelected(section)">
               {{section.name}}
               <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':sidebar.IsSectionSelected(section)}"></span>
             </md-button>
