@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -11,6 +11,7 @@
     var vm = this;
 
     vm.carregando = false;
+    vm.confirmacao = false;
     vm.dados = {
       'Autenticacao': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -18,9 +19,17 @@
         'Senha': ''
       }
     };
+    vm.erro = false; //usadado para avisa ao usuario que nao foi possivel acessar o servidor
     vm.errorMessage = null;
+    vm.recuperar = {
+      'EmailCasal': {
+        '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+        'Email': ''
+      }
+    };
 
     vm.Autenticar = Autenticar;
+    vm.RecuperarSenha = RecuperarSenha;
 
     Activate();
 
@@ -34,7 +43,7 @@
     function Autenticar() {
       vm.carregando = true;
       var xml = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('AutenticacaoNoivos', xml).then(function(resp) {
+      serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
@@ -84,6 +93,10 @@
           vm.errorMessage = resp.ResultadoAutenticacaoNoivos.ErrorMessage;
           vm.carregando = false;
         }
+      }).catch(function (error) {
+        console.error('AutenticacaoNoivos', error);
+        vm.carregando = false;
+        vm.erro = true;
       });
     }
 
@@ -98,7 +111,7 @@
     }
 
     function GetDataCasamento() {
-      serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function(resp) {
+      serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function (resp) {
         var dados = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
         session.user.casal.dataCasamento = dados.Casal.DataCasamento;
 
@@ -106,6 +119,27 @@
 
         vm.carregando = false;
         $state.go('casal');
+      });
+    }
+
+    function RecuperarSenha() {
+      vm.carregando = true;
+      var xml = conversorService.Json2Xml(vm.recuperar, '');
+      serverService.Request('EnviarEmailRecuperacaoSenha', xml).then(function (resp) {
+        resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+
+        if (resp.ResultadoRecuperacaoSenha.Result === 'False') {
+          vm.errorMessage = 'E-mail não consta na base de dados';
+        } else {
+          vm.confirmacao = true;
+          vm.recuperar.EmailCasal.Email = '';
+        }
+
+        vm.carregando = false;
+      }).catch(function (error) {
+        console.error('EnviarEmailRecuperacaoSenha', error);
+        vm.carregando = false;
+        vm.erro = true;
       });
     }
   }

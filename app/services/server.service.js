@@ -73,7 +73,7 @@
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',
-        url: 'https://celebri.com.br/' + origin + '/web/service_request.aspx',
+        url: 'https://celebri.com.br/celebri/web/service_request.aspx',
         transformRequest: RequestAsFormPost.TransformRequest,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

@@ -14,7 +14,7 @@
     $stateProvider
       .state('login', {
         url: '/login',
-        cache: false,
+        cache: true,
         templateUrl: 'app/login/login.html',
         controller: 'LoginController',
         controllerAs: 'login',
