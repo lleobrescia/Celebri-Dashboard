@@ -77,7 +77,7 @@
         type: 'link'
       }]
     }, {
-      name: 'Estatisticas',
+      name: 'Estatísticas',
       state: 'estatisticas',
       type: 'link'
     }];

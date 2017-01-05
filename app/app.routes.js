@@ -145,8 +145,8 @@
         url: '/estatisticas',
         cache: false,
         templateUrl: 'app/estatisticas/estatisticas.html',
-        controller: 'Estatisticasontroller',
-        controllerAs: 'estatisticas',
+        controller: 'EstatisticaController',
+        controllerAs: 'ctrl',
         title: '- Estatísticas'
       });
   }

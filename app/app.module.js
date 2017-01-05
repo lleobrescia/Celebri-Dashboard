@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('dashboard', [
@@ -10,6 +10,7 @@
     'ngMask', //Mascara dos inputs
     'ngImageEditor', //Usado para recortar a foto do casal
     'ngMdIcons', //material icons
-    'ngSanitize'
+    'ngSanitize',
+    'chart.js'
   ]);
 })();
