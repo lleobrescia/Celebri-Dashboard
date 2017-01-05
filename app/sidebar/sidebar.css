@@ -27,6 +27,11 @@
   margin: auto;
 }
 
+.nav-header .fa {
+  top: 6px;
+  position: relative;
+}
+
 .nav-header span {
   display: inline-block;
   margin-top: 25px;
@@ -75,7 +80,7 @@
 }
 
 .side-menu .md-button.active {
-  color: deeppink;
+  color: #f15f57;
 }
 
 .side-menu .menu-toggle-list a.md-button {
