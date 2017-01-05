@@ -2,7 +2,7 @@
  * Server Service
  * @namespace Services
  */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -16,7 +16,6 @@
    * @memberOf Services
    */
   function serverService($q, $http, RequestAsFormPost) {
-    const origin = 'celebri_dev';
     var appid = '60e74b56ffa91185c5fc8732e94cbb1e';
     var token = 'ea7021f308d7d4e691093dc16f6a8c8d';
 
@@ -47,7 +46,7 @@
       var call;
       var deferred = $q.defer();
       var data = {
-        'uri': 'http://celebri.com.br/' + origin + '/ServiceCasamento.svc/' + endpoint,
+        'uri': 'http://celebri.com.br/celebri/ServiceCasamento.svc/' + endpoint,
         'xml': xml,
         'appid': appid,
         'token': token

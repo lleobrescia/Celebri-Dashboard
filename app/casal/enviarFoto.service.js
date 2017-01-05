@@ -2,7 +2,7 @@
  * Server Service
  * @namespace Services
  */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -16,8 +16,6 @@
    * @memberOf Services
    */
   function EnviarFoto($q, $http, RequestAsFormPost) {
-    const origin = 'celebri_dev';
-
     var service = {
       Request: Request
     };
@@ -37,7 +35,10 @@
     function Request(nome, img) {
       var call;
       var deferred = $q.defer();
-      var data = { 'image': img, 'name': nome };
+      var data = {
+        'image': img,
+        'name': nome
+      };
 
       call = SendData(data);
 
@@ -60,7 +61,7 @@
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',
-        url: 'https://celebri.com.br/' + origin + '/web/uploadFotoCasal.aspx',
+        url: 'https://celebri.com.br/celebri/web/uploadFotoCasal.aspx',
         transformRequest: RequestAsFormPost.TransformRequest,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
