@@ -65,9 +65,6 @@
           if (!resp.ResultadoAutenticacaoNoivos.Pagamento_realizado) {
             var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro);
 
-            console.log(dias);
-            console.log(resp.ResultadoAutenticacaoNoivos.DataCadastro);
-
             if (dias < 16) {
               session.user.usuarioLiberado = $rootScope.liberado = true;
               session.user.diasCadastros = $rootScope.dias = dias;

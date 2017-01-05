@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('dashboard')
-    .run(Run);
+    .run(Run)
+    .config(Config);
 
   Run.$inject = ['$rootScope', '$state', 'session'];
 
@@ -17,6 +18,7 @@
       $rootScope.pagante = session.user.pagante;
       $rootScope.dias = session.user.diasCadastros;
       $rootScope.liberado = session.user.usuarioLiberado;
+      $rootScope.foto = session.user.casal.urlFoto;
 
       if (session.user.id) {
         userAuthenticated = true;
@@ -55,5 +57,39 @@
         $rootScope.personalizar = true;
       }
     }
+  }
+
+  Config.$inject = ['$mdDateLocaleProvider'];
+
+  function Config($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.months = [
+      'Janeiro', 'Fevereiro', 'Março',
+      'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro',
+      'Outubro', 'Novembro', 'Dezembro'
+    ];
+
+    $mdDateLocaleProvider.shortMonths = [
+      'Jan', 'Fev', 'Mar',
+      'Abr', 'Mai', 'Jun',
+      'Jul', 'Ago', 'Set',
+      'Out', 'Nov', 'Dez'
+    ];
+    $mdDateLocaleProvider.days = [
+      'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta',
+      'Sábado', 'Domingo'
+    ];
+    $mdDateLocaleProvider.shortDays = [
+      'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'
+    ];
+    $mdDateLocaleProvider.formatDate = function(date) {
+      return moment(date).format('DD/MM/YYYY');
+    };
+    $mdDateLocaleProvider.parseDate = function(dateString) {
+      var m = moment(dateString, 'DD/MM/YYYY', true);
+      return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+    $mdDateLocaleProvider.msgCalendar = 'Calendario';
+    $mdDateLocaleProvider.msgOpenCalendar = 'Abrir calendario';
   }
 })();
