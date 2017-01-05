@@ -19,7 +19,6 @@
   Cielo.$inject = ['$q', '$http', 'RequestAsFormPost', '$filter'];
 
   function Cielo($q, $http, RequestAsFormPost, $filter) {
-    const origin = 'celebri_dev';
     var appid = '60e74b56ffa91185c5fc8732e94cbb1e';
     var token = 'ea7021f308d7d4e691093dc16f6a8c8d';
 
@@ -51,7 +50,7 @@
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',
-        url: 'https://celebri.com.br/' + origin + '/web/request_cielo.aspx',
+        url: 'https://celebri.com.br/celebri/web/request_cielo.aspx',
         transformRequest: RequestAsFormPost.TransformRequest,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=ISO-8859-1'
