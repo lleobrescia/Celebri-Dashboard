@@ -62,6 +62,10 @@ textarea.bloco {
   color: white !important
 }
 
+.convites__lista .md-whiteframe-1dp {
+  box-shadow: none;
+  cursor: pointer;
+}
 
 @media (min-width:1300px) {
   .convite_wrapper {

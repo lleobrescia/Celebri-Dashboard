@@ -5,12 +5,14 @@
     .module('dashboard')
     .controller('ConviteController', ConviteController);
 
-  ConviteController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state'];
+  ConviteController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state', '$window'];
 
-  function ConviteController(serverService, conversorService, session, $http, $filter, $state) {
+  function ConviteController(serverService, conversorService, session, $http, $filter, $state, $window) {
     const ID = session.user.id;
     var vm = this;
 
+    vm.altura = $window.innerHeight;
+    vm.largura = $window.innerWidth;
     vm.carregando = true;
     vm.convites = {};
     vm.dados = {
@@ -104,14 +106,21 @@
       'paisNoivo': {},
       'paisNoiva': {}
     };
+    vm.styleDialog = {
+      'max-width': (vm.largura - 100) + 'px',
+      'max-height': (vm.altura - 100) + 'px'
+    };
 
     vm.SelectConvite = SelectConvite;
+    vm.Sim = Sim;
 
     Activate();
 
     ////////////////
 
     function Activate() {
+      console.log(vm.altura);
+      console.log(vm.largura);
       CheckSend();
       GetDados();
     }
@@ -193,9 +202,6 @@
       vm.imageSelected = url;
       vm.idConvite = id;
       vm.dialogUp = true;
-      $state.go('alunosDetails', {
-        idModelo: id
-      });
     }
 
     function SetStyles() {
@@ -240,6 +246,13 @@
 
       vm.carregando = false; //escode o load
       vm.hasConfig = true; //Mostra o convite configurado
+    }
+
+    function Sim() {
+      console.log(vm.idConvite);
+      $state.go('personalizar', {
+        idModelo: vm.idConvite
+      });
     }
   }
 })();

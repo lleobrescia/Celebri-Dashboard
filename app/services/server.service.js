@@ -46,7 +46,7 @@
       var call;
       var deferred = $q.defer();
       var data = {
-        'uri': 'http://celebri.com.br/celebri/ServiceCasamento.svc/' + endpoint,
+        'uri': 'http://celebri.com.br/celebri_dev/ServiceCasamento.svc/' + endpoint,
         'xml': xml,
         'appid': appid,
         'token': token
@@ -73,12 +73,11 @@
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',
-        url: 'https://celebri.com.br/celebri/web/service_request.aspx',
+        url: 'https://celebri.com.br/celebri_dev/web/service_request.aspx',
         transformRequest: RequestAsFormPost.TransformRequest,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        // withCredentials: true,
         data: Data
       });
 

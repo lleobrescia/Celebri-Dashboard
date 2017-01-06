@@ -14,6 +14,7 @@
     vm.convidados = [];
     vm.ListManager = ListManagerService;
     vm.selecionados = [];
+    vm.senha = session.user.casal.senhaApp;
 
     vm.Enviar = Enviar;
 

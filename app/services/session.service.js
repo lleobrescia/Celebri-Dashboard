@@ -5,9 +5,9 @@
     .module('dashboard')
     .factory('session', session);
 
-  session.$inject = ['$rootScope'];
+  session.$inject = ['$rootScope', '$state'];
 
-  function session($rootScope) {
+  function session($rootScope, $state) {
     var padrao = {
       casal: {
         'nomeNoivo': '',
@@ -16,6 +16,7 @@
         'generoNoivo': 'M',
         'urlFoto': '',
         'emailUsuario': '',
+        'nomeUser': '',
         'senhaApp': '',
         'dataCasamento': ''
       },
@@ -58,8 +59,8 @@
     }
 
     function Remove() {
-      sessionStorage.Session = angular.toJson(padrao);
-      service.user = padrao;
+      sessionStorage.removeItem('Session');
+      $state.go('login');
     }
   }
 })();

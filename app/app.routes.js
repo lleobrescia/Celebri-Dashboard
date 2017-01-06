@@ -56,6 +56,9 @@
       .state('personalizar', {
         url: '/convite/personalizar-convite',
         cache: false,
+        params: {
+          idModelo: null
+        },
         templateUrl: 'app/convite/personalizar/personalizar.html',
         controller: 'PersonalizarController',
         controllerAs: 'convite',

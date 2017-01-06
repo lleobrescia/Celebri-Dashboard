@@ -1,4 +1,4 @@
-<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1" ng-hide="convite.hasConfig">
+<section layout="column" ng-cloak class="dashboard__content" ng-hide="convite.hasConfig">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <md-button ui-sref="cerimonia">Voltar</md-button>
@@ -11,7 +11,7 @@
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convite.carregando">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
-  <md-content flex layout-padding ng-hide="convite.carregando">
+  <md-content flex layout-padding ng-hide="convite.carregando" class="convites__lista">
     <p>Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar.</p>
     <p>A tipologia usada, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.</p>
     <p>Para alterar informções de data, local ou nome dos pais, volte à página anterior.</p>
@@ -19,14 +19,14 @@
     <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak>
       <md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center"
         ng-repeat="thumb in convite.thumbs">
-        <img ng-src="{{thumb.url}}" alt="{{thumb.nome}}" ng-click="convite.SelectConvite(thumb.id,thumb.url)">
-      </md-whiteframe>
+        <img ng-src="{{thumb.url}}" alt="{{thumb.nome}}" ng-click="convite.SelectConvite(thumb.ID,thumb.url)">
+        </md-whiteframe>
     </div>
 
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1" ng-show="convite.hasConfig">
+<section layout="column" ng-cloak class="dashboard__content" ng-if="convite.hasConfig">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <md-button ui-sref="cerimonia">Voltar</md-button>
@@ -71,14 +71,14 @@
     </md-toolbar>
 
     <div class="demo-dialog-content">
-      <div layout="row">
-        <img flex alt="Delicious donut" ng-src="{{convite.imageSelected}}">
+      <div>
+        <img flex alt="Delicious donut" ng-src="{{convite.imageSelected}}" ng-style="convite.styleDialog" style="padding: 30px;">
       </div>
     </div>
 
     <div layout="row" class="demo-dialog-button">
       <md-button class="md-raised md-warn" flex="50" ng-click="convite.dialogUp = false;">Não</md-button>
-      <md-button class="md-raised md-primary" flex="50" md-autofocus>Sim!</md-button>
+      <md-button class="md-raised md-primary" flex="50" ng-click="convite.Sim()" md-autofocus>Sim!</md-button>
     </div>
   </div>
 </div>

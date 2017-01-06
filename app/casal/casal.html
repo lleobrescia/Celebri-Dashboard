@@ -9,7 +9,7 @@
 
   <md-content flex layout-padding ng-init="$scope.change = false">
     <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.erro && !casal.carregando">
-      <p>Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+      <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
     </div>
     <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.carregando && !casal.erro">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -20,8 +20,8 @@
           <md-card-title-text>
             <div layout="row" layout-wrap>
               <md-input-container flex="50">
-                <label ng-if="casal.genero.noiva === 'F'">Noiva</label>
-                <label ng-if="casal.genero.noiva === 'M'">Noivo</label>
+                <label ng-if="casal.genero.noiva === 'f'">Noiva</label>
+                <label ng-if="casal.genero.noiva === 'm'">Noivo</label>
                 <input ng-model="casal.dados.Casal.NomeNoiva" aria-label="Nome" type="text" name="noiva" required ng-change="$scope.change = true">
                 <div class="validation-messages" ng-messages="casalForm.noiva.$error">
                   <div ng-message="required">O nome é obrigatório!</div>
@@ -29,8 +29,8 @@
               </md-input-container>
 
               <md-input-container flex="50">
-                <label ng-if="casal.genero.noivo === 'F'">Noiva</label>
-                <label ng-if="casal.genero.noivo === 'M'">Noivo</label>
+                <label ng-if="casal.genero.noivo === 'f'">Noiva</label>
+                <label ng-if="casal.genero.noivo === 'm'">Noivo</label>
                 <input ng-model="casal.dados.Casal.NomeNoivo" aria-label="Nome" type="text" name="noivo" required ng-change="$scope.change = true">
                 <div class="validation-messages" ng-messages="casalForm.noivo.$error">
                   <div ng-message="required">O nome é obrigatório!</div>
@@ -51,8 +51,8 @@
         </md-card-title>
         <md-card-content layout="row" layout-align="space-between">
           <div class="md-media-xl card-media upload_foto">
-            <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%" ng-hide="$root.foto === 'NULL'">
-            <ng-md-icon icon="camera_alt" style="fill:#f15f57;" size="100" ng-show="$root.foto === 'NULL'"></ng-md-icon>
+            <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%" ng-if="$root.foto">
+            <ng-md-icon icon="camera_alt" style="fill:#f15f57;" size="100" ng-if="!$root.foto"></ng-md-icon>
             <input type="file" accept="image/*" onchange="angular.element(this).scope().OpenFile(this)">
           </div>
         </md-card-content>

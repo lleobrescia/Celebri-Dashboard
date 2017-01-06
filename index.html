@@ -64,7 +64,7 @@
   <![endif]-->
 </head>
 
-<body ng-init="$scope.degustacao = true;">
+<body>
   <section layout="row" flex style="height:100%">
 
     <sidebar></sidebar>
@@ -79,7 +79,7 @@
     </md-content>
   </section>
 
-  <div class="dialog__bg" ng-cloak ng-if="!$root.pagante && $scope.degustacao">
+  <!--<div class="dialog__bg" ng-cloak ng-if="!$root.pagante && Main.dialogControl">
     <div role="dialog" class="dialog__content" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
       <md-toolbar>
         <div class="md-toolbar-tools">
@@ -94,11 +94,12 @@
       </div>
 
       <div layout="row" class="demo-dialog-button">
-        <md-button class="md-raised md-primary" flex="50" md-autofocus ng-click="$scope.degustacao = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
-        <md-button class="md-raised md-primary" flex="50" ng-click="$scope.degustacao = false" ui-sref="casal">Continuar navegação</md-button>
+        <md-button class="md-raised md-primary" flex="50" md-autofocus ng-click="Main.dialogControl = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
+        <md-button class="md-raised md-primary" flex="50" ng-click="Main.dialogControl = false" ui-sref="casal">Continuar navegação</md-button>
       </div>
     </div>
-  </div>
+  </div>-->
+  
   <script src="js/vendor/ngImageEditor.min.js"></script>
   <script src="js/vendor/jquery.creditCardValidator.js"></script>
   <script src="js/dashboard.min.js"></script>

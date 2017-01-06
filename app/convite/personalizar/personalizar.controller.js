@@ -58,7 +58,7 @@
     };
     vm.editionEnable = true;
     vm.fonts = [];
-    vm.idConvite = 0;
+    vm.idConvite = 1;
     vm.imageSelected = '';
     vm.styles = {
       'bloco1': {},
@@ -117,8 +117,11 @@
       serverService.Get('RetornarFormatacaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        //salva os dados localmente
-        session.user.convite = vm.dados = resp;
+        if (resp.DadosFormatacaoConvite.id_modelo === '0') {
+          session.user.convite = vm.dados;
+        } else {
+          session.user.convite = vm.dados = resp;
+        }
         session.SaveState();
 
         //pega o id do modelo do convite
@@ -140,8 +143,7 @@
             method: 'GET',
             url: 'app/convite/fonts.json'
           }).then(function (data) {
-            vm.fonts = data.data;
-
+            vm.fonts = resp.data;
             vm.imageSelected = 'image/convites/convite' + vm.idConvite + '.png';
 
             if ($state.params.idModelo) {
@@ -231,11 +233,25 @@
       vm.dados.DadosFormatacaoConvite.conteudo_msg2 = 'a realizar-se às ' + session.user.cerimonia.Horario_cerimonia + ' horas, dia ' + session.user.casal.dataCasamento + ', ' + session.user.cerimonia.Local_cerimonia;
       vm.dados.DadosFormatacaoConvite.conteudo_msg3 = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
       vm.dados.DadosFormatacaoConvite.conteudo_nomecasal = session.user.casal.nomeNoiva + ' &amp; ' + session.user.casal.nomeNoivo;
+
+      vm.styles = vm.convites['convite' + vm.idConvite];
+
+      vm.styles.bloco1['font-size'] = $filter('sufixPx')(vm.styles.bloco1);
+      vm.styles.bloco2['font-size'] = $filter('sufixPx')(vm.styles.bloco2);
+      vm.styles.bloco3['font-size'] = $filter('sufixPx')(vm.styles.bloco3);
+      vm.styles.bloco4['font-size'] = $filter('sufixPx')(vm.styles.bloco4);
+      vm.styles.nomeCasal['font-size'] = $filter('sufixPx')(vm.styles.nomeCasal);
+      vm.styles.paisNoivo['font-size'] = $filter('sufixPx')(vm.styles.paisNoivo);
+      vm.styles.paisNoiva['font-size'] = $filter('sufixPx')(vm.styles.paisNoiva);
+
+      vm.carregando = false; //escode o load
     }
 
     function SetStyles() {
       //Pega o padrao do convite
       vm.styles = vm.convites['convite' + vm.idConvite];
+
+      console.log(vm.styles);
 
       /**
        * O servidor armazena as fontes sem o px

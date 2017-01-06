@@ -19,6 +19,7 @@
 html {
   font-size: 16px;
   font-family: 'Roboto';
+  line-height: 1.5;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -50,7 +51,6 @@ a {
 
 .dashboard__content {
   border-radius: 4px;
-  margin-bottom: 16px;
   -webkit-transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
   transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
   position: relative;

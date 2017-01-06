@@ -82,6 +82,7 @@
       type: 'link'
     }];
     vm.openedSection = null;
+    vm.userName = session.user.casal.nomeUser;
 
     vm.IsSectionSelected = IsSectionSelected;
     vm.Sair = Sair;
@@ -98,8 +99,9 @@
     }
 
     function Sair() {
+      session.user.id = null;
+      session.SaveState();
       session.Remove();
-      $state.go('login');
     }
 
     function ToggleSection(section) {

@@ -10,6 +10,8 @@
   function MainController() {
     var vm = this;
 
+    vm.dialogControl = true;
+
     vm.GetTimes = GetTimes;
 
     Activate();

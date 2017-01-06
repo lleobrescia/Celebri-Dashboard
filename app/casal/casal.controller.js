@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -31,7 +31,12 @@
       'noivo': session.user.casal.generoNoivo
     };
     vm.imageEditor = '';
-    vm.selected = { width: 50, height: 50, top: 0, left: 0 };
+    vm.selected = {
+      width: 50,
+      height: 50,
+      top: 0,
+      left: 0
+    };
 
     vm.Cancelar = ResetDados;
     vm.Salvar = Salvar;
@@ -51,7 +56,7 @@
       vm.carregando = true;
       var reader = new FileReader();
 
-      reader.onload = function() {
+      reader.onload = function () {
         var dataURL = reader.result;
         vm.fotoEditor = dataURL;
         vm.carregando = false;
@@ -85,10 +90,10 @@
 
       session.SaveState();
 
-      serverService.Request('AtualizarDadosCadastroNoivos', dados).then(function(resp) {
+      serverService.Request('AtualizarDadosCadastroNoivos', dados).then(function (resp) {
         vm.carregando = false;
         toastr.success('Alterações Salvas!');
-      }).catch(function(error) {
+      }).catch(function (error) {
         console.error('AtualizarDadosCadastroNoivos -> ', error);
         vm.carregando = false;
         vm.erro = true;
@@ -104,29 +109,38 @@
        * Transforma em jpg
        * Passa para a base64
        */
-      var imagemCortada = vm.imageEditor.toDataURL({ useOriginalImg: true, imageType: 'image/jpg' });
+      var imagemCortada = vm.imageEditor.toDataURL({
+        useOriginalImg: true,
+        imageType: 'image/jpg'
+      });
 
-
-      EnviarFoto.Request(ID, imagemCortada).then(function(resp) {
+      EnviarFoto.Request(ID, imagemCortada).then(function (resp) {
+        var novaImg = '';
+        var time = new Date(); //Pega a data e hora atual
+        console.log(resp);
         /**
          * O nome da imagem nunca muda,portanto
          * ela fica no cache. Para evitar o cache
          * eh preciso colocar ?+a hora atual
          */
 
-        var novaImg = $rootScope.foto.split('?'); //Retira a hora antiga
-        var time = new Date(); //Pega a data e hora atual
+        try {
+          novaImg = $rootScope.foto.split('?'); //Retira a hora antiga
+          novaImg = novaImg[0] + '?' + $filter('date')(time, 'H:mm', '-0300');
+        } catch (error) {
+          novaImg = imagemCortada;
+        }
 
         /**
          * Armazena o nome da imagem com a hora atual
          * O filtro [$filter('date')] mostra so a hora
          */
-        novaImg = novaImg[0] + '?' + $filter('date')(time, 'H:mm', '-0300');
+
         $rootScope.foto = novaImg; //Salva a foto no scopo global e na pagina atual
         session.user.casal.urlFoto = novaImg; //Salva a foto local
         session.SaveState();
         vm.carregando = false; //seconde o gif de loding e mostra a nova imagem
-      }).catch(function(error) {
+      }).catch(function (error) {
         console.error('UploadFoto -> ', error);
         vm.carregando = false;
         vm.erro = true;

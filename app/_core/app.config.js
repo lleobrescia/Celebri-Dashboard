@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('dashboard')
@@ -33,10 +33,6 @@
 
         $rootScope.isLogin = true;
 
-        if (userAuthenticated) {
-          event.preventDefault();
-          $state.go('casal');
-        }
       } else {
         $rootScope.isLogin = false;
       }
@@ -82,10 +78,10 @@
     $mdDateLocaleProvider.shortDays = [
       'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'
     ];
-    $mdDateLocaleProvider.formatDate = function(date) {
+    $mdDateLocaleProvider.formatDate = function (date) {
       return moment(date).format('DD/MM/YYYY');
     };
-    $mdDateLocaleProvider.parseDate = function(dateString) {
+    $mdDateLocaleProvider.parseDate = function (dateString) {
       var m = moment(dateString, 'DD/MM/YYYY', true);
       return m.isValid() ? m.toDate() : new Date(NaN);
     };

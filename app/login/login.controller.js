@@ -37,7 +37,8 @@
 
     function Activate() {
       $rootScope.pagante = true;
-      session.Remove();
+      session.user.id = null;
+      session.SaveState();
     }
 
     function Autenticar() {
@@ -45,6 +46,8 @@
       var xml = conversorService.Json2Xml(vm.dados, '');
       serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+
+        console.log(resp);
 
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
           session.user.id = resp.ResultadoAutenticacaoNoivos.Id_usuario_logado;
@@ -56,9 +59,11 @@
 
           if (resp.ResultadoAutenticacaoNoivos.EmailNoiva === vm.dados.Autenticacao.Email) {
             session.user.casal.emailUsuario = resp.ResultadoAutenticacaoNoivos.EmailNoiva;
+            session.user.casal.nomeUser = resp.ResultadoAutenticacaoNoivos.NomeNoiva;
             session.user.casal.senhaApp = resp.ResultadoAutenticacaoNoivos.SenhaNoivaConvidado;
           } else {
             session.user.casal.emailUsuario = resp.ResultadoAutenticacaoNoivos.EmailNoivo;
+            session.user.casal.nomeUser = resp.ResultadoAutenticacaoNoivos.NomeNoivo;
             session.user.casal.senhaApp = resp.ResultadoAutenticacaoNoivos.SenhaNoivoConvidado;
           }
 
@@ -71,8 +76,8 @@
             session.user.casal.urlFoto = resp.ResultadoAutenticacaoNoivos.Url_foto + '?' + h + ':' + m;
           }
 
-          if (!resp.ResultadoAutenticacaoNoivos.Pagamento_realizado) {
-            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro);
+          if (resp.ResultadoAutenticacaoNoivos.Pagamento_realizado === 'false') {
+            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro) + 1;
 
             if (dias < 16) {
               session.user.usuarioLiberado = $rootScope.liberado = true;
@@ -118,6 +123,7 @@
         session.SaveState();
 
         vm.carregando = false;
+        console.log(session.user);
         $state.go('casal');
       });
     }

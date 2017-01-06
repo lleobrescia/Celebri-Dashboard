@@ -40,6 +40,21 @@
   outline: none;
 }
 
+.nav-header .md-button {
+  width: 100%;
+}
+
+.nav-header .md-button span {
+  margin-top: 0
+}
+
+.nav-header .people {
+  position: relative;
+  top: 7px;
+  left: -8px;
+  fill: white;
+}
+
 .nav-header span span {
   transition: transform .3s ease-in-out;
   -webkit-transition: -webkit-transform .3s ease-in-out;
