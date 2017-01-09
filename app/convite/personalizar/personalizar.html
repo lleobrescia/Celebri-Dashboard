@@ -7,13 +7,16 @@
       </h2>
       <span flex></span>
       <md-button ui-sref="convite">Cancelar</md-button>
-      <md-button ng-click="convite.Salvar()">Salvar</md-button>
+      <md-button ng-click="convite.Salvar()" ng-disabled="!convite.editionEnable">Salvar</md-button>
     </div>
   </md-toolbar>
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convite.carregando">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
-  <md-content style="padding:30px 0;" ng-hide="convite.carregando">
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convite.erro && !convite.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <md-content style="padding:30px 0;" ng-hide="convite.carregando || convite.erro">
     <p layout-padding ng-hide="convite.editionEnable">Não é possível editar o convite depois de enviado.</p>
     <div id="Convite" class="convite_wrapper">
 
@@ -22,23 +25,24 @@
       <p class="bloco" ng-style="convite.styles.paisNoiva" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_pais_noiva | raplaceHash"
         ng-click="convite.Controlador.SelectStyle(convite.styles.paisNoiva)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.paisNoiva))}"></p>
 
-      <p class="bloco" ng-style="convite.styles.paisNoivo" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_pais_noivo | raplaceHash"
-        ng-click="convite.Controlador.SelectStyle(convite.styles.paisNoivo)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.paisNoivo))}"></p>
+        <p class="bloco" ng-style="convite.styles.paisNoivo" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_pais_noivo | raplaceHash"
+          ng-click="convite.Controlador.SelectStyle(convite.styles.paisNoivo)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.paisNoivo))}"></p>
 
-      <p class="bloco" ng-style="convite.styles.bloco1" ng-bind="convite.dados.DadosFormatacaoConvite.conteudo_msg1" ng-click="convite.Controlador.SelectStyle(convite.styles.bloco1)"
-        ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco1))}"></p>
+          <p class="bloco" ng-style="convite.styles.bloco1" ng-bind="convite.dados.DadosFormatacaoConvite.conteudo_msg1" ng-click="convite.Controlador.SelectStyle(convite.styles.bloco1)"
+            ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco1))}"></p>
 
-      <p class="bloco" ng-style="convite.styles.nomeCasal" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_nomecasal"
-        ng-click="convite.Controlador.SelectStyle(convite.styles.nomeCasal)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.nomeCasal))}"></p>
+            <p class="bloco" ng-style="convite.styles.nomeCasal" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_nomecasal"
+              ng-click="convite.Controlador.SelectStyle(convite.styles.nomeCasal)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.nomeCasal))}"></p>
 
-      <p class="bloco" ng-style="convite.styles.bloco2" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg2 | raplaceHash"
-        ng-click="convite.Controlador.SelectStyle(convite.styles.bloco2)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco2))}"></p>
+              <p class="bloco" ng-style="convite.styles.bloco2" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg2 | raplaceHash"
+                ng-click="convite.Controlador.SelectStyle(convite.styles.bloco2)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco2))}"></p>
 
-      <textarea name="personalizado" class="bloco" ng-style="convite.styles.bloco3" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg3 | raplaceHash"
-        ng-click="convite.Controlador.SelectStyle(convite.styles.bloco3)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco3))}" maxlength="144"></textarea>
+                <textarea name="personalizado" class="bloco" ng-style="convite.styles.bloco3" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg3 | raplaceHash"
+                  ng-click="convite.Controlador.SelectStyle(convite.styles.bloco3)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco3))}"
+                  maxlength="144"></textarea>
 
-      <p class=" bloco" ng-style="convite.styles.bloco4" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg4 | raplaceHash"
-        ng-click="convite.Controlador.SelectStyle(convite.styles.bloco4)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco4))}"></p>
+                  <p class=" bloco" ng-style="convite.styles.bloco4" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg4 | raplaceHash"
+                    ng-click="convite.Controlador.SelectStyle(convite.styles.bloco4)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco4))}"></p>
 
     </div>
   </md-content>

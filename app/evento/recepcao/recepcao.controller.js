@@ -1,7 +1,3 @@
-// TODO: controle de erro
-// TODO: Documentacao
-// TODO: Set dados da cerimonia, quando necessario
-
 /**
  * Recepção Controller
  * Usa os seguinte endpoints:
@@ -9,16 +5,16 @@
  *  - ConfiguracaoEvento 
  * @namespace Controllers
  */
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('RecepcaoController', RecepcaoController);
 
-  RecepcaoController.$inject = ['serverService', 'conversorService', 'session'];
+  RecepcaoController.$inject = ['serverService', 'conversorService', 'session', 'toastr'];
 
-  function RecepcaoController(serverService, conversorService, session) {
+  function RecepcaoController(serverService, conversorService, session, toastr) {
     const ID = session.user.id;
     var dadosAux = {
       'ConfiguracaoEvento': {
@@ -43,6 +39,7 @@
 
     vm.carregando = true;
     vm.dados = [];
+    vm.erro = false;
     vm.hasRecepcao = false;
 
     vm.Cancelar = GetDados;
@@ -59,7 +56,7 @@
 
     function GetDados() {
       vm.carregando = true;
-      serverService.Get('RetornarConfiguracaoEvento', ID).then(function(resp) {
+      serverService.Get('RetornarConfiguracaoEvento', ID).then(function (resp) {
         /**
          * O servico conversorService retorna uma string
          * O angular converte de string para objeto
@@ -69,7 +66,7 @@
         /**
          * Se for o primeiro acesso, o servidor vai retornar um objeto
          */
-        if (typeof(resp.ConfiguracaoEvento.Bairro) !== 'object') {
+        if (typeof (resp.ConfiguracaoEvento.Bairro) !== 'object') {
           vm.dados = dadosAux.ConfiguracaoEvento = resp.ConfiguracaoEvento;
 
           if (vm.dados.Bairro) {
@@ -78,14 +75,25 @@
         }
 
         vm.carregando = false;
+      }).catch(function (error) {
+        console.error('RetornarConfiguracaoEvento -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
 
     function SetDados() {
       vm.carregando = true;
       var dados = conversorService.Json2Xml(dadosAux, '');
-      serverService.Request('ConfiguracaoEvento', dados).then(function(resp) {
+      serverService.Request('ConfiguracaoEvento', dados).then(function (resp) {
         vm.carregando = false;
+        toastr.success('Alterações Salvas!');
+      }).catch(function (error) {
+        console.error('ConfiguracaoEvento -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
   }

@@ -6,6 +6,7 @@
     .service('Controlador', Controlador);
 
   Controlador.inject = [];
+
   function Controlador() {
     this.styleSelected = [];
 

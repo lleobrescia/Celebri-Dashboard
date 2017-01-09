@@ -11,7 +11,10 @@
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convite.carregando">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
-  <md-content flex layout-padding ng-hide="convite.carregando" class="convites__lista">
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convite.erro && !convite.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <md-content flex layout-padding ng-hide="convite.carregando || convite.erro" class="convites__lista">
     <p>Você poderá optar pelos layouts disponibilizados abaixo, bastando clicar sobre o que mais lhe agradar.</p>
     <p>A tipologia usada, pode ser alterada clicando sobre a mesma ou utilizando o menu ao lado.</p>
     <p>Para alterar informções de data, local ou nome dos pais, volte à página anterior.</p>
@@ -34,11 +37,11 @@
         Convite Selecionado
       </h2>
       <span flex></span>
-      <md-button ng-click="convite.hasConfig = false">Alterar Modelo</md-button>
+      <md-button ng-click="convite.hasConfig = false" ng-disabled="!convite.editionEnable">Alterar Modelo</md-button>
       <md-button ui-sref="personalizar" ng-disabled="!convite.editionEnable">Editar</md-button>
     </div>
   </md-toolbar>
-  <md-content style="padding:30px 0;">
+  <md-content style="padding:30px 0;" ng-hide="convite.carregando || convite.erro">
     <p layout-padding ng-hide="convite.editionEnable">Não é possível editar o convite depois de enviado.</p>
     <div id="Convite" class="convite_wrapper mostrar_convite">
 

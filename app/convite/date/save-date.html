@@ -1,4 +1,4 @@
-<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1" ng-init="$scope.hasChange = false">
+<section layout="column" ng-cloak class="dashboard__content save" ng-init="$scope.hasChange = false">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -8,45 +8,66 @@
   </md-toolbar>
   <md-content flex layout-padding>
 
-    <p>O Save The Date, é um termo em inglês utilizado para guardar uma data especial em sua agenda. Você pode enviar um email com o Save The Date para os seus convidados, avisando-os do seu casamento, antes de enviar os convites.</p>
-    <p>Na mensagem encaminhada você pode comunicar que em breve enviará o convite do casamento pelo email, para que seus convidados saibam que irão receber um convite digital.<br> Escolha abaixo o layout que preferir.</p>
-    <div class="carregando" ng-show="save.carregando">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-      <span class="sr-only">Carregando...</span>
+    <p>O Save The Date, é um termo em inglês utilizado para guardar uma data especial em sua agenda. Você pode enviar um email
+      com o Save The Date para os seus convidados, avisando-os do seu casamento, antes de enviar os convites.</p>
+    <p>Na mensagem encaminhada você pode comunicar que em breve enviará o convite do casamento pelo email, para que seus convidados
+      saibam que irão receber um convite digital.</p>
+    <p>Escolha abaixo o layout que preferir.</p>
+    <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="save.carregando">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak ng-hide="save.carregando">
+    <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="save.erro && !save.carregando">
+      <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+    </div>
+    <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" ng-cloak ng-hide="save.carregando || save.erro">
 
-      <md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center" ng-repeat="modelo in save.modelos">
+      <md-whiteframe class="md-whiteframe-0dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center"
+        ng-repeat="modelo in save.modelos" style="cursor: pointer">
         <img ng-src="image/savethedate/{{modelo.image}}" alt="" ng-click="save.SelectImage(modelo.id);$scope.hasChange = true" ng-class="{'selected':save.IsThisSelected(modelo.id)}">
-      </md-whiteframe>
+        </md-whiteframe>
     </div>
     <md-input-container class="md-block" ng-hide="save.carregando">
       <label>Mensagem</label>
-      <textarea aria-label="Mensagem Save the Date" ng-model="save.dados.DadosFormatacaoSaveTheDate.msg" rows="5" md-select-on-focus ng-change="$scope.hasChange = true"></textarea>
+      <textarea aria-label="Mensagem Save the Date" ng-model="save.dados.DadosFormatacaoSaveTheDate.msg" rows="5" md-select-on-focus
+        ng-change="$scope.hasChange = true"></textarea>
     </md-input-container>
 
-    <div layout="row" layout-wrap ng-show="$scope.hasChange">
-      <md-button class="md-raised md-primary" flex ng-click="save.SetDados()">Salvar</md-button>
-      <md-button class="md-raised md-warn" flex ng-click="save.Cancelar()">Cancelar</md-button>
+    <div ng-show="$scope.hasChange">
+      <md-button class="md-raised md-primary" ng-click="save.SetDados(); $scope.hasChange = false">Salvar</md-button>
+      <md-button class="md-raised md-warn" ng-click="save.Cancelar(); $scope.hasChange = false">Cancelar</md-button>
     </div>
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1" ng-init="$scope.hasChange = false">
+<section layout="column" ng-cloak class="dashboard__content save" ng-init="$scope.search = false">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
-      <h2>
-        <md-checkbox aria-label="Selecionar Todos" md-indeterminate="save.ListManager.IsIndeterminate(save.selecionados,save.convidados)" ng-click="save.ListManager.ToggleAll(save.selecionados,save.convidados)">
-        </md-checkbox>
-        Enviar o Save the Date
+      <h2 ng-hide="$scope.search">
+        <md-checkbox aria-label="Selecionar Todos" md-indeterminate="save.ListManager.IsIndeterminate(save.selecionados,save.convidados)"
+          ng-click="save.ListManager.ToggleAll(save.selecionados,save.convidados)">
+          </md-checkbox>
+          Enviar o Save the Date
       </h2>
+      <md-input-container class="" flex="100" ng-show="$scope.search">
+        <input ng-model="$scope.searchText">
+      </md-input-container>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Procurar" ng-click="$scope.search = !$scope.search;$scope.searchText = ''">
+        <ng-md-icon icon="search" style="fill: white"></ng-md-icon>
+      </md-button>
     </div>
   </md-toolbar>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="save.carregandoLista">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
   <div layout="row" layout-wrap ng-show="save.selecionados.length > 0" style="margin: 20px 0">
     <md-button class="md-raised md-primary" ng-click="save.Enviar()">Enviar</md-button>
   </div>
-  <md-list ng-cloak style="max-height: 500px; overflow: auto">
-    <md-list-item ng-repeat="convidado in save.convidados">
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="save.erroLista && !save.carregandoLista">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <md-list ng-cloak style="max-height: 500px; overflow: auto" ng-hide="save.carregandoLista || save.erroLista">
+    <md-list-item ng-repeat="convidado in save.convidados | filter: $scope.searchText">
       <md-checkbox aria-label="Selecionar" ng-checked="save.ListManager.Exists(convidado,save.selecionados)" ng-click="save.ListManager.Toggle(convidado,save.selecionados)"></md-checkbox>
       <div class="md-list-item-text">
         <h3>{{convidado.Nome}}</h3>

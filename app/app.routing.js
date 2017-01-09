@@ -72,6 +72,14 @@
         controllerAs: 'save',
         title: '- Save the Date'
       })
+      .state('aplicativo', {
+        url: '/convite/aplicativo',
+        cache: false,
+        templateUrl: 'app/convite/aplicativo/aplicativo.html',
+        controller: 'AplicativoController',
+        controllerAs: 'app',
+        title: '- Aplicativo'
+      })
       .state('enviarConvite', {
         url: '/convite/enviar',
         cache: false,

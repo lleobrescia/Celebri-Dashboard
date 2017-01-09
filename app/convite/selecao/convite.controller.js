@@ -5,9 +5,9 @@
     .module('dashboard')
     .controller('ConviteController', ConviteController);
 
-  ConviteController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state', '$window'];
+  ConviteController.$inject = ['serverService', 'conversorService', 'session', '$http', '$filter', '$state', '$window', 'toastr'];
 
-  function ConviteController(serverService, conversorService, session, $http, $filter, $state, $window) {
+  function ConviteController(serverService, conversorService, session, $http, $filter, $state, $window, toastr) {
     const ID = session.user.id;
     var vm = this;
 
@@ -60,6 +60,7 @@
     };
     vm.dialogUp = false;
     vm.editionEnable = true;
+    vm.erro = false;
     vm.fonts = [];
     vm.hasConfig = false;
     vm.idConvite = 0;
@@ -119,8 +120,6 @@
     ////////////////
 
     function Activate() {
-      console.log(vm.altura);
-      console.log(vm.largura);
       CheckSend();
       GetDados();
     }
@@ -171,6 +170,11 @@
         } else {
           vm.carregando = false; //escode o load
         }
+      }).catch(function (error) {
+        console.error('RetornarFormatacaoConvite -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
 
@@ -249,7 +253,6 @@
     }
 
     function Sim() {
-      console.log(vm.idConvite);
       $state.go('personalizar', {
         idModelo: vm.idConvite
       });

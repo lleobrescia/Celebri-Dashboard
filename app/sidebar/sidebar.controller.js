@@ -30,6 +30,10 @@
         state: 'savethedate',
         type: 'link'
       }, {
+        name: 'Aplicativo',
+        state: 'aplicativo',
+        type: 'link'
+      }, {
         name: 'Enviar',
         state: 'enviarConvite',
         type: 'link'

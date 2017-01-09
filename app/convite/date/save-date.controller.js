@@ -1,9 +1,3 @@
-// TODO: Mostrar mensagens
-// TODO: Load quando enviar
-// TODO: controle de erro
-// TODO: Documentacao
-// TODO: Campo de filtro de nome na lista
-
 /**
  * Save The Date Controller
  * Usa os seguinte endpoints:
@@ -13,33 +7,36 @@
  *  - RetornarConvidados
  * @namespace Controllers
  */
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('SaveDateController', SaveDateController);
 
-  SaveDateController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
+  SaveDateController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr'];
 
-  function SaveDateController(serverService, conversorService, ListManagerService, session) {
+  function SaveDateController(serverService, conversorService, ListManagerService, session, toastr) {
     const ID = session.user.id;
     var vm = this;
 
     vm.carregando = true;
+    vm.carregandoLista = true;
     vm.convidados = [];
     vm.dados = {
       'DadosFormatacaoSaveTheDate': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         '@xmlns:i': 'http://www.w3.org/2001/XMLSchema-instance',
         'ErrorMessage': '',
-        'Result': 'true',
+        'Result': '',
         'id_casal': ID,
         'id_modelo': '1',
-        'msg': 'Pessoas especiais como você fazem parte deste momento! O dia 16 de abril de 2016 é muito importante para nós, o dia do nosso casamento, e gostaríamos de compartilhá-lo com você. Marque esta data no seu calendário para não se esquecer.  A sua presença é essencial! Em breve você receberá por email, o convite e mais informações do nosso casamento.',
-        'nomecasal': 'Fernanda  Gustavo'
+        'msg': 'Pessoas especiais como você fazem parte deste momento! O dia ' + session.user.casal.dataCasamento + ' é muito importante para nós, o dia do nosso casamento, e gostaríamos de compartilhá-lo com você. Marque esta data no seu calendário para não se esquecer.  A sua presença é essencial! Em breve você receberá por email, o convite e mais informações do nosso casamento.',
+        'nomecasal': session.user.casal.nomeNoiva + ' e ' + session.user.casal.nomeNoivo
       }
     };
+    vm.erro = false;
+    vm.erroLista = false;
     vm.ListManager = ListManagerService;
     vm.modelos = [{
         'id': '1',
@@ -72,6 +69,7 @@
     }
 
     function Enviar() {
+      vm.carregandoLista = true;
       var lista = {
         'ListaEmailConvidados': {
           '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -83,7 +81,7 @@
       };
       var xml = null;
 
-      angular.forEach(vm.selecionados, function(selecionado) {
+      angular.forEach(vm.selecionados, function (selecionado) {
         lista.ListaEmailConvidados.Id_convidado.int.push({
           '@xmlns': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays',
           '#text': selecionado.Id
@@ -91,13 +89,17 @@
       });
       xml = conversorService.Json2Xml(lista, '');
 
-      serverService.Request('EnvioEmailSaveTheDate', xml).then(function(resp) {
-        GetDados();
+      serverService.Request('EnvioEmailSaveTheDate', xml).then(function (resp) {
+        toastr.success('Save the Date Enviado!');
+        GetConvidados();
       });
     }
 
     function GetConvidados() {
-      serverService.Get('RetornarConvidados', ID).then(function(resp) {
+      vm.convidados = [];
+      vm.selecionados = [];
+
+      serverService.Get('RetornarConvidados', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
         if (resp.ArrayOfConvidado.Convidado.length > 1) {
@@ -108,21 +110,36 @@
 
         delete vm.convidados['@xmlns'];
         delete vm.convidados['@xmlns:i'];
+
+        vm.carregandoLista = false;
+      }).catch(function (error) {
+        console.error('RetornarConvidados -> ', error);
+        vm.carregandoLista = false;
+        vm.erroLista = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
 
     function GetDados() {
       vm.carregando = true;
-      serverService.Get('RetornarFormatacaoSaveTheDate', ID).then(function(resp) {
+      serverService.Get('RetornarFormatacaoSaveTheDate', ID).then(function (resp) {
         /**
          * O servico conversorService retorna uma string
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        vm.dados = resp;
 
-        SelectImage(vm.dados.DadosFormatacaoSaveTheDate.id_modelo); //marca no layout o modelo selecionado
+        if (resp.DadosFormatacaoSaveTheDate.id_modelo != '0') {
+          vm.dados.DadosFormatacaoSaveTheDate.id_modelo = resp.DadosFormatacaoSaveTheDate.id_modelo;
+          vm.dados.DadosFormatacaoSaveTheDate.msg = resp.DadosFormatacaoSaveTheDate.msg;
+          SelectImage(vm.dados.DadosFormatacaoSaveTheDate.id_modelo); //marca no layout o modelo selecionado
+        }
         vm.carregando = false;
+      }).catch(function (error) {
+        console.error('RetornarFormatacaoSaveTheDate -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
 
@@ -136,7 +153,9 @@
 
     function SetDados() {
       var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('FormatacaoSaveTheDate', dados).then(function(resp) {});
+      serverService.Request('FormatacaoSaveTheDate', dados).then(function (resp) {
+        toastr.success('Alterações Salvas!');
+      });
     }
   }
 })();

@@ -69,13 +69,11 @@
 
       serverService.Get('RetornarConfiguracaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        console.log(resp);
         try {
           var horario = resp.ConfiguracaoConvite.Horario_cerimonia.split(":");
           vm.dados = resp;
           vm.hora = horario[0];
           vm.min = horario[1];
-          console.log(horario[0]);
         } catch (error) {}
 
         session.user.cerimonia = vm.dados;

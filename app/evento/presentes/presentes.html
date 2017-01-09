@@ -1,4 +1,4 @@
-<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1">
+<section layout="column" ng-cloak class="dashboard__content">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -19,20 +19,18 @@
 
           <md-input-container flex="100" flex-gt-sm="50" required>
             <label>URL da loja</label>
-            <input type="url" aria-label="URL da loja" name="site" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Url" style="text-transform: uppercase;" required http-prefix>
+            <input type="url" aria-label="URL da loja" name="site" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Url" required
+              http-prefix>
           </md-input-container>
         </div>
-
       </div>
+      <md-button class="md-raised md-primary" ng-click="presentes.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
 
-      <div layout="row" layout-wrap>
-        <md-button class="md-raised md-primary" flex ng-click="presentes.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
-      </div>
     </form>
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content save md-whiteframe-z1">
+<section layout="column" ng-cloak class="dashboard__content">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -41,12 +39,22 @@
     </div>
   </md-toolbar>
 
-  <md-list ng-cloak style="max-height: 500px; overflow: auto">
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="presentes.erro && !presentes.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="presentes.carregando && !presentes.erro">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+  <md-list ng-cloak style="max-height: 500px; overflow: auto" ng-hide="presentes.carregando || presentes.erro">
     <md-list-item ng-repeat="loja in presentes.presentes">
       <div class="md-list-item-text">
         <h3>{{loja.Nome}}</h3>
         <p>{{loja.Url}}</p>
       </div>
+      <md-button class="md-secondary md-icon-button" ng-click="presentes.Excluir(loja.Id)" aria-label="apagar">
+        <i class="fa fa-trash-o" style="font-size: 1.8em;color: red;" aria-hidden="true"></i>
+      </md-button>
     </md-list-item>
   </md-list>
 </section>

@@ -1,47 +1,30 @@
-<section layout="column" ng-cloak class="dashboard__content enviar md-whiteframe-z1" ng-init="$scope.hasChange = false">
-  <md-toolbar class="md-primary">
-    <div class="md-toolbar-tools">
-      <h2>
-        Experimente sua Configuração
-      </h2>
-    </div>
-  </md-toolbar>
-  <md-content flex layout-padding>
-    <p>Você pode experimentar o aplicativo do seu casamento no seu próprio smartphone. Basta clicar no ícone da loja correspondente
-      ao seu sistema e utilizar a senha gerada para o teste. Assim, você saberá como será experiência de uso que seus convidados
-      terão do aplicativo do seu casamento.</p>
-    <p>Se por acaso você já estiver instalado o aplicativo no seu smartphone, é necessário deletá-lo antes de fazer o novo download.</p>
-    <a href="https://itunes.apple.com/br/app/celebri/id1086380503?l=en&mt=8" target="_blank" title="Baixar na APP Store" style="display: inline-block">
-      <img src="image/appstore.png" alt="APP Store">
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.pixla.celebri&hl=pt_BR" target="_blank" title="Baixar na Google Play"
-      style="display: inline-block;">
-      <img src="image/googleplay.png" alt="Google Play">
-    </a>
-    <p>Ao abrir o aplicativo, utilize a senha: <span class="senha"> {{enviar.senha}}</span></p>
-  </md-content>
-</section>
-<section layout="column" ng-cloak class="dashboard__content enviar md-whiteframe-z1" ng-init="$scope.hasChange = false;$scope.search = false">
+<section layout="column" ng-cloak class="dashboard__content enviar" ng-init="$scope.hasChange = false;$scope.search = false">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <md-checkbox aria-label="Selecionar Todos" md-indeterminate="enviar.ListManager.IsIndeterminate(enviar.selecionados,enviar.convidados)"
         ng-click="enviar.ListManager.ToggleAll(enviar.selecionados,enviar.convidados)" ng-checked="enviar.selecionados.length == enviar.convidados.length"
         class="white" ng-hide="$scope.search">
-      </md-checkbox>
-      <h2 ng-hide="$scope.search">
-        Enviar o Convite
-      </h2>
-      <md-input-container class="" flex="100" ng-show="$scope.search">
-        <input ng-model="$scope.searchText">
-      </md-input-container>
-      <span flex></span>
-      <md-button class="md-icon-button" aria-label="Procurar" ng-click="$scope.search = !$scope.search;$scope.searchText = ''">
-        <ng-md-icon icon="search" style="fill: white"></ng-md-icon>
-      </md-button>
+        </md-checkbox>
+        <h2 ng-hide="$scope.search">
+          Enviar o Convite
+        </h2>
+        <md-input-container class="" flex="100" ng-show="$scope.search">
+          <input ng-model="$scope.searchText">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Procurar" ng-click="$scope.search = !$scope.search;$scope.searchText = ''">
+          <ng-md-icon icon="search" style="fill: white"></ng-md-icon>
+        </md-button>
     </div>
   </md-toolbar>
   <div layout="row" layout-wrap ng-show="enviar.selecionados.length > 0" style="margin: 20px 0">
     <md-button class="md-raised md-primary" ng-click="enviar.Enviar()">Enviar</md-button>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.carregando">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.erro && !enviar.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
   </div>
   <md-list ng-cloak style="max-height: 500px; overflow: auto">
     <md-list-item ng-repeat="convidado in enviar.convidados | filter:$scope.searchText">

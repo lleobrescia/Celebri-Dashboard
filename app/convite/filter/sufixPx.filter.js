@@ -11,7 +11,7 @@
     ////////////////
 
     function SufixPxFilter(value) {
-      return (!value) ? '' : value + 'px';
+      return (!value) ? '' : value.toString() + 'px';
     }
   }
 })();

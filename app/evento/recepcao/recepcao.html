@@ -1,4 +1,4 @@
-<section layout="column" ng-cloak class="dashboard__content md-whiteframe-z1">
+<section layout="column" ng-cloak class="dashboard__content">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -6,14 +6,16 @@
       </h2>
     </div>
   </md-toolbar>
-
-  <md-content flex layout-padding ng-init="$scope.hasChange = false">
-    <div class="carregando" ng-show="recepcao.carregando">
-      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-      <span class="sr-only">Carregando...</span>
-    </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="recepcao.erro && !recepcao.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="recepcao.carregando && !recepcao.erro">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <md-content flex layout-padding ng-init="$scope.hasChange = false" ng-hide="recepcao.carregando">
     <p>
-      As informações abaixo aparecerão no aplicativo do seu casamento, que seus convidados irão baixar para confirmar presença e obter informações da cerimônia e festa.
+      As informações abaixo aparecerão no aplicativo do seu casamento, que seus convidados irão baixar para confirmar presença
+      e obter informações da cerimônia e festa.
     </p>
 
     <div layout="row" layout-wrap>
@@ -23,9 +25,10 @@
     </div>
 
     <div layout="row" layout-wrap ng-show="recepcao.hasRecepcao">
-      <md-switch class="md-primary" aria-label="Recepção será no mesmo local da cerimônia?" ng-model="recepcao.dados.Mesmo_local_cerimonia" ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+      <md-switch class="md-primary" aria-label="Recepção será no mesmo local da cerimônia?" ng-model="recepcao.dados.Mesmo_local_cerimonia"
+        ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
         Recepção será no mesmo local da cerimônia?
-      </md-switch>
+        </md-switch>
     </div>
 
     <form name="formRecepcao">
@@ -83,17 +86,19 @@
 
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Estado</label>
-            <input type="text" name="estado" maxlength="2" ng-model="recepcao.dados.Estado" style="text-transform: uppercase;" required ng-change="$scope.hasChange = true">
-            <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
-              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
-            </div>
+            <input type="text" name="estado" maxlength="2" ng-model="recepcao.dados.Estado" style="text-transform: uppercase;" required
+              ng-change="$scope.hasChange = true">
+              <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
+                <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+              </div>
           </md-input-container>
         </div>
 
         <div layout="row" layout-wrap>
-          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="recepcao.dados.Tracar_rota_local" ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="recepcao.dados.Tracar_rota_local"
+            ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
             Traçar rota até o local
-          </md-switch>
+            </md-switch>
         </div>
       </div>
 

@@ -1,18 +1,18 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('dashboard')
     .controller('CardapioController', CardapioController);
 
-  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
+  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr'];
 
-  function CardapioController(serverService, conversorService, ListManagerService, session) {
+  function CardapioController(serverService, conversorService, ListManagerService, session, toastr) {
     const ID = session.user.id;
     var vm = this;
 
     vm.dados = {
-      'Cardapio ': {
+      'Cardapio': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         'Descricao': '',
         'Id': 0,
@@ -21,6 +21,8 @@
       }
     };
     vm.cardapios = [];
+    vm.carregando = true;
+    vm.erro = false;
 
     vm.Adicionar = Adicionar;
     vm.Excluir = Excluir;
@@ -34,25 +36,74 @@
     }
 
     function Adicionar() {
+      vm.carregando = true;
       var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('CadastrarCardapio', dados).then(function(resp) {
+      serverService.Request('CadastrarCardapio', dados).then(function (resp) {
+        vm.carregando = false;
+
+        vm.dados.Cardapio.Descricao = '';
+        vm.dados.Cardapio.Nome = '';
+
         GetDados();
+      }).catch(function (error) {
+        console.error('CadastrarCardapio -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
 
-    function Excluir() {
+    function Excluir(id) {
+      vm.carregando = true;
+      var item = {
+        'ListaRegistrosExcluir': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Id_casal': ID,
+          'Id_registro': {
+            'int': [{
+              '#text': id,
+              '@xmlns': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays'
+            }]
+          }
+        }
+      };
 
+      var dado = conversorService.Json2Xml(item, '');
+      serverService.Request('ExcluirCardapio', dado).then(function (resp) {
+        vm.carregando = false;
+        toastr.success('Cardápio Excluido');
+        GetDados();
+      }).catch(function (error) {
+        console.error('ExcluirCardapio -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+      });
     }
 
     function GetDados() {
-      serverService.Get('RetornarCardapio', ID).then(function(resp) {
+      vm.carregando = true;
+      vm.cardapios = [];
+      serverService.Get('RetornarCardapio', ID).then(function (resp) {
         /**
          * O servico conversorService retorna uma string
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        vm.cardapios = resp.ArrayOfCardapio.Cardapio;
-        console.log(resp);
+
+        if (resp.ArrayOfCardapio.Cardapio.length > 1) {
+          vm.cardapios = resp.ArrayOfCardapio.Cardapio;
+        } else {
+          vm.cardapios.push(resp.ArrayOfCardapio.Cardapio);
+        }
+
+        vm.carregando = false;
+
+      }).catch(function (error) {
+        console.error('RetornarCardapio -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
       });
     }
   }
