@@ -12,10 +12,12 @@
     .module('dashboard')
     .controller('RecepcaoController', RecepcaoController);
 
-  RecepcaoController.$inject = ['serverService', 'conversorService', 'session', 'toastr'];
+  RecepcaoController.$inject = ['serverService', 'conversorService', 'session', 'toastr', '$rootScope'];
 
-  function RecepcaoController(serverService, conversorService, session, toastr) {
+  function RecepcaoController(serverService, conversorService, session, toastr, $rootScope) {
+    const enable = $rootScope.pagante;
     const ID = session.user.id;
+
     var dadosAux = {
       'ConfiguracaoEvento': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -85,16 +87,22 @@
 
     function SetDados() {
       vm.carregando = true;
-      var dados = conversorService.Json2Xml(dadosAux, '');
-      serverService.Request('ConfiguracaoEvento', dados).then(function (resp) {
+      if (enable) {
+        var dados = conversorService.Json2Xml(dadosAux, '');
+        serverService.Request('ConfiguracaoEvento', dados).then(function (resp) {
+          vm.carregando = false;
+          toastr.success('Alterações Salvas!');
+        }).catch(function (error) {
+          console.error('ConfiguracaoEvento -> ', error);
+          vm.carregando = false;
+          vm.erro = true;
+          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+        });
+      } else {
+        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
-        toastr.success('Alterações Salvas!');
-      }).catch(function (error) {
-        console.error('ConfiguracaoEvento -> ', error);
-        vm.carregando = false;
-        vm.erro = true;
-        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-      });
+      }
+
     }
   }
 })();

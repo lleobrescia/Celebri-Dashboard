@@ -102,9 +102,9 @@
         </div>
       </div>
 
-      <div layout="row" layout-wrap ng-show="$scope.hasChange">
-        <md-button class="md-raised md-primary" flex ng-click="recepcao.SetDados()" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
-        <md-button class="md-raised md-warn" flex ng-click="recepcao.Cancelar()">Cancelar</md-button>
+      <div layout-wrap ng-show="$scope.hasChange">
+        <md-button class="md-raised md-primary" ng-click="recepcao.SetDados()" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+        <md-button class="md-raised md-warn" ng-click="recepcao.Cancelar()">Cancelar</md-button>
       </div>
     </form>
   </md-content>

@@ -47,8 +47,6 @@
       serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        console.log(resp);
-
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
           session.user.id = resp.ResultadoAutenticacaoNoivos.Id_usuario_logado;
           session.user.casal.nomeNoivo = resp.ResultadoAutenticacaoNoivos.NomeNoivo;
@@ -76,24 +74,8 @@
             session.user.casal.urlFoto = resp.ResultadoAutenticacaoNoivos.Url_foto + '?' + h + ':' + m;
           }
 
-          if (resp.ResultadoAutenticacaoNoivos.Pagamento_realizado === 'false') {
-            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro) + 1;
+          CheckPagamento(resp);
 
-            if (dias < 16) {
-              session.user.usuarioLiberado = $rootScope.liberado = true;
-              session.user.diasCadastros = $rootScope.dias = dias;
-              $rootScope.pagante = false;
-              session.SaveState();
-
-              GetDataCasamento();
-            } else {
-              vm.errorMessage = 'Seu período de degustação acabou';
-              vm.carregando = false;
-            }
-          } else {
-            session.user.pagante = $rootScope.pagante = true;
-            GetDataCasamento();
-          }
         } else {
           vm.errorMessage = resp.ResultadoAutenticacaoNoivos.ErrorMessage;
           vm.carregando = false;
@@ -102,6 +84,23 @@
         console.error('AutenticacaoNoivos', error);
         vm.carregando = false;
         vm.erro = true;
+      });
+    }
+
+    function RegistrarPagamnto(id, origem) {
+      var dado = {
+        'StatusPagamentoCelebri': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'IdCasal': id,
+          'Origem': origem,
+          'PagtoAprovado': 'true',
+          'Valor': '185.00'
+        }
+      };
+
+      var xml = conversorService.Json2Xml(dado, '');
+      serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {
+
       });
     }
 
@@ -115,6 +114,45 @@
       return diffDays;
     }
 
+    function CheckPagamento(resp) {
+      var dados = {
+        'EmailCasal': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Email': vm.dados.Autenticacao.Email
+        }
+      };
+
+      if (resp.ResultadoAutenticacaoNoivos.Pagamento_realizado === 'false') {
+        var xml = conversorService.Json2Xml(dados, '');
+        serverService.Request('RetornarExisteEmailIsentoPagtoCelebri', xml).then(function (dado) {
+          dado = angular.fromJson(conversorService.Xml2Json(dado.data, ''));
+
+          if (dado.RetornoExisteEmailIsentoPagtoCelebri.Result === 'false') {
+            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro) + 1;
+
+            if (dias < 16) {
+              session.user.usuarioLiberado = $rootScope.liberado = true;
+              session.user.diasCadastros = $rootScope.dias = dias;
+              session.user.pagante = $rootScope.pagante = false;
+              session.SaveState();
+
+              GetDataCasamento();
+            } else {
+              vm.errorMessage = 'Seu período de degustação acabou';
+              vm.carregando = false;
+            }
+          } else {
+            RegistrarPagamnto(resp.ResultadoAutenticacaoNoivos.Id_usuario_logado, dado.RetornoExisteEmailIsentoPagtoCelebri.Origem);
+            session.user.pagante = $rootScope.pagante = true;
+            GetDataCasamento();
+          }
+        });
+      } else {
+        session.user.pagante = $rootScope.pagante = true;
+        GetDataCasamento();
+      }
+    }
+
     function GetDataCasamento() {
       serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function (resp) {
         var dados = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
@@ -123,7 +161,6 @@
         session.SaveState();
 
         vm.carregando = false;
-        console.log(session.user);
         $state.go('casal');
       });
     }

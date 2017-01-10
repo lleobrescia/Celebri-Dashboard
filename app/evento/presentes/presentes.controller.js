@@ -5,10 +5,12 @@
     .module('dashboard')
     .controller('PresentesController', PresentesController);
 
-  PresentesController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr'];
+  PresentesController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr', '$rootScope'];
 
-  function PresentesController(serverService, conversorService, ListManagerService, session, toastr) {
+  function PresentesController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
+    const enable = $rootScope.pagante;
     const ID = session.user.id;
+
     var vm = this;
 
     vm.dados = {
@@ -37,17 +39,22 @@
 
     function Adicionar() {
       vm.carregando = true;
-      var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('ConfigAdicionalEvento_LojaPresentes', dados).then(function (resp) {
-        GetDados();
+      if (enable) {
+        var dados = conversorService.Json2Xml(vm.dados, '');
+        serverService.Request('ConfigAdicionalEvento_LojaPresentes', dados).then(function (resp) {
+          GetDados();
+          vm.carregando = false;
+          toastr.success('Loja Adicionada');
+        }).catch(function (error) {
+          console.error('ConfigAdicionalEvento_LojaPresentes -> ', error);
+          vm.carregando = false;
+          vm.erro = true;
+          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+        });
+      } else {
+        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
-        toastr.success('Loja Adicionada');
-      }).catch(function (error) {
-        console.error('ConfigAdicionalEvento_LojaPresentes -> ', error);
-        vm.carregando = false;
-        vm.erro = true;
-        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-      });
+      }
     }
 
     function Excluir(id) {
@@ -89,10 +96,12 @@
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        if (resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes.length > 1) {
-          vm.presentes = resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes;
-        } else {
-          vm.presentes.push(resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes);
+        if (resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes) {
+          if (resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes.length > 1) {
+            vm.presentes = resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes;
+          } else {
+            vm.presentes.push(resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes);
+          }
         }
 
       }).catch(function (error) {

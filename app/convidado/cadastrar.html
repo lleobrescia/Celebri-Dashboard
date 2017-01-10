@@ -7,7 +7,14 @@
     </div>
   </md-toolbar>
 
-  <md-content flex layout-padding>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convidados.carregando">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="convidados.erro && !convidados.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+
+  <md-content flex layout-padding ng-hide="convidados.carregando || convidados.erro">
     <p>Para enviarmos os convites virtuais, você deve cadastrar seus convidados, informando o nome de cada um, o respectivo
       e-mail e o número de acompanhantes.</p>
     <p>Lembre-se que o convidado pode ter um ou mais acompanhantes. Por exemplo, ao convidar o João e sua esposa, basta inserir
@@ -55,7 +62,7 @@
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content">
+<section layout="column" ng-cloak class="dashboard__content" ng-hide="convidados.carregando || convidados.erro || convidados.pessoas.length === 0">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -63,13 +70,17 @@
       </h2>
     </div>
   </md-toolbar>
-
-  <md-list ng-cloak style="max-height: 500px; overflow: auto">
-    <md-list-item ng-repeat="pessoa in convidados.pessoas">
-      <div class="md-list-item-text">
-        <h3>{{pessoa.Nome}}</h3>
-        <p>{{pessoa.Email}}</p>
-      </div>
-    </md-list-item>
-  </md-list>
+  <md-content>
+    <md-list ng-cloak style="max-height: 500px; overflow: auto">
+      <md-list-item ng-repeat="pessoa in convidados.pessoas">
+        <div class="md-list-item-text">
+          <h3>{{pessoa.Nome}}</h3>
+          <p>{{pessoa.Email}} <br> Acompanhantes: {{pessoa.Qtde_Acompanhantes}} <br> Senha do APP: <strong>{{pessoa.Senha}}</strong></p>
+        </div>
+        <md-button class="md-secondary md-icon-button" ng-click="convidados.Excluir(pessoa.Id)" aria-label="apagar">
+          <i class="fa fa-trash-o" style="font-size: 1.8em;color: red;" aria-hidden="true"></i>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-content>
 </section>

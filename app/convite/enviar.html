@@ -1,3 +1,11 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-content flex layout-padding>
+    <p>Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com
+      antecedência, para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações
+      do seu casamento/evento para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer
+      momento, bastando voltar nesta página e selecionar o convidado escolhido.</p>
+  </md-content>
+</section>
 <section layout="column" ng-cloak class="dashboard__content enviar" ng-init="$scope.hasChange = false;$scope.search = false">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
@@ -26,6 +34,7 @@
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.erro && !enviar.carregando">
     <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
   </div>
+
   <md-list ng-cloak style="max-height: 500px; overflow: auto">
     <md-list-item ng-repeat="convidado in enviar.convidados | filter:$scope.searchText">
       <md-checkbox aria-label="Selecionar" ng-checked="enviar.ListManager.Exists(convidado,enviar.selecionados)" ng-click="enviar.ListManager.Toggle(convidado,enviar.selecionados)"></md-checkbox>

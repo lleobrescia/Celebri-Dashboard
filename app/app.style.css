@@ -22,7 +22,12 @@ html {
   line-height: 1.5;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
   display: none !important;
 }
 
@@ -119,10 +124,10 @@ md-toolbar:not(.md-menu-toolbar) {
 
 .dialog_celebri .fa {
   position: absolute;
-  right: -26px;
-  top: -22px;
+  right: 0;
+  top: 0;
   font-size: 2.5em;
-  color: #9fb6ff;
+  color: black;
   cursor: pointer;
 }
 

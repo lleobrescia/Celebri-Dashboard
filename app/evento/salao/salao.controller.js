@@ -5,10 +5,12 @@
     .module('dashboard')
     .controller('SalaoController', SalaoController);
 
-  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session'];
+  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', '$rootScope', 'toastr'];
 
-  function SalaoController(serverService, conversorService, ListManagerService, session) {
+  function SalaoController(serverService, conversorService, ListManagerService, session, $rootScope, toastr) {
+    const enable = $rootScope.pagante;
     const ID = session.user.id;
+
     var vm = this;
 
     vm.dados = {
@@ -48,16 +50,21 @@
 
     function Adicionar() {
       vm.carregando = true;
-      var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('ConfigAdicionalEvento_ListaSaloes', dados).then(function (resp) {
-        GetDados();
+      if (enable) {
+        var dados = conversorService.Json2Xml(vm.dados, '');
+        serverService.Request('ConfigAdicionalEvento_ListaSaloes', dados).then(function (resp) {
+          GetDados();
+          vm.carregando = false;
+        }).catch(function (error) {
+          console.error('ConfigAdicionalEvento_ListaSaloes -> ', error);
+          vm.carregando = false;
+          vm.erro = true;
+          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+        });
+      } else {
+        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
-      }).catch(function (error) {
-        console.error('ConfigAdicionalEvento_ListaSaloes -> ', error);
-        vm.carregando = false;
-        vm.erro = true;
-        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-      });
+      }
     }
 
     function Excluir(id) {
@@ -97,7 +104,15 @@
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        vm.saloes = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
+
+        if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco) {
+          if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco > 1) {
+            vm.saloes = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
+          } else {
+            vm.saloes.push(resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco);
+          }
+        }
+
         vm.carregando = false;
       }).catch(function (error) {
         console.error('RetornarConfiguracaoListaSaloes -> ', error);

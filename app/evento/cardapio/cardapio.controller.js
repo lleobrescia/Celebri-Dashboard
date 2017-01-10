@@ -5,10 +5,12 @@
     .module('dashboard')
     .controller('CardapioController', CardapioController);
 
-  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr'];
+  CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr', '$rootScope'];
 
-  function CardapioController(serverService, conversorService, ListManagerService, session, toastr) {
+  function CardapioController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
+    const enable = $rootScope.pagante;
     const ID = session.user.id;
+
     var vm = this;
 
     vm.dados = {
@@ -37,20 +39,27 @@
 
     function Adicionar() {
       vm.carregando = true;
-      var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('CadastrarCardapio', dados).then(function (resp) {
-        vm.carregando = false;
+      if (enable) {
+        var dados = conversorService.Json2Xml(vm.dados, '');
+        serverService.Request('CadastrarCardapio', dados).then(function (resp) {
+          vm.carregando = false;
 
-        vm.dados.Cardapio.Descricao = '';
-        vm.dados.Cardapio.Nome = '';
+          vm.dados.Cardapio.Descricao = '';
+          vm.dados.Cardapio.Nome = '';
 
-        GetDados();
-      }).catch(function (error) {
-        console.error('CadastrarCardapio -> ', error);
+          toastr.success('Cardápio Adicionado');
+
+          GetDados();
+        }).catch(function (error) {
+          console.error('CadastrarCardapio -> ', error);
+          vm.carregando = false;
+          vm.erro = true;
+          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+        });
+      } else {
+        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
-        vm.erro = true;
-        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-      });
+      }
     }
 
     function Excluir(id) {
@@ -91,10 +100,12 @@
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        if (resp.ArrayOfCardapio.Cardapio.length > 1) {
-          vm.cardapios = resp.ArrayOfCardapio.Cardapio;
-        } else {
-          vm.cardapios.push(resp.ArrayOfCardapio.Cardapio);
+        if (resp.ArrayOfCardapio.Cardapio) {
+          if (resp.ArrayOfCardapio.Cardapio > 1) {
+            vm.cardapios = resp.ArrayOfCardapio.Cardapio;
+          } else {
+            vm.cardapios.push(resp.ArrayOfCardapio.Cardapio);
+          }
         }
 
         vm.carregando = false;

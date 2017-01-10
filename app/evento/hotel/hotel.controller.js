@@ -5,10 +5,12 @@
     .module('dashboard')
     .controller('HotelController', HotelController);
 
-  HotelController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr'];
+  HotelController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr', '$rootScope'];
 
-  function HotelController(serverService, conversorService, ListManagerService, session, toastr) {
+  function HotelController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
+    const enable = $rootScope.pagante;
     const ID = session.user.id;
+
     var vm = this;
 
     vm.dados = {
@@ -50,17 +52,22 @@
 
     function Adicionar() {
       vm.carregando = true;
-      var dados = conversorService.Json2Xml(vm.dados, '');
-      serverService.Request('ConfigAdicionalEvento_ListaHoteis', dados).then(function (resp) {
+      if (enable) {
+        var dados = conversorService.Json2Xml(vm.dados, '');
+        serverService.Request('ConfigAdicionalEvento_ListaHoteis', dados).then(function (resp) {
+          vm.carregando = false;
+          toastr.success('Hotel Adicionado!');
+          GetDados();
+        }).catch(function (error) {
+          console.error('ConfigAdicionalEvento_ListaHoteis -> ', error);
+          vm.carregando = false;
+          vm.erro = true;
+          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+        });
+      } else {
+        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
-        toastr.success('Hotel Adicionado!');
-        GetDados();
-      }).catch(function (error) {
-        console.error('ConfigAdicionalEvento_ListaHoteis -> ', error);
-        vm.carregando = false;
-        vm.erro = true;
-        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-      });
+      }
     }
 
     function Excluir(id) {
@@ -100,8 +107,16 @@
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+
+        if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco) {
+          if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco > 1) {
+            vm.hoteis = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
+          } else {
+            vm.hoteis.push(resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco);
+          }
+        }
+
         vm.carregando = false;
-        vm.hoteis = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
       }).catch(function (error) {
         console.error('RetornarConfiguracaoListaHoteis -> ', error);
         vm.carregando = false;

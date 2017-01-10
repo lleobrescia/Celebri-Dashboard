@@ -12,7 +12,6 @@
 
     vm.senha = session.user.casal.senhaApp;
 
-
     Activate();
 
     ////////////////
