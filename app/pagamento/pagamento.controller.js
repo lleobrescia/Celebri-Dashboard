@@ -5,9 +5,9 @@
     .module('dashboard')
     .controller('PagamentoController', PagamentoController);
 
-  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo', 'session', '$state', 'consultCEP', 'toastr'];
+  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo', 'session', '$state', 'consultCEP', 'toastr', '$rootScope'];
 
-  function PagamentoController(serverService, conversorService, Cielo, session, $state, consultCEP, toastr) {
+  function PagamentoController(serverService, conversorService, Cielo, session, $state, consultCEP, toastr, $rootScope) {
     const ID = session.user.id;
     var vm = this;
 
@@ -126,6 +126,9 @@
         codigo = resp.transacao.status;
 
         if (codigo === '4' || codigo === '6') {
+          $rootScope.pagante = true;
+          $rootScope.liberado = true;
+          toastr.success('Pagamento Realizado!');
           aprovado = 'true';
           status = 'Transação autorizada';
           tid = resp.transacao.tid;
@@ -148,6 +151,7 @@
           vm.cartao.codigo = '';
         } else {
           aprovado = 'false';
+          toastr.error('Autorização negada');
           status = 'Autorização negada';
         }
 
@@ -163,6 +167,7 @@
     }
 
     function RegistrarNotaFiscal() {
+      vm.fiscal.Endereco = vm.dados.endereco + ', ' + vm.dados.numero + ' - ' + vm.dados.bairro + ', ' + vm.dados.cidade + ' - ' + vm.dados.estado;
       var xml = conversorService.Json2Xml(vm.fiscal, '');
       serverService.Request('CadastrarDadosNotaFiscal', xml).then(function (resp) {
 
@@ -171,7 +176,7 @@
 
     function RegistrarPagamento(aprovacao) {
       var dado = {
-        'StatusPagamentoCelebri': {
+        'DadosPagamentoCelebri': {
           '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
           'IdCasal': ID,
           'Origem': 'Dashboard',
@@ -181,9 +186,7 @@
       };
 
       var xml = conversorService.Json2Xml(dado, '');
-      serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {
-
-      });
+      serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {});
     }
   }
 })();

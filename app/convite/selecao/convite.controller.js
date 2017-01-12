@@ -138,6 +138,7 @@
     function GetDados() {
       serverService.Get('RetornarFormatacaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+        console.log(resp);
 
         //salva os dados localmente
         session.user.convite = vm.dados = resp;

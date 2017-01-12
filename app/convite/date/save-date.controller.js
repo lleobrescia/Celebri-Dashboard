@@ -30,7 +30,7 @@
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         '@xmlns:i': 'http://www.w3.org/2001/XMLSchema-instance',
         'ErrorMessage': '',
-        'Result': '',
+        'Result': 'true',
         'id_casal': ID,
         'id_modelo': '1',
         'msg': 'Pessoas especiais como você fazem parte deste momento! O dia ' + session.user.casal.dataCasamento + ' é muito importante para nós, o dia do nosso casamento, e gostaríamos de compartilhá-lo com você. Marque esta data no seu calendário para não se esquecer.  A sua presença é essencial! Em breve você receberá por email, o convite e mais informações do nosso casamento.',
@@ -110,10 +110,12 @@
       serverService.Get('RetornarConvidados', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        if (resp.ArrayOfConvidado.Convidado.length > 1) {
-          vm.convidados = resp.ArrayOfConvidado.Convidado;
-        } else {
-          vm.convidados.push(resp.ArrayOfConvidado.Convidado);
+        if (resp.ArrayOfConvidado.Convidado) {
+          if (resp.ArrayOfConvidado.Convidado.length > 1) {
+            vm.convidados = resp.ArrayOfConvidado.Convidado;
+          } else {
+            vm.convidados.push(resp.ArrayOfConvidado.Convidado);
+          }
         }
 
         delete vm.convidados['@xmlns'];
@@ -160,7 +162,10 @@
     }
 
     function SetDados() {
+      vm.dados.DadosFormatacaoSaveTheDate.Result = 'true';
+      vm.dados.DadosFormatacaoSaveTheDate.nomecasal = session.user.casal.nomeNoiva + ' e ' + session.user.casal.nomeNoivo;
       var dados = conversorService.Json2Xml(vm.dados, '');
+
       serverService.Request('FormatacaoSaveTheDate', dados).then(function (resp) {
         toastr.success('Alterações Salvas!');
       });

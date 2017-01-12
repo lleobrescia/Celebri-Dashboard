@@ -66,6 +66,9 @@
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="save.erroLista && !save.carregandoLista">
     <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
   </div>
+  <md-content flex layout-padding ng-show="save.convidados.length === 0">
+    <p>Você precisa <a ui-sref="cadastrarConvidados">cadastrar convidados</a> para poder enviar o Save the Date.</p>
+  </md-content>
   <md-list ng-cloak style="max-height: 500px; overflow: auto" ng-hide="save.carregandoLista || save.erroLista">
     <md-list-item ng-repeat="convidado in save.convidados | filter: $scope.searchText">
       <md-checkbox aria-label="Selecionar" ng-checked="save.ListManager.Exists(convidado,save.selecionados)" ng-click="save.ListManager.Toggle(convidado,save.selecionados)"></md-checkbox>

@@ -37,7 +37,7 @@
               <p class="bloco" ng-style="convite.styles.bloco2" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg2 | raplaceHash"
                 ng-click="convite.Controlador.SelectStyle(convite.styles.bloco2)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco2))}"></p>
 
-                <textarea name="personalizado" class="bloco" ng-style="convite.styles.bloco3" ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_msg3 | raplaceHash"
+                <textarea name="personalizado" class="bloco" ng-style="convite.styles.bloco3" ng-model="convite.dados.DadosFormatacaoConvite.conteudo_msg3"
                   ng-click="convite.Controlador.SelectStyle(convite.styles.bloco3)" ng-class="{'selected' : (convite.Controlador.HasSelected(convite.styles.bloco3))}"
                   maxlength="144"></textarea>
 

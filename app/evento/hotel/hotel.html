@@ -68,16 +68,8 @@
 
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Site</label>
-            <input type="url" name="site" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Site" style="text-transform: uppercase;"
-              required http-prefix>
+            <input type="url" name="site" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Site" required http-prefix>
           </md-input-container>
-        </div>
-
-        <div layout="row" layout-wrap>
-          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Tracar_rota_local"
-            ng-false-value="'false'" ng-true-value="'true'">
-            Traçar rota até o local
-            </md-switch>
         </div>
       </div>
 
@@ -87,7 +79,7 @@
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content save" ng-hide="hotel.hoteis.length === 0">
+<section layout="column" ng-cloak class="dashboard__content save">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>

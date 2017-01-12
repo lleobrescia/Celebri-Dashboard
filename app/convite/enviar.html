@@ -34,7 +34,9 @@
   <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.erro && !enviar.carregando">
     <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
   </div>
-
+  <md-content flex layout-padding ng-show="enviar.convidados.length === 0">
+    <p>Você precisa <a ui-sref="cadastrarConvidados">cadastrar convidados</a> para poder enviar o Save the Date.</p>
+  </md-content>
   <md-list ng-cloak style="max-height: 500px; overflow: auto">
     <md-list-item ng-repeat="convidado in enviar.convidados | filter:$scope.searchText">
       <md-checkbox aria-label="Selecionar" ng-checked="enviar.ListManager.Exists(convidado,enviar.selecionados)" ng-click="enviar.ListManager.Toggle(convidado,enviar.selecionados)"></md-checkbox>

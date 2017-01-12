@@ -11,7 +11,7 @@
     ////////////////
 
     function RaplaceHashFilter(value) {
-      return (!value) ? '' : value.replace(/#/g, '<br>');
+      return (!value) ? '' : value.toString().replace(/#/g, '<br>');
     }
   }
 })();

@@ -62,13 +62,18 @@
 
     function GetDados() {
       vm.carregando = true;
+      vm.convidados = [];
+      vm.selecionados = [];
+
       serverService.Get('RetornarConvidados', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
-        if (resp.ArrayOfConvidado.Convidado.length > 1) {
-          vm.convidados = resp.ArrayOfConvidado.Convidado;
-        } else {
-          vm.convidados.push(resp.ArrayOfConvidado.Convidado);
+        if (resp.ArrayOfConvidado.Convidado) {
+          if (resp.ArrayOfConvidado.Convidado.length > 1) {
+            vm.convidados = resp.ArrayOfConvidado.Convidado;
+          } else {
+            vm.convidados.push(resp.ArrayOfConvidado.Convidado);
+          }
         }
 
         vm.carregando = false;

@@ -28,7 +28,7 @@
       <div layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-sm="50">
           <label>CPF</label>
-          <input ng-model="pgto.fiscal.Cpf" aria-label="CPF" type="text" name="cpf" required mask="999.999.999-99">
+          <input ng-model="pgto.fiscal.DadosNotaFiscal.Cpf" aria-label="CPF" type="text" name="cpf" required mask="999.999.999-99">
           <div class="validation-messages" ng-messages="pagamentoForm.cpf.$error">
             <div ng-message="mask">Não é um CPF válido</div>
             <div ng-message="required">O campo é obrigatório!</div>
@@ -36,7 +36,7 @@
         </md-input-container>
         <md-input-container flex="100" flex-gt-sm="50">
           <label>E-mail</label>
-          <input ng-model="pgto.fiscal.Email" aria-label="E-mail" type="email" name="email" required>
+          <input ng-model="pgto.fiscal.DadosNotaFiscal.Email" aria-label="E-mail" type="email" name="email" required>
           <div class="validation-messages" ng-messages="pagamentoForm.email.$error">
             <div ng-message="email">Não é um e-mail válido</div>
             <div ng-message="required">O campo é obrigatório!</div>
@@ -70,7 +70,7 @@
         </md-input-container>
         <md-input-container flex="100" flex-gt-sm="30">
           <label>Número</label>
-          <input ng-model="pgto.dados.numero" aria-label="Número" type="email" name="numero" required>
+          <input ng-model="pgto.dados.numero" aria-label="Número" type="text" name="numero" required>
           <div class="validation-messages" ng-messages="pagamentoForm.numero.$error">
             <div ng-message="required">O campo é obrigatório!</div>
           </div>

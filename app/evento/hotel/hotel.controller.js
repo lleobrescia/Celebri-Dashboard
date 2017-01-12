@@ -18,7 +18,7 @@
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         'Bairro': '',
         'Cidade': '',
-        'CodigoArea': '',
+        'CodigoArea': ' ',
         'Email': '',
         'Endereco': '',
         'Estado': '',
@@ -26,12 +26,12 @@
         'Id_usuario_logado': ID,
         'Nome': '',
         'Numero': '',
-        'Obs': '',
-        'Pais': '',
+        'Obs': ' ',
+        'Pais': ' ',
         'Site': '',
         'Telefone': '',
         'TipoLogradouro': '',
-        'Tracar_rota_local': ''
+        'Tracar_rota_local': 'true'
       }
     };
     vm.carregando = true;
@@ -55,6 +55,7 @@
       if (enable) {
         var dados = conversorService.Json2Xml(vm.dados, '');
         serverService.Request('ConfigAdicionalEvento_ListaHoteis', dados).then(function (resp) {
+          console.log(resp);
           vm.carregando = false;
           toastr.success('Hotel Adicionado!');
           GetDados();
@@ -100,6 +101,27 @@
 
     function GetDados() {
       vm.carregando = true;
+      vm.dados = {
+        'ConfiguracaoGenericaEndereco': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Bairro': '',
+          'Cidade': '',
+          'CodigoArea': ' ',
+          'Email': '',
+          'Endereco': '',
+          'Estado': '',
+          'Id': '0',
+          'Id_usuario_logado': ID,
+          'Nome': '',
+          'Numero': '',
+          'Obs': ' ',
+          'Pais': ' ',
+          'Site': '',
+          'Telefone': '',
+          'TipoLogradouro': '',
+          'Tracar_rota_local': 'true'
+        }
+      };
       serverService.Get('RetornarConfiguracaoListaHoteis', ID).then(function (resp) {
         vm.hoteis = [];
         /**
@@ -108,8 +130,10 @@
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
+        console.log(resp);
+
         if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco) {
-          if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco > 1) {
+          if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco.length > 1) {
             vm.hoteis = resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco;
           } else {
             vm.hoteis.push(resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco);

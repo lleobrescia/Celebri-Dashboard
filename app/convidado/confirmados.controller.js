@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -8,7 +8,7 @@
   ConvidadosConfirmadosController.inject = ['serverService', 'conversorService', 'session'];
 
   function ConvidadosConfirmadosController(serverService, conversorService, session) {
-    const ID = session.user.id;
+    const ID = 1;
     var vm = this;
 
     Activate();
@@ -20,10 +20,16 @@
     }
 
     function GetDados() {
-      serverService.Get('RetornarConvidadosConfirmados', ID).then(function(resp) {
+      serverService.Get('RetornarConvidadosConfirmados', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        vm.pessoas = resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados;
-        console.log(resp);
+
+        if (resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados) {
+          if (resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados.length > 1) {
+            vm.pessoas = resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados;
+          } else {
+            vm.pessoas.push(resp.ArrayOfListaConvidadosConfirmados.ListaConvidadosConfirmados);
+          }
+        }
       });
     }
   }

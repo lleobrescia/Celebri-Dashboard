@@ -18,7 +18,7 @@
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
         'Bairro': '',
         'Cidade': '',
-        'CodigoArea': '',
+        'CodigoArea': ' ',
         'Email': '',
         'Endereco': '',
         'Estado': '',
@@ -26,12 +26,12 @@
         'Id_usuario_logado': ID,
         'Nome': '',
         'Numero': '',
-        'Obs': '',
-        'Pais': '',
+        'Obs': ' ',
+        'Pais': ' ',
         'Site': '',
         'Telefone': '',
         'TipoLogradouro': '',
-        'Tracar_rota_local': ''
+        'Tracar_rota_local': 'true'
       }
     };
     vm.carregando = true;
@@ -53,6 +53,7 @@
       if (enable) {
         var dados = conversorService.Json2Xml(vm.dados, '');
         serverService.Request('ConfigAdicionalEvento_ListaSaloes', dados).then(function (resp) {
+          console.log(resp);
           GetDados();
           vm.carregando = false;
         }).catch(function (error) {
@@ -96,6 +97,27 @@
     }
 
     function GetDados() {
+      vm.dados = {
+        'ConfiguracaoGenericaEndereco': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Bairro': '',
+          'Cidade': '',
+          'CodigoArea': ' ',
+          'Email': '',
+          'Endereco': '',
+          'Estado': '',
+          'Id': '0',
+          'Id_usuario_logado': ID,
+          'Nome': '',
+          'Numero': '',
+          'Obs': ' ',
+          'Pais': ' ',
+          'Site': '',
+          'Telefone': '',
+          'TipoLogradouro': ' ',
+          'Tracar_rota_local': 'true'
+        }
+      };
       vm.carregando = true;
       vm.saloes = [];
       serverService.Get('RetornarConfiguracaoListaSaloes', ID).then(function (resp) {

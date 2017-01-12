@@ -5,9 +5,9 @@
     .module('dashboard')
     .controller('CerimoniaController', CerimoniaController);
 
-  CerimoniaController.$inject = ['serverService', 'conversorService', 'session', 'toastr'];
+  CerimoniaController.$inject = ['serverService', 'conversorService', 'session', 'toastr', 'consultCEP'];
 
-  function CerimoniaController(serverService, conversorService, session, toastr) {
+  function CerimoniaController(serverService, conversorService, session, toastr, consultCEP) {
     const ID = session.user.id;
     var vm = this;
 
@@ -28,21 +28,21 @@
         'Mae_noiva_in_memoriam': 'false',
         'Mae_noivo': '',
         'Mae_noivo_in_memoriam': 'false',
-        'Msg1': '',
-        'Msg2': '',
-        'Msg3': '',
-        'Msg4': '',
-        'Msg5': '',
-        'Msg6': '',
+        'Msg1': 'null',
+        'Msg2': 'null',
+        'Msg3': 'null',
+        'Msg4': 'null',
+        'Msg5': 'null',
+        'Msg6': 'null',
         'Numero': '',
-        'Obs': '',
+        'Obs': 'null',
         'Pai_noiva': '',
         'Pai_noiva_in_memoriam': 'false',
         'Pai_noivo': '',
         'Pai_noivo_in_memoriam': 'false',
-        'Pais': '',
+        'Pais': 'null',
         'TemplateConviteApp': '0',
-        'Tracar_rota_local': 'false'
+        'Tracar_rota_local': 'true'
       }
     };
     vm.erro = false;
@@ -54,6 +54,7 @@
     vm.min = '';
 
     vm.Cancelar = GetDados;
+    vm.ConsultCEP = ConsultCEP;
     vm.Salvar = SetDados;
 
     Activate();
@@ -64,13 +65,26 @@
       GetDados();
     }
 
+    function ConsultCEP() {
+      consultCEP.consultar(vm.dados.ConfiguracaoConvite.Cep).then(function (resp) {
+        vm.dados.ConfiguracaoConvite.Endereco = resp.logradouro;
+        vm.dados.ConfiguracaoConvite.Bairro = resp.bairro;
+        vm.dados.ConfiguracaoConvite.Cidade = resp.cidade;
+        vm.dados.ConfiguracaoConvite.Estado = resp.estado;
+      });
+    }
+
     function GetDados() {
       vm.carregando = true;
 
       serverService.Get('RetornarConfiguracaoConvite', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+
+        console.log(resp);
+
         try {
           var horario = resp.ConfiguracaoConvite.Horario_cerimonia.split(":");
+          resp.ConfiguracaoConvite.Tracar_rota_local = 'true';
           vm.dados = resp;
           vm.hora = horario[0];
           vm.min = horario[1];

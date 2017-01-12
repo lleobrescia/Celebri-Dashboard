@@ -250,6 +250,9 @@
       vm.dados.DadosFormatacaoConvite.conteudo_msg1 = 'convidam para a cerimônia de casamento dos seus filhos';
       vm.dados.DadosFormatacaoConvite.conteudo_msg2 = 'a realizar-se às ' + session.user.cerimonia.ConfiguracaoConvite.Horario_cerimonia + ' horas, dia ' + session.user.casal.dataCasamento + ', ' + session.user.cerimonia.ConfiguracaoConvite.Local_cerimonia;
       vm.dados.DadosFormatacaoConvite.conteudo_msg3 = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';
+
+      vm.dados.DadosFormatacaoConvite.conteudo_msg4 = 'Cerimônia: # ' + session.user.cerimonia.ConfiguracaoConvite.Local_cerimonia + ' # ' + session.user.cerimonia.ConfiguracaoConvite.Endereco + ', ' + session.user.cerimonia.ConfiguracaoConvite.Numero + ' - ' + session.user.cerimonia.ConfiguracaoConvite.Bairro + ' # ' + session.user.cerimonia.ConfiguracaoConvite.Cidade + ' - ' + session.user.cerimonia.ConfiguracaoConvite.Estado;
+
       vm.dados.DadosFormatacaoConvite.conteudo_nomecasal = session.user.casal.nomeNoiva + ' &amp; ' + session.user.casal.nomeNoivo;
 
       vm.dados.DadosFormatacaoConvite.id_modelo = vm.idConvite;

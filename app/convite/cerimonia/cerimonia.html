@@ -21,17 +21,18 @@
       </p>
       <div layout="row" layout-wrap>
         <md-input-container flex="100" flex-gt-sm="80">
-          <label>Local da Recepção</label>
+          <label>Local da Cerimônia</label>
           <input type="text" name="local" ng-model="cerimonia.dados.ConfiguracaoConvite.Local_cerimonia" ng-change="$scope.hasChange = true"
             required>
             <div ng-messages="formRecepcao.local.$error" ng-if="formRecepcao.local.$touched">
-              <div ng-message="">Você <b>deve</b> preencher este campo.</div>
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
         </md-input-container>
 
         <md-input-container flex="100" flex-gt-sm="20">
           <label>CEP</label>
-          <input type="text" name="cep" ng-model="cerimonia.dados.ConfiguracaoConvite.Cep" mask="99.999-999" ng-change="$scope.hasChange = true">
+          <input type="text" name="cep" ng-model="cerimonia.dados.ConfiguracaoConvite.Cep" ng-keyup="cerimonia.ConsultCEP()" mask="99.999-999"
+            ng-change="$scope.hasChange = true">
         </md-input-container>
       </div>
 
@@ -41,7 +42,7 @@
           <input type="text" name="end" ng-model="cerimonia.dados.ConfiguracaoConvite.Endereco" ng-change="$scope.hasChange = true"
             required>
             <div ng-messages="formRecepcao.end.$error" ng-if="formRecepcao.end.$touched">
-              <div ng-message="">Você <b>deve</b> preencher este campo.</div>
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
         </md-input-container>
 
@@ -57,7 +58,7 @@
           <input type="text" name="bairro" ng-model="cerimonia.dados.ConfiguracaoConvite.Bairro" ng-change="$scope.hasChange = true"
             required>
             <div ng-messages="formRecepcao.bairro.$error" ng-if="formRecepcao.bairro.$touched">
-              <div ng-message="">Você <b>deve</b> preencher este campo.</div>
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
         </md-input-container>
 
@@ -66,7 +67,7 @@
           <input type="text" name="cidade" ng-model="cerimonia.dados.ConfiguracaoConvite.Cidade" ng-change="$scope.hasChange = true"
             required>
             <div ng-messages="formRecepcao.cidade.$error" ng-if="formRecepcao.cidade.$touched">
-              <div ng-message="">Você <b>deve</b> preencher este campo.</div>
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
         </md-input-container>
 
@@ -75,41 +76,45 @@
           <input type="text" name="estado" maxlength="2" ng-model="cerimonia.dados.ConfiguracaoConvite.Estado" style="text-transform: uppercase;"
             ng-change="$scope.hasChange = true" required>
             <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
-              <div ng-message="">Você <b>deve</b> preencher este campo.</div>
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
         </md-input-container>
       </div>
 
-      <md-switch flex="100" flex-gt-sm="40" class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="cerimonia.dados.ConfiguracaoConvite.Tracar_rota_local"
-        ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
-        Traçar rota até o local
-        </md-switch>
+      <div layout="row" layout-wrap>
+        <p flex="100">Horário da Cerimônia</p>
+        <md-input-container>
+          <label>Hora</label>
+          <md-select ng-model="cerimonia.hora" name="hora" ng-change="$scope.hasChange = true" required>
+            <md-option ng-repeat="t in Main.GetTimes(24) track by $index" ng-value="{{$index | twoDigits}}">
+              {{$index | twoDigits}}
+            </md-option>
+          </md-select>
+          <div ng-messages="formRecepcao.hora.$error" ng-if="formRecepcao.cidade.$touched">
+            <div ng-message="required">Você <b>deve</b> selecionar um valor.</div>
+          </div>
+        </md-input-container>
+        <span style="font-size: 2em;display: block;margin: 0 10px;padding-top: 16px;"> : </span>
+        <md-input-container>
+          <label>Min.</label>
+          <md-select ng-model="cerimonia.min" name="min" ng-change="$scope.hasChange = true" required>
+            <md-option ng-value="'00'">
+              00
+            </md-option>
+            <md-option ng-repeat="t in Main.GetTimes(4) track by $index" ng-value="$index * 15" ng-hide="$index === 0">
+              {{$index * 15 | twoDigits}}
+            </md-option>
+          </md-select>
+          <div ng-messages="formRecepcao.min.$error" ng-if="formRecepcao.cidade.$touched">
+            <div ng-message="required">Você <b>deve</b> selecionar um valor.</div>
+          </div>
+        </md-input-container>
+      </div>
 
-        <div layout="row" layout-wrap>
-          <p flex="100">Horário da Cerimônia</p>
-          <md-input-container>
-            <label>Hora</label>
-            <md-select ng-model="cerimonia.hora" ng-change="$scope.hasChange = true">
-              <md-option ng-repeat="t in Main.GetTimes(24) track by $index" ng-value="$index">
-                {{$index | twoDigits}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <span style="font-size: 2em;display: block;margin: 0 10px;padding-top: 16px;"> : </span>
-          <md-input-container>
-            <label>Min.</label>
-            <md-select ng-model="cerimonia.min" ng-change="$scope.hasChange = true" required>
-              <md-option ng-repeat="t in Main.GetTimes(4) track by $index" ng-value="$index * 15">
-                {{$index * 15 | twoDigits}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-        </div>
-
-        <div layout-padding ng-show="$scope.hasChange">
-          <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar()" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
-          <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar()">Cancelar</md-button>
-        </div>
+      <div layout-padding ng-show="$scope.hasChange">
+        <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar();$scope.hasChange = false" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+        <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar();$scope.hasChange = false">Cancelar</md-button>
+      </div>
     </md-content>
   </form>
 </section>
@@ -175,8 +180,8 @@
       </div>
     </div>
     <div layout-padding ng-show="$scope.paisChange">
-      <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar()" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
-      <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar()">Cancelar</md-button>
+      <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar();$scope.hasChange = false" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+      <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar();$scope.hasChange = false">Cancelar</md-button>
     </div>
   </md-content>
 </section>

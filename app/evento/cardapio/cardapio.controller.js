@@ -101,7 +101,7 @@
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
 
         if (resp.ArrayOfCardapio.Cardapio) {
-          if (resp.ArrayOfCardapio.Cardapio > 1) {
+          if (resp.ArrayOfCardapio.Cardapio.length > 1) {
             vm.cardapios = resp.ArrayOfCardapio.Cardapio;
           } else {
             vm.cardapios.push(resp.ArrayOfCardapio.Cardapio);
