@@ -5,9 +5,9 @@
     .module('dashboard')
     .controller('PagamentoController', PagamentoController);
 
-  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo', 'session', '$state', 'consultCEP', 'toastr', '$rootScope'];
+  PagamentoController.$inject = ['serverService', 'conversorService', 'Cielo', 'session', '$state', 'consultCEP', 'toastr', '$rootScope', 'EnviarEmail'];
 
-  function PagamentoController(serverService, conversorService, Cielo, session, $state, consultCEP, toastr, $rootScope) {
+  function PagamentoController(serverService, conversorService, Cielo, session, $state, consultCEP, toastr, $rootScope, EnviarEmail) {
     const ID = session.user.id;
     var vm = this;
 
@@ -48,6 +48,7 @@
     ////////////////
 
     function Activate() {
+      Email();
       $('.cartao').validateCreditCard(function (result) {
         var cardName = null;
 
@@ -107,6 +108,14 @@
       });
     }
 
+    function Email() {
+      var conteudo = 'Pagamento realizado <br> <table>  <tr>    <td>ID</td>    <td>' + ID + '</td>  </tr>  <tr>    <td>Casal</td>    <td>' + session.user.casal.nomeNoiva + ' e ' + session.user.casal.nomeNoivo + '</td>  </tr>  <tr>    <td>Casamento</td>    <td>' + session.user.casal.dataCasamento + '</td>  </tr>  <tr>    <td>Email</td>    <td>' + session.user.casal.emailUsuario + '</td>  </tr>  </table>';
+
+      EnviarEmail.Mail('gustavo@pixla.com.br', 'Status Pagamento [Dashboard]', conteudo);
+      EnviarEmail.Mail('benrnardo@pixla.com.br', 'Status Pagamento [Dashboard]', conteudo);
+
+    }
+
     function Pagar() {
       vm.carregando = true;
       var vencimento = vm.cartao.validade.split('/');
@@ -135,6 +144,11 @@
 
           RegistrarNotaFiscal();
           RegistrarPagamento(aprovado);
+          Email();
+          RegistrarRD();
+
+          //Google Analytics
+          ga('send', 'event', 'pagamento', 'clique');
 
           //Limpa os campos
           vm.dados.nome = '';
@@ -187,6 +201,33 @@
 
       var xml = conversorService.Json2Xml(dado, '');
       serverService.Request('RegistrarPagamentoCelebri', xml).then(function (resp) {});
+    }
+
+    function RegistrarRD() {
+      //Registra o token e o formulario para o qual vai a informacao
+      RdIntegration.integrate('19182991894ae673fc83ae31d1c0134a', 'pagamento-dashboard');
+
+      //Armazena os dados em um array para ser enviado ao RD Station
+      var dataArray = [{
+          name: 'email',
+          value: session.user.casal.emailUsuario
+        },
+        {
+          name: 'identificador',
+          value: 'pagamento-dashboard'
+        },
+        {
+          name: 'nome',
+          value: session.user.casal.nomeUser
+        },
+        {
+          name: 'token_rdstation',
+          value: '19182991894ae673fc83ae31d1c0134a'
+        }
+      ];
+
+      //Envia os dados para o RD
+      RdIntegration.post(dataArray);
     }
   }
 })();
