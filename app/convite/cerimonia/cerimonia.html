@@ -9,12 +9,14 @@
         <md-button ui-sref="convite" ng-disabled="formRecepcao.$invalid">Avançar</md-button>
       </div>
     </md-toolbar>
+    <!--MENSAGEM DE ERRO-->
     <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cerimonia.carregando">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cerimonia.erro && !cerimonia.carregando">
       <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
     </div>
+
     <md-content flex layout-padding ng-init="$scope.hasChange = false" ng-hide="cerimonia.carregando || cerimonia.erro">
       <p>
         Preencha as informações da cerimônia
@@ -119,6 +121,7 @@
   </form>
 </section>
 
+<!--NOME DOS PAIS-->
 <section layout="column" ng-cloak class="dashboard__content " ng-hide="cerimonia.carregando || cerimonia.erro">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">

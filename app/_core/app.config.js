@@ -1,5 +1,6 @@
 /**
  * dashboard Module
+ * @author Leo Brescia <leonardo@leobrescia.com.br>
  * @namespace Module
  */
 (function () {
@@ -30,7 +31,7 @@
     /**
      * @name ChangeStart
      * @desc Executa quando o state comeca a mudar
-     * @memberOf Module.Run
+     * @memberof Module.Run
      */
     function ChangeStart(event, toState, toParams, fromState, fromParams) {
       var userAuthenticated = false; //Por padrao o usuario nao esta autenticado
@@ -73,7 +74,7 @@
     /**
      * @name ChangeSuccess
      * @desc Executa depois que o state mudou
-     * @memberOf Module.Run
+     * @memberof Module.Run
      */
     function ChangeSuccess() {
       /** @global */
@@ -103,7 +104,7 @@
    * @desc Executa configurações quando o mudule eh iniciado
    * @see Veja {@link https://docs.angularjs.org/guide/module#configuration-blocks|Angular DOC} Para mais informações
    * @see Veja {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#configuration-1|John Papa DOC} Para melhores praticas
-   * @memberOf Module
+   * @memberof Module
    */
   function Config($mdDateLocaleProvider) {
     /**

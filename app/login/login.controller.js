@@ -111,7 +111,7 @@
       var timeDiff = Math.abs(date2.getTime() - date1.getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-      return diffDays;
+      return diffDays - 1;
     }
 
     function CheckPagamento(resp) {
@@ -128,7 +128,7 @@
           dado = angular.fromJson(conversorService.Xml2Json(dado.data, ''));
 
           if (dado.RetornoExisteEmailIsentoPagtoCelebri.Result === 'false') {
-            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro) + 1;
+            var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro);
 
             if (dias < 16) {
               session.user.usuarioLiberado = $rootScope.liberado = true;

@@ -48,7 +48,6 @@
     ////////////////
 
     function Activate() {
-      Email();
       $('.cartao').validateCreditCard(function (result) {
         var cardName = null;
 
@@ -112,7 +111,7 @@
       var conteudo = 'Pagamento realizado <br> <table>  <tr>    <td>ID</td>    <td>' + ID + '</td>  </tr>  <tr>    <td>Casal</td>    <td>' + session.user.casal.nomeNoiva + ' e ' + session.user.casal.nomeNoivo + '</td>  </tr>  <tr>    <td>Casamento</td>    <td>' + session.user.casal.dataCasamento + '</td>  </tr>  <tr>    <td>Email</td>    <td>' + session.user.casal.emailUsuario + '</td>  </tr>  </table>';
 
       EnviarEmail.Mail('gustavo@pixla.com.br', 'Status Pagamento [Dashboard]', conteudo);
-      EnviarEmail.Mail('benrnardo@pixla.com.br', 'Status Pagamento [Dashboard]', conteudo);
+      EnviarEmail.Mail('bernardo@pixla.com.br', 'Status Pagamento [Dashboard]', conteudo);
 
     }
 

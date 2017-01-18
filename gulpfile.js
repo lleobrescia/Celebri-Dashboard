@@ -13,11 +13,14 @@ var concatCss = require('gulp-concat-css');
 //Otimiza as imagens
 var imagemin = require('gulp-imagemin');
 
-// Compacta os js presentes na pasta js/ e minifica
+var shell = require('gulp-shell');
+
+// Compacta os js presentes na pasta app/ e minifica
 // desconsidera os arquivos dentro de js/vendor
-// descosidera o arquivo js/dashboard.min.js ( que eh o resultado dessa tarefa)
 gulp.task('js', function () {
-  return gulp.src('app/**/*.js', { base: './' })
+  return gulp.src('app/**/*.js', {
+      base: './'
+    })
     .pipe(concat('dashboard.js'))
     .pipe(gulp.dest('js/'))
     .pipe(ngAnnotate())
@@ -25,14 +28,18 @@ gulp.task('js', function () {
     .pipe(rename('dashboard.min.js'))
     .pipe(gulp.dest('js/'));
 });
-
+//Reduz o tamanho das imagens dentro de /image
 gulp.task('image', function () {
-  return gulp.src('image/*', { base: './' })
+  return gulp.src('image/*', {
+      base: './'
+    })
     .pipe(imagemin());
 });
 
 gulp.task('css', function () {
-  return gulp.src('app/**/*.css', { base: './' })
+  return gulp.src('app/**/*.css', {
+      base: './'
+    })
     .pipe(concatCss('style.css'))
     .pipe(autoprefixer({
       browsers: ['> 1%', 'ie 7', 'ie 8'],
@@ -44,8 +51,15 @@ gulp.task('css', function () {
     .pipe(gulp.dest('css/'));
 });
 
-// Observa as modificacoes nos arquivos dentro de js/
-// e aplica a tarefa scripts
+gulp.task('docs', shell.task([
+  'node node_modules/jsdoc/jsdoc.js ' +
+  '-c ./node_modules/angular-jsdoc/common/conf.json ' +
+  '-t ./node_modules/angular-jsdoc/angular-template ' +
+  '-d ./docs ' +
+  './README.md ' +
+  '-r ./js/dashboard.js'
+]));
+
 gulp.task('watch', function () {
   gulp.watch(['app/**/*.js'], ['js']);
   gulp.watch(['image/*'], ['image']);

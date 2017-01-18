@@ -1,10 +1,3 @@
-/**
- * CasalController
- * Controlador respossavel pela pagina casal( casal.html)
- * Utiliza o seguinte serviço do servidor:
- *  - AtualizarDadosCadastroNoivos
- * @namespace Controllers
- */
 (function () {
   'use strict';
 
@@ -12,29 +5,38 @@
     .module('dashboard')
     .controller('CasalController', CasalController);
 
-  /**
-   * serverService - usado para comunicar com o servidor (server.service.js)
-   * conversorService - usado para converter xml <-> json (conversor.service.js)
-   * session - usado para armazenar e buscar dados no session (session.service.js)
-   * $filter - usado para formatar a data de casamento
-   * toastr - usado para mostrar mensagens ao usuario
-   * EnviarFoto - envia a foto do casal para o servidor (enviarFoto.service.js)
-   * $scope - usado para colocar um listen no input[file] que vai receber a foto do casal
-   * $rootScope - usado para pegar a url da foto que ja esta no servidor
-   */
   CasalController.$inject = ['serverService', 'conversorService', 'session', '$filter', 'toastr', 'EnviarFoto', '$scope', '$rootScope'];
   /**
-   * @namespace CasalController
-   * @desc Receber e envia dados do casal ( nome do casal, data de casamento e foto ).
-   * @see Veja {@link https://docs.angularjs.org/guide/controller|Angular DOC} Para mais informações
-   * @see Veja {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers|John Papa DOC} Para melhores praticas
-   * @memberOf Controllers
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name CasalController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Receber e enviar dados do casal ( nome do casal, data de casamento e foto ).<br>
+   * Pasta de origem : app/casal <br>
+   * State : casal <br>
+   * Controller As : casal<br>
+   * Template Url : app/casal/casal.html <br><br>
+   * Usa o serviço(s) do(s) servidor:
+   *  - AtualizarDadosCadastroNoivos {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/AtualizarDadosCadastroNoivos}
+   * @param {service} serverService    - usado para comunicar com o servidor (server.service.js)
+   * @param {service} conversorService - usado para converter xml <-> json (conversor.service.js)
+   * @param {service} session          - usado para armazenar e buscar dados no session (session.service.js)
+   * @param {service} $filter          - usado para formatar a data de casamento
+   * @param {service} toastr           - usado para mostrar mensagens ao usuario
+   * @param {service} EnviarFoto       - envia a foto do casal para o servidor (enviarFoto.service.js)
+   * @param {service} $scope           - usado para colocar um listen no input[file] que vai receber a foto do casal
+   * @param {service} $rootScope       - scope geral
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
+   * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
   function CasalController(serverService, conversorService, session, $filter, toastr, EnviarFoto, $scope, $rootScope) {
-    const ID = session.user.id;
+    const ID = session.user.id; //id do usuario logado.Usado para fazer requisições
     var vm = this;
 
     vm.carregando = false; //Controla o loading
+    /** Formatação dos dados a serem enviados ao servidor  */
     vm.dados = {
       'Casal': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -49,6 +51,7 @@
     vm.dateMin = new Date(); //Data minima para mostrar no datepicker
     vm.erro = false; // Mostra msg de erro quando nao conecta com o servidor
     vm.fotoEditor = false; // Controla o display do popup para recortar a foto
+    //Controla o genero de algumas palavras, baseado no genero dos noivos
     vm.genero = {
       'noiva': session.user.casal.generoNoiva,
       'noivo': session.user.casal.generoNoivo
@@ -62,6 +65,9 @@
       left: 0
     };
 
+    /**
+     * Atribuição das funçoes as variaveis do escopo
+     */
     vm.Cancelar = ResetDados;
     vm.Salvar = Salvar;
     vm.UploadFoto = UploadFoto;
@@ -73,18 +79,18 @@
     ////////////////
 
     /**
-     * @namespace Activate
+     * @function Activate
      * @desc Setup docontrolador. Exetuca assim que o controlador inicia
-     * @memberOf Controllers.CasalController
+     * @memberof CasalController
      */
     function Activate() {
       ResetDados();
     }
 
     /**
-     * @namespace OpenFile
+     * @function OpenFile
      * @desc Executa quando uma nova foto eh selecionada. Ativa o recorte para o usuario recortar
-     * @memberOf Controllers.CasalController
+     * @memberof CasalController
      */
     function OpenFile(elem) {
       vm.carregando = true;
@@ -106,9 +112,9 @@
     }
 
     /**
-     * @namespace ResetDados
+     * @function ResetDados
      * @desc Desfaz as modificações, não salvas, do usuario
-     * @memberOf Controllers.CasalController
+     * @memberof CasalController
      */
     function ResetDados() {
       var casamento = session.user.casal.dataCasamento.split('/');
@@ -120,9 +126,9 @@
     }
 
     /**
-     * @namespace Salvar
+     * @function  Salvar
      * @desc Envia o nome do casal e a data do casamento para o servidor e armazena no session
-     * @memberOf Controllers.CasalController
+     * @memberof CasalController
      */
     function Salvar() {
       vm.carregando = true;
@@ -152,9 +158,9 @@
     }
 
     /**
-     * @namespace UploadFoto
+     * @function UploadFoto
      * @desc Enviar a foto recortada para o servidor e armazena a nova url da foto
-     * @memberOf Controllers.CasalController
+     * @memberof CasalController
      */
     function UploadFoto() {
       vm.carregando = true; //Esconde foto atual e mostra gif de loding

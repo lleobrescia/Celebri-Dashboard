@@ -1,6 +1,7 @@
 /**
- * Server Service
- * @namespace Services
+ * Enviar Foto Service
+ * @author Leo Brescia <leonardo@leobrescia.com.br>
+ * @namespace Casal
  */
 (function () {
   'use strict';
@@ -11,9 +12,19 @@
 
   EnviarFoto.$inject = ['$q', '$http', 'RequestAsFormPost'];
   /**
-   * @namespace EnviarFoto
-   * @desc Faz a coneccao com o API Service
-   * @memberOf Services
+   * @memberof dashboard
+   * @ngdoc service
+   * @scope {}
+   * @name EnviarFoto
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Pasta de origem: app/casal. Usado somente na pagina de casal <br>
+   * Envia a foto do casal recortada para o servidor.<br>
+   * Envia a foto para o script https://celebri.com.br/celebri/web/uploadFotoCasal.aspx
+   * @param {service} $q                - usado para promise
+   * @param {service} $http             - usado para requisicao
+   * @param {service} RequestAsFormPost - transforma a requisicao em uma requisicao de form
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/services} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#services} Para melhores praticas
    */
   function EnviarFoto($q, $http, RequestAsFormPost) {
     var service = {
@@ -25,12 +36,12 @@
     ////////////////
 
     /**
-     * @namespace Request
-     * @desc Envia o endpoint e o json da requisicao para a funcao SendData
-     * @param {String} endpoint - endpoint do servico que deseja acessar
-     * @param {xml} xml - request Json body
-     * @return {Promise}
-     * @memberOf Services.EnviarFoto
+     * @function Request
+     * @memberof EnviarFoto
+     * @desc Cria e retorna uma promise para a solicitação ao servidor
+     * @param {string} nome - Id do Casal
+     * @param {image} img   - Imagem na base64
+     * @returns {Promise} Dados do envio
      */
     function Request(nome, img) {
       var call;
@@ -52,11 +63,11 @@
     }
 
     /**
-     * @namespace SendData
-     * @desc Envia (ajax) um post ao API Service
-     * @param {Object} Data - data para ser enviado pelo ajax
-     * @return {String|JSON} Retorna um string em formato json
-     * @memberOf Services.EnviarFoto
+     * @function SendData
+     * @memberof EnviarFoto
+     * @desc Envia os dados ao servidor
+     * @param {JSON} Data - Dados para serem enviados ao servidor
+     * @returns {Object} Resposta do $http
      */
     function SendData(Data) {
       var requisicao = $http({
@@ -66,7 +77,6 @@
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         },
-        // withCredentials: true,
         data: Data
       });
 
