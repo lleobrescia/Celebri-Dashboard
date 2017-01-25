@@ -362,7 +362,7 @@
      */
     function SetDefault() {
       vm.dados.DadosFormatacaoConvite.conteudo_pais_noiva = session.user.cerimonia.ConfiguracaoConvite.Pai_noiva + '#' + session.user.cerimonia.ConfiguracaoConvite.Mae_noiva;
-      vm.dados.DadosFormatacaoConvite.conteudo_pais_noiva = session.user.cerimonia.ConfiguracaoConvite.Pai_noivo + '#' + session.user.cerimonia.ConfiguracaoConvite.Mae_noivo;
+      vm.dados.DadosFormatacaoConvite.conteudo_pais_noivo = session.user.cerimonia.ConfiguracaoConvite.Pai_noivo + '#' + session.user.cerimonia.ConfiguracaoConvite.Mae_noivo;
       vm.dados.DadosFormatacaoConvite.conteudo_msg1 = 'convidam para a cerimônia de casamento dos seus filhos';
       vm.dados.DadosFormatacaoConvite.conteudo_msg2 = 'a realizar-se às ' + session.user.cerimonia.ConfiguracaoConvite.Horario_cerimonia + ' horas, dia ' + session.user.casal.dataCasamento + ', ' + session.user.cerimonia.ConfiguracaoConvite.Local_cerimonia;
       vm.dados.DadosFormatacaoConvite.conteudo_msg3 = 'Este é um texto de referência para a mensagem do seu convite. Para editá-lo clique aqui e reescreva. Se você optar por não ter nenhuma mensagem, basta selecionar o texto e deletar.';

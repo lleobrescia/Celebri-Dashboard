@@ -180,7 +180,8 @@
     }
 
     function RegistrarNotaFiscal() {
-      vm.fiscal.Endereco = vm.dados.endereco + ', ' + vm.dados.numero + ' - ' + vm.dados.bairro + ', ' + vm.dados.cidade + ' - ' + vm.dados.estado;
+      vm.fiscal.DadosNotaFiscal.Endereco = vm.dados.endereco + ', ' + vm.dados.numero + ' - ' + vm.dados.bairro + ', ' + vm.dados.cidade + ' - ' + vm.dados.estado;
+      vm.fiscal.DadosNotaFiscal.Nome = vm.dados.nome;
       var xml = conversorService.Json2Xml(vm.fiscal, '');
       serverService.Request('CadastrarDadosNotaFiscal', xml).then(function (resp) {
 

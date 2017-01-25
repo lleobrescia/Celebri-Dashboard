@@ -65,7 +65,7 @@ if (isset($_POST['enviar'])) {
   <!--BOOTSTRAP-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
   <!--CSS SITE-->
-  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/style.min.css">
 
   <!--[if lt IE 9]>
   <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
