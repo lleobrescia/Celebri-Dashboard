@@ -1,0 +1,111 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Recepção
+      </h2>
+    </div>
+  </md-toolbar>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="recepcao.erro && !recepcao.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="recepcao.carregando && !recepcao.erro">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <md-content flex layout-padding ng-init="$scope.hasChange = false" ng-hide="recepcao.carregando">
+    <p>
+      As informações abaixo aparecerão no aplicativo do seu casamento, que seus convidados irão baixar para confirmar presença
+      e obter informações da cerimônia e festa.
+    </p>
+
+    <div layout="row" layout-wrap>
+      <md-switch class="md-primary" aria-label="Haverá recepção?" ng-model="recepcao.hasRecepcao" ng-change="$scope.hasChange = true">
+        Haverá recepção?
+      </md-switch>
+    </div>
+
+    <div layout="row" layout-wrap ng-show="recepcao.hasRecepcao">
+      <md-switch class="md-primary" aria-label="Recepção será no mesmo local da cerimônia?" ng-model="recepcao.dados.Mesmo_local_cerimonia"
+        ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+        Recepção será no mesmo local da cerimônia?
+        </md-switch>
+    </div>
+
+    <form name="formRecepcao">
+
+      <div ng-show="recepcao.dados.Mesmo_local_cerimonia === 'false'  && recepcao.hasRecepcao">
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="80" required>
+            <label>Local da Recepção</label>
+            <input type="text" name="local" ng-model="recepcao.dados.Local_festa" required ng-change="$scope.hasChange = true">
+            <div ng-messages="formRecepcao.local.$error" ng-if="formRecepcao.local.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20">
+            <label>CEP</label>
+            <input type="text" name="cep" ng-model="recepcao.dados.Cep" mask="99.999-999" ng-change="$scope.hasChange = true">
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="80" required>
+            <label>Endereço</label>
+            <input type="text" name="end" ng-model="recepcao.dados.Endereco" required ng-change="$scope.hasChange = true">
+            <div ng-messages="formRecepcao.end.$error" ng-if="formRecepcao.end.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Número</label>
+            <input type="text" name="numero" ng-model="recepcao.dados.Numero" required ng-change="$scope.hasChange = true">
+            <div ng-messages="formRecepcao.numero.$error" ng-if="formRecepcao.numero.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Bairro</label>
+            <input type="text" name="bairro" ng-model="recepcao.dados.Bairro" required ng-change="$scope.hasChange = true">
+            <div ng-messages="formRecepcao.bairro.$error" ng-if="formRecepcao.bairro.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Cidade</label>
+            <input type="text" name="cidade" ng-model="recepcao.dados.Cidade" required ng-change="$scope.hasChange = true">
+            <div ng-messages="formRecepcao.cidade.$error" ng-if="formRecepcao.cidade.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Estado</label>
+            <input type="text" name="estado" maxlength="2" ng-model="recepcao.dados.Estado" style="text-transform: uppercase;" required
+              ng-change="$scope.hasChange = true">
+              <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
+                <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+              </div>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="recepcao.dados.Tracar_rota_local"
+            ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+            Traçar rota até o local
+            </md-switch>
+        </div>
+      </div>
+
+      <div layout-wrap ng-show="$scope.hasChange">
+        <md-button class="md-raised md-primary" ng-click="recepcao.SetDados()" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+        <md-button class="md-raised md-warn" ng-click="recepcao.Cancelar()">Cancelar</md-button>
+      </div>
+    </form>
+  </md-content>
+</section>

@@ -1,0 +1,162 @@
+/*LOGIN*/
+
+.erro {
+  color: white;
+  background: grey;
+  margin: 100px 0;
+  font-size: 1.250em;
+}
+
+.erro p {
+  margin-bottom: 0
+}
+
+.login p {
+  color: white
+}
+
+.login__content {
+  max-width: 376px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+}
+
+.login__title hr {
+  max-width: 112px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.login__title h1 {
+  color: white;
+  font-size: 5em;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.login__bg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: #6f91ff;
+  padding-top: 60px;
+  overflow: auto;
+  top: 0;
+  left: 0;
+}
+
+.login__box {
+  max-width: 376px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  color: white;
+}
+
+.login__form input {
+  line-height: 43px;
+  height: 43px;
+  font-family: 'Roboto Condensed';
+  font-size: 1.6em;
+  padding-right: 5px;
+  padding-left: 12px;
+  margin-bottom: 25px;
+  outline-color: #6F91FF;
+  width: 100%;
+  border: solid thin #bababa;
+  background: white;
+}
+
+.login__form input[type="submit"] {
+  height: 60px;
+  line-height: 60px;
+  background: #d1d3d4;
+  border: none;
+  width: 219px;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5em;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.login__text {
+  text-align: center;
+  margin-top: 43px;
+  margin-bottom: 80px;
+}
+
+.login__text a {
+  color: white;
+  cursor: pointer;
+}
+
+.erro__box {
+  background: white;
+  padding: 7px;
+  margin-bottom: 10px;
+  border-left: solid red;
+}
+
+.erro__box p {
+  color: black;
+}
+
+.login__footer {
+  background: #b5b5b5;
+  padding-top: 41px;
+  padding-bottom: 21px;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+.login__footer p {
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+
+.login_logo_footer {
+  background: url("/dashboard/image/linha_color.png") center bottom no-repeat;
+  padding-bottom: 20px;
+  margin-bottom: 26px;
+}
+
+.login_logo_footer a {
+  display: block;
+  text-align: center;
+}
+
+.menu__footer ul {
+  list-style: none;
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.menu__footer ul li {
+  display: -moz-inline-stack;
+  display: inline-block;
+  margin-left: 24px;
+}
+
+.menu__footer ul li:first-child {
+  margin: 0
+}
+
+.menu__footer ul li a {
+  color: white;
+  font-size: 0.750em;
+}
+
+.login_input_group {
+  height: 260px;
+}
+
+.login_input_group.ng-hide {
+  height: 0;
+}

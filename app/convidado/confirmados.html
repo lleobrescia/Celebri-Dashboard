@@ -1,0 +1,21 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Convidados Confirmados
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <p>Esta é a lista dos convidados e acompanhantes que baixaram o aplicativo Celebri e confirmaram presença no seu casamento.</p>
+    <md-list ng-cloak style="max-height: 500px; overflow: auto">
+      <md-list-item ng-repeat="pessoa in convidados.pessoas">
+        <div class="md-list-item-text">
+          <h3>{{pessoa.NomeConvidado}}</h3>
+          <p>{{pessoa.Email}} <br> Quantidade de Acompanhantes: {{pessoa.Qtde_Acompanhantes}}</p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</section>
