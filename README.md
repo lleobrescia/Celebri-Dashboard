@@ -1,6 +1,6 @@
 Celebri - Dashboard
 ===================
-**Autor: Leo Brescia < leonardo@leobrescia.com.br**
+**Autor: Leo Brescia < leonardo@leobrescia.com.br>**
 **Feito pela [Pixla](http://pixla.com.br/)**
 **Versão: 2.0**
 
