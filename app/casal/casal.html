@@ -1,0 +1,86 @@
+<section layout="column" ng-cloak class="dashboard__content ">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        Dados do Casal
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding ng-init="$scope.change = false">
+    <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.erro && !casal.carregando">
+      <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+    </div>
+    <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.carregando && !casal.erro">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <form name="casalForm" ng-hide="casal.carregando || casal.erro">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <div layout="row" layout-wrap>
+              <md-input-container flex="50">
+                <label ng-if="casal.genero.noiva === 'f'">Noiva</label>
+                <label ng-if="casal.genero.noiva === 'm'">Noivo</label>
+                <input ng-model="casal.dados.Casal.NomeNoiva" aria-label="Nome" type="text" name="noiva" required ng-change="$scope.change = true">
+                <div class="validation-messages" ng-messages="casalForm.noiva.$error">
+                  <div ng-message="required">O nome é obrigatório!</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container flex="50">
+                <label ng-if="casal.genero.noivo === 'f'">Noiva</label>
+                <label ng-if="casal.genero.noivo === 'm'">Noivo</label>
+                <input ng-model="casal.dados.Casal.NomeNoivo" aria-label="Nome" type="text" name="noivo" required ng-change="$scope.change = true">
+                <div class="validation-messages" ng-messages="casalForm.noivo.$error">
+                  <div ng-message="required">O nome é obrigatório!</div>
+                </div>
+              </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+              <label>Data do Casamento</label>
+              <md-datepicker name="casamento" md-min-date="casal.dateMin" ng-model="casal.dados.Casal.DataCasamento" aria-label="Data do Casamento" required ng-change="$scope.change = true"></md-datepicker>
+              <div class="validation-messages" ng-messages="casalForm.casamento.$error">
+                <div ng-message="valid">Não é uma data válida</div>
+                <div ng-message="required">A data de casamento é obrigatória!</div>
+                <div ng-message="mindate">Essa data já passou</div>
+              </div>
+            </md-input-container>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="row" layout-align="space-between">
+          <div class="md-media-xl card-media upload_foto">
+            <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%" ng-if="$root.foto">
+            <ng-md-icon icon="camera_alt" style="fill:#f15f57;" size="100" ng-if="!$root.foto"></ng-md-icon>
+            <input type="file" accept="image/*" onchange="angular.element(this).scope().OpenFile(this)">
+          </div>
+        </md-card-content>
+
+      </md-card>
+      <div layout="row" ng-if="$scope.change">
+        <md-button class="md-raised md-warn" ng-click="casal.Cancelar()">Cancelar</md-button>
+        <md-button class="md-raised md-primary" ng-click="casal.Salvar()" ng-disabled="casalForm.$invalid">Salvar</md-button>
+      </div>
+    </form>
+  </md-content>
+</section>
+
+<div class="dialog__bg" ng-show="casal.fotoEditor" ng-cloak>
+  <div role="dialog" class="dialog__content" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Recortar Imagem</h2>
+      </div>
+    </md-toolbar>
+
+    <div class="demo-dialog-content">
+      <div img-src="casal.fotoEditor" ng-image-editor="casal.imageEditor" selected="casal.selected" aspect-ratio="2:2" enabled-resize-selector="true"></div>
+    </div>
+
+    <div layout="row" class="demo-dialog-button">
+      <md-button class="md-raised md-warn" flex="50" md-autofocus ng-click="casal.fotoEditor = false">Cancelar</md-button>
+      <md-button class="md-raised md-primary" flex="50" ng-click="casal.UploadFoto();casal.fotoEditor = false">Recortar</md-button>
+    </div>
+  </div>
+</div>

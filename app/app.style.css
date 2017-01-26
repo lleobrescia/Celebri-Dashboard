@@ -1,0 +1,137 @@
+/*IMPORT*/
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+
+/**
+* GERAL
+*
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  font-family: 'Roboto';
+  line-height: 1.5;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+
+
+/* The starting CSS styles for the enter animation */
+
+.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+
+
+/* The finishing CSS styles for the enter animation */
+
+.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+p {
+  margin-bottom: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.dashboard__content {
+  border-radius: 4px;
+  -webkit-transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
+  transition: 0.02s padding cubic-bezier(0.35, 0, 0.25, 1);
+  position: relative;
+  padding-bottom: 0;
+  background: white;
+}
+
+.carregando {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.71);
+  top: 0;
+  left: 0;
+  color: white;
+  z-index: 9;
+  text-align: center;
+  font-size: 2em;
+}
+
+.carregando .fa {
+  position: relative;
+  top: 25%;
+}
+
+.md-toolbar-tools md-checkbox {
+  margin-bottom: 0
+}
+
+md-checkbox.white:not(.md-checked) .md-icon {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.md-toolbar-tools input {
+  border-color: white;
+  color: white;
+  top: 15px;
+  position: relative;
+}
+
+.aviso {
+  background: #f15f57;
+}
+
+.aviso p {
+  margin: 0;
+  color: white;
+}
+
+md-content:not(.index) {
+  background: white;
+}
+
+md-toolbar:not(.md-menu-toolbar) {
+  background-color: rgb(111, 145, 255);
+  color: white;
+}
+
+.dialog_celebri {
+  border: solid #9fb6ff;
+}
+
+.dialog_celebri .demo-dialog-content {
+  text-align: center;
+}
+
+.dialog_celebri .fa {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 2.5em;
+  color: black;
+  cursor: pointer;
+}
+
+.dialog_celebri h3 {
+  color: #6f91ff;
+  text-transform: uppercase
+}

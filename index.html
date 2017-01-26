@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="pt-BR" ng-app="dashboard" ng-controller="MainController as Main">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="pt-BR" ng-app="dashboard" ng-controller="MainController as Main">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="pt-br" ng-app="dashboard" class="no-js" ng-controller="MainController as Main">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofallow">
+  <meta name="fragment" content="!">
+
+  <base href="/dashboard/">
+  <title ng-bind="'Dashboard ' + $root.title">Dashboard</title>
+
+  <!--JQUERY-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!--MODERNIZR-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <!--ANGULAR-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+  <!--ANGULAR LOCALE-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/i18n/angular-locale_pt-br.js"></script>
+  <!--ANGULAR UI ROUTE-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+  <!--ANGULAR ANIMATE-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.min.js"></script>
+  <!--ANGULAR ARIA-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-aria.min.js"></script>
+  <!--ANGULAR MENSAGE-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-messages.min.js"></script>
+  <!--ANGULAR MATERIAL-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.1/angular-material.min.js"></script>
+  <!--ANGULAR MATERIAL ICONS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+  <!--ANGULAR SANiTIZE-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.1/angular-sanitize.min.js"></script>
+  <!--MIMENTJS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment-with-locales.min.js"></script>
+  <!--TOAST-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.js"></script>
+  <!--GRAPHIC-->
+  <script src="https://cdn.jsdelivr.net/chart.js/1.1.1/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.js"></script>
+
+  <!--NG MASK-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
+
+  <link rel="shortcut icon" type="image/png" href="image/favicon.png">
+
+  <!--CSS SITE-->
+  <link rel="stylesheet" href="css/style.min.css">
+
+  <!--RD STATION-->
+  <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/293b0680-70fa-4341-a1a3-ad1fb003e79b-loader.js"></script>
+  <script type="text/javascript" src="https://d335luupugsy2.cloudfront.net/js/integration/stable/rd-js-integration.min.js"
+    async></script>
+
+    <!-- Universal Analytics (Google Analytics) -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-74690254-1', 'auto');
+    </script>
+
+    <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+    <!-- BEGIN JIVOSITE CODE {literal} -->
+    <script type="text/javascript">
+      (function () {
+        var widget_id = 'wydFtl1VgN';
+        var d = document;
+        var w = window;
+
+        function l() {
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = '//code.jivosite.com/script/widget/' + widget_id;
+          var ss = document.getElementsByTagName('script')[0];
+          ss.parentNode.insertBefore(s, ss);
+        }
+        if (d.readyState == 'complete') {
+          l();
+        } else {
+          if (w.attachEvent) {
+            w.attachEvent('onload', l);
+          } else {
+            w.addEventListener('load', l, false);
+          }
+        }
+      })();
+    </script>
+    <!-- {/literal} END JIVOSITE CODE -->
+
+</head>
+
+<body>
+  <section layout="row" flex style="height:100%">
+
+    <sidebar></sidebar>
+
+    <md-content flex layout-padding class="index">
+      <div layout="row" layout-align="top center" class="aviso" ng-if="!$root.pagante" ng-cloak>
+        <p>Seu período de degustação acaba em {{15 - $root.dias}} dias</p>
+      </div>
+      <div layout="column" layout-align="top center">
+        <div ui-view style="width: 100%"></div>
+      </div>
+    </md-content>
+  </section>
+
+  <div class="dialog__bg" ng-cloak ng-if="!$root.pagante && Main.dialogControl && $root.dias < 15">
+    <div role="dialog" class="dialog__content dialog_celebri" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
+      <div class="demo-dialog-content">
+        <div layout-padding>
+          <i class="fa fa-times-circle-o" aria-hidden="true" ng-click="Main.dialogControl = false"></i>
+          <h3>Faltam {{15 - $root.dias}} dias para o término <br> do seu período de degustação</h3>
+          <p>Se preferir, faça o pagamento para ter acesso à todos <br>os recursos disponíveis pelo Celebri.</p>
+          <img src="image/dialog.png" alt="">
+        </div>
+      </div>
+
+      <div layout="row" class="demo-dialog-button">
+        <md-button class="md-raised md-primary" md-autofocus ng-click="Main.dialogControl = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog__bg" ng-cloak ng-if="$root.dias === 15 && Main.dialogControl">
+    <div role="dialog" class="dialog__content dialog_celebri" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
+      <div class="demo-dialog-content">
+        <div layout-padding>
+          <i class="fa fa-times-circle-o" aria-hidden="true" ng-click="Main.dialogControl = false"></i>
+          <h3>Olá, seja bem-vindo! <br> você tem 15 dias para degustar e conhecer o celebri.</h3>
+          <p>Se preferir, faça o pagamento para ter acesso à todos <br>os recursos disponíveis pelo Celebri.</p>
+          <img src="image/dialog.png" alt="">
+        </div>
+      </div>
+
+      <div layout="row" class="demo-dialog-button">
+        <md-button class="md-raised md-primary" md-autofocus ng-click="Main.dialogControl = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vendor/ngImageEditor.min.js"></script>
+  <script src="js/vendor/jquery.creditCardValidator.js"></script>
+  <script src="js/dashboard.min.js"></script>
+</body>
+
+</html>

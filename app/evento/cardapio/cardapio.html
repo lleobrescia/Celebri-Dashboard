@@ -1,0 +1,59 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Cadastrar Cardápio
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+    <p>Descreva aqui o cardápio que será usado na sua festa de casamento, para manter os seus convidados ainda mais informados.
+      Basta escrever o texto corrido.</p>
+    <form name="formCardapio">
+      <div>
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" required>
+            <label>Título da etapa</label>
+            <input aria-label="Título da etapa" type="text" name="local" ng-model="cardapio.dados.Cardapio.Nome" required placeholder="Ex.: Entrada, pratos, acompanhamento, sobremesa, bebidas, etc">
+          </md-input-container>
+
+          <md-input-container flex="100" class="md-block" ng-hide="save.carregando">
+            <label>Descrição do cardápio</label>
+            <textarea aria-label="Descrição do cardápio" ng-model="cardapio.dados.Cardapio.Descricao" rows="5" md-select-on-focus placeholder="Ex.: Capeletti recheado com molho à bolonhesa e rondelli quatro queijos com molho branco."></textarea>
+          </md-input-container>
+        </div>
+      </div>
+      <md-button class="md-raised md-primary" ng-click="cardapio.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
+    </form>
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Cardápio Cadastrado
+      </h2>
+    </div>
+  </md-toolbar>
+
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cardapio.erro && !cardapio.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cardapio.carregando && !cardapio.erro">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+  <md-list ng-cloak style="max-height: 500px; overflow: auto" ng-hide="cardapio.carregando || cardapio.erro">
+    <md-list-item ng-repeat="item in cardapio.cardapios">
+      <div class="md-list-item-text">
+        <h3>{{item.Nome}}</h3>
+        <p>{{item.Descricao}}</p>
+      </div>
+      <md-button class="md-secondary md-icon-button" ng-click="cardapio.Excluir(item.Id)" aria-label="apagar">
+        <i class="fa fa-trash-o" style="font-size: 1.8em;color: red;" aria-hidden="true"></i>
+      </md-button>
+    </md-list-item>
+  </md-list>
+</section>

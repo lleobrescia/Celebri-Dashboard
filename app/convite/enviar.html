@@ -1,0 +1,52 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-content flex layout-padding>
+    <p>Ainda que o Celebri seja uma plataforma digital e de rápida configuração, sugerimos que os convites sejam enviados com
+      antecedência, para que os convidados possam ter tranquilidade em baixar o aplicativo e acessar todas as informações
+      do seu casamento/evento para haver uma melhor interação entre todos. No entanto, é possível enviar convites a qualquer
+      momento, bastando voltar nesta página e selecionar o convidado escolhido.</p>
+  </md-content>
+</section>
+<section layout="column" ng-cloak class="dashboard__content enviar" ng-init="$scope.hasChange = false;$scope.search = false">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <md-checkbox aria-label="Selecionar Todos" md-indeterminate="enviar.ListManager.IsIndeterminate(enviar.selecionados,enviar.convidados)"
+        ng-click="enviar.ListManager.ToggleAll(enviar.selecionados,enviar.convidados)" ng-checked="enviar.selecionados.length == enviar.convidados.length"
+        class="white" ng-hide="$scope.search">
+        </md-checkbox>
+        <h2 ng-hide="$scope.search">
+          Enviar o Convite
+        </h2>
+        <md-input-container class="" flex="100" ng-show="$scope.search">
+          <input ng-model="$scope.searchText">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Procurar" ng-click="$scope.search = !$scope.search;$scope.searchText = ''">
+          <ng-md-icon icon="search" style="fill: white"></ng-md-icon>
+        </md-button>
+    </div>
+  </md-toolbar>
+  <div layout="row" layout-wrap ng-show="enviar.selecionados.length > 0" style="margin: 20px 0">
+    <md-button class="md-raised md-primary" ng-click="enviar.Enviar()">Enviar</md-button>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.carregando">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="enviar.erro && !enviar.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <md-content flex layout-padding ng-show="enviar.convidados.length === 0">
+    <p>Você precisa <a ui-sref="cadastrarConvidados">cadastrar convidados</a> para poder enviar o Save the Date.</p>
+  </md-content>
+  <md-list ng-cloak style="max-height: 500px; overflow: auto">
+    <md-list-item ng-repeat="convidado in enviar.convidados | filter:$scope.searchText">
+      <md-checkbox aria-label="Selecionar" ng-checked="enviar.ListManager.Exists(convidado,enviar.selecionados)" ng-click="enviar.ListManager.Toggle(convidado,enviar.selecionados)"></md-checkbox>
+      <div class="md-list-item-text">
+        <h3>{{convidado.Nome}}</h3>
+        <h4> {{convidado.Email}}</h4>
+        <p>
+          Convite já enviado? <strong>{{convidado.ConviteEnviado | yesno}}</strong>
+        </p>
+      </div>
+    </md-list-item>
+  </md-list>
+</section>

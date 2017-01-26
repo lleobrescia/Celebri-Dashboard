@@ -1,0 +1,132 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Pagamento <span ng-show="$root.pagante">Realizado!</span>
+      </h2>
+    </div>
+  </md-toolbar>
+  <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="pgto.erro && !pgto.carregando">
+    <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+  </div>
+  <md-content flex layout-padding ng-hide="$root.pagante || pgto.erro">
+    <p>
+      Para ter acesso à todas as funcionalidades do Celebri, enviar seus convites e ter um aplicativo exclusivo do seu casamento,
+      é necessário o pagamento de R$ 185,00, que deverá ser feito por meio de cartão de crédito.
+    </p>
+    <div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="pgto.carregando && !pgto.erro">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <form name="pagamentoForm" ng-hide="pgto.carregando">
+      <md-input-container class="md-block">
+        <label>Nome Completo</label>
+        <input ng-model="pgto.dados.nome" aria-label="Nome Completo" type="text" name="nome" required>
+        <div class="validation-messages" ng-messages="pagamentoForm.nome.$error">
+          <div ng-message="required">O campo é obrigatório!</div>
+        </div>
+      </md-input-container>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>CPF</label>
+          <input ng-model="pgto.fiscal.DadosNotaFiscal.Cpf" aria-label="CPF" type="text" name="cpf" required mask="999.999.999-99">
+          <div class="validation-messages" ng-messages="pagamentoForm.cpf.$error">
+            <div ng-message="mask">Não é um CPF válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>E-mail</label>
+          <input ng-model="pgto.fiscal.DadosNotaFiscal.Email" aria-label="E-mail" type="email" name="email" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.email.$error">
+            <div ng-message="email">Não é um e-mail válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Endereço</label>
+          <input ng-model="pgto.dados.endereco" aria-label="Endereço" type="text" name="end" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.end.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>CEP</label>
+          <input ng-model="pgto.dados.cep" aria-label="CEP" type="text" name="cep" required mask="99.999-999" ng-keyup="pgto.ConsultCEP()">
+          <div class="validation-messages" ng-messages="pagamentoForm.cep.$error">
+            <div ng-message="mask">Não é um CEP válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Bairro</label>
+          <input ng-model="pgto.dados.bairro" aria-label="Bairro" type="text" name="bairro" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.bairro.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>Número</label>
+          <input ng-model="pgto.dados.numero" aria-label="Número" type="text" name="numero" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.numero.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Cidade</label>
+          <input ng-model="pgto.dados.cidade" aria-label="Cidade" type="text" name="cidade" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.cidade.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>Estado</label>
+          <input ng-model="pgto.dados.estado" aria-label="Estado" type="text" name="estado" required maxlength="2" style="text-transform: uppercase">
+          <div class="validation-messages" ng-messages="pagamentoForm.estado.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <md-input-container class="md-block">
+        <label>Número do Cartão</label>
+        <input class="cartao" ng-model="pgto.cartao.numero" aria-label="Número do Cartão" type="text" name="numeroCartao" required>
+        <div class="validation-messages" ng-messages="pagamentoForm.numeroCartao.$error">
+          <div ng-message="required">O campo é obrigatório!</div>
+        </div>
+      </md-input-container>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Validade</label>
+          <input ng-model="pgto.cartao.validade" aria-label="Validade" type="text" name="validade" required mask="39/39" placeholder="MM/AA">
+          <div class="validation-messages" ng-messages="pagamentoForm.validade.$error">
+            <div ng-message="mask">Formato inválido!</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Código de Segurança</label>
+          <input ng-model="pgto.cartao.codigo" aria-label="Código de Segurança" type="text" name="codigo" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.codigo.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <p>
+        <strong>Valor: R$185,00 </strong>
+        <md-button style="width: 180px;" class="md-raised md-primary" ng-click="pgto.Pagar()" ng-disabled="pagamentoForm.$invalid">Pagar</md-button>
+      </p>
+    </form>
+  </md-content>
+  <md-content flex layout-padding ng-show="$root.pagante">
+    <h2>Parabéns!</h2>
+    <p>
+      Você já adquiriu o Celebri.
+    </p>
+
+  </md-content>
+</section>

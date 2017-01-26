@@ -1,0 +1,208 @@
+<section layout="column" ng-cloak class="dashboard__content">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Cotas de lua de mel
+      </h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>
+      O Celebri permite que você receba dinheiro ao invés de presentes para usufruir como quiser. Os seus convidados escolhem presentes
+      ilustrativos e realizam o pagamento pelo aplicativo utilizando cartão de crédito. A cada pagamento aprovado, sua conta
+      Moip é creditada.
+    </p>
+    <p>
+      O que é o Moip? É o intermediador de pagamentos para o processamento financeiro de todas as cotas de lua de mel realizadas
+      através do nosso aplicativo. Para saber mais sobre a Moip, <a href="https://Moip.com.br/" target="_blank" style="color:blue">clique aqui.</a>
+    </p>
+    <p>
+      Se você tem interesse em receber cotas de lua de mel onde seus convidados podem pagar com cartão de crédito é preciso criar
+      uma conta na Moip. <br> Ao criar a conta MOIP, é necessário fazer a verificação da mesma. Para saber como verificar
+      sua conta,
+      <a href="https://celebri.com.br/perguntas-moip" target="_blank" style="color:blue">clique aqui.</a>
+    </p>
+    <p> Ao utilizar essa opção, as taxas cobradas pela Moip já estarão incluídas na taxa de serviço do Celebri, que é de 6%.
+      Assim que o pagamento for aprovado pela administradora de cartão de crédito, sua conta MoIP será creditada com o valor
+      da cota, descontada a nossa taxa de serviço de 6%. </p>
+
+    <p><strong>Nota:</strong> É necessário acessar o MoIP e solicitar a transferência para sua conta bancária.</p>
+
+  </md-content>
+</section>
+
+<div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cotas.erro && !cotas.carregando">
+  <p class="erro">Ocorreu um erro ao tentar acessar o servidor. Por favor, tente novamente.</p>
+</div>
+<div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="cotas.carregando && !cotas.erro">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<section layout="column" ng-cloak class="dashboard__content" ng-hide="cotas.carregando || cotas.erro || cotas.link || cotas.contaCriada">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Criar Conta MOIP
+      </h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>Criar sua conta MoIP é simples e rápido:</p>
+
+    <ul style="margin: 0 36px;">
+      <li>Preencha os campos abaixo;</li>
+      <li>Crie sua senha clicando no botão logo após a conclusão do cadastro;</li>
+      <li>Guarde bem seu login e senha MoIP, você precisará dele para acessar o
+        <a href="https://Moip.com.br/" target="_blank" style="color:blue">site Moip </a> para solicitar a transferência para
+        sua conta bancária;</li>
+      <li> Após o término do cadastro, escolha seus presentes em dinheiro, selecionando as imagens e seus respectivos valores,
+        para ilustrar as cotas de lua de mel no aplicativo dos seus convidados.</li>
+    </ul>
+    <p>
+      Preencha o formulário abaixo para criar sua conta:
+    </p>
+    <form name="pagamentoForm" ng-hide="pgto.carregando">
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Primeiro Nome</label>
+          <input ng-model="cotas.dados.ContaMoip.Nome" aria-label="Primeiro Nome" type="text" name="nome" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.nome.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="50">
+          <label>Último Nome</label>
+          <input ng-model="cotas.dados.ContaMoip.UltimoNome" aria-label="Último Nome" type="text" name="ultimo" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.ultimo.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="33">
+          <label>CPF</label>
+          <input ng-model="cotas.dados.ContaMoip.Cpf" aria-label="CPF" type="text" name="cpf" required mask="999.999.999-99">
+          <div class="validation-messages" ng-messages="pagamentoForm.cpf.$error">
+            <div ng-message="mask">Não é um CPF válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="33">
+          <label>E-mail</label>
+          <input ng-model="cotas.dados.ContaMoip.Email" aria-label="E-mail" type="email" name="email" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.email.$error">
+            <div ng-message="email">Não é um e-mail válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="33">
+          <label>Telefone</label>
+          <input ng-model="cotas.telefone" aria-label="E-mail" type="text" name="tel" required mask="(99) 9?9999-9999">
+          <div class="validation-messages" ng-messages="pagamentoForm.tel.$error">
+            <div ng-message="mask">Não é um telefone válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <md-input-container>
+        <label>Data de Nascimento</label>
+        <input ng-model="cotas.data" aria-label="Data de Nascimento" type="text" name="nascimento" required mask="99/99/9999">
+        <div class="validation-messages" ng-messages="pagamentoForm.nascimento.$error">
+          <div ng-message="mask">Não é uma data válida</div>
+          <div ng-message="required">O campo é obrigatório!</div>
+        </div>
+      </md-input-container>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>CEP</label>
+          <input ng-model="cotas.cep" aria-label="CEP" type="text" name="cep" required mask="99.999-999" ng-keyup="cotas.Cep()">
+          <div class="validation-messages" ng-messages="pagamentoForm.cep.$error">
+            <div ng-message="mask">Não é um CEP válido</div>
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Endereço</label>
+          <input ng-model="cotas.dados.ContaMoip.Endereco" aria-label="Endereço" type="text" name="end" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.end.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Bairro</label>
+          <input ng-model="cotas.bairro" aria-label="Bairro" type="text" name="bairro" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.bairro.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>Número</label>
+          <input ng-model="cotas.dados.ContaMoip.Numero" aria-label="Número" type="text" name="numero" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.numero.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row" layout-wrap>
+        <md-input-container flex="100" flex-gt-sm="70">
+          <label>Cidade</label>
+          <input ng-model="cotas.dados.ContaMoip.Cidade" aria-label="Cidade" type="text" name="cidade" required>
+          <div class="validation-messages" ng-messages="pagamentoForm.cidade.$error">
+            <div ng-message="required">O campo é obrigatório!</div>
+          </div>
+        </md-input-container>
+        <md-input-container flex="100" flex-gt-sm="30">
+          <label>Estado</label>
+          <input ng-model="cotas.dados.ContaMoip.Sigla_Estado" aria-label="Estado" type="text" name="estado" placeholder="EE" required
+            maxlength="2" style="text-transform: uppercase">
+            <div class="validation-messages" ng-messages="pagamentoForm.estado.$error">
+              <div ng-message="required">O campo é obrigatório!</div>
+            </div>
+        </md-input-container>
+      </div>
+
+      <md-button class="md-raised md-primary" ng-click="cotas.CriarConta()" ng-disabled="pagamentoForm.$invalid">Criar Conta</md-button>
+    </form>
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content" ng-show="cotas.link && !cotas.carregando">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Definir Senha
+      </h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <p>Sua conta foi criada com sucesso! Por favor, <a ng-href="{{cota.link}}" target="_blank">clique aqui para criar uma senha.</a></p>
+
+  </md-content>
+</section>
+
+<section layout="column" ng-cloak class="dashboard__content" ng-init="$scope.change = false" ng-show="cotas.contaCriada">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <h2>
+        Escolher valor das cotas
+      </h2>
+    </div>
+  </md-toolbar>
+  <md-content flex layout-padding>
+    <md-button class="md-raised md-primary" ng-click="cotas.Salvar();$scope.change = false" ng-if="$scope.change">Salvar</md-button>
+    <md-list flex>
+      <md-list-item class="md-3-line" ng-repeat="item in cotas.produtos" style="margin-bottom: 30px" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true">
+        <md-checkbox aria-label="Selecionar" ng-checked="cotas.ListManager.Exists(item,cotas.produtosEscolhidos)"></md-checkbox>
+        <img ng-src="{{item.Url}}" alt="{{item.Descricao}}" style="margin-right: 10px;">
+        <div class="md-list-item-text" layout="column">
+          <h3>{{ item.Descricao }}</h3>
+          <h4>R${{ item.Valor }}</h4>
+        </div>
+      </md-list-item>
+    </md-list>
+
+  </md-content>
+</section>

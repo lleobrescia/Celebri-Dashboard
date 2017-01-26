@@ -1,0 +1,66 @@
+<div ng-cloak>
+  <md-content ng-controller="SideConviteController as side" class="side__convite">
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Formato">
+        <md-content class="md-padding">
+          <span class="md-body-1" style="text-align: center;display: block">Tamanho da Fonte: {{side.Controlador.styleSelected['font-size'] | removePx}}px</span>
+          <md-slider-container>
+            <md-slider flex ng-model="side.Controlador.styleSelected['font-size']" min="0" max="90" aria-label="Tamanho da Fonte" class="md-primary">
+            </md-slider>
+          </md-slider-container>
+
+          <div style="text-align: center">
+            <span class="md-body-1 align-button" style="display: block">Alinhamento</span>
+            <md-button class="md-icon-button" aria-label="Alinhar a esquerda" ng-click="side.SetAlign('0')" ng-class="{'selected' : side.AlignSelected('0')}">
+              <ng-md-icon icon="format_align_left"></ng-md-icon>
+            </md-button>
+            <md-button class="md-icon-button align-button" aria-label="Alinhar ao centro" ng-click="side.SetAlign('1')" ng-class="{'selected' : side.AlignSelected('1')}">
+              <ng-md-icon icon="format_align_center"></ng-md-icon>
+            </md-button>
+            <md-button class="md-icon-button align-button" aria-label="Alinhar a direita" ng-click="side.SetAlign('2')" ng-class="{'selected' : side.AlignSelected('2')}">
+              <ng-md-icon icon="format_align_right"></ng-md-icon>
+            </md-button>
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Fonte">
+        <md-content class="md-padding">
+          <md-list class="md-dense" flex>
+            <md-subheader class="md-no-sticky">Serif</md-subheader>
+            <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.SERIF"
+              ng-click="side.SetFont(key)">
+              <div class="md-list-item-text" layout="column">
+                <p>{{ value['font-name'] }}</p>
+              </div>
+            </md-list-item>
+
+            <md-subheader class="md-no-sticky">Sans Serif</md-subheader>
+            <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.SANSSERIF"
+              ng-click="side.SetFont(key)">
+              <div class="md-list-item-text" layout="column">
+                <p>{{ value['font-name'] }}</p>
+              </div>
+            </md-list-item>
+
+            <md-subheader class="md-no-sticky">Display</md-subheader>
+            <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.DISPLAY"
+              ng-click="side.SetFont(key)">
+              <div class="md-list-item-text" layout="column">
+                <p>{{ value['font-name'] }}</p>
+              </div>
+            </md-list-item>
+
+            <md-subheader class="md-no-sticky">Handwritting</md-subheader>
+            <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.HANDWRITING"
+              ng-click="side.SetFont(key)">
+              <div class="md-list-item-text" layout="column">
+                <p>{{ value['font-name'] }}</p>
+              </div>
+            </md-list-item>
+
+          </md-list>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>
