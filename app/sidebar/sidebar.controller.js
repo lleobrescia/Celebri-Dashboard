@@ -6,7 +6,21 @@
     .controller('SidebarController', SidebarController);
 
   SidebarController.$inject = ['session', '$state'];
-
+  /**
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name SidebarController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Controla a barra lateral do dashboard.<br>
+   * Pasta de origem : app/sidebar <br>
+   * Controller As : sidebar<br>
+   * Template Url : app/sidebar/sidebar.html <br><br>
+   * @param {service} session    - usado para armazenar e buscar dados no session (session.service.js)
+   * @param {service} $state - usado para converter xml <-> json (conversor.service.js)
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
+   */
   function SidebarController(session, $state) {
     var vm = this;
 
@@ -88,6 +102,9 @@
     vm.openedSection = null;
     vm.userName = session.user.casal.nomeUser;
 
+    /**
+     * Atribuição das funçoes as variaveis do escopo
+     */
     vm.IsSectionSelected = IsSectionSelected;
     vm.Sair = Sair;
     vm.ToggleSection = ToggleSection;
@@ -96,18 +113,40 @@
 
     ////////////////
 
+    /**
+     * @function Activate
+     * @desc Setup docontrolador. Exetuca assim que o controlador inicia
+     * @memberof SidebarController
+     */
     function Activate() {}
 
+    /**
+     * @function IsSectionSelected
+     * @desc Verifica se o menu clicado eh o ativo. Serve para alterar a classe do menu
+     * @param {object} section - section do menu
+     * @return {boolean}
+     * @memberof SidebarController
+     */
     function IsSectionSelected(section) {
       return vm.openedSection === section;
     }
 
+    /**
+     * @function Sair
+     * @desc Apaga o session do usuario e envia ele para o login
+     * @memberof SidebarController
+     */
     function Sair() {
       session.user.id = null;
       session.SaveState();
       session.Remove();
     }
 
+    /**
+     * @function ToggleSection
+     * @desc Abre a seção do menu.
+     * @memberof SidebarController
+     */
     function ToggleSection(section) {
       vm.openedSection = (vm.openedSection === section ? null : section);
     }

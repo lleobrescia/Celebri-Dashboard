@@ -1,11 +1,4 @@
-/*	This work is licensed under Creative Commons GNU LGPL License.
-
-	License: http://creativecommons.org/licenses/LGPL/2.1/
-   Version: 0.9
-	Author:  Stefan Goessner/2006
-	Web:     http://goessner.net/ 
-*/
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -14,20 +7,41 @@
 
   conversorService.$inject = [];
 
+  /**
+   * @memberof dashboard
+   * @ngdoc service
+   * @name conversorService
+   * @author  Stefan Goessner
+   * @license Creative Commons GNU LGPL
+   * @version 0.9
+   * @desc Faz a transformação entre xml e json
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/services} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#services} Para melhores praticas
+   * @see License               {@link http://creativecommons.org/licenses/LGPL/2.1/}
+   * @see Author site           {@link  http://goessner.net/}
+   */
   function conversorService() {
     this.Json2Xml = Json2Xml;
     this.Xml2Json = Xml2Json;
 
     ////////////////
 
+    /**
+     * @function Json2Xml
+     * @desc Consulta o cep fornecido e retorna os dados do local
+     * @param {object} o - javascript object
+     * @param {String} tab - tab or indent string for pretty output formatting.Omit or use empty string "" to supress.
+     * @return {xml} xml string
+     * @memberof conversorService
+     */
     function Json2Xml(o, tab) {
       o = angular.fromJson(o);
-      var toXml = function(v, name, ind) {
+      var toXml = function (v, name, ind) {
           var xml = "";
           if (v instanceof Array) {
             for (var i = 0, n = v.length; i < n; i++)
               xml += ind + toXml(v[i], name, ind + "\t") + "\n";
-          } else if (typeof(v) == "object") {
+          } else if (typeof (v) == "object") {
             var hasChild = false;
             xml += ind + "<" + name;
             for (var m in v) {
@@ -59,36 +73,53 @@
       return tab ? xml.replace(/\t/g, tab) : xml.replace(/\t|\n/g, "");
     }
 
+    /**
+     * @function String2Object
+     * @desc transofrma um xml string em xml object
+     * @param {String} xml - xml string
+     * @return {xml}
+     * @memberof conversorService
+     */
     function String2Object(xml) {
       var parseXml;
 
       if (window.DOMParser) {
-        parseXml = function(xmlStr) {
+        parseXml = function (xmlStr) {
           return (new window.DOMParser()).parseFromString(xmlStr, 'text/xml');
         };
       } else if (typeof window.ActiveXObject != 'undefined' && new window.ActiveXObject('Microsoft.XMLDOM')) {
-        parseXml = function(xmlStr) {
+        parseXml = function (xmlStr) {
           var xmlDoc = new window.ActiveXObject('Microsoft.XMLDOM');
           xmlDoc.async = 'false';
           xmlDoc.loadXML(xmlStr);
           return xmlDoc;
         };
       } else {
-        parseXml = function() { return null; }
+        parseXml = function () {
+          return null;
+        }
       }
 
       return parseXml(xml);
     }
 
+    /**
+     * @function Xml2Json
+     * @desc Consulta o cep fornecido e retorna os dados do local
+     * @param {xml} xml - element or document DOM node
+     * @param {String} tab - tab or indent string for pretty output formatting.Omit or use empty string "" to supress.
+     * @return {json} json string
+     * @memberof conversorService
+     */
     function Xml2Json(xml, tab) {
       xml = String2Object(xml); //converte de string para objeto
       var X = {
-        toObj: function(xml) {
+        toObj: function (xml) {
           var o = {};
           if (xml.nodeType == 1) { // element node ..
             if (xml.attributes.length) // element with attributes  ..
               for (var i = 0; i < xml.attributes.length; i++)
-              o["@" + xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue || "").toString();
+                o["@" + xml.attributes[i].nodeName] = (xml.attributes[i].nodeValue || "").toString();
             if (xml.firstChild) { // element has child nodes ..
               var textChild = 0,
                 cdataChild = 0,
@@ -140,7 +171,7 @@
             alert("unhandled node type: " + xml.nodeType);
           return o;
         },
-        toJson: function(o, name, ind) {
+        toJson: function (o, name, ind) {
           var json = name ? ("\"" + name + "\"") : "";
           if (o instanceof Array) {
             for (var i = 0, n = o.length; i < n; i++)
@@ -148,23 +179,23 @@
             json += (name ? ":[" : "[") + (o.length > 1 ? ("\n" + ind + "\t" + o.join(",\n" + ind + "\t") + "\n" + ind) : o.join("")) + "]";
           } else if (o == null)
             json += (name && ":") + "null";
-          else if (typeof(o) == "object") {
+          else if (typeof (o) == "object") {
             var arr = [];
             for (var m in o)
               arr[arr.length] = X.toJson(o[m], m, ind + "\t");
             json += (name ? ":{" : "{") + (arr.length > 1 ? ("\n" + ind + "\t" + arr.join(",\n" + ind + "\t") + "\n" + ind) : arr.join("")) + "}";
-          } else if (typeof(o) == "string")
+          } else if (typeof (o) == "string")
             json += (name && ":") + "\"" + o.toString() + "\"";
           else
             json += (name && ":") + o.toString();
           return json;
         },
-        innerXml: function(node) {
+        innerXml: function (node) {
           var s = ""
           if ("innerHTML" in node)
             s = node.innerHTML;
           else {
-            var asXml = function(n) {
+            var asXml = function (n) {
               var s = "";
               if (n.nodeType == 1) {
                 s += "<" + n.nodeName;
@@ -188,13 +219,13 @@
           }
           return s;
         },
-        escape: function(txt) {
+        escape: function (txt) {
           return txt.replace(/[\\]/g, "\\\\")
             .replace(/[\"]/g, '\\"')
             .replace(/[\n]/g, '\\n')
             .replace(/[\r]/g, '\\r');
         },
-        removeWhite: function(e) {
+        removeWhite: function (e) {
           e.normalize();
           for (var n = e.firstChild; n;) {
             if (n.nodeType == 3) { // text node

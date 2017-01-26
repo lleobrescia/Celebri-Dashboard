@@ -6,7 +6,34 @@
     .controller('CotasController', CotasController);
 
   CotasController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', '$rootScope', 'toastr', 'consultCEP', '$http'];
-
+  /**
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name CotasController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc gerencia as cotas de lua de mel. <br>
+   * Pasta de origem : app/evento/cotas <br>
+   * State : cotas <br>
+   * Controller As : cotas <br>
+   * Template Url : app/evento/cotas/cotas.html <br><br>
+   * Usa o serviço(s) do(s) servidor:
+   *  - CriacaoContaVendedorMoip {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/CriacaoContaVendedorMoip}
+   *  - RetornarContaVendedorMoip {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/RetornarContaVendedorMoip}
+   *  - RetornarTodosProdutosLuaDeMel {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/RetornarTodosProdutosLuaDeMel}
+   *  - ConfigurarPresentesEscolhidos {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/ConfigurarPresentesEscolhidos}
+   * @param {service} serverService       - usado para comunicar com o servidor (server.service.js)
+   * @param {service} conversorService    - usado para converter xml <-> json (conversor.service.js)
+   * @param {service} ListManagerService  - gerencia listas. Passa um object de uma lista para outra (list.service.js)
+   * @param {service} session             - usado para armazenar e buscar dados no session (session.service.js)
+   * @param {service} $rootScope          - scope geral
+   * @param {service} toastr              - notificação para o usuario
+   * @param {service} consultCEP          - serviço para consultar cep
+   * @param {service} $http               - usado para pegar o arquivo estado.json
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
+   * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
+   */
   function CotasController(serverService, conversorService, ListManagerService, session, $rootScope, toastr, consultCEP, $http) {
     const enable = $rootScope.pagante;
     const ID = session.user.id;
@@ -15,7 +42,7 @@
 
     vm.carregando = true;
     vm.cep = '';
-    vm.contaCriada = false;
+    vm.contaCriada = false; //escode o formulario de cadastro se ja foi feita uma conta MOIP
     vm.dados = {
       'ContaMoip': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -37,15 +64,18 @@
       }
     };
     vm.data = '';
-    vm.estados = [];
+    vm.estados = []; //estados disponiveis para o formulario
     vm.erro = false;
     vm.link = '';
-    vm.ListManager = ListManagerService;
-    vm.produtos = [];
-    vm.produtosAux = [];
-    vm.produtosEscolhidos = [];
+    vm.ListManager = ListManagerService; // atribuicao do serviço no escopo
+    vm.produtos = []; //lista de produtos
+    vm.produtosAux = []; //Ajuda a gerenciar a escolha de produtos
+    vm.produtosEscolhidos = []; // lista de produtos escolhidos
     vm.telefone = '';
 
+    /**
+     * Atribuição das funçoes as variaveis do escopo
+     */
     vm.Cep = Cep;
     vm.CriarConta = CriarConta;
     vm.Salvar = SavarProdutos;
@@ -54,6 +84,11 @@
 
     ////////////////
 
+    /**
+     * @function Activate
+     * @desc Setup docontrolador. Exetuca assim que o controlador inicia
+     * @memberof CotasController
+     */
     function Activate() {
       CheckConta();
       $http.get('app/evento/cotas/estado.json')
@@ -62,6 +97,11 @@
         });
     }
 
+    /**
+     * @function CriarConta
+     * @desc Cria a conta MOIP para o casal
+     * @memberof CotasController
+     */
     function CriarConta() {
       vm.carregando = true;
 
@@ -108,6 +148,11 @@
       }
     }
 
+    /**
+     * @function Cep
+     * @desc Verifica o cep e preenche no formulario
+     * @memberof CotasController
+     */
     function Cep() {
       consultCEP.consultar(vm.cep).then(function (resp) {
         vm.dados.ContaMoip.Sigla_Estado = resp.estado;
@@ -117,6 +162,11 @@
       });
     }
 
+    /**
+     * @function CheckConta
+     * @desc Verifica se a conta moip ja foi criada
+     * @memberof CotasController
+     */
     function CheckConta() {
       serverService.Get('RetornarContaVendedorMoip', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
@@ -131,6 +181,11 @@
       });
     }
 
+    /**
+     * @function GetProdutos
+     * @desc Pega os produtos disponiveis para o usuario escolher
+     * @memberof CotasController
+     */
     function GetProdutos() {
       serverService.Get('RetornarTodosProdutosLuaDeMel', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
@@ -139,6 +194,11 @@
       });
     }
 
+    /**
+     * @function GetProdutosEscolhidos
+     * @desc Pega os produtos ja escolhidos pelo usuario
+     * @memberof CotasController
+     */
     function GetProdutosEscolhidos() {
       serverService.Get('RetornarPresentesLuaDeMel', ID).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
@@ -155,6 +215,13 @@
       });
     }
 
+    /**
+     * @function RetornarIndexEstado
+     * @desc Procura o id do estado para a criação da conta moip
+     * @param {string} sigla - sigla do estado
+     * @return {number} id do estado
+     * @memberof CotasController
+     */
     function RetornarIndexEstado(sigla) {
       var count = 0;
       var retorno = 0;
@@ -170,6 +237,11 @@
       return retorno;
     }
 
+    /**
+     * @function SavarProdutos
+     * @desc Salva os produtos escolhidos
+     * @memberof CotasController
+     */
     function SavarProdutos() {
       var enviarProdutos = {
         'ListaPresentesEscolhidos': {
@@ -188,10 +260,15 @@
       });
 
       var dado = conversorService.Json2Xml(enviarProdutos, '');
-      serverService.Request('ConfigurarPresentesEscolhidos', dado).then(function (resp) {
-      });
+      serverService.Request('ConfigurarPresentesEscolhidos', dado).then(function (resp) {});
     }
 
+    /**
+     * @function Transfer
+     * @desc Verifica quais ja sao os produtos escolhidos para coloca-los na lista de produtos escolhidos
+     * @param {object} produto
+     * @memberof CotasController
+     */
     function Transfer(produto) {
       angular.forEach(vm.produtos, function (item) {
         if (produto.Id === item.Id) {

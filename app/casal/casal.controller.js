@@ -4,7 +4,7 @@
   angular
     .module('dashboard')
     .controller('CasalController', CasalController);
-
+  /** @desc injetor dos serviços */
   CasalController.$inject = ['serverService', 'conversorService', 'session', '$filter', 'toastr', 'EnviarFoto', '$scope', '$rootScope'];
   /**
    * @memberof dashboard
@@ -19,24 +19,48 @@
    * Template Url : app/casal/casal.html <br><br>
    * Usa o serviço(s) do(s) servidor:
    *  - AtualizarDadosCadastroNoivos {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/AtualizarDadosCadastroNoivos}
-   * @param {service} serverService    - usado para comunicar com o servidor (server.service.js)
-   * @param {service} conversorService - usado para converter xml <-> json (conversor.service.js)
-   * @param {service} session          - usado para armazenar e buscar dados no session (session.service.js)
+   *
+   * @param {service} serverService    - usado para comunicar com o servidor {@link dashboard.serverService}
+   * @param {service} conversorService - usado para converter xml <-> json {@link dashboard.conversorService}
+   * @param {service} session          - usado para armazenar e buscar dados no session {@link dashboard.session}
    * @param {service} $filter          - usado para formatar a data de casamento
    * @param {service} toastr           - usado para mostrar mensagens ao usuario
-   * @param {service} EnviarFoto       - envia a foto do casal para o servidor (enviarFoto.service.js)
+   * @param {service} EnviarFoto       - envia a foto do casal para o servidor {@link dashboard.EnviarFoto}
    * @param {service} $scope           - usado para colocar um listen no input[file] que vai receber a foto do casal
    * @param {service} $rootScope       - scope geral
+   *
+   * @property {int} ID                 - id do usuario logado.Usado para fazer requisições `const`
+   * @property {object} vm              - A named variable for the `this` keyword representing the ViewModel
+   * @property {boolean} vm.carregando  - Controla o loading
+   * @property {json} vm.dados          - Formatação dos dados a serem enviados ao servidor. Veja o serviço AtualizarDadosCadastroNoivos
+   *
+   * @property {int} vm.dados.Casal.Id_casal            - id do casal
+   * @property {boolean} vm.dados.Casal.AtualizarSenha  - indentifica se a senha esta sendo trocada. <strong> Não Alterar </strong>
+   * @property {string} vm.dados.Casal.DataCasamento    - data do casamento
+   * @property {string} vm.dados.Casal.NomeNoiva        - nome da noiva
+   * @property {string} vm.dados.Casal.NomeNoivo        - nome do noivo
+   * @property {string} vm.dados.Casal.Senha            - senha do casal. So deve preencher se estiver alterando. <strong> Não Alterar </strong>
+   *
+   * @property {date} vm.dateMin         - Data minima para mostrar no datepicker
+   * @property {boolean} vm.erro         - Mostra msg de erro quando nao conecta com o servidor
+   * @property {boolean} vm.fotoEditor   - Controla o display do popup para recortar a foto
+   * @property {json} vm.genero          - Controla o genero de algumas palavras, baseado no genero dos noivos
+   * @property {string} vm.imageEditor   - Armazena a imagem do casal
+   * @property {json} vm.selected        - Configuração do editor de imagem
+   * @property {int} vm.selected.width  - Largura inicial da area de corte
+   * @property {int} vm.selected.height - Altura inicial da area de corte
+   * @property {int} vm.selected.top    - Posição inicial vertical em relação ao topo da area de corte
+   * @property {int} vm.selected.left   - Posição inicial horizontal em relação ao topo da area de corte
+   *
    * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
    * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
    * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
   function CasalController(serverService, conversorService, session, $filter, toastr, EnviarFoto, $scope, $rootScope) {
-    const ID = session.user.id; //id do usuario logado.Usado para fazer requisições
+    const ID = session.user.id;
     var vm = this;
 
-    vm.carregando = false; //Controla o loading
-    /** Formatação dos dados a serem enviados ao servidor  */
+    vm.carregando = false;
     vm.dados = {
       'Casal': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -48,16 +72,14 @@
         'Senha': ''
       }
     };
-    vm.dateMin = new Date(); //Data minima para mostrar no datepicker
-    vm.erro = false; // Mostra msg de erro quando nao conecta com o servidor
-    vm.fotoEditor = false; // Controla o display do popup para recortar a foto
-    //Controla o genero de algumas palavras, baseado no genero dos noivos
+    vm.dateMin = new Date();
+    vm.erro = false;
+    vm.fotoEditor = false;
     vm.genero = {
       'noiva': session.user.casal.generoNoiva,
       'noivo': session.user.casal.generoNoivo
     };
-    vm.imageEditor = ''; //Armazena a imagem do casal
-    //Configuração do editor de imagem
+    vm.imageEditor = '';
     vm.selected = {
       width: 50,
       height: 50,

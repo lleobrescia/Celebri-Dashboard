@@ -116,7 +116,10 @@
           </div>
         </md-input-container>
       </div>
-      <md-button class="md-raised md-primary" ng-click="pgto.Pagar()" ng-disabled="pagamentoForm.$invalid">Pagar</md-button>
+      <p>
+        <strong>Valor: R$185,00 </strong>
+        <md-button style="width: 180px;" class="md-raised md-primary" ng-click="pgto.Pagar()" ng-disabled="pagamentoForm.$invalid">Pagar</md-button>
+      </p>
     </form>
   </md-content>
   <md-content flex layout-padding ng-show="$root.pagante">

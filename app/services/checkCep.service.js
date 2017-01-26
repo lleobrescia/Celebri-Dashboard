@@ -1,7 +1,3 @@
-/**
- * Navigation Factory
- * @namespace Factories
- */
 (function () {
   'use strict';
   angular
@@ -11,9 +7,14 @@
   consultCEP.$inject = ['$q'];
 
   /**
-   * @namespace consultCEP
+   * @memberof dashboard
+   * @ngdoc factory
+   * @name consultCEP
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @param {service} $q - promise
    * @desc Serviço de consulta de CEP
-   * @memberOf Factories
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/providers#factory-recipe} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#factories} Para melhores praticas
    */
   function consultCEP($q) {
 
@@ -22,12 +23,11 @@
     };
 
     /**
-     * @namespace Consultar
+     * @function Consultar
      * @desc Consulta o cep fornecido e retorna os dados do local
-     * @see {@link foo} utiliza o Postmon API.
      * @see {@link http://postmon.com.br/}
-     * @param {String} cepToConsult CEP para consultar
-     * @memberOf Factories.consultCEP
+     * @param {String} cepToConsult - CEP para consultar
+     * @memberof consultCEP
      */
     function Consultar(cepToConsult) {
       var cep = cepToConsult.replace(/\./g, '');

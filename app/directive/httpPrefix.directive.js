@@ -1,17 +1,13 @@
-/**
- * HTTP Prefix Directive
- * @namespace Directives
- */
-(function() {
+(function () {
   'use strict';
   angular
     .module('dashboard')
     .directive('httpPrefix', httpPrefix);
-
   /**
-   * @namespace httpPrefix
+   * @memberof dashboard
+   * @ngdoc directive
+   * @name httpPrefix
    * @desc Adiciona http antes do texto digitado
-   * @memberOf Directives
    */
   function httpPrefix() {
     var httpPrefix = {

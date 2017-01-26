@@ -1,12 +1,3 @@
-/**
- * CerimoniaController
- * @author Leo Brescia <leonardo@leobrescia.com.br>
- * Gerencia os dados da pagina da cerimonia( cerimonia.html)
- * Utiliza o seguintes serviços do servidor:
- *  - RetornarConfiguracaoConvite
- *  - ConfiguracaoConvite
- * @namespace Controllers
- */
 (function () {
   'use strict';
 
@@ -14,13 +5,6 @@
     .module('dashboard')
     .controller('CerimoniaController', CerimoniaController);
 
-  /**
-   * serverService - usado para comunicar com o servidor (server.service.js)
-   * conversorService - usado para converter xml <-> json (conversor.service.js)
-   * session - usado para armazenar e buscar dados no session (session.service.js)
-   * toastr - usado para mostrar mensagens ao usuario
-   * consultCEP - servico para consulta de cep (checkCep.service.js)
-   */
   CerimoniaController.$inject = ['serverService', 'conversorService', 'session', 'toastr', 'consultCEP'];
 
   /**

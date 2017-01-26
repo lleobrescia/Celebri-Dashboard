@@ -7,6 +7,20 @@
 
   RouteConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider'];
 
+  /**
+   * @memberof dashboard
+   * @ngdoc config
+   * @scope {}
+   * @name RouteConfig
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Controla as rotas do dashboard.<br>
+   * Pasta de origem : app/ <br>
+   * @param {service} $stateProvider
+   * @param {service} $locationProvider
+   * @param {service} $urlRouterProvider
+   * @see Veja [Angular DOC]    {@link https://ui-router.github.io/ng1/} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#routing} Para melhores praticas
+   */
   function RouteConfig($stateProvider, $locationProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
     $locationProvider.html5Mode(true);

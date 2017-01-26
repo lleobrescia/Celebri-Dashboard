@@ -6,10 +6,36 @@
     .controller('HotelController', HotelController);
 
   HotelController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr', '$rootScope'];
-
+  /**
+   * @todo consultar o cep
+   * @todo exclusao em massa
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name HotelController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc gerencia os hoteis de referencia do casamento. <br>
+   * Pasta de origem : app/evento/hotel <br>
+   * State : hotel <br>
+   * Controller As : hotel <br>
+   * Template Url : app/evento/hotel/hotel.html <br><br>
+   * Usa o serviço(s) do(s) servidor:
+   *  - ConfigAdicionalEvento_ListaHoteis {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/ConfigAdicionalEvento_ListaHoteis}
+   *  - ExcluirHoteis {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/ExcluirHoteis}
+   *  - RetornarConfiguracaoListaHoteis {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/RetornarConfiguracaoListaHoteis}
+   * @param {service} serverService       - usado para comunicar com o servidor (server.service.js)
+   * @param {service} conversorService    - usado para converter xml <-> json (conversor.service.js)
+   * @param {service} ListManagerService  - gerencia listas. Passa um object de uma lista para outra (list.service.js)
+   * @param {service} session             - usado para armazenar e buscar dados no session (session.service.js)
+   * @param {service} toastr              - notificação para o usuario
+   * @param {service} $rootScope          - scope geral
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
+   * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
+   */
   function HotelController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
-    const enable = $rootScope.pagante;
-    const ID = session.user.id;
+    const enable = $rootScope.pagante; //somente usuario pagante pode adicionar um hotel
+    const ID = session.user.id; //id do usuario logado
 
     var vm = this;
 
@@ -36,9 +62,11 @@
     };
     vm.carregando = true;
     vm.erro = false;
-    vm.hoteis = [];
-    vm.selecionados = [];
+    vm.hoteis = []; //lista de hoteis
 
+    /**
+     * Atribuição das funçoes as variaveis do escopo
+     */
     vm.Adicionar = Adicionar;
     vm.Excluir = Excluir;
 
@@ -46,16 +74,25 @@
 
     ////////////////
 
+    /**
+     * @function Activate
+     * @desc Setup docontrolador. Exetuca assim que o controlador inicia
+     * @memberof HotelController
+     */
     function Activate() {
       GetDados();
     }
 
+    /**
+     * @function Adicionar
+     * @desc Adiciona um novo hotel. Somente se o usuario pagou
+     * @memberof HotelController
+     */
     function Adicionar() {
       vm.carregando = true;
       if (enable) {
         var dados = conversorService.Json2Xml(vm.dados, '');
         serverService.Request('ConfigAdicionalEvento_ListaHoteis', dados).then(function (resp) {
-          console.log(resp);
           vm.carregando = false;
           toastr.success('Hotel Adicionado!');
           GetDados();
@@ -71,6 +108,12 @@
       }
     }
 
+    /**
+     * @function Excluir
+     * @desc Apaga um hotel
+     * @param {string} id - id do hotel
+     * @memberof HotelController
+     */
     function Excluir(id) {
       vm.carregando = true;
       var item = {
@@ -90,6 +133,10 @@
       serverService.Request('ExcluirHoteis', dado).then(function (resp) {
         vm.carregando = false;
         toastr.success('Hotel Excluido');
+        /**
+         * Quando adiciona um novo hotel
+         * eh preciso recuperar a lista novamente para pegar o id do novo hotel
+         */
         GetDados();
       }).catch(function (error) {
         console.error('ExcluirHoteis -> ', error);
@@ -99,6 +146,11 @@
       });
     }
 
+    /**
+     * @function GetDados
+     * @desc Recupera a lista de hoteis do servidor
+     * @memberof HotelController
+     */
     function GetDados() {
       vm.carregando = true;
       vm.dados = {
@@ -129,8 +181,6 @@
          * O angular converte de string para objeto
          */
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-
-        console.log(resp);
 
         if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco) {
           if (resp.ArrayOfConfiguracaoGenericaEndereco.ConfiguracaoGenericaEndereco.length > 1) {

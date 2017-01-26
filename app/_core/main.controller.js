@@ -1,10 +1,3 @@
-/**
- * MainController
- * @author Leo Brescia <leonardo@leobrescia.com.br>
- * O controlador fica no index.
- * Quando for para usar algo que afete todos os views, utilize esse controlador
- * @namespace Controllers
- */
 (function () {
   'use strict';
 
@@ -13,12 +6,20 @@
     .controller('MainController', MainController);
 
   MainController.$inject = [];
+
   /**
-   * @namespace MainController
-   * @desc Controlador principal do sistema. Afeta todos os views. Fica localizado no index.html
-   * @see Veja {@link https://docs.angularjs.org/guide/controller|Angular DOC} Para mais informações
-   * @see Veja {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers|John Papa DOC} Para melhores praticas
-   * @memberof Controllers
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name MainController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Controlador principal do sistema. Afeta todos os views. Fica localizado no index.html<br>
+   * Pasta de origem : app/_core <br>
+   * State :  <br>
+   * Controller As : main<br>
+   * Template Url :  <br><br>
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
    */
   function MainController() {
     var vm = this;
@@ -32,17 +33,17 @@
     ////////////////
 
     /**
-     * @namespace Activate
+     * @function Activate
      * @desc Setup docontrolador. Exetuca assim que o controlador inicia
-     * @memberof Controllers.MainController
+     * @memberof MainController
      */
     function Activate() {}
 
     /**
-     * @namespace GetTimes
+     * @function GetTimes
      * @desc Usado para executar o ng repeat n vezes
      * @param {int} n - Numero de vezes que o ng-repeat deve executar
-     * @memberof Controllers.MainController
+     * @memberof MainController
      */
     function GetTimes(n) {
       return new Array(n);

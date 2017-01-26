@@ -1,8 +1,4 @@
-/**
- * Request As Form Post Service
- * @namespace Factories
- */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -10,9 +6,12 @@
     .factory('RequestAsFormPost', RequestAsFormPost);
 
   /**
-   * @namespace RequestAsFormPost
+   * @memberof dashboard
+   * @ngdoc factory
+   * @name RequestAsFormPost
    * @desc Transforma o header do request do angular em form post
-   * @memberOf Factories
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/providers#factory-recipe} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#factories} Para melhores praticas
    */
   function RequestAsFormPost() {
     var service = {
@@ -24,12 +23,12 @@
     ////////////////
 
     /**
-     * @namespace TransformRequest
+     * @function TransformRequest
      * @desc Modifica o header do request
      * @param {Object} data
      * @param {Function} getHeaders
      * @return {String} Header modificado
-     * @memberOf Factories.RequestAsFormPost
+     * @memberof RequestAsFormPost
      */
     function TransformRequest(data, getHeaders) {
       var headers = getHeaders();
@@ -38,11 +37,11 @@
     }
 
     /**
-     * @namespace SerializeData
+     * @function SerializeData
      * @desc Serializa o header do request
      * @param {Object} data - objeto a ser serializado
      * @return {String} A data serializada
-     * @memberOf Factories.RequestAsFormPost
+     * @memberof RequestAsFormPost
      */
     function SerializeData(data) {
       if (!angular.isObject(data)) {

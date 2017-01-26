@@ -18,12 +18,36 @@
 
   Cielo.$inject = ['$q', '$http', 'RequestAsFormPost', '$filter'];
 
+  /**
+   * @memberof dashboard
+   * @ngdoc service
+   * @name Cielo
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @param {service} $q                - promise
+   * @param {service} $http             - usado para requisição
+   * @param {service} RequestAsFormPost - transformar requisição em uma requisição form post
+   * @param {service} $filter           - transformar alguns texto
+   * @desc Serviço de consulta de CEP
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/services} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#services} Para melhores praticas
+   * @see Veja [Cielo DOC]      {@link https://developercielo.github.io/Webservice-1.5/}
+   */
   function Cielo($q, $http, RequestAsFormPost, $filter) {
     var appid = '60e74b56ffa91185c5fc8732e94cbb1e';
     var token = 'ea7021f308d7d4e691093dc16f6a8c8d';
 
     this.Send = Send;
 
+    /**
+     * @function Send
+     * @desc monta o xml da requisição da cielo e envia.
+     * @param {String} numero - numero do cartao
+     * @param {String} validade - validade do cartao
+     * @param {String} seguranca - codigo de segurança do cartao
+     * @param {String} bandeira - bandeira do cartao
+     * @return {promise}
+     * @memberof Cielo
+     */
     function Send(numero, validade, seguranca, bandeira) {
       var call;
       var deferred = $q.defer();
@@ -47,6 +71,13 @@
       return deferred.promise;
     }
 
+    /**
+     * @function SendData
+     * @desc realiza requisição
+     * @param {json} Data - dados para requisição
+     * @return {object}
+     * @memberof Cielo
+     */
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',
@@ -55,7 +86,6 @@
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=ISO-8859-1'
         },
-        // withCredentials: true,
         data: Data
       });
 

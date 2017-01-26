@@ -6,10 +6,34 @@
     .controller('CardapioController', CardapioController);
 
   CardapioController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', 'toastr', '$rootScope'];
-
+  /**
+   * @memberof dashboard
+   * @ngdoc controller
+   * @scope {}
+   * @name CardapioController
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc gerencia o cardapio do casamento. <br>
+   * Pasta de origem : app/evento/cardapio <br>
+   * State : cardapio <br>
+   * Controller As : cardapio <br>
+   * Template Url : app/evento/cardapio/cardapio.html <br><br>
+   * Usa o serviço(s) do(s) servidor:
+   *  - CadastrarCardapio {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/CadastrarCardapio}
+   *  - ExcluirCardapio {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/ExcluirCardapio}
+   *  - RetornarCardapio {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help/operations/RetornarCardapio}
+   * @param {service} serverService       - usado para comunicar com o servidor (server.service.js)
+   * @param {service} conversorService    - usado para converter xml <-> json (conversor.service.js)
+   * @param {service} ListManagerService  - gerencia listas. Passa um object de uma lista para outra (list.service.js)
+   * @param {service} session             - usado para armazenar e buscar dados no session (session.service.js)
+   * @param {service} toastr              - notificação para o usuario
+   * @param {service} $rootScope          - scope geral
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
+   * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
+   */
   function CardapioController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
-    const enable = $rootScope.pagante;
-    const ID = session.user.id;
+    const enable = $rootScope.pagante; //somente casal pagante pode adicionar o cardapio
+    const ID = session.user.id; //id do casal
 
     var vm = this;
 
@@ -22,10 +46,13 @@
         'Nome': ''
       }
     };
-    vm.cardapios = [];
+    vm.cardapios = []; //lista do cardapio
     vm.carregando = true;
     vm.erro = false;
 
+    /**
+     * Atribuição das funçoes as variaveis do escopo
+     */
     vm.Adicionar = Adicionar;
     vm.Excluir = Excluir;
 
@@ -33,10 +60,20 @@
 
     ////////////////
 
+    /**
+     * @function Activate
+     * @desc Setup docontrolador. Exetuca assim que o controlador inicia
+     * @memberof CardapioController
+     */
     function Activate() {
       GetDados();
     }
 
+    /**
+     * @function Adicionar
+     * @desc Cadastra um novo cardapio
+     * @memberof CardapioController
+     */
     function Adicionar() {
       vm.carregando = true;
       if (enable) {
@@ -62,6 +99,12 @@
       }
     }
 
+    /**
+     * @function Excluir
+     * @desc Apaga o cardapio
+     * @param {string} id - id do cardapio
+     * @memberof CardapioController
+     */
     function Excluir(id) {
       vm.carregando = true;
       var item = {
@@ -90,6 +133,11 @@
       });
     }
 
+    /**
+     * @function GetDados
+     * @desc Recupera a lista do cardapio do servidor
+     * @memberof CardapioController
+     */
     function GetDados() {
       vm.carregando = true;
       vm.cardapios = [];

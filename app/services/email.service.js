@@ -7,10 +7,31 @@
 
   EnviarEmail.$inject = ['$q', '$http', 'RequestAsFormPost'];
 
+  /**
+   * @memberof dashboard
+   * @ngdoc service
+   * @name EnviarEmail
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @param {service} $q                - promise
+   * @param {service} $http             - usado para requisição
+   * @param {service} RequestAsFormPost - transformar requisição em uma requisição form post
+   * @desc Envia um email
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/services} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#services} Para melhores praticas
+   */
   function EnviarEmail($q, $http, RequestAsFormPost) {
 
     this.Mail = Mail;
 
+    /**
+     * @function Mail
+     * @desc monta o promise e envia o email
+     * @param {String} destinatario - destinatario do email
+     * @param {String} assunto - assunto do email
+     * @param {String} conteudo - conteudo do email
+     * @return {promise}
+     * @memberof EnviarEmail
+     */
     function Mail(destinatario, assunto, conteudo) {
       var call;
       var deferred = $q.defer();
@@ -32,6 +53,13 @@
       return deferred.promise;
     }
 
+    /**
+     * @function SendData
+     * @desc realiza requisição
+     * @param {json} Data - dados para requisição
+     * @return {object}
+     * @memberof EnviarEmail
+     */
     function SendData(Data) {
       var requisicao = $http({
         method: 'POST',

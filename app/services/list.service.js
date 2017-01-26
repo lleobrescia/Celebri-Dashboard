@@ -1,8 +1,4 @@
-/**
- * ListManager Service
- * @namespace Services
- */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -10,9 +6,13 @@
     .service('ListManagerService', ListManagerService);
 
   /**
-   * @namespace ListManagerService
+   * @memberof dashboard
+   * @ngdoc service
+   * @name ListManagerService
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
    * @desc Gerencia listas de selecionados. Retirando e colocando itens da lista fornecida
-   * @memberOf Services
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/services} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#services} Para melhores praticas
    */
   function ListManagerService() {
     this.Exists = Exists;
@@ -23,24 +23,24 @@
     ////////////////
 
     /**
-     * @namespace Exists
+     * @function Exists
      * @desc Verifica se o item existe em uma lista fornecida
      * @param {Object} item - objeto para verificacao
      * @param {Array} selecedList - lista para verificar se contem o item
      * @return {Boolean}
-     * @memberOf Services.ListManagerService
+     * @memberof ListManagerService
      */
     function Exists(item, selecedList) {
       return selecedList.indexOf(item) > -1;
     }
 
     /**
-     * @namespace IsIndeterminate
+     * @function IsIndeterminate
      * @desc Verifica se a lista de selecionados esta completa
      * @param {Array} selecedList - lista dos selecionados
      * @param {Array} list - lista contendo todos os itens disponiveis
      * @return {Boolean}
-     * @memberOf Services.ListManagerService
+     * @memberof ListManagerService
      */
     function IsIndeterminate(selecedList, list) {
       return (selecedList.length !== 0 &&
@@ -48,11 +48,11 @@
     }
 
     /**
-     * @namespace Toggle
+     * @function Toggle
      * @desc Retira ou coloca o item na lista fornecida
      * @param {Object} item - objeto para inclusao/exclusao da lista
      * @param {Array} selecedList -lista de selecionados
-     * @memberOf Services.ListManagerService
+     * @memberof ListManagerService
      */
     function Toggle(item, selecedList) {
       var idx = selecedList.indexOf(item);
@@ -64,18 +64,18 @@
     }
 
     /**
-     * @namespace ToggleAll
+     * @function ToggleAll
      * @desc Retira ou coloca todos os itens na lista de selecionados
      * @param {Array} selecedList - lista dos selecionados
      * @param {Array} list - lista contendo todos os itens disponiveis
-     * @memberOf Services.ListManagerService
+     * @memberof ListManagerService
      */
     function ToggleAll(selecedList, list) {
       if (selecedList.length === list.length) {
         selecedList.splice(0, selecedList.length);
       } else if (selecedList.length === 0 || selecedList.length > 0) {
         selecedList.splice(0, selecedList.length);
-        angular.forEach(list, function(item) {
+        angular.forEach(list, function (item) {
           selecedList.push(item);
         });
       }

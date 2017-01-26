@@ -1,7 +1,7 @@
 /**
  * @namespace Directives
  */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -9,9 +9,10 @@
     .directive('sidebar', SideBar);
 
   /**
-   * @namespace Cabecalho
+   * @memberof dashboard
+   * @ngdoc directive
+   * @name SideBar
    * @desc Retorna o template do cabecalho
-   * @memberOf Directives
    */
   function SideBar() {
     return {

@@ -1,8 +1,3 @@
-/**
- * dashboard Module
- * @author Leo Brescia <leonardo@leobrescia.com.br>
- * @namespace Module
- */
 (function () {
   'use strict';
 
@@ -10,40 +5,43 @@
     .run(Run)
     .config(Config);
 
-  /**
-   * $rootScope - usado para quardar as variaveis globais
-   * $state - usado para trocar o titulo do site
-   * e verificar em qual pagina esta para alterar a barra lateral
-   * session - armazena os dados no session.Para detalhes do servico, verifique o arquivo session.service.js 
-   */
   Run.$inject = ['$rootScope', '$state', 'session'];
 
   /**
-   * @namespace Run
-   * @desc Exetuca açoes assim que o module eh iniciado
-   * @see Veja {@link https://docs.angularjs.org/guide/module#run-blocks|Angular DOC} Para mais informações
-   * @see Veja {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#run-blocks|John Papa DOC} Para melhores praticas
+   * @memberof dashboard
+   * @ngdoc config
+   * @scope {}
+   * @name Run
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Exetuca açoes assim que o module eh iniciado.<br>
+   * Pasta de origem : app/_core <br>
+   * @param {service} $rootScope  - scope geral
+   * @param {service} $state      - usado para trocar o titulo do site
+   * @param {service} session     - usado para armazenar e buscar dados no session (session.service.js)
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/module#run-blocks} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#style-y171} Para melhores praticas
    */
   function Run($rootScope, $state, session) {
     $rootScope.$on('$stateChangeSuccess', ChangeSuccess);
     $rootScope.$on('$stateChangeStart', ChangeStart);
 
     /**
-     * @name ChangeStart
+     * @function ChangeStart
      * @desc Executa quando o state comeca a mudar
-     * @memberof Module.Run
+     * @param {event} event
+     * @param {object} toState
+     * @param {object} toParams
+     * @param {object} fromState
+     * @param {object} fromParams
+     * @memberof Run
      */
     function ChangeStart(event, toState, toParams, fromState, fromParams) {
       var userAuthenticated = false; //Por padrao o usuario nao esta autenticado
       session.RestoreState(); //Carrega os dados do usuario salvos no session
 
-      /** @global */
       $rootScope.pagante = session.user.pagante; //Controla as funções que o usuario pode fazer
-      /** @global */
       $rootScope.dias = session.user.diasCadastros; //Dias decorridos desde o cadstro
-      /** @global */
       $rootScope.liberado = session.user.usuarioLiberado;
-      /** @global */
       $rootScope.foto = session.user.casal.urlFoto; //A foto do casal eh global pois esta em dois controladores
 
       /**
@@ -72,12 +70,11 @@
       }
     }
     /**
-     * @name ChangeSuccess
+     * @function ChangeSuccess
      * @desc Executa depois que o state mudou
-     * @memberof Module.Run
+     * @memberof Run
      */
     function ChangeSuccess() {
-      /** @global */
       $rootScope.personalizar = false; //usado para escoder a navegacao lateral
       $rootScope.$broadcast('restorestate');
 
@@ -94,17 +91,20 @@
     }
   }
 
-  /**
-   * $mdDateLocaleProvider - servico de data e tempo do datapicker
-   */
   Config.$inject = ['$mdDateLocaleProvider'];
-
   /**
-   * @namespace Config
-   * @desc Executa configurações quando o mudule eh iniciado
-   * @see Veja {@link https://docs.angularjs.org/guide/module#configuration-blocks|Angular DOC} Para mais informações
-   * @see Veja {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#configuration-1|John Papa DOC} Para melhores praticas
-   * @memberof Module
+   * @memberof dashboard
+   * @ngdoc config
+   * @scope {}
+   * @name Config
+   * @author Leo Brescia <leonardo@leobrescia.com.br>
+   * @desc Executa configurações quando o mudule eh iniciado.<br>
+   * Pasta de origem : app/_core <br>
+   * @param {service} $mdDateLocaleProvider  - servico de data e tempo do datapicker
+   * @param {service} $state      - usado para trocar o titulo do site
+   * @param {service} session     - usado para armazenar e buscar dados no session (session.service.js)
+   * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/module#configuration-blocks} Para mais informações
+   * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#style-y170} Para melhores praticas
    */
   function Config($mdDateLocaleProvider) {
     /**
