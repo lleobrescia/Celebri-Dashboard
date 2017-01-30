@@ -138,6 +138,7 @@
           } else {
             vm.link = resp.ResultadoCriacaoContaVendedorMoip.LinkSetPassword;
             toastr.success('Conta Criada');
+            GetProdutos();
             vm.contaCriada = true;
           }
           vm.carregando = false;
