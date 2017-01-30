@@ -5,9 +5,8 @@
     .module('dashboard')
     .controller('SalaoController', SalaoController);
 
-  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', '$rootScope', 'toastr'];
+  SalaoController.$inject = ['serverService', 'conversorService', 'ListManagerService', 'session', '$rootScope', 'toastr', 'consultCEP'];
   /**
-   * @todo consultar o cep
    * @todo exclusao em massa
    * @memberof dashboard
    * @ngdoc controller
@@ -29,16 +28,19 @@
    * @param {service} session             - usado para armazenar e buscar dados no session (session.service.js)
    * @param {service} $rootScope          - scope geral
    * @param {service} toastr              - notificação para o usuario
+   * @param {service} consultCEP          - serviço para consultar cep
    * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
    * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
    * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
-  function SalaoController(serverService, conversorService, ListManagerService, session, $rootScope, toastr) {
-    const enable = $rootScope.pagante;//somente usuarios pagantes podem adicionar um salao
-    const ID = session.user.id;//id do usuario
+  function SalaoController(serverService, conversorService, ListManagerService, session, $rootScope, toastr, consultCEP) {
+    const enable = $rootScope.pagante; //somente usuarios pagantes podem adicionar um salao
+    const ID = session.user.id; //id do usuario
 
     var vm = this;
 
+    vm.carregando = true;
+    vm.cep = '';
     vm.dados = {
       'ConfiguracaoGenericaEndereco': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
@@ -60,13 +62,13 @@
         'Tracar_rota_local': 'true'
       }
     };
-    vm.carregando = true;
-    vm.saloes = [];//lista dos saloes cadastrados
+    vm.saloes = []; //lista dos saloes cadastrados
 
     /**
      * Atribuição das funçoes as variaveis do escopo
      */
     vm.Adicionar = Adicionar;
+    vm.ConsultCEP = ConsultCEP;
     vm.Excluir = Excluir;
 
     Activate();
@@ -104,6 +106,20 @@
         toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
         vm.carregando = false;
       }
+    }
+
+    /**
+     * @function ConsultCEP
+     * @desc Usa o serviço consultCEP para consultar o cep e preenche o formulario com a resposta
+     * @memberof SalaoController
+     */
+    function ConsultCEP() {
+      consultCEP.consultar(vm.cep).then(function (resp) {
+        vm.dados.ConfiguracaoGenericaEndereco.Endereco = resp.logradouro;
+        vm.dados.ConfiguracaoGenericaEndereco.Bairro = resp.bairro;
+        vm.dados.ConfiguracaoGenericaEndereco.Cidade = resp.cidade;
+        vm.dados.ConfiguracaoGenericaEndereco.Estado = resp.estado;
+      });
     }
 
     /**

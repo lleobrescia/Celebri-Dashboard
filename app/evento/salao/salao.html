@@ -19,7 +19,7 @@
 
           <md-input-container flex="100" flex-gt-sm="20">
             <label>CEP</label>
-            <input aria-label="CEP" type="text" name="cep" mask="99.999-999" ng-model="$scope.cep">
+            <input aria-label="CEP" type="text" name="cep" ng-model="salao.cep" mask="99.999-999" ng-keyup="salao.ConsultCEP()">
           </md-input-container>
         </div>
 
@@ -61,9 +61,9 @@
             <input type="text" name="tel" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Telefone" required mask="(99) 9? 9999-9999">
           </md-input-container>
 
-          <md-input-container flex="100" flex-gt-sm="40" required>
+          <md-input-container flex="100" flex-gt-sm="40">
             <label>E-mail</label>
-            <input type="email" name="email" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Email" required>
+            <input type="email" name="email" ng-model="salao.dados.ConfiguracaoGenericaEndereco.Email">
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20" required>
