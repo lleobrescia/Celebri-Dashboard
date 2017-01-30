@@ -162,7 +162,6 @@
             vm.presentes.push(resp.ArrayOfConfiguracaoLojaPresentes.ConfiguracaoLojaPresentes);
           }
         }
-        console.log(resp);
 
       }).catch(function (error) {
         console.error('RetornarConfiguracaoLojaPresentes -> ', error);
