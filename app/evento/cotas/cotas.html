@@ -192,6 +192,8 @@
     </div>
   </md-toolbar>
   <md-content flex layout-padding>
+    <p>Escolha seus presentes em dinheiro, selecionando as imagens e seus respectivos valores, para ilustrar as cotas de lua
+      de mel no aplicativo dos seus convidados, que irão aparecer no aplicativo de seus convidados</p>
     <md-button class="md-raised md-primary" ng-click="cotas.Salvar();$scope.change = false" ng-if="$scope.change">Salvar</md-button>
     <md-list flex>
       <md-list-item class="md-3-line" ng-repeat="item in cotas.produtos" style="margin-bottom: 30px" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true">
