@@ -8,7 +8,13 @@
   </md-toolbar>
 
   <md-content flex layout-padding>
-    <p>Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento.</p>
+    <p style="position: relative;">
+      Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento. Basta copiar e colar a
+      <span ng-init="$scope.urlimage=false" ng-click="$scope.urlimage = !$scope.urlimage" style="color: blue;text-decoration: underline;margin: 0;cursor: pointer">
+            URL do site
+      </span>
+      <img ng-show="$scope.urlimage" ng-click="$scope.urlimage = !$scope.urlimage" src="image/urlSite.png" alt="" style="position: absolute;left: 0;top: 0;z-index: 9;cursor: pointer;">
+    </p>
     <form name="formCardapio">
       <div>
         <div layout="row" layout-wrap>

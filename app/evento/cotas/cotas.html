@@ -197,7 +197,7 @@
     <md-button class="md-raised md-primary" ng-click="cotas.Salvar();$scope.change = false" ng-if="$scope.change">Salvar</md-button>
     <md-list flex>
       <md-list-item class="md-3-line" ng-repeat="item in cotas.produtos" style="margin-bottom: 30px" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true">
-        <md-checkbox aria-label="Selecionar" ng-checked="cotas.ListManager.Exists(item,cotas.produtosEscolhidos)"></md-checkbox>
+        <md-checkbox aria-label="Selecionar" ng-checked="cotas.ListManager.Exists(item,cotas.produtosEscolhidos)" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true"></md-checkbox>
         <img ng-src="{{item.Url}}" alt="{{item.Descricao}}" style="margin-right: 10px;">
         <div class="md-list-item-text" layout="column">
           <h3>{{ item.Descricao }}</h3>
