@@ -5,7 +5,7 @@
 
       <span class="userMenu" ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu">
         <ng-md-icon icon="people" ng-show="!$root.foto" class="people"></ng-md-icon>
-        <img ng-src="{{$root.foto}}" alt="Casal" class="user_foto" ng-show="$root.foto"> Olá, {{sidebar.userName}} 
+        <img ng-src="{{$root.foto}}" alt="Casal" class="user_foto" ng-show="$root.foto"> Olá, {{$root.nomeUser}} 
         <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':$scope.userMenu}"></span>
       </span>
       <ul class="user__menu" ng-show="$scope.userMenu">
