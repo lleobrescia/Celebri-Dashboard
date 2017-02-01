@@ -76,15 +76,6 @@
      * @memberof PresentesController
      */
     function Adicionar() {
-      vm.dados = {
-        'ConfiguracaoLojaPresentes': {
-          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
-          'Id': 0,
-          'Id_usuario_logado': ID,
-          'Nome': '',
-          'Url': ''
-        }
-      };
       vm.carregando = true;
       if (enable) {
         var dados = conversorService.Json2Xml(vm.dados, '');
@@ -144,9 +135,19 @@
      * @memberof PresentesController
      */
     function GetDados() {
+      vm.dados = {
+        'ConfiguracaoLojaPresentes': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Id': 0,
+          'Id_usuario_logado': ID,
+          'Nome': '',
+          'Url': ''
+        }
+      };
       vm.carregando = true;
       vm.presentes = [];
       serverService.Get('RetornarConfiguracaoLojaPresentes', ID).then(function (resp) {
+
         vm.carregando = false;
         /**
          * O servico conversorService retorna uma string

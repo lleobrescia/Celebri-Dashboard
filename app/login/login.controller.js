@@ -147,7 +147,7 @@
      */
     function RegistrarPagamnto(id, origem) {
       var dado = {
-        'StatusPagamentoCelebri': {
+        'DadosPagamentoCelebri': {
           '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
           'IdCasal': id,
           'Origem': origem,

@@ -178,7 +178,7 @@
     </div>
   </md-toolbar>
   <md-content flex layout-padding>
-    <p>Sua conta foi criada com sucesso! Por favor, <a ng-href="{{cota.link}}" target="_blank">clique aqui para criar uma senha.</a></p>
+    <p>Sua conta foi criada com sucesso! Por favor, <a ng-href="{{cotas.link}}" target="_blank">clique aqui para criar uma senha.</a></p>
 
   </md-content>
 </section>
@@ -192,10 +192,12 @@
     </div>
   </md-toolbar>
   <md-content flex layout-padding>
+    <p>Escolha seus presentes em dinheiro, selecionando as imagens e seus respectivos valores, para ilustrar as cotas de lua
+      de mel no aplicativo dos seus convidados, que irão aparecer no aplicativo de seus convidados</p>
     <md-button class="md-raised md-primary" ng-click="cotas.Salvar();$scope.change = false" ng-if="$scope.change">Salvar</md-button>
     <md-list flex>
       <md-list-item class="md-3-line" ng-repeat="item in cotas.produtos" style="margin-bottom: 30px" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true">
-        <md-checkbox aria-label="Selecionar" ng-checked="cotas.ListManager.Exists(item,cotas.produtosEscolhidos)"></md-checkbox>
+        <md-checkbox aria-label="Selecionar" ng-checked="cotas.ListManager.Exists(item,cotas.produtosEscolhidos)" ng-click="cotas.ListManager.Toggle(item,cotas.produtosEscolhidos);$scope.change = true"></md-checkbox>
         <img ng-src="{{item.Url}}" alt="{{item.Descricao}}" style="margin-right: 10px;">
         <div class="md-list-item-text" layout="column">
           <h3>{{ item.Descricao }}</h3>

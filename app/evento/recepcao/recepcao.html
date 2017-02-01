@@ -19,16 +19,16 @@
     </p>
 
     <div layout="row" layout-wrap>
-      <md-switch class="md-primary" aria-label="Haverá recepção?" ng-model="recepcao.hasRecepcao" ng-change="$scope.hasChange = true">
+      <md-checkbox aria-label="Haverá recepção?" ng-model="recepcao.hasRecepcao" ng-change="$scope.hasChange = true">
         Haverá recepção?
-      </md-switch>
+      </md-checkbox>
     </div>
 
     <div layout="row" layout-wrap ng-show="recepcao.hasRecepcao">
-      <md-switch class="md-primary" aria-label="Recepção será no mesmo local da cerimônia?" ng-model="recepcao.dados.Mesmo_local_cerimonia"
-        ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
+      <md-checkbox aria-label="Recepção será no mesmo local da cerimônia?" ng-model="recepcao.dados.Mesmo_local_cerimonia" ng-false-value="'false'"
+        ng-true-value="'true'" ng-change="$scope.hasChange = true">
         Recepção será no mesmo local da cerimônia?
-        </md-switch>
+        </md-checkbox>
     </div>
 
     <form name="formRecepcao">
@@ -45,7 +45,7 @@
 
           <md-input-container flex="100" flex-gt-sm="20">
             <label>CEP</label>
-            <input type="text" name="cep" ng-model="recepcao.dados.Cep" mask="99.999-999" ng-change="$scope.hasChange = true">
+            <input type="text" name="cep" ng-model="recepcao.dados.Cep" mask="99.999-999" ng-change="$scope.hasChange = true" ng-keyup="recepcao.ConsultCEP(recepcao.dados.Cep)">
           </md-input-container>
         </div>
 
@@ -58,12 +58,9 @@
             </div>
           </md-input-container>
 
-          <md-input-container flex="100" flex-gt-sm="20" required>
+          <md-input-container flex="100" flex-gt-sm="20">
             <label>Número</label>
-            <input type="text" name="numero" ng-model="recepcao.dados.Numero" required ng-change="$scope.hasChange = true">
-            <div ng-messages="formRecepcao.numero.$error" ng-if="formRecepcao.numero.$touched">
-              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
-            </div>
+            <input type="text" name="numero" ng-model="recepcao.dados.Numero" ng-change="$scope.hasChange = true">
           </md-input-container>
         </div>
 
@@ -92,13 +89,6 @@
                 <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
               </div>
           </md-input-container>
-        </div>
-
-        <div layout="row" layout-wrap>
-          <md-switch class="md-primary" md-no-ink aria-label="Traçar rota até o local" ng-model="recepcao.dados.Tracar_rota_local"
-            ng-false-value="'false'" ng-true-value="'true'" ng-change="$scope.hasChange = true">
-            Traçar rota até o local
-            </md-switch>
         </div>
       </div>
 

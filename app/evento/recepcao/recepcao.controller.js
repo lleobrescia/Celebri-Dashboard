@@ -12,11 +12,8 @@
     .module('dashboard')
     .controller('RecepcaoController', RecepcaoController);
 
-  RecepcaoController.$inject = ['serverService', 'conversorService', 'session', 'toastr', '$rootScope'];
+  RecepcaoController.$inject = ['serverService', 'conversorService', 'session', 'toastr', '$rootScope', 'consultCEP'];
   /**
-   * @todo consultar o cep
-   * @todo adicionar s/n
-   * @todo trocar switch por checkbox
    * @memberof dashboard
    * @ngdoc controller
    * @scope {}
@@ -35,11 +32,12 @@
    * @param {service} session             - usado para armazenar e buscar dados no session (session.service.js)
    * @param {service} toastr              - notificação para o usuario
    * @param {service} $rootScope          - scope geral
+   * @param {service} consultCEP          - serviço para consultar cep
    * @see Veja [Angular DOC]    {@link https://docs.angularjs.org/guide/controller} Para mais informações
    * @see Veja [John Papa DOC]  {@link https://github.com/johnpapa/angular-styleguide/tree/master/a1#controllers} Para melhores praticas
    * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
-  function RecepcaoController(serverService, conversorService, session, toastr, $rootScope) {
+  function RecepcaoController(serverService, conversorService, session, toastr, $rootScope, consultCEP) {
     const enable = $rootScope.pagante; //somente pagantes podem alterar as informações
     const ID = session.user.id; //id do usuario logado
 
@@ -59,7 +57,7 @@
         'Numero': null,
         'Obs': null,
         'Pais': null,
-        'Tracar_rota_local': 'false'
+        'Tracar_rota_local': 'true'
       }
     };
     var vm = this;
@@ -77,6 +75,7 @@
      * Atribuição das funçoes as variaveis do escopo
      */
     vm.Cancelar = GetDados;
+    vm.ConsultCEP = ConsultCEP;
     vm.SetDados = SetDados;
 
     Activate();
@@ -91,6 +90,20 @@
     function Activate() {
       vm.dados = dadosAux.ConfiguracaoEvento;
       GetDados();
+    }
+
+    /**
+     * @function ConsultCEP
+     * @desc Usa o serviço consultCEP para consultar o cep e preenche o formulario com a resposta
+     * @memberof RecepcaoController
+     */
+    function ConsultCEP(cep) {
+      consultCEP.consultar(cep).then(function (resp) {
+        vm.dados.Endereco = resp.logradouro;
+        vm.dados.Bairro = resp.bairro;
+        vm.dados.Cidade = resp.cidade;
+        vm.dados.Estado = resp.estado;
+      });
     }
 
     /**
@@ -111,6 +124,7 @@
          * Se for o primeiro acesso, o servidor vai retornar um objeto
          */
         if (typeof (resp.ConfiguracaoEvento.Bairro) !== 'object') {
+          resp.ConfiguracaoEvento.Tracar_rota_local = 'true';
           vm.dados = dadosAux.ConfiguracaoEvento = resp.ConfiguracaoEvento;
 
           if (vm.dados.Bairro) {

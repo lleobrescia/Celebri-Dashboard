@@ -100,7 +100,6 @@
       type: 'link'
     }];
     vm.openedSection = null;
-    vm.userName = session.user.casal.nomeUser;
 
     /**
      * Atribuição das funçoes as variaveis do escopo

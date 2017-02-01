@@ -43,6 +43,7 @@
       $rootScope.dias = session.user.diasCadastros; //Dias decorridos desde o cadstro
       $rootScope.liberado = session.user.usuarioLiberado;
       $rootScope.foto = session.user.casal.urlFoto; //A foto do casal eh global pois esta em dois controladores
+      $rootScope.nomeUser = session.user.casal.nomeUser;
 
       /**
        * Se existir id no session significa que o usuario ja efetuou o login

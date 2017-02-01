@@ -19,7 +19,7 @@
 
           <md-input-container flex="100" flex-gt-sm="20">
             <label>CEP</label>
-            <input aria-label="CEP" type="text" name="cep" ng-model="$scope.cep" mask="99.999-999">
+            <input aria-label="CEP" type="text" name="cep" ng-model="hotel.cep" mask="99.999-999" ng-keyup="hotel.ConsultCEP()">
           </md-input-container>
         </div>
 
@@ -32,7 +32,6 @@
           <md-input-container flex="100" flex-gt-sm="20" required>
             <label>Número</label>
             <input type="text" name="numero" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Numero" required>
-
           </md-input-container>
         </div>
 
@@ -61,9 +60,9 @@
             <input type="text" name="tel" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Telefone" required mask="(99) 9? 9999-9999">
           </md-input-container>
 
-          <md-input-container flex="100" flex-gt-sm="40" required>
+          <md-input-container flex="100" flex-gt-sm="40">
             <label>E-mail</label>
-            <input type="email" name="email" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Email" required>
+            <input type="email" name="email" ng-model="hotel.dados.ConfiguracaoGenericaEndereco.Email">
           </md-input-container>
 
           <md-input-container flex="100" flex-gt-sm="20" required>

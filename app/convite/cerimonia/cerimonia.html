@@ -183,8 +183,8 @@
       </div>
     </div>
     <div layout-padding ng-show="$scope.paisChange">
-      <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar();$scope.hasChange = false" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
-      <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar();$scope.hasChange = false">Cancelar</md-button>
+      <md-button class="md-primary md-raised" ng-click="cerimonia.Salvar();$scope.paisChange = false" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+      <md-button class="md-warn md-raised" ng-click="cerimonia.Cancelar();$scope.paisChange = false">Cancelar</md-button>
     </div>
   </md-content>
 </section>
