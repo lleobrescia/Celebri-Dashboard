@@ -8,8 +8,13 @@
   </md-toolbar>
 
   <md-content flex layout-padding>
-    <p>Descreva aqui o cardápio que será usado na sua festa de casamento, para manter os seus convidados ainda mais informados.
-      Basta escrever o texto corrido.</p>
+    <p style="position:relative" ng-init="$scope.cardapido_exemplo = false">
+      Descreva aqui o cardápio que será usado na sua festa de casamento, para manter os seus convidados ainda mais informados.
+      Basta escrever o texto corrido. <br>
+      <span ng-click="$scope.cardapido_exemplo = !$scope.cardapido_exemplo" style="color: blue;text-decoration: underline;margin: 0;cursor: pointer">Clique aqui</span>      para visualizar um exemplo de como ele aparecerá no aplicativo de seus convidados.
+      <img src="image/cardapido_exemplo.png" alt="Cardapio Exemplo" style="position: absolute;z-index: 9;left: 0;top: 0;cursor: pointer"
+        ng-if="$scope.cardapido_exemplo" ng-click="$scope.cardapido_exemplo = false">
+    </p>
     <form name="formCardapio">
       <div>
         <div layout="row" layout-wrap>
