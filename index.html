@@ -115,53 +115,8 @@
 </head>
 
 <body>
-  <section layout="row" flex style="height:100%">
 
-    <sidebar></sidebar>
-
-    <md-content flex layout-padding class="index">
-      <div layout="row" layout-align="top center" class="aviso" ng-if="!$root.pagante" ng-cloak>
-        <p>Seu período de degustação acaba em {{15 - $root.dias}} dias</p>
-      </div>
-      <div layout="column" layout-align="top center">
-        <div ui-view style="width: 100%"></div>
-      </div>
-    </md-content>
-  </section>
-
-  <div class="dialog__bg" ng-cloak ng-if="!$root.pagante && Main.dialogControl && $root.dias < 15">
-    <div role="dialog" class="dialog__content dialog_celebri" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
-      <div class="demo-dialog-content">
-        <div layout-padding>
-          <i class="fa fa-times-circle-o" aria-hidden="true" ng-click="Main.dialogControl = false"></i>
-          <h3>Faltam {{15 - $root.dias}} dias para o término <br> do seu período de degustação</h3>
-          <p>Se preferir, faça o pagamento para ter acesso à todos <br>os recursos disponíveis pelo Celebri.</p>
-          <img src="image/dialog.png" alt="">
-        </div>
-      </div>
-
-      <div layout="row" class="demo-dialog-button">
-        <md-button class="md-raised md-primary" md-autofocus ng-click="Main.dialogControl = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
-      </div>
-    </div>
-  </div>
-
-  <div class="dialog__bg" ng-cloak ng-if="$root.dias === 15 && Main.dialogControl">
-    <div role="dialog" class="dialog__content dialog_celebri" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
-      <div class="demo-dialog-content">
-        <div layout-padding>
-          <i class="fa fa-times-circle-o" aria-hidden="true" ng-click="Main.dialogControl = false"></i>
-          <h3>Olá, seja bem-vindo! <br> você tem 15 dias para degustar e conhecer o celebri.</h3>
-          <p>Se preferir, faça o pagamento para ter acesso à todos <br>os recursos disponíveis pelo Celebri.</p>
-          <img src="image/dialog.png" alt="">
-        </div>
-      </div>
-
-      <div layout="row" class="demo-dialog-button">
-        <md-button class="md-raised md-primary" md-autofocus ng-click="Main.dialogControl = false" ui-sref="pagamento">Efetuar o pagamento</md-button>
-      </div>
-    </div>
-  </div>
+  <div ui-view style="height:100%"></div>
 
   <script src="js/vendor/ngImageEditor.min.js"></script>
   <script src="js/vendor/jquery.creditCardValidator.js"></script>
