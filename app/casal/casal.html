@@ -22,7 +22,7 @@
               <md-input-container flex="50">
                 <label ng-if="casal.genero.noiva === 'f'">Noiva</label>
                 <label ng-if="casal.genero.noiva === 'm'">Noivo</label>
-                <input ng-model="casal.dados.Casal.NomeNoiva" aria-label="Nome" type="text" name="noiva" required ng-change="$scope.change = true">
+                <input ng-model="casal.dados.DadosCasal.NomeNoiva" aria-label="Nome" type="text" name="noiva" required ng-change="$scope.change = true">
                 <div class="validation-messages" ng-messages="casalForm.noiva.$error">
                   <div ng-message="required">O nome é obrigatório!</div>
                 </div>
@@ -31,7 +31,7 @@
               <md-input-container flex="50">
                 <label ng-if="casal.genero.noivo === 'f'">Noiva</label>
                 <label ng-if="casal.genero.noivo === 'm'">Noivo</label>
-                <input ng-model="casal.dados.Casal.NomeNoivo" aria-label="Nome" type="text" name="noivo" required ng-change="$scope.change = true">
+                <input ng-model="casal.dados.DadosCasal.NomeNoivo" aria-label="Nome" type="text" name="noivo" required ng-change="$scope.change = true">
                 <div class="validation-messages" ng-messages="casalForm.noivo.$error">
                   <div ng-message="required">O nome é obrigatório!</div>
                 </div>
@@ -40,7 +40,7 @@
 
             <md-input-container class="md-block">
               <label>Data do Casamento</label>
-              <md-datepicker name="casamento" md-min-date="casal.dateMin" ng-model="casal.dados.Casal.DataCasamento" aria-label="Data do Casamento" required ng-change="$scope.change = true"></md-datepicker>
+              <md-datepicker name="casamento" md-min-date="casal.dateMin" ng-model="casal.dados.DadosCasal.DataCasamento" aria-label="Data do Casamento" required ng-change="$scope.change = true"></md-datepicker>
               <div class="validation-messages" ng-messages="casalForm.casamento.$error">
                 <div ng-message="valid">Não é uma data válida</div>
                 <div ng-message="required">A data de casamento é obrigatória!</div>

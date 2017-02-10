@@ -34,12 +34,12 @@
    * @property {boolean} vm.carregando  - Controla o loading
    * @property {json} vm.dados          - Formatação dos dados a serem enviados ao servidor. Veja o serviço AtualizarDadosCadastroNoivos
    *
-   * @property {int} vm.dados.Casal.Id_casal            - id do casal
-   * @property {boolean} vm.dados.Casal.AtualizarSenha  - indentifica se a senha esta sendo trocada. <strong> Não Alterar </strong>
-   * @property {string} vm.dados.Casal.DataCasamento    - data do casamento
-   * @property {string} vm.dados.Casal.NomeNoiva        - nome da noiva
-   * @property {string} vm.dados.Casal.NomeNoivo        - nome do noivo
-   * @property {string} vm.dados.Casal.Senha            - senha do casal. So deve preencher se estiver alterando. <strong> Não Alterar </strong>
+   * @property {int} vm.dados.DadosCasal.Id_casal            - id do casal
+   * @property {boolean} vm.dados.DadosCasal.AtualizarSenha  - indentifica se a senha esta sendo trocada. <strong> Não Alterar </strong>
+   * @property {string} vm.dados.DadosCasal.DataCasamento    - data do casamento
+   * @property {string} vm.dados.DadosCasal.NomeNoiva        - nome da noiva
+   * @property {string} vm.dados.DadosCasal.NomeNoivo        - nome do noivo
+   * @property {string} vm.dados.DadosCasal.Senha            - senha do casal. So deve preencher se estiver alterando. <strong> Não Alterar </strong>
    *
    * @property {date} vm.dateMin         - Data minima para mostrar no datepicker
    * @property {boolean} vm.erro         - Mostra msg de erro quando nao conecta com o servidor
@@ -62,9 +62,9 @@
 
     vm.carregando = false;
     vm.dados = {
-      'Casal': {
+      'DadosCasal': {
         '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
-        'Id_casal': 2147483647,
+        'Id_casal': ID,
         'AtualizarSenha': false,
         'DataCasamento': '',
         'NomeNoiva': session.user.casal.nomeNoiva,
@@ -142,9 +142,9 @@
       var casamento = session.user.casal.dataCasamento.split('/');
       var data = new Date(casamento[2], casamento[1] - 1, casamento[0]);
 
-      vm.dados.Casal.DataCasamento = data;
-      vm.dados.Casal.NomeNoiva = session.user.casal.nomeNoiva;
-      vm.dados.Casal.NomeNoivo = session.user.casal.nomeNoivo;
+      vm.dados.DadosCasal.DataCasamento = data;
+      vm.dados.DadosCasal.NomeNoiva = session.user.casal.nomeNoiva;
+      vm.dados.DadosCasal.NomeNoivo = session.user.casal.nomeNoivo;
     }
 
     /**
@@ -154,14 +154,15 @@
      */
     function Salvar() {
       vm.carregando = true;
+      // Formata a data
+      session.user.casal.dataCasamento = $filter('date')(vm.dados.DadosCasal.DataCasamento, 'dd/MM/yyyy');
+      vm.dados.DadosCasal.DataCasamento = $filter('date')(vm.dados.DadosCasal.DataCasamento, 'MM/dd/yyyy');
+
       var dados = conversorService.Json2Xml(vm.dados, '');
 
       //Salva os nomes no session para serem usados em outras views
-      session.user.casal.nomeNoiva = vm.dados.Casal.NomeNoiva;
-      session.user.casal.nomeNoivo = vm.dados.Casal.NomeNoivo;
-
-      // Formata a data
-      session.user.casal.dataCasamento = $filter('date')(vm.dados.Casal.DataCasamento, 'dd/MM/yyyy');
+      session.user.casal.nomeNoiva = vm.dados.DadosCasal.NomeNoiva;
+      session.user.casal.nomeNoivo = vm.dados.DadosCasal.NomeNoivo;
 
       session.SaveState();
 
