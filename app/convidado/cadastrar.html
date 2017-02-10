@@ -56,7 +56,10 @@
         </md-input-container>
       </div>
 
-      <md-button class="md-raised md-primary" ng-click="convidados.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
+      <md-button class="md-raised md-primary" ng-click="convidados.Adicionar()" ng-disabled="formCardapio.$invalid">
+        <span ng-hide="convidados.enableEdition">Adicionar</span>
+        <span ng-show="convidados.enableEdition">Salvar</span>
+      </md-button>
 
     </form>
   </md-content>
@@ -70,13 +73,17 @@
       </h2>
     </div>
   </md-toolbar>
-  <md-content>
+  <md-content ng-hide="convidados.enableEdition">
     <md-list ng-cloak style="max-height: 500px; overflow: auto">
       <md-list-item ng-repeat="pessoa in convidados.pessoas">
         <div class="md-list-item-text">
           <h3>{{pessoa.Nome}}</h3>
           <p>{{pessoa.Email}} <br> Acompanhantes: {{pessoa.Qtde_Acompanhantes}} <br> Senha do APP: <strong>{{pessoa.Senha}}</strong></p>
         </div>
+        <md-button class="md-secondary md-icon-button" ng-click="convidados.Editar(pessoa)" aria-label="apagar">
+          <i class="fa fa-pencil" style="font-size: 1.8em;color: green;" aria-hidden="true"></i>
+        </md-button>
+
         <md-button class="md-secondary md-icon-button" ng-click="convidados.Excluir(pessoa.Id)" aria-label="apagar">
           <i class="fa fa-trash-o" style="font-size: 1.8em;color: red;" aria-hidden="true"></i>
         </md-button>

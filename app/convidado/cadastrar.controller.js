@@ -57,11 +57,13 @@
         'Senha': ''
       }
     };
+    vm.enableEdition = false;
 
     /**
      * Atribuição das funçoes as variaveis do escopo
      */
     vm.Adicionar = Adicionar;
+    vm.Editar = Editar;
     vm.Excluir = Excluir;
 
     Activate();
@@ -90,9 +92,16 @@
           //Limpa os campos
           vm.dados.Convidado.Nome = '';
           vm.dados.Convidado.Email = '';
+          vm.dados.Convidado.Id = 0;
           vm.dados.Convidado.Qtde_Acompanhantes = 0;
 
-          toastr.success('Convidado Adicionado');
+          if (vm.enableEdition) {
+            toastr.success('Convidado Alterado');
+          } else {
+            toastr.success('Convidado Adicionado');
+          }
+
+          vm.enableEdition = false;
 
           /**
            * Depois de adicionar o convidado eh necessario busar as informações
@@ -109,6 +118,15 @@
       } else {
         toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
       }
+    }
+
+    function Editar(pessoa) {
+      vm.dados.Convidado.Nome = pessoa.Nome;
+      vm.dados.Convidado.Email = pessoa.Email;
+      vm.dados.Convidado.Qtde_Acompanhantes = pessoa.Qtde_Acompanhantes;
+      vm.dados.Convidado.Id = pessoa.Id;
+
+      vm.enableEdition = true;
     }
 
     /**
