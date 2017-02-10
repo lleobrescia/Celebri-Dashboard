@@ -140,15 +140,14 @@
             <input type="text" name="paiNoiva" ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noiva" ng-change="$scope.paisChange = true">
           </md-input-container>
           <md-input-container>
-            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noiva_in_memoriam" ng-change="$scope.paisChange = true">In Memorian</md-checkbox>
+            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noiva_in_memoriam" ng-change="$scope.paisChange = true" ng-true-value="'true'" ng-false-value="'false'">In Memorian</md-checkbox>
           </md-input-container>
         </div>
         <div>
           <md-input-container flex="grow">
             <label ng-if="cerimonia.genero.noiva === 'f'">Mãe da Noiva</label>
             <label ng-if="cerimonia.genero.noiva === 'm'">Mãe do Noivo</label>
-            <input type="text" name="maeNoiva" ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noiva" ng-change="$scope.paisChange = true"
-              ng-true-value="'true'" ng-false-value="'false'">
+            <input type="text" name="maeNoiva" ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noiva" ng-change="$scope.paisChange = true">
           </md-input-container>
           <md-input-container>
             <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noiva_in_memoriam" ng-change="$scope.paisChange = true" ng-true-value="'true'"
@@ -161,8 +160,7 @@
           <md-input-container>
             <label ng-if="cerimonia.genero.noivo === 'f'">Pai da Noiva</label>
             <label ng-if="cerimonia.genero.noivo === 'm'">Pai do Noivo</label>
-            <input type="text" name="paiNoivo" ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noivo" ng-change="$scope.paisChange = true"
-              ng-true-value="'true'" ng-false-value="'false'">
+            <input type="text" name="paiNoivo" ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noivo" ng-change="$scope.paisChange = true">
           </md-input-container>
           <md-input-container>
             <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noivo_in_memoriam" ng-change="$scope.paisChange = true" ng-true-value="'true'"
