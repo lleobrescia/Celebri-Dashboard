@@ -1,0 +1,150 @@
+.setup h1 {
+  font-family: 'Roboto Condensed';
+  color: #6f91ff;
+  font-size: 1.750em;
+  margin-bottom: 95px;
+}
+
+.setup .md-block {
+  font-family: 'Roboto';
+}
+
+.setup .md-block label {
+  font-size: 1em;
+  color: #636466;
+}
+
+.setup .md-block input {
+  color: #5472b1;
+  font-size: 1.375em;
+  border-color: #707070;
+}
+
+.setup .md-button {
+  min-width: 330px;
+  min-height: 73px;
+  font-size: 1.750em;
+  color: white;
+  font-family: 'Roboto Condensed';
+}
+
+.setup .md-primary {
+  background-color: #32ba71;
+}
+
+.setup .md-primary:disabled, .setup .md-primary[disabled="disabled"] {
+  background-color: #87948d !important;
+}
+
+.setup .md-warn {
+  background-color: red
+}
+
+.top-bar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #6f91ff
+}
+
+.top-bar .nav-header {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.top-bar ul {
+  list-style: none;
+}
+
+.top-bar .nav-header .md-button {
+  width: auto
+}
+
+.top-navegacao {
+  padding-top: 13px;
+  padding-bottom: 11px;
+  margin-bottom: 29px;
+  border-bottom: solid thin #707070;
+}
+
+.top-navegacao p {
+  font-family: 'Roboto Condensed';
+  font-size: 1.125em;
+  color: #d1d3d4;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.top-navegacao p span {
+  font-size: inherit;
+}
+
+.top-navegacao p span.atual {
+  font-weight: 700;
+  color: #636466;
+}
+
+.top-navegacao p span.atual.passou {
+  font-weight: 400;
+  color: #6f91ff;
+}
+
+.setup md-input-container button {
+  display: none;
+}
+
+.setup ._md-datepicker-floating-label._md-datepicker-has-calendar-icon>label:not(.md-no-float):not(.md-container-ignore) {
+  left: 0;
+}
+
+.setup md-input-container .md-datepicker-input-container {
+  margin: 0;
+}
+
+.setup .upload_foto .fa-user {
+  font-size: 19em;
+  padding: 12px;
+  border: solid #6f91ff 6px;
+  border-radius: 169px;
+  width: 290px;
+  height: 290px;
+  overflow: hidden;
+  color: #939598;
+}
+
+.setup .info .memorian {
+  margin: 0px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 0.75em;
+}
+
+.setup .info .memorian .md-icon {
+  top: 3px;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  left: initial;
+}
+
+.setup .sidebar {
+  position: fixed;
+  top: 127px;
+  height: 100%;
+}
+
+.setup .sidebar md-sidenav {
+  height: 100%;
+  box-shadow: none;
+  border-right: solid thin;
+}
+
+.setup .sidebar .md-button {
+  min-width: auto;
+  min-height: auto;
+}
+
+.setup .sidebar .md-primary {
+  background-color: transparent
+}

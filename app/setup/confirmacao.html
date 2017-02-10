@@ -1,0 +1,56 @@
+<div class="container" ng-init="setup.AtualizarPasso('6')">
+  <div class="row">
+    <div class="col-sm-9 col-sm-offset-3">
+      <h1>Veja seu convite e teste o aplicativo.</h1>
+    </div>
+    <!--col-xs-12-->
+  </div>
+  <!--row-->
+
+  <div class="row">
+    <div class="col-sm-3 hidde-xs">
+      <img src="image/iphone.png" alt="iphone" class="img-responsive">
+    </div>
+    <!--col-sm-3-->
+
+    <div class="col-sm-9">
+      <h3><strong>O seu convite foi criado com sucesso!</strong></h3>
+      <p style="font-size: 1.250em">Enviamos para o seu e-mail o modelo do convite do seu casamento. <br> Cheque seu e-mail e confira. <br> Você poderá
+        editá-lo ou escolher outro modelo de layout até o envio dos convites. Depois de enviado, ele não poderá mais ser
+        alterado.</p>
+
+      <hr>
+
+      <h3><strong>Experimente o seu aplicativo.</strong></h3>
+      <p style="font-size: 1.250em">
+        Você pode experimentar o aplicativo do seu casamento no seu próprio smartphone. Basta clicar no ícone da loja correspondente
+        ao seu sistema e utilizar a senha gerada para o teste. <br> Se por acaso você já estiver instalado o aplicativo
+        no seu smartphone, é necessário deletá-lo antes de fazer o novo download.
+      </p>
+
+      <h3>Senha: {{setup.senhaApp}}</h3>
+
+      <a href="https://itunes.apple.com/br/app/celebri/id1086380503?l=en&mt=8" target="_blank" title="Baixar na APP Store" style="display: inline-block;margin-right: 48px;">
+        <img src="image/appstore.png" alt="APP Store">
+      </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.pixla.celebri&hl=pt_BR" target="_blank" title="Baixar na Google Play"
+        style="display: inline-block;    margin-top: 50px;">
+        <img src="image/googleplay.png" alt="Google Play">
+        </a>
+        <br>
+
+        <img src="image/qrcode_apple.jpg" alt="QR Code Apple Store" style="display: inline-block;margin-right: 48px;margin-top: 50px;max-width:198px">
+        <img src="image/qrcode_google.jpg" alt="QR Code Google Play" style="display: inline-block;margin-top: 50px;max-width:198px">
+
+        <br>
+        <p style="font-size: 1.250em">Se preferir, aponte um leitor de QR Code para os códigos acima para baixar direto no seu smartphone.</p>
+
+        <md-button style=" line-height: 73px;margin: 108px 0 98px 0" ui-sref="casal" class="md-primary pull-right">Ok</md-button>
+
+    </div>
+    <!--col-sm-9-->
+  </div>
+  <!--row-->
+</div>
+<!--container-->

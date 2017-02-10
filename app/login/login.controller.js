@@ -86,6 +86,7 @@
       var xml = conversorService.Json2Xml(vm.dados, '');
       serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
+        console.log(resp);
 
         //Autenticado
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
@@ -207,7 +208,12 @@
               session.user.pagante = $rootScope.pagante = false;
               session.SaveState();
 
-              GetDataCasamento();
+              if (resp.ResultadoAutenticacaoNoivos.Setup_concluido === 'true') {
+                GetDataCasamento('casal');
+              } else {
+                GetDataCasamento(resp.ResultadoAutenticacaoNoivos.Ultimo_passo_setup_finalizado);
+              }
+
             } else { //periodo de degustacao acabou
               vm.errorMessage = 'Seu período de degustação acabou';
               vm.carregando = false;
@@ -219,12 +225,22 @@
              */
             RegistrarPagamnto(resp.ResultadoAutenticacaoNoivos.Id_usuario_logado, dado.RetornoExisteEmailIsentoPagtoCelebri.Origem);
             session.user.pagante = $rootScope.pagante = true;
-            GetDataCasamento();
+
+            if (resp.ResultadoAutenticacaoNoivos.Setup_concluido === 'true') {
+              GetDataCasamento('casal');
+            } else {
+              GetDataCasamento(resp.ResultadoAutenticacaoNoivos.Ultimo_passo_setup_finalizado);
+            }
           }
         });
       } else { // Casal pagou
         session.user.pagante = $rootScope.pagante = true;
-        GetDataCasamento();
+
+        if (resp.ResultadoAutenticacaoNoivos.Setup_concluido === 'true') {
+          GetDataCasamento('casal');
+        } else {
+          GetDataCasamento(resp.ResultadoAutenticacaoNoivos.Ultimo_passo_setup_finalizado);
+        }
       }
     }
 
@@ -233,16 +249,58 @@
      * @desc Pega os dados do casal e depois muda para o view casal
      * @memberof LoginController
      */
-    function GetDataCasamento() {
+    function GetDataCasamento(passo) {
       serverService.Get('RetornarDadosCadastroNoivos', session.user.id).then(function (resp) {
         var dados = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
         session.user.casal.dataCasamento = dados.Casal.DataCasamento;
 
         session.SaveState();
 
-        vm.carregando = false;
-        $state.go('casal');
+        GoTo(passo);
       });
+    }
+
+    /**
+     * @function GoTo
+     * @desc Envia o susuario para a parte que ele parou no processo de setup
+     * @param {string} passo - ultimo passo que o usuario fez
+     * @memberof LoginController
+     */
+    function GoTo(passo) {
+      vm.carregando = false;
+
+      switch (passo) {
+        case 'casal':
+          $state.go('casal');
+          break;
+        case '1':
+          $state.go('setup.noivos');
+
+          break;
+        case '2':
+          $state.go('setup.foto');
+
+          break;
+        case '3':
+          $state.go('setup.convite');
+
+          break;
+        case '4':
+          $state.go('setup.informacoes');
+
+          break;
+        case '5':
+          $state.go('setup.edicao');
+
+          break;
+        case '6':
+          $state.go('setup.confirmacao');
+
+          break;
+
+        default:
+          break;
+      }
     }
 
     /**

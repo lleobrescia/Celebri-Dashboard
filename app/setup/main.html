@@ -1,0 +1,37 @@
+<div class="setup">
+  <div class="top-bar container-fluid">
+    <a href="https://celebri.com.br/" title="Página Inicial">
+      <img src="image/celebri.png" alt="Celebri">
+    </a>
+    <div class="pull-right nav-header">
+      <span class="userMenu" ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu" style="margin: 0">
+      <ng-md-icon icon="people" ng-show="!$root.foto" class="people"></ng-md-icon>
+      <img ng-src="{{$root.foto}}" alt="Casal" class="user_foto" ng-show="$root.foto"> Olá, {{$root.nomeUser}} 
+      <span aria-hidden="true" class=" pull-right fa fa-chevron-down md-toggle-icon" ng-class="{'toggled':$scope.userMenu}"></span>
+      </span>
+      <ul class="user__menu" ng-show="$scope.userMenu">
+        <li>
+          <md-button ng-click="sidebar.Sair()">
+            Sair
+          </md-button>
+        </li>
+      </ul>
+    </div>
+    <!--nav-header-->
+  </div>
+  <!--top-bar-->
+
+  <div class=" top-navegacao">
+    <p class="text-center">
+      <span ng-class="{'atual' : setup.IsCurrent('setup.noivos'),'passou' : setup.pessedBy.noivos}">dados do casal <i class="fa fa-angle-right" aria-hidden="true"></i>  </span>
+      <span ng-class="{'atual' : setup.IsCurrent('setup.foto'),'passou' : setup.pessedBy.foto}">foto do casal <i class="fa fa-angle-right" aria-hidden="true"></i>  </span>
+      <span ng-class="{'atual' : setup.IsCurrent('setup.convite'),'passou' : setup.pessedBy.convite}">convite <i class="fa fa-angle-right" aria-hidden="true"></i>  </span>
+      <span ng-class="{'atual' : setup.IsCurrent('setup.informacoes'),'passou' : setup.pessedBy.informacoes}">informações <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+      <span ng-class="{'atual' : setup.IsCurrent('setup.edicao'),'passou' : setup.pessedBy.edicao}">edição <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+      <span ng-class="{'atual' : setup.IsCurrent('setup.confirmacao'),'passou' : setup.pessedBy.confirmacao}">confirmação</span>
+    </p>
+  </div>
+  <!--top-navegacao-->
+
+  <div ui-view></div>
+</div>

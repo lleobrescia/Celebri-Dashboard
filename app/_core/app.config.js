@@ -58,17 +58,6 @@
         event.preventDefault();
         $state.go('login');
       }
-
-      /**
-       * Verifica se esta na pagina de login 
-       * e esconde a barra lateral
-       * o isLogin controla isso
-       */
-      if (toState.name === 'login') {
-        $rootScope.isLogin = true;
-      } else {
-        $rootScope.isLogin = false;
-      }
     }
     /**
      * @function ChangeSuccess

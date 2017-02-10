@@ -29,27 +29,45 @@
       .state('setup', {
         url: '/setup',
         abstract: true,
-        templateUrl: 'app/setup/setup.html'
+        templateUrl: 'app/setup/main.html',
+        controller: 'SetupController',
+        controllerAs: 'setup',
       })
       .state('setup.noivos', {
         url: '/noivos',
-        templateUrl: 'app/setup/noivos.html'
+        templateUrl: 'app/setup/noivos.html',
+        controller: 'CasalController',
+        controllerAs: 'casal',
+        title: '- Confirmar Dados'
       })
       .state('setup.foto', {
         url: '/foto',
-        templateUrl: 'app/setup/foto.html'
+        templateUrl: 'app/setup/foto.html',
+        controller: 'CasalController',
+        controllerAs: 'casal',
+        title: '- Envie a foto'
       })
       .state('setup.convite', {
         url: '/convite',
-        templateUrl: 'app/setup/convite.html'
+        templateUrl: 'app/setup/convite.html',
+        title: '- Escolha seu Convite'
       })
       .state('setup.informacoes', {
         url: '/informacoes',
-        templateUrl: 'app/setup/informacoes.html'
+        templateUrl: 'app/setup/informacoes.html',
+        controller: 'CerimoniaController',
+        controllerAs: 'cerimonia',
+        title: '- Preencha as Informações'
       })
       .state('setup.edicao', {
         url: '/edicao',
-        templateUrl: 'app/setup/edicao.html'
+        templateUrl: 'app/setup/edicao.html',
+        params: {
+          idModelo: null
+        },
+        controller: 'PersonalizarController',
+        controllerAs: 'convite',
+        title: '- Personalizar de Convite'
       })
       .state('setup.confirmacao', {
         url: '/confirmacao',

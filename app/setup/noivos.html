@@ -1,0 +1,60 @@
+<div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.carregando && !casal.erro">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<section class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Confirme seus dados.</h1>
+
+      <h3>Bem-vindo ao Celebri</h3>
+      <p style="font-size: 1.250em;margin-bottom: 50px;"> Aqui você começará a configurar as informações do seu casamento e escolher o layout do seu convite. <br> Você poderá
+        editá-las a qualquer momento após esta configuração inicial.</p>
+    </div>
+    <!--col-xs-12-->
+  </div>
+  <!--row-->
+
+  <form action="" class="row" name="casalForm" ng-hide="casal.carregando">
+    <div class="col-sm-6">
+      <md-input-container class="md-block">
+        <label ng-if="casal.genero.noiva === 'f'">Noiva</label>
+        <label ng-if="casal.genero.noiva === 'm'">Noivo</label>
+        <input ng-model="casal.dados.DadosCasal.NomeNoiva" aria-label="Nome" type="text" name="noiva" required ng-change="$scope.change = true">
+        <div class="validation-messages" ng-messages="casalForm.noiva.$error">
+          <div ng-message="required">O nome é obrigatório!</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div class="col-sm-6">
+      <md-input-container class="md-block">
+        <label ng-if="casal.genero.noivo === 'f'">Noiva</label>
+        <label ng-if="casal.genero.noivo === 'm'">Noivo</label>
+        <input ng-model="casal.dados.DadosCasal.NomeNoivo" aria-label="Nome" type="text" name="noivo" required ng-change="$scope.change = true">
+        <div class="validation-messages" ng-messages="casalForm.noivo.$error">
+          <div ng-message="required">O nome é obrigatório!</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div class="col-sm-6">
+      <md-input-container class="md-block">
+        <label>Data do Casamento</label>
+        <md-datepicker name="casamento" md-min-date="casal.dateMin" ng-model="casal.dados.DadosCasal.DataCasamento" aria-label="Data do Casamento"
+          required ng-change="$scope.change = true" md-open-on-focus></md-datepicker>
+          <div class="validation-messages" ng-messages="casalForm.casamento.$error">
+            <div ng-message="valid">Não é uma data válida</div>
+            <div ng-message="required">A data de casamento é obrigatória!</div>
+            <div ng-message="mindate">Essa data já passou</div>
+          </div>
+      </md-input-container>
+    </div>
+    <div class="clearfix"></div>
+    <div class="pull-right" ng-show="$scope.change">
+      <md-button class="md-warn" ng-click="casal.Cancelar();$scope.change = false">Cancelar</md-button>
+      <md-button class="md-primary" ng-click="casal.Salvar();$scope.change = false" ng-disabled="casalForm.$invalid">Salvar</md-button>
+    </div>
+
+    <md-button style=" line-height: 73px;" ui-sref="setup.foto" ng-hide="$scope.change" class="md-primary pull-right" ng-click="setup.pessedBy.noivos = true;setup.AtualizarPasso('1');"
+      ng-disabled="casalForm.$invalid">Prosseguir</md-button>
+  </form>
+</section>
+<!--container-->

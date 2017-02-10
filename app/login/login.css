@@ -67,6 +67,7 @@
   width: 100%;
   border: solid thin #bababa;
   background: white;
+  color: black;
 }
 
 .login__form input[type="submit"] {

@@ -1,0 +1,202 @@
+<div class="container" ng-init="$scope.popupOpen = false">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Escolha o seu convite.</h1>
+      <div class="carousel slide multi-item-carousel" id="theCarousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 1">
+              <img src="image/convites/thumb/thumb1.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 1}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 2">
+              <img src="image/convites/thumb/thumb2.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 2}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 3">
+              <img src="image/convites/thumb/thumb3.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 3}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 4">
+              <img src="image/convites/thumb/thumb4.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 4}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 5">
+              <img src="image/convites/thumb/thumb5.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 5}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 6">
+              <img src="image/convites/thumb/thumb6.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 6}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 7">
+              <img src="image/convites/thumb/thumb7.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 7}">
+            </div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4" ng-click="$scope.popupOpen = true;setup.modeloConvite = 9">
+              <img src="image/convites/thumb/thumb9.png" class="img-responsive" ng-class="{'selected' : setup.modeloConvite == 9}">
+            </div>
+          </div>
+          <!-- add  more items here -->
+
+          <!--  Example item end -->
+        </div>
+        <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </a>
+        <a class="right carousel-control" href="#theCarousel" data-slide="next">
+          <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <!--carousel-->
+
+      <md-button style="line-height: 73px;margin-top: 148px;" ui-sref="setup.informacoes" class="md-primary pull-right" ng-click="setup.pessedBy.foto = true;setup.SetModelId();setup.AtualizarPasso('3');"
+        ng-disabled="!setup.modeloConvite">Prosseguir</md-button>
+    </div>
+    <!--col-md-12-->
+  </div>
+  <!--row-->
+</div>
+<!--container-->
+
+<div class="popup" ng-show="$scope.popupOpen">
+  <div class="popup-container">
+    <div style="max-width: 1000px;margin: auto;position: relative;height: auto;z-index: 9;">
+      <span class="close" ng-click="$scope.popupOpen = false">X</span>
+    </div>
+    <img ng-src="image/convites/thumb/thumb{{setup.modeloConvite}}.png" class="img-responsive center-block">
+  </div>
+</div>
+
+<style>
+  .selected {
+    border: solid red;
+  }
+  
+  .popup-container {
+    padding: 10%
+  }
+  
+  .close {
+    width: 59px;
+    height: 59px;
+    text-align: center;
+    line-height: 54px;
+    border: solid;
+    color: #77797a;
+    border-radius: 59px;
+    font-size: 3em;
+    font-weight: 300;
+    opacity: 1;
+    right: -38px;
+    position: absolute;
+    top: -36px;
+  }
+  
+  .popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.63);
+  }
+  
+  .carousel-inner {
+    width: 85%;
+    margin: auto;
+  }
+  
+  .carousel-control {
+    background-image: none !important;
+    font-size: 7em;
+  }
+  
+  .carousel-control .fa {
+    position: relative;
+    top: 25%;
+    color: #a9aaad;
+  }
+  
+  .carousel-control.left .fa {
+    left: -70px;
+  }
+  
+  .carousel-control.right .fa {
+    right: -70px;
+  }
+  
+  .carousel-control:hover>.fa {
+    color: #6f91ff;
+  }
+  
+  .multi-item-carousel .carousel-inner>.item {
+    -webkit-transition: 500ms ease-in-out left;
+    transition: 500ms ease-in-out left;
+  }
+  
+  .multi-item-carousel .carousel-inner .active.left {
+    left: -33%;
+  }
+  
+  .multi-item-carousel .carousel-inner .active.right {
+    left: 33%;
+  }
+  
+  .multi-item-carousel .carousel-inner .next {
+    left: 33%;
+  }
+  
+  .multi-item-carousel .carousel-inner .prev {
+    left: -33%;
+  }
+  
+  @media all and (transform-3d),
+  (-webkit-transform-3d) {
+    .multi-item-carousel .carousel-inner>.item {
+      -webkit-transition: 500ms ease-in-out left;
+      transition: 500ms ease-in-out left;
+      -webkit-transition: 500ms ease-in-out all;
+      transition: 500ms ease-in-out all;
+      -webkit-backface-visibility: visible;
+      backface-visibility: visible;
+      -webkit-transform: none!important;
+      transform: none!important;
+    }
+  }
+  
+  .multi-item-carousel .carouse-control.left,
+  .multi-item-carousel .carouse-control.right {
+    background-image: none;
+  }
+</style>
+
+<script>
+  // Instantiate the Bootstrap carousel
+  $('.multi-item-carousel').carousel({
+    interval: false
+  });
+  // for every slide in carousel, copy the next slide's item in the slide.
+  // Do the same for the next, next item.
+  $('.multi-item-carousel .item').each(function () {
+    var next = $(this).next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+    if (next.next().length > 0) {
+      next.next().children(':first-child').clone().appendTo($(this));
+    } else {
+      $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+    }
+  });
+</script>

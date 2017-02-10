@@ -1,0 +1,43 @@
+<div layout="row" layout-padding layout-sm="column" layout-align="space-around" ng-show="casal.carregando">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<div class="container" ng-hide="casal.carregando">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Envie a foto do casal.</h1>
+      <div class="md-media-xl card-media upload_foto">
+        <img ng-src="{{$root.foto}}" alt="Casal" style="max-width: 100%" ng-if="$root.foto">
+        <i class="fa fa-user" aria-hidden="true" ng-if="!$root.foto"></i>
+        <input type="file" accept="image/*" onchange="angular.element(this).scope().OpenFile(this)">
+      </div>
+
+      <md-button style=" line-height: 73px;margin-top: 55px;" ui-sref="setup.convite" class="md-primary pull-right" ng-click="setup.pessedBy.foto = true;setup.AtualizarPasso('2');"
+        ng-disabled="!$root.foto">Prosseguir</md-button>
+    </div>
+    <!--col-xs-12-->
+  </div>
+  <!--row-->
+</div>
+<!--container-->
+
+<div class="dialog__bg" ng-show="casal.fotoEditor" ng-cloak>
+  <div role="dialog" class="dialog__content" aria-label="Você quer esse convite?" layout="column" layout-align="center center">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Recortar Imagem</h2>
+      </div>
+    </md-toolbar>
+
+    <div class="demo-dialog-content">
+      <div img-src="casal.fotoEditor" ng-image-editor="casal.imageEditor" selected="casal.selected" aspect-ratio="2:2" enabled-resize-selector="true"></div>
+    </div>
+
+    <div layout="row" class="demo-dialog-button">
+      <md-button class="md-raised md-warn" flex="50" md-autofocus ng-click="casal.fotoEditor = false">Cancelar</md-button>
+      <md-button class="md-raised md-primary" flex="50" ng-click="casal.UploadFoto();casal.fotoEditor = false">Recortar</md-button>
+    </div>
+  </div>
+  <!--dialog-->
+</div>
+<!--dialog__bg-->

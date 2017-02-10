@@ -1,0 +1,202 @@
+<div class="container info" ng-init="$scope.hasChange = false">
+  <form name="formRecepcao">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Preencha as informações do seu convite.</h1>
+      </div>
+      <!--col-xs-12-->
+
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <md-input-container class="md-block">
+              <label ng-if="cerimonia.genero.noiva === 'f'">Pai da Noiva</label>
+              <label ng-if="cerimonia.genero.noiva === 'm'">Pai do Noivo</label>
+              <input type="text" name="paiNoiva" ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noiva" ng-change="$scope.hasChange = true">
+            </md-input-container>
+
+            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noiva_in_memoriam" ng-change="$scope.hasChange = true" class="memorian"
+              ng-true-value="'true'" ng-false-value="'false'">
+              In Memorian
+              </md-checkbox>
+          </div>
+          <!--col-xs-12-->
+        </div>
+        <!--row-->
+        <div class="row">
+          <div class="col-xs-12">
+            <md-input-container class="md-block">
+              <label ng-if="cerimonia.genero.noiva === 'f'">Mãe da Noiva</label>
+              <label ng-if="cerimonia.genero.noiva === 'm'">Mãe do Noivo</label>
+              <input type="text" name="maeNoiva" ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noiva" ng-change="$scope.hasChange = true">
+            </md-input-container>
+
+            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noiva_in_memoriam" ng-change="$scope.hasChange = true" ng-true-value="'true'"
+              ng-false-value="'false'" class="memorian">
+              In Memorian
+              </md-checkbox>
+          </div>
+          <!--col-xs-12-->
+        </div>
+        <!--row-->
+      </div>
+      <!--col-sm-6-->
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-xs-12">
+            <md-input-container class="md-block">
+              <label ng-if="cerimonia.genero.noivo === 'f'">Pai da Noiva</label>
+              <label ng-if="cerimonia.genero.noivo === 'm'">Pai do Noivo</label>
+              <input type="text" name="paiNoivo" ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noivo" ng-change="$scope.hasChange = true">
+            </md-input-container>
+
+            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Pai_noivo_in_memoriam" ng-change="$scope.hasChange = true" ng-true-value="'true'"
+              ng-false-value="'false'" class="memorian">
+              In Memorian
+              </md-checkbox>
+          </div>
+          <!--col-xs-12-->
+        </div>
+        <!--row-->
+
+        <div class="row">
+          <div class="col-xs-12">
+            <md-input-container class="md-block">
+              <label ng-if="cerimonia.genero.noivo === 'f'">Mãe da Noiva</label>
+              <label ng-if="cerimonia.genero.noivo === 'm'">Mãe do Noivo</label>
+              <input type="text" name="maeNoivo" ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noivo" ng-change="$scope.hasChange = true">
+            </md-input-container>
+
+            <md-checkbox ng-model="cerimonia.dados.ConfiguracaoConvite.Mae_noivo_in_memoriam" ng-change="$scope.hasChange = true" ng-true-value="'true'"
+              ng-false-value="'false'" class="memorian">
+              In Memorian
+              </md-checkbox>
+          </div>
+          <!--col-xs-12-->
+        </div>
+        <!--row-->
+      </div>
+      <!--col-sm-6-->
+      <div class="col-xs-12">
+        <p flex="100">Horário da Cerimônia</p>
+
+        <md-input-container>
+          <label>Hora</label>
+          <md-select ng-model="cerimonia.hora" name="hora" ng-change="$scope.hasChange = true" required>
+            <md-option ng-repeat="t in Main.GetTimes(24) track by $index" ng-value="{{$index | twoDigits}}">
+              {{$index | twoDigits}}
+            </md-option>
+          </md-select>
+          <div ng-messages="formRecepcao.hora.$error" ng-if="formRecepcao.cidade.$touched">
+            <div ng-message="required">Você <b>deve</b> selecionar um valor.</div>
+          </div>
+        </md-input-container>
+        <span style="font-size: 2em;display: inline-block;margin: 0 10px;padding-top: 16px;"> : </span>
+        <md-input-container>
+          <label>Min.</label>
+          <md-select ng-model="cerimonia.min" name="min" ng-change="$scope.hasChange = true" required>
+            <md-option ng-value="'00'">
+              00
+            </md-option>
+            <md-option ng-repeat="t in Main.GetTimes(4) track by $index" ng-value="$index * 15" ng-hide="$index === 0">
+              {{$index * 15 | twoDigits}}
+            </md-option>
+          </md-select>
+          <div ng-messages="formRecepcao.min.$error" ng-if="formRecepcao.cidade.$touched">
+            <div ng-message="required">Você <b>deve</b> selecionar um valor.</div>
+          </div>
+        </md-input-container>
+      </div>
+      <!--col-xs-12-->
+    </div>
+    <!--row-->
+
+    <div class="row" style="margin-top: 60px;">
+      <div class="col-sm-8">
+        <md-input-container class="md-block">
+          <label>Local da Cerimônia</label>
+          <input type="text" name="local" ng-model="cerimonia.dados.ConfiguracaoConvite.Local_cerimonia" ng-change="$scope.hasChange = true"
+            required>
+            <div ng-messages="formRecepcao.local.$error" ng-if="formRecepcao.local.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+        </md-input-container>
+      </div>
+      <!--col-sm-8-->
+      <div class="col-sm-4">
+        <md-input-container class="md-block">
+          <label>CEP</label>
+          <input type="text" name="cep" ng-model="cerimonia.dados.ConfiguracaoConvite.Cep" ng-keyup="cerimonia.ConsultCEP()" mask="99.999-999"
+            ng-change="$scope.hasChange = true">
+        </md-input-container>
+      </div>
+      <!--col-sm-4-->
+
+      <div class="col-sm-8">
+        <md-input-container class="md-block">
+          <label>Endereço</label>
+          <input type="text" name="end" ng-model="cerimonia.dados.ConfiguracaoConvite.Endereco" ng-change="$scope.hasChange = true"
+            required>
+            <div ng-messages="formRecepcao.end.$error" ng-if="formRecepcao.end.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+        </md-input-container>
+      </div>
+      <!--col-sm-8-->
+      <div class="col-sm-4">
+        <md-input-container class="md-block">
+          <label>Número</label>
+          <input type="text" name="numero" ng-model="cerimonia.dados.ConfiguracaoConvite.Numero" ng-change="$scope.hasChange = true">
+        </md-input-container>
+      </div>
+      <!--col-sm-4-->
+    </div>
+    <!--row-->
+
+    <div class="row">
+      <div class="col-sm-5">
+        <md-input-container class="md-block">
+          <label>Bairro</label>
+          <input type="text" name="bairro" ng-model="cerimonia.dados.ConfiguracaoConvite.Bairro" ng-change="$scope.hasChange = true"
+            required>
+            <div ng-messages="formRecepcao.bairro.$error" ng-if="formRecepcao.bairro.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+        </md-input-container>
+      </div>
+      <!--col-sm-5-->
+      <div class="col-sm-5">
+        <md-input-container class="md-block">
+          <label>Cidade</label>
+          <input type="text" name="cidade" ng-model="cerimonia.dados.ConfiguracaoConvite.Cidade" ng-change="$scope.hasChange = true"
+            required>
+            <div ng-messages="formRecepcao.cidade.$error" ng-if="formRecepcao.cidade.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+        </md-input-container>
+      </div>
+      <!--col-sm-5-->
+      <div class="col-sm-2">
+        <md-input-container class="md-block">
+          <label>Estado</label>
+          <input type="text" name="estado" maxlength="2" ng-model="cerimonia.dados.ConfiguracaoConvite.Estado" style="text-transform: uppercase;"
+            ng-change="$scope.hasChange = true" required>
+            <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+        </md-input-container>
+      </div>
+      <!--col-sm-2-->
+    </div>
+    <!--row-->
+    <div class="clearfix"></div>
+    <div class="pull-right" ng-show="$scope.hasChange">
+      <md-button class="md-warn" ng-click="cerimonia.Cancelar();$scope.hasChange = false">Cancelar</md-button>
+      <md-button class="md-primary" ng-click="cerimonia.Salvar();$scope.hasChange = false" ng-disabled="formRecepcao.$invalid">Salvar</md-button>
+    </div>
+
+    <md-button style=" line-height: 73px;" ui-sref="setup.edicao({idModelo : setup.GetModelId()})" ng-hide="$scope.hasChange"
+      class="md-primary pull-right" ng-click="setup.pessedBy.informacoes = true" ng-disabled="formRecepcao.$invalid">Prosseguir</md-button>
+  </form>
+</div>
+<!--container-->
