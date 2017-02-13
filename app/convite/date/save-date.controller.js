@@ -34,7 +34,6 @@
    * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
   function SaveDateController(serverService, conversorService, ListManagerService, session, toastr, $rootScope) {
-    const enable = $rootScope.pagante; //O usuario so pode enviar o save the date se for pagante
     const ID = session.user.id; //id do usuario logado.Usado para fazer requisições
 
     var vm = this;
@@ -105,34 +104,29 @@
     function Enviar() {
       vm.carregandoLista = true;
 
-      if (enable) {
-        var lista = {
-          'ListaEmailConvidados': {
-            '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
-            'Id_casal': ID,
-            'Id_convidado': {
-              'int': []
-            }
+      var lista = {
+        'ListaEmailConvidados': {
+          '@xmlns': 'http://schemas.datacontract.org/2004/07/WcfServiceCasamento',
+          'Id_casal': ID,
+          'Id_convidado': {
+            'int': []
           }
-        };
-        var xml = null;
+        }
+      };
+      var xml = null;
 
-        angular.forEach(vm.selecionados, function (selecionado) {
-          lista.ListaEmailConvidados.Id_convidado.int.push({
-            '@xmlns': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays',
-            '#text': selecionado.Id
-          });
+      angular.forEach(vm.selecionados, function (selecionado) {
+        lista.ListaEmailConvidados.Id_convidado.int.push({
+          '@xmlns': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays',
+          '#text': selecionado.Id
         });
-        xml = conversorService.Json2Xml(lista, '');
+      });
+      xml = conversorService.Json2Xml(lista, '');
 
-        serverService.Request('EnvioEmailSaveTheDate', xml).then(function (resp) {
-          toastr.success('Save the Date Enviado!');
-          GetConvidados();
-        });
-      } else {
-        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
-        vm.carregandoLista = false;
-      }
+      serverService.Request('EnvioEmailSaveTheDate', xml).then(function (resp) {
+        toastr.success('Save the Date Enviado!');
+        GetConvidados();
+      });
     }
 
     /**

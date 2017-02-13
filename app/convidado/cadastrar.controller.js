@@ -34,7 +34,6 @@
    * @see Veja [Servidor Help]  {@link http://52.91.166.105/celebri/ServiceCasamento.svc/help} Para saber sobre os serviços do servidor
    */
   function CadastrarConvidadoController(serverService, conversorService, ListManagerService, session, $rootScope, toastr) {
-    const enable = $rootScope.pagante; // Impede de cadastrar, caso não seja pagante
     const ID = session.user.id; //Id do usuario logado. Usado para requisições
 
     var vm = this;
@@ -85,39 +84,34 @@
      * @memberof CadastrarConvidadoController
      */
     function Adicionar() {
-      //So adiciona um novo convidados se o usuario tiver pago
-      if (enable) {
-        var dados = conversorService.Json2Xml(vm.dados, '');
-        serverService.Request('CadastroConvidados', dados).then(function (resp) {
-          //Limpa os campos
-          vm.dados.Convidado.Nome = '';
-          vm.dados.Convidado.Email = '';
-          vm.dados.Convidado.Id = 0;
-          vm.dados.Convidado.Qtde_Acompanhantes = 0;
+      var dados = conversorService.Json2Xml(vm.dados, '');
+      serverService.Request('CadastroConvidados', dados).then(function (resp) {
+        //Limpa os campos
+        vm.dados.Convidado.Nome = '';
+        vm.dados.Convidado.Email = '';
+        vm.dados.Convidado.Id = 0;
+        vm.dados.Convidado.Qtde_Acompanhantes = 0;
 
-          if (vm.enableEdition) {
-            toastr.success('Convidado Alterado');
-          } else {
-            toastr.success('Convidado Adicionado');
-          }
+        if (vm.enableEdition) {
+          toastr.success('Convidado Alterado');
+        } else {
+          toastr.success('Convidado Adicionado');
+        }
 
-          vm.enableEdition = false;
+        vm.enableEdition = false;
 
-          /**
-           * Depois de adicionar o convidado eh necessario busar as informações
-           * do servidor novamente. Isso eh feito para pegar o id do novo convidado adicionado
-           */
-          GetDados();
-        }).catch(function (error) {
-          //Mostra mensagem de erro se houver algum erro ao conectar ao servidor
-          console.error('CadastroConvidados -> ', error);
-          vm.carregando = false;
-          vm.erro = true;
-          toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
-        });
-      } else {
-        toastr.error('Você deve efetuar o pagamento para usar essa funcionalidade');
-      }
+        /**
+         * Depois de adicionar o convidado eh necessario busar as informações
+         * do servidor novamente. Isso eh feito para pegar o id do novo convidado adicionado
+         */
+        GetDados();
+      }).catch(function (error) {
+        //Mostra mensagem de erro se houver algum erro ao conectar ao servidor
+        console.error('CadastroConvidados -> ', error);
+        vm.carregando = false;
+        vm.erro = true;
+        toastr.error('Ocorreu um erro ao tentar acessar o servidor', 'Erro');
+      });
     }
 
     function Editar(pessoa) {
