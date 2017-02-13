@@ -3,7 +3,7 @@
     <a href="https://celebri.com.br/" title="Página Inicial">
       <img src="image/celebri.png" alt="Celebri">
     </a>
-    <div class="pull-right nav-header">
+    <div class="pull-right nav-header" ng-controller="SidebarController as sidebar">
       <span class="userMenu" ng-init="$scope.userMenu = false" ng-click="$scope.userMenu = !$scope.userMenu" style="margin: 0">
       <ng-md-icon icon="people" ng-show="!$root.foto" class="people"></ng-md-icon>
       <img ng-src="{{$root.foto}}" alt="Casal" class="user_foto" ng-show="$root.foto"> Olá, {{$root.nomeUser}} 
@@ -11,7 +11,7 @@
       </span>
       <ul class="user__menu" ng-show="$scope.userMenu">
         <li>
-          <md-button ng-click="sidebar.Sair()">
+          <md-button ng-click="sidebar.Sair()" style="min-width: inherit;min-height: inherit;font-size: initial;">
             Sair
           </md-button>
         </li>
