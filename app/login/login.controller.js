@@ -86,7 +86,6 @@
       var xml = conversorService.Json2Xml(vm.dados, '');
       serverService.Request('AutenticacaoNoivos', xml).then(function (resp) {
         resp = angular.fromJson(conversorService.Xml2Json(resp.data, ''));
-        console.log(resp);
 
         //Autenticado
         if (!resp.ResultadoAutenticacaoNoivos.ErrorMessage) {
@@ -202,7 +201,7 @@
           if (dado.RetornoExisteEmailIsentoPagtoCelebri.Result === 'false') {
             var dias = CheckVencimento(resp.ResultadoAutenticacaoNoivos.DataCadastro);
 
-            if (dias < 16) { //Dentro do periodo de degustacao
+            if (dias < 31) { //Dentro do periodo de degustacao
               session.user.usuarioLiberado = $rootScope.liberado = true;
               session.user.diasCadastros = $rootScope.dias = dias;
               session.user.pagante = $rootScope.pagante = false;
@@ -275,7 +274,6 @@
           break;
         case '1':
           $state.go('setup.noivos');
-
           break;
         case '2':
           $state.go('setup.foto');
