@@ -11,11 +11,19 @@
     <p style="position: relative;">
       Você pode indicar aqui os links das lojas onde vocês cadastraram seus presentes de casamento. Basta copiar e colar a
       <span ng-init="$scope.urlimage=false" ng-click="$scope.urlimage = !$scope.urlimage" style="color: blue;text-decoration: underline;margin: 0;cursor: pointer">
-            URL do site
+            URL do site.
       </span>
       <img ng-show="$scope.urlimage" ng-click="$scope.urlimage = !$scope.urlimage" src="image/urlSite.png" alt="" style="position: absolute;left: 0;top: 0;z-index: 9;cursor: pointer;">
     </p>
-    <form name="formCardapio">
+    <p>Ou, se preferir, pode adicionar o endereço de uma loja física, como uma dica de local para comprar os presentes.</p>
+
+    <div layout="row" layout-wrap>
+      <md-checkbox aria-label="Loja Física?" ng-model="presentes.dados.ConfiguracaoLojaPresentes.LojaFisica">
+        Loja Física?
+      </md-checkbox>
+    </div>
+
+    <form name="formPresentes">
       <div>
         <div layout="row" layout-wrap>
           <md-input-container flex="100" flex-gt-sm="50" required>
@@ -23,20 +31,72 @@
             <input aria-label="Nome da loja" type="text" name="local" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Nome" required>
           </md-input-container>
 
-          <md-input-container flex="100" flex-gt-sm="50" required>
+          <md-input-container flex="100" flex-gt-sm="50" required ng-if="!presentes.dados.ConfiguracaoLojaPresentes.LojaFisica">
             <label>URL da loja</label>
             <input type="url" aria-label="URL da loja" name="site" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Url" required
               http-prefix>
           </md-input-container>
         </div>
       </div>
-      <md-button class="md-raised md-primary" ng-click="presentes.Adicionar()" ng-disabled="formCardapio.$invalid">Adicionar</md-button>
 
+      <div ng-if="presentes.dados.ConfiguracaoLojaPresentes.LojaFisica">
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="20">
+            <label>CEP</label>
+            <input type="text" name="cep" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Cep" mask="99.999-999" ng-keyup="presentes.ConsultCEP()">
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="60" required>
+            <label>Logradouro</label>
+            <input type="text" name="local" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Endereco" required>
+            <div ng-messages="formRecepcao.local.$error" ng-if="formRecepcao.local.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20">
+            <label>Número</label>
+            <input type="text" name="numero" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Numero" required>
+          </md-input-container>
+
+        </div>
+
+        <div layout="row" layout-wrap>
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Bairro</label>
+            <input type="text" name="bairro" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Bairro" required>
+            <div ng-messages="formRecepcao.bairro.$error" ng-if="formRecepcao.bairro.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="40" required>
+            <label>Cidade</label>
+            <input type="text" name="cidade" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Cidade" required>
+            <div ng-messages="formRecepcao.cidade.$error" ng-if="formRecepcao.cidade.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container flex="100" flex-gt-sm="20" required>
+            <label>Estado</label>
+            <input type="text" name="estado" maxlength="2" ng-model="presentes.dados.ConfiguracaoLojaPresentes.Estado" style="text-transform: uppercase;"
+              required>
+            <div ng-messages="formRecepcao.estado.$error" ng-if="formRecepcao.cidade.$touched">
+              <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
+            </div>
+          </md-input-container>
+        </div>
+      </div>
+      <md-button class="md-raised md-primary" ng-click="presentes.Adicionar()" ng-disabled="formPresentes.$invalid">
+        <span ng-hide="presentes.enableEdition">Adicionar</span>
+        <span ng-show="presentes.enableEdition">Salvar</span>
+      </md-button>
     </form>
   </md-content>
 </section>
 
-<section layout="column" ng-cloak class="dashboard__content">
+<section layout="column" ng-cloak class="dashboard__content" ng-hide="presentes.enableEdition">
   <md-toolbar class="md-primary">
     <div class="md-toolbar-tools">
       <h2>
@@ -56,8 +116,12 @@
     <md-list-item ng-repeat="loja in presentes.presentes">
       <div class="md-list-item-text">
         <h3>{{loja.Nome}}</h3>
-        <p>{{loja.Url}}</p>
+        <p ng-if="loja.LojaFisica === 'false'">{{loja.Url}}</p>
+        <p ng-if="loja.LojaFisica === 'true'">{{loja.Endereco}}, {{loja.Numero}} - {{loja.Bairro}} <br> {{loja.Cidade}} - {{loja.Estado}}</p>
       </div>
+      <md-button class="md-secondary md-icon-button" ng-click="presentes.Editar(loja)" aria-label="editar">
+        <i class="fa fa-pencil" style="font-size: 1.8em;color: green;" aria-hidden="true"></i>
+      </md-button>
       <md-button class="md-secondary md-icon-button" ng-click="presentes.Excluir(loja.Id)" aria-label="apagar">
         <i class="fa fa-trash-o" style="font-size: 1.8em;color: red;" aria-hidden="true"></i>
       </md-button>
