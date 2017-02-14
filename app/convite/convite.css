@@ -54,6 +54,11 @@ textarea.bloco {
   border: none;
 }
 
+.side__convite p {
+  font-size: 1em !important;
+  color: black !important;
+}
+
 .side__convite .selected {
   background: rgba(63, 81, 181, 0.54);
 }

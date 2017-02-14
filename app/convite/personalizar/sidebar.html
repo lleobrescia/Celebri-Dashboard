@@ -30,7 +30,7 @@
             <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.SERIF"
               ng-click="side.SetFont(key)">
               <div class="md-list-item-text" layout="column">
-                <p>{{ value['font-name'] }}</p>
+                <p ng-style="{'font-family' : value['font-name']}">{{ value['font-name'] }}</p>
               </div>
             </md-list-item>
 
@@ -38,7 +38,7 @@
             <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.SANSSERIF"
               ng-click="side.SetFont(key)">
               <div class="md-list-item-text" layout="column">
-                <p>{{ value['font-name'] }}</p>
+                <p ng-style="{'font-family' : value['font-name']}">{{ value['font-name'] }}</p>
               </div>
             </md-list-item>
 
@@ -46,7 +46,7 @@
             <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.DISPLAY"
               ng-click="side.SetFont(key)">
               <div class="md-list-item-text" layout="column">
-                <p>{{ value['font-name'] }}</p>
+                <p ng-style="{'font-family' : value['font-name']}">{{ value['font-name'] }}</p>
               </div>
             </md-list-item>
 
@@ -54,7 +54,7 @@
             <md-list-item ng-class="{'selected' : side.FontSelected(key)}" class="md-2-line" ng-repeat="(key,value) in side.fonts.HANDWRITING"
               ng-click="side.SetFont(key)">
               <div class="md-list-item-text" layout="column">
-                <p>{{ value['font-name'] }}</p>
+                <p ng-style="{'font-family' : value['font-name']}">{{ value['font-name'] }}</p>
               </div>
             </md-list-item>
 
