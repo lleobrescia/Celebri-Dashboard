@@ -148,3 +148,20 @@
 .setup .sidebar .md-primary {
   background-color: transparent
 }
+
+.convite-cel {
+  position: relative
+}
+
+.convite-back {
+  position: absolute;
+  z-index: 1;
+}
+
+.convite-front {
+  width: 192px;
+  position: relative;
+  z-index: 0;
+  top: 103px;
+  left: 31px;
+}

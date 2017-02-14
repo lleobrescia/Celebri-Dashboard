@@ -7,9 +7,18 @@
   </div>
   <!--row-->
 
-  <div class="row">
+  <div class="row" ng-init="setup.SetUpMinConvite();">
     <div class="col-sm-3 hidde-xs">
-      <img src="image/iphone.png" alt="iphone" class="img-responsive">
+      <div class="convite-cel">
+        <img src="image/iphone.png" alt="iphone" class="img-responsive convite-back">
+        <img ng-src="{{setup.conviteLink}}" alt="convite" class="convite-front">
+        <p class=" bloco" ng-style="{'font-family' : convite.styles.nomeCasal['font-family']}" style="top: 142px;left: 30px;text-align: center;width: 195px;font-size: 1.250em"
+          ng-bind-html="convite.dados.DadosFormatacaoConvite.conteudo_nomecasal"></p>
+        <img src="image/qrcode_apple.jpg" alt="QR Code Apple Store" style="max-width: 140px;position: relative;top: -100px;left: 59px;">
+      </div>
+      <!--convite-cel-->
+
+      <p style="font-size: 0.625em;margin-top: 30px;margin-left: 10px;">*Imagem meramente ilustrativa</p>
     </div>
     <!--col-sm-3-->
 
@@ -17,7 +26,8 @@
       <h3><strong>O seu convite foi criado com sucesso!</strong></h3>
       <p style="font-size: 1.250em">Enviamos para o seu e-mail o modelo do convite do seu casamento. <br> Cheque seu e-mail e confira. <br> Você poderá
         editá-lo ou escolher outro modelo de layout até o envio dos convites. Depois de enviado, ele não poderá mais ser
-        alterado.</p>
+        alterado.
+      </p>
 
       <hr>
 
@@ -37,16 +47,16 @@
       <a href="https://play.google.com/store/apps/details?id=com.pixla.celebri&hl=pt_BR" target="_blank" title="Baixar na Google Play"
         style="display: inline-block;    margin-top: 50px;">
         <img src="image/googleplay.png" alt="Google Play">
-        </a>
-        <br>
+      </a>
+      <br>
 
-        <img src="image/qrcode_apple.jpg" alt="QR Code Apple Store" style="display: inline-block;margin-right: 48px;margin-top: 50px;max-width:198px">
-        <img src="image/qrcode_google.jpg" alt="QR Code Google Play" style="display: inline-block;margin-top: 50px;max-width:198px">
+      <img src="image/qrcode_apple.jpg" alt="QR Code Apple Store" style="display: inline-block;margin-right: 48px;margin-top: 50px;max-width:198px">
+      <img src="image/qrcode_google.jpg" alt="QR Code Google Play" style="display: inline-block;margin-top: 50px;max-width:198px">
 
-        <br>
-        <p style="font-size: 1.250em">Se preferir, aponte um leitor de QR Code para os códigos acima para baixar direto no seu smartphone.</p>
+      <br>
+      <p style="font-size: 1.250em">Se preferir, aponte um leitor de QR Code para os códigos acima para baixar direto no seu smartphone.</p>
 
-        <md-button style=" line-height: 73px;margin: 108px 0 98px 0" ui-sref="casal" class="md-primary pull-right">Ok</md-button>
+      <md-button style=" line-height: 73px;margin: 108px 0 98px 0" ui-sref="casal" class="md-primary pull-right">Ok</md-button>
 
     </div>
     <!--col-sm-9-->

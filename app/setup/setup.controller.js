@@ -29,6 +29,7 @@
     const ID = session.user.id;
     var vm = this;
 
+    vm.conviteLink = 'https://celebri.com.br/celebri/template_convite_app/android/template1_android.png'; //link para o template para o mini convite
     vm.modeloConvite = '';
     vm.pessedBy = {
       'noivos': false,
@@ -55,6 +56,7 @@
     vm.IsCurrent = IsCurrent;
     vm.GetModelId = GetModelId;
     vm.SetModelId = SetModelId;
+    vm.SetUpMinConvite = SetUpMinConvite;
 
     Activate();
 
@@ -82,9 +84,7 @@
 
       var dados = conversorService.Json2Xml(vm.status, '');
 
-      serverService.Request('AtualizarStatusSetup', dados).then(function (resp) {
-        console.log(resp);
-      });
+      serverService.Request('AtualizarStatusSetup', dados);
     }
 
     /**
@@ -113,6 +113,15 @@
      */
     function SetModelId() {
       sessionStorage.modelo = vm.modeloConvite;
+    }
+
+    /**
+     * @function SetUpMinConvite
+     * @desc Configura o mini convite do ultimo passo
+     * @memberof SetupController
+     */
+    function SetUpMinConvite() {
+      vm.conviteLink = 'https://celebri.com.br/celebri/template_convite_app/android/template' + sessionStorage.modelo + '_android.png';
     }
 
   }

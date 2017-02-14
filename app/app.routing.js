@@ -71,7 +71,9 @@
       })
       .state('setup.confirmacao', {
         url: '/confirmacao',
-        templateUrl: 'app/setup/confirmacao.html'
+        templateUrl: 'app/setup/confirmacao.html',
+        controller: 'ConviteController',
+        controllerAs: 'convite',
       })
       .state('login', {
         url: '/login',
