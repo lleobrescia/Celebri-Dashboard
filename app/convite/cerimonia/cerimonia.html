@@ -25,7 +25,7 @@
         <md-input-container flex="100" flex-gt-sm="80">
           <label>Local da Cerimônia</label>
           <input type="text" name="local" ng-model="cerimonia.dados.ConfiguracaoConvite.Local_cerimonia" ng-change="$scope.hasChange = true"
-            required>
+            required maxlength="50">
             <div ng-messages="formRecepcao.local.$error" ng-if="formRecepcao.local.$touched">
               <div ng-message="required">Você <b>deve</b> preencher este campo.</div>
             </div>
